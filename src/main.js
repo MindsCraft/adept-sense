@@ -91,3 +91,45 @@ if (tabsEl && codeEl) {
     codeEl.innerHTML = codes[btn.dataset.lang]
   })
 }
+
+// ── HERO VISUAL SHOWCASE SWITCHER ──
+const showcaseTabs = document.querySelectorAll('.showcase-tab')
+const showcaseViews = document.querySelectorAll('.showcase-view')
+
+showcaseTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const targetId = tab.getAttribute('data-target')
+    
+    // Remove active classes from all tab buttons and view panels
+    showcaseTabs.forEach(t => t.classList.remove('active'))
+    showcaseViews.forEach(v => v.classList.remove('active'))
+    
+    // Add active classes to selected tab and panel
+    tab.classList.add('active')
+    const activeView = document.getElementById(targetId)
+    if (activeView) {
+      activeView.classList.add('active')
+      
+      // Tactile detail: Re-trigger radial SVG drawing check animation on tab activation
+      if (targetId === 'view-live-timeline') {
+        const ring = activeView.querySelector('.progress-ring-fill')
+        if (ring) {
+          ring.style.animation = 'none'
+          ring.offsetHeight // force reflow trigger
+          ring.style.animation = ''
+        }
+      }
+      
+      // Tactile detail: Re-trigger width-growing progress bar on tab activation
+      if (targetId === 'view-bangla-ocr') {
+        const fill = activeView.querySelector('.conf-fill')
+        if (fill) {
+          fill.style.animation = 'none'
+          fill.offsetHeight // force reflow trigger
+          fill.style.animation = ''
+        }
+      }
+    }
+  })
+})
+

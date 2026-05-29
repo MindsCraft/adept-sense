@@ -32,51 +32,300 @@
 
 <!-- ── HERO ── -->
 <section class="hero-section">
-  <div class="hero-inner">
-    <div class="hero-left reveal">
+  <div class="hero-glow-orb"></div>
+  <div class="hero-illustration-right">
+    <svg viewBox="0 0 160 160" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M40 80h80M80 40v80" stroke-dasharray="4 4" opacity="0.3"/>
+      <rect x="50" y="30" width="60" height="100" rx="10" stroke-width="1.5"/>
+      <circle cx="80" cy="55" r="12" stroke-width="1.5"/>
+      <path d="M60 90h40M65 100h30" opacity="0.8"/>
+      <path d="M40 80c20-10 60-10 80 0" stroke="var(--blue)" stroke-width="2" class="scan-beam"/>
+      <circle cx="25" cy="40" r="1.5" fill="currentColor"/>
+      <circle cx="135" cy="110" r="1.5" fill="currentColor"/>
+      <path d="M130 50l4 4m0-4l-4 4M25 115l4 4m0-4l-4 4" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="hero-inner reveal">
+    <div class="hero-center">
       <div class="hero-badge">
         <span class="hero-badge-dot"></span>
-        Identity Verification Platform · Bangladesh NID
+        Identity Verification Platform &middot; Bangladesh NID
       </div>
       <h1 class="hero-h1">Verify identity.<br><em>Instantly.</em></h1>
       <p class="hero-p">Secure onboarding for web, mobile, and hybrid apps. NID OCR, face match, liveness, name translation, and gender intelligence — all via one API.</p>
-      <div class="hero-btns">
-        <a href="#" class="btn-primary">Get API key &rarr;</a>
-        <a href="docs.html" class="btn-link">View API docs &rarr;</a>
+      
+      <form class="hero-cta-form" onsubmit="event.preventDefault(); alert('Trial API Key sent!');">
+        <input type="email" placeholder="Enter your work email" required class="hero-input">
+        <button type="submit" class="btn-primary-form">Get API key &rarr;</button>
+      </form>
+      
+      <div class="hero-trust-proof">
+        <span class="trust-stars">★★★★★</span>
+        <span class="trust-text">The #1 Developer-Preferred Identity API in Bangladesh</span>
       </div>
     </div>
 
-    <div class="hero-right reveal" style="transition-delay:.1s">
-      <div class="api-card">
-        <div class="api-card-bar">
-          <div class="dots">
-            <span class="dot dot-r"></span>
-            <span class="dot dot-y"></span>
-            <span class="dot dot-g"></span>
+    <div class="hero-dashboard-wrap">
+      <!-- Segmented Tab Switcher Capsule -->
+      <div class="showcase-tabs">
+        <button type="button" class="showcase-tab active" data-target="view-nid-scanner">NID Scanner</button>
+        <button type="button" class="showcase-tab" data-target="view-face-scanner">Biometric Face Scan</button>
+        <button type="button" class="showcase-tab" data-target="view-api-terminal">API Playground</button>
+        <button type="button" class="showcase-tab" data-target="view-bangla-ocr">Bangla OCR</button>
+        <button type="button" class="showcase-tab" data-target="view-live-timeline">Live Timeline</button>
+      </div>
+
+      <!-- Option 1: National ID Scanner (Active by Default) -->
+      <div class="showcase-view active" id="view-nid-scanner">
+        <div class="showcase-code-bg">
+          <div class="code-header">
+            <div class="dots">
+              <span class="dot dot-r"></span>
+              <span class="dot dot-y"></span>
+              <span class="dot dot-g"></span>
+            </div>
+            <span class="code-title">identity.verification_report</span>
           </div>
-          <span class="api-route">POST /v1/verify/nid</span>
+          <div class="code-body">
+            <pre><code>{
+  <span class="tok-key">"id"</span>: <span class="tok-str">"vr_pQtGCpMdQkQXH..."</span>,
+  <span class="tok-key">"object"</span>: <span class="tok-str">"identity.verification_report"</span>,
+  <span class="tok-key">"livemode"</span>: <span class="tok-true">true</span>,
+  <span class="tok-key">"document"</span>: {
+    <span class="tok-key">"type"</span>: <span class="tok-str">"national_id"</span>,
+    <span class="tok-key">"status"</span>: <span class="tok-str">"verified"</span>,
+    <span class="tok-key">"extracted_data"</span>: {
+      <span class="tok-key">"name"</span>: <span class="tok-str">"MD. RAFIQUL ISLAM"</span>,
+      <span class="tok-key">"nid_no"</span>: <span class="tok-str">"9182738492"</span>,
+      <span class="tok-key">"dob"</span>: <span class="tok-str">"1988-03-12"</span>
+    }
+  },
+  <span class="tok-key">"liveness"</span>: {
+    <span class="tok-key">"status"</span>: <span class="tok-str">"passed"</span>,
+    <span class="tok-key">"confidence"</span>: <span class="tok-num">0.98</span>
+  }
+}</code></pre>
+          </div>
         </div>
-        <div class="api-body">
-          <div class="api-pre">
-            <span class="tok-method">POST</span> /v1/verify/nid<br>
-            {<br>
-            &nbsp;&nbsp;<span class="tok-key">"front_image"</span>: <span class="tok-val">"base64..."</span>,<br>
-            &nbsp;&nbsp;<span class="tok-key">"back_image"</span>:&nbsp; <span class="tok-val">"base64..."</span>,<br>
-            &nbsp;&nbsp;<span class="tok-key">"selfie"</span>:&nbsp;&nbsp;&nbsp;&nbsp; <span class="tok-val">"base64..."</span>,<br>
-            &nbsp;&nbsp;<span class="tok-key">"liveness"</span>:&nbsp;&nbsp; <span class="tok-val">true</span>,<br>
-            &nbsp;&nbsp;<span class="tok-key">"face_match"</span>: <span class="tok-val">true</span><br>
-            }
+
+        <div class="showcase-card-fg">
+          <div class="viewfinder-corners">
+            <span class="corner tl"></span>
+            <span class="corner tr"></span>
+            <span class="corner bl"></span>
+            <span class="corner br"></span>
           </div>
-          <div class="api-sep">200 OK &middot; 0.78s</div>
-          <div class="api-resp">
-            {<br>
-            &nbsp;&nbsp;<span class="tok-key">"verified"</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="tok-true">true</span>,<br>
-            &nbsp;&nbsp;<span class="tok-key">"liveness_score"</span>:&nbsp;&nbsp; <span class="tok-num">0.97</span>,<br>
-            &nbsp;&nbsp;<span class="tok-key">"face_match_score"</span>: <span class="tok-num">0.94</span>,<br>
-            &nbsp;&nbsp;<span class="tok-key">"name"</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="tok-str">"Md. Rafiqul Islam"</span>,<br>
-            &nbsp;&nbsp;<span class="tok-key">"nid_number"</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="tok-str">"&bull;&bull;&bull;&bull;&bull;&bull;4821"</span>,<br>
-            &nbsp;&nbsp;<span class="tok-key">"dob"</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="tok-str">"1988-03-12"</span><br>
-            }
+          <div class="nid-smart-card">
+            <div class="nid-card-top">
+              <span class="nid-country">Government of Bangladesh</span>
+              <span class="nid-label">National ID Card</span>
+            </div>
+            <div class="nid-card-body">
+              <div class="nid-avatar-box">
+                <div class="nid-photo-avatar"></div>
+                <div class="nid-photo-mesh"></div>
+              </div>
+              <div class="nid-info-box">
+                <div class="nid-field">
+                  <span class="nid-field-lbl">Name (EN)</span>
+                  <span class="nid-field-val">Md. Rafiqul Islam</span>
+                </div>
+                <div class="nid-field">
+                  <span class="nid-field-lbl">NID No.</span>
+                  <span class="nid-field-val">918 273 8492</span>
+                </div>
+                <div class="nid-field">
+                  <span class="nid-field-lbl">DOB</span>
+                  <span class="nid-field-val">12 Mar 1988</span>
+                </div>
+              </div>
+            </div>
+            <!-- Scanning Laser Line -->
+            <div class="scanner-laser-line"></div>
+            <!-- Glowing Verification Stamp -->
+            <div class="success-glow-stamp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Verified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 2: Biometric Face Scanner -->
+      <div class="showcase-view" id="view-face-scanner">
+        <div class="face-scanner-box">
+          <div class="viewfinder-corners">
+            <span class="corner tl"></span>
+            <span class="corner tr"></span>
+            <span class="corner bl"></span>
+            <span class="corner br"></span>
+          </div>
+          <div class="face-camera-feed">
+            <div class="face-biometric-avatar"></div>
+            <!-- Interactive pulse overlays -->
+            <div class="face-mesh-lines"></div>
+            <div class="face-target-ring"></div>
+            <div class="face-scan-beam"></div>
+          </div>
+          <div class="face-scanner-metrics">
+            <div class="metrics-header">Biometric Landmark Analysis</div>
+            <div class="metrics-body">
+              <div class="metric-line">
+                <span>Liveness Test:</span>
+                <span class="metric-badge success font-mono">Passed (99.8%)</span>
+              </div>
+              <div class="metric-line">
+                <span>Face Match Comparison:</span>
+                <span class="metric-badge success font-mono">96.4% Match</span>
+              </div>
+              <div class="metric-line">
+                <span>Spoofing Detection:</span>
+                <span class="metric-badge success font-mono">0.02% Risk</span>
+              </div>
+              <!-- Real-time cycling stats coordinates -->
+              <div class="coordinates-terminal font-mono">X: 84.21 &nbsp; Y: 104.93 &nbsp; Z: 0.96 &nbsp; SCALE: 1.02</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 3: API Playground (Interactive JSON terminal) -->
+      <div class="showcase-view" id="view-api-terminal">
+        <div class="playground-terminal">
+          <div class="code-header">
+            <div class="dots">
+              <span class="dot dot-r"></span>
+              <span class="dot dot-y"></span>
+              <span class="dot dot-g"></span>
+            </div>
+            <span class="code-title">AdeptSense API Sandbox Playground</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-column req">
+              <div class="panel-label">HTTP REQUEST</div>
+              <pre><code><span class="tok-method">POST</span> /v1/verify/face
+Host: api.adeptsense.tech
+Authorization: Bearer sec_key...
+
+{
+  <span class="tok-key">"selfie"</span>: <span class="tok-val">"base64..."</span>,
+  <span class="tok-key">"nid_avatar"</span>: <span class="tok-val">"base64..."</span>,
+  <span class="tok-key">"liveness_check"</span>: <span class="tok-true">true</span>
+}</code></pre>
+            </div>
+            <div class="terminal-column resp">
+              <div class="panel-label">JSON RESPONSE (200 OK)</div>
+              <pre><code>{
+  <span class="tok-key">"matched"</span>: <span class="tok-true">true</span>,
+  <span class="tok-key">"match_score"</span>: <span class="tok-num">0.964</span>,
+  <span class="tok-key">"liveness_passed"</span>: <span class="tok-true">true</span>,
+  <span class="tok-key">"liveness_score"</span>: <span class="tok-num">0.998</span>,
+  <span class="tok-key">"request_id"</span>: <span class="tok-str">"req_fa8b2c"</span>
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 4: Bangla OCR / Transliteration Engine -->
+      <div class="showcase-view" id="view-bangla-ocr">
+        <div class="bangla-ocr-box">
+          <div class="ocr-pane ocr-eng">
+            <div class="pane-tag">English Source (OCR Input)</div>
+            <div class="ocr-card">
+              <div class="ocr-line-item">
+                <span class="ocr-lbl">Full Name</span>
+                <span class="ocr-val">Md. Rafiqul Islam</span>
+              </div>
+              <div class="ocr-line-item">
+                <span class="ocr-lbl">Father's Name</span>
+                <span class="ocr-val">Md. Abul Kalam</span>
+              </div>
+              <div class="ocr-confidence-bar">
+                <span>OCR Reliability</span>
+                <div class="conf-meter"><div class="conf-fill" style="width: 99.8%"></div></div>
+                <span class="conf-percent font-mono">99.8%</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Animated Center Bridge (Pulsing node matrix) -->
+          <div class="ocr-bridge">
+            <div class="bridge-line"></div>
+            <div class="bridge-node active n1"></div>
+            <div class="bridge-node active n2"></div>
+            <div class="bridge-node active n3"></div>
+          </div>
+          
+          <div class="ocr-pane ocr-bng">
+            <div class="pane-tag primary">Bangla Transliteration (AI Output)</div>
+            <div class="ocr-card highlight">
+              <div class="ocr-line-item">
+                <span class="ocr-lbl">নাম (Bangla)</span>
+                <span class="ocr-val bangla-text">মোঃ রফিকুল ইসলাম</span>
+              </div>
+              <div class="ocr-line-item">
+                <span class="ocr-lbl">পিতার নাম</span>
+                <span class="ocr-val bangla-text">মোঃ আবুল কালাম</span>
+              </div>
+              <div class="ocr-gender-tag font-mono">
+                <span class="g-dot"></span> Gender: MALE (পুরুষ)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 5: Live Verification Session Checklist -->
+      <div class="showcase-view" id="view-live-timeline">
+        <div class="timeline-box">
+          <div class="timeline-left">
+            <div class="session-info">
+              <span class="session-label">Session status</span>
+              <h4 class="session-id font-mono">session_usr_91a82f</h4>
+            </div>
+            <div class="radial-progress-container">
+              <svg class="progress-ring" width="110" height="110">
+                <circle class="progress-ring-bg" stroke="#E2E8F0" stroke-width="6" fill="transparent" r="46" cx="55" cy="55"/>
+                <circle class="progress-ring-fill" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" fill="transparent" r="46" cx="55" cy="55"/>
+              </svg>
+              <div class="progress-inner-labels">
+                <div class="progress-value font-mono">100%</div>
+                <div class="progress-lbl">Verified</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="timeline-right">
+            <div class="timeline-steps">
+              <div class="t-step passed">
+                <div class="t-step-dot">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="t-step-content">
+                  <h5>Smart NID Scan Complete</h5>
+                  <p>National ID card authentic credentials matched & parsed.</p>
+                </div>
+              </div>
+              <div class="t-step passed">
+                <div class="t-step-dot">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="t-step-content">
+                  <h5>Liveness Detection Passed</h5>
+                  <p>Certified biometric anti-spoofing liveness validation (99.8%).</p>
+                </div>
+              </div>
+              <div class="t-step passed">
+                <div class="t-step-dot">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="t-step-content">
+                  <h5>Government Database Verified</h5>
+                  <p>Citizen data synced and validated against Election Commission database.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
