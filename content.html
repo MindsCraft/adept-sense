@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdeptSense — Identity Verification Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #D42B2B;
+  --blue: #1A4FBF;
+  --ink: #111217;
+  --ink-2: #3A3B45;
+  --ink-3: #7A7B8A;
+  --border: #E4E4EC;
+  --bg: #F8F8FB;
+  --white: #FFFFFF;
+  --red-tint: #FDF2F2;
+  --blue-tint: #EFF4FD;
+  --r: 10px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 6%;
+  background: rgba(248,248,251,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo img { height: 32px; display: block; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--ink-2); text-decoration: none; transition: color 0.15s; font-weight: 400; }
+.nav-links a:hover { color: var(--ink); }
+.nav-right { display: flex; gap: 10px; align-items: center; }
+.btn-ghost { font-size: 14px; font-weight: 400; color: var(--ink-2); text-decoration: none; padding: 7px 14px; border-radius: 6px; transition: background 0.15s; }
+.btn-ghost:hover { background: var(--border); }
+.btn-key {
+  font-size: 13px; font-weight: 500; color: var(--white);
+  background: var(--blue); text-decoration: none;
+  padding: 8px 18px; border-radius: 6px;
+  transition: opacity 0.15s; border: none; cursor: pointer;
+}
+.btn-key:hover { opacity: 0.88; }
+
+/* ── HERO ── */
+.hero {
+  padding: 140px 6% 80px;
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--blue); background: var(--blue-tint);
+  padding: 5px 14px; border-radius: 999px; margin-bottom: 28px;
+}
+.hero h1 {
+  font-family: 'Lora', serif;
+  font-size: clamp(36px, 4.2vw, 56px);
+  font-weight: 600; line-height: 1.12; letter-spacing: -0.02em;
+  color: var(--ink); margin-bottom: 22px;
+}
+.hero h1 span { color: var(--red); font-style: italic; }
+.hero p {
+  font-size: 16px; font-weight: 300; color: var(--ink-3);
+  line-height: 1.75; max-width: 440px; margin-bottom: 36px;
+}
+.hero-btns { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  font-size: 14px; font-weight: 500; color: var(--white);
+  background: var(--blue); text-decoration: none;
+  padding: 12px 24px; border-radius: 8px;
+  transition: opacity 0.15s; display: inline-block;
+}
+.btn-primary:hover { opacity: 0.88; }
+.btn-secondary {
+  font-size: 14px; font-weight: 400; color: var(--ink-2);
+  text-decoration: none; display: flex; align-items: center; gap: 8px;
+  transition: color 0.15s;
+}
+.btn-secondary:hover { color: var(--ink); }
+
+/* Hero card */
+.api-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 2px 24px rgba(17,18,23,0.06);
+}
+.api-card-bar {
+  background: var(--ink); padding: 14px 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.api-card-bar .dots { display: flex; gap: 6px; }
+.api-card-bar .dot { width: 10px; height: 10px; border-radius: 50%; }
+.api-card-bar .dot-r { background: #FF5F57; }
+.api-card-bar .dot-y { background: #FFBD2E; }
+.api-card-bar .dot-g { background: #28C840; }
+.api-card-bar .route {
+  font-size: 11px; font-family: 'SF Mono', 'Fira Code', monospace;
+  color: rgba(255,255,255,0.45); margin-left: 8px;
+}
+.api-card-body { padding: 24px; }
+.api-req {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px; line-height: 1.75; color: #555; margin-bottom: 20px;
+}
+.api-req .method { color: var(--blue); font-weight: 600; }
+.api-req .key { color: #8B5CF6; }
+.api-req .val { color: #059669; }
+.api-divider {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 20px;
+}
+.api-divider::before, .api-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.api-divider.success { color: #059669; }
+.api-divider.success::before, .api-divider.success::after { background: #BBF7D0; }
+.api-resp {
+  background: #F0FDF4; border-radius: 8px; padding: 16px;
+  font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; line-height: 1.75;
+}
+.api-resp .key { color: #374151; }
+.api-resp .val-t { color: #059669; font-weight: 500; }
+.api-resp .val-n { color: var(--blue); }
+.api-resp .val-s { color: #7C3AED; }
+
+/* ── DEMO STRIP ── */
+.demo-strip {
+  background: var(--ink); padding: 48px 6%;
+}
+.demo-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+}
+.demo-text h3 {
+  font-family: 'Lora', serif;
+  font-size: 22px; font-weight: 600; color: var(--white);
+  margin-bottom: 6px;
+}
+.demo-text p { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.45); }
+.demo-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.demo-link {
+  font-size: 13px; font-weight: 500; text-decoration: none;
+  padding: 10px 20px; border-radius: 7px; border: 1px solid;
+  transition: all 0.15s;
+}
+.demo-link-white { color: var(--ink); background: var(--white); border-color: var(--white); }
+.demo-link-white:hover { opacity: 0.88; }
+.demo-link-outline { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.2); }
+.demo-link-outline:hover { border-color: rgba(255,255,255,0.5); color: var(--white); }
+
+/* ── SECTION SHARED ── */
+.section { padding: 88px 6%; max-width: 1160px; margin: 0 auto; }
+.s-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--ink-3); margin-bottom: 12px;
+}
+.s-title {
+  font-family: 'Lora', serif;
+  font-size: clamp(26px, 3vw, 38px); font-weight: 600;
+  letter-spacing: -0.02em; color: var(--ink);
+  line-height: 1.2; margin-bottom: 12px; max-width: 540px;
+}
+.s-sub {
+  font-size: 15px; font-weight: 300; color: var(--ink-3);
+  max-width: 500px; line-height: 1.7; margin-bottom: 52px;
+}
+
+/* ── SERVICES ── */
+.services-wrap { background: var(--white); }
+.services-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+.service-card {
+  background: var(--white); padding: 32px 24px;
+  transition: background 0.15s; cursor: default;
+}
+.service-card:hover { background: var(--bg); }
+.svc-icon {
+  width: 40px; height: 40px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; margin-bottom: 18px;
+}
+.svc-r { background: var(--red-tint); }
+.svc-b { background: var(--blue-tint); }
+.service-card h3 { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+.service-card p { font-size: 13px; color: var(--ink-3); font-weight: 300; line-height: 1.6; margin-bottom: 16px; }
+.svc-link { font-size: 12px; font-weight: 500; color: var(--blue); text-decoration: none; }
+.svc-link:hover { text-decoration: underline; }
+
+/* ── HOW IT WORKS ── */
+.steps {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+.step-card {
+  background: var(--white); padding: 40px 32px;
+  position: relative;
+}
+.step-card + .step-card::before {
+  content: '→';
+  position: absolute; left: -12px; top: 50%; transform: translateY(-50%);
+  font-size: 14px; color: var(--ink-3); z-index: 1;
+  background: var(--white); padding: 4px;
+}
+.step-num {
+  font-family: 'Lora', serif;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.05em;
+  color: var(--white); background: var(--blue);
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.step-card h4 { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 10px; }
+.step-card p { font-size: 14px; font-weight: 300; color: var(--ink-3); line-height: 1.65; margin-bottom: 24px; }
+.step-json {
+  background: var(--bg); border-radius: 8px; padding: 14px 16px;
+  font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px;
+  line-height: 1.7; color: var(--ink-2); border: 1px solid var(--border);
+}
+.step-json .jk { color: #7C3AED; }
+.step-json .jv { color: #059669; }
+.step-json .jn { color: var(--blue); }
+
+/* ── INTEGRATION / CODE ── */
+.integration-wrap { background: var(--white); }
+.integration-inner {
+  max-width: 1160px; margin: 0 auto; padding: 88px 6%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start;
+}
+.tab-bar {
+  display: flex; gap: 2px;
+  background: var(--bg); border-radius: 8px; padding: 3px; width: fit-content;
+  margin-bottom: 20px; border: 1px solid var(--border);
+}
+.tab {
+  font-size: 12px; font-weight: 400; color: var(--ink-3);
+  padding: 6px 14px; border-radius: 6px;
+  cursor: pointer; transition: all 0.15s; border: none; background: none;
+}
+.tab.active { background: var(--white); color: var(--ink); font-weight: 500; box-shadow: 0 1px 3px rgba(17,18,23,0.08); }
+.code-wrap {
+  background: #0D1117; border-radius: 12px; padding: 24px;
+  font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12.5px;
+  line-height: 1.8; color: #C9D1D9; overflow-x: auto;
+}
+.c-kw { color: #FF7B72; }
+.c-fn { color: #79C0FF; }
+.c-str { color: #A5D6FF; }
+.c-val { color: #56D364; }
+.c-cm { color: #6E7681; }
+.c-var { color: #FFA657; }
+
+.int-features { display: flex; flex-direction: column; gap: 20px; margin-top: 8px; }
+.int-feature {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px; border: 1px solid var(--border); border-radius: 10px;
+  transition: border-color 0.15s;
+}
+.int-feature:hover { border-color: #C4C4D4; }
+.int-ico {
+  width: 38px; height: 38px; border-radius: 8px;
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 17px;
+}
+.int-feature h4 { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.int-feature p { font-size: 13px; font-weight: 300; color: var(--ink-3); line-height: 1.55; }
+
+/* ── STATS ── */
+.stats-band { background: var(--red); padding: 72px 6%; }
+.stats-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+.stat-item {
+  padding: 0 32px; border-right: 1px solid rgba(255,255,255,0.2);
+  text-align: center;
+}
+.stat-item:first-child { padding-left: 0; }
+.stat-item:last-child { border-right: none; }
+.stat-item .num {
+  font-family: 'Lora', serif;
+  font-size: 48px; font-weight: 600; color: var(--white);
+  letter-spacing: -0.04em; line-height: 1; margin-bottom: 8px;
+}
+.stat-item .lbl { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.65); }
+
+/* ── CTA BAND ── */
+.cta-band {
+  background: var(--blue); padding: 80px 6%;
+  text-align: center;
+}
+.cta-band h2 {
+  font-family: 'Lora', serif;
+  font-size: clamp(28px, 3.5vw, 44px); font-weight: 600;
+  color: var(--white); letter-spacing: -0.02em;
+  margin-bottom: 14px; max-width: 560px; margin-left: auto; margin-right: auto;
+}
+.cta-band p { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.65); margin-bottom: 32px; }
+.cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-white { font-size: 14px; font-weight: 500; color: var(--blue); background: var(--white); text-decoration: none; padding: 12px 26px; border-radius: 7px; transition: opacity 0.15s; }
+.btn-white:hover { opacity: 0.9; }
+.btn-outline-w { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.8); text-decoration: none; padding: 12px 26px; border-radius: 7px; border: 1px solid rgba(255,255,255,0.3); transition: border-color 0.15s; }
+.btn-outline-w:hover { border-color: rgba(255,255,255,0.7); color: var(--white); }
+
+/* ── FOOTER ── */
+footer { background: var(--white); border-top: 1px solid var(--border); padding: 56px 6% 36px; }
+.footer-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px;
+}
+.footer-brand img { height: 28px; margin-bottom: 14px; display: block; }
+.footer-brand p { font-size: 13px; font-weight: 300; color: var(--ink-3); line-height: 1.7; max-width: 240px; }
+.footer-col h5 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-3); margin-bottom: 16px; }
+.footer-col a { display: block; font-size: 13px; color: var(--ink-2); text-decoration: none; margin-bottom: 10px; transition: color 0.15s; }
+.footer-col a:hover { color: var(--ink); }
+.footer-bottom {
+  max-width: 1160px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 20px; border-top: 1px solid var(--border);
+}
+.footer-bottom p, .footer-bottom a { font-size: 12px; color: var(--ink-3); text-decoration: none; }
+.footer-bottom a:hover { color: var(--ink); }
+.footer-bottom-links { display: flex; gap: 20px; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-left { animation: fadeUp 0.65s ease both; }
+.hero-right { animation: fadeUp 0.65s 0.15s ease both; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 920px) {
+  .hero { grid-template-columns: 1fr; padding: 110px 6% 60px; gap: 40px; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .step-card + .step-card::before { display: none; }
+  .integration-inner { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="https://nid.adeptsense.tech/AdeptSense_Logo-New-1.png" alt="AdeptSense" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span style="display:none;font-family:'Lora',serif;font-size:18px;font-weight:600;color:var(--ink)">adeptsense</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how-it-works">How it works</a></li>
+    <li><a href="#integration">Integration</a></li>
+    <li><a href="https://api.adeptsense.tech/docs" target="_blank">API Docs</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" class="btn-ghost">Sign in</a>
+    <a href="#" class="btn-key">Get API key</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section style="background: var(--bg);">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Identity Verification Platform</div>
+      <h1>Verify identity.<br><span>Instantly.</span></h1>
+      <p>Secure onboarding for web, mobile, and hybrid apps. NID OCR, face match, liveness, name translation, and gender intelligence — all via one API.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary">Get API key →</a>
+        <a href="https://api.adeptsense.tech/docs" class="btn-secondary" target="_blank">View API docs</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="api-card">
+        <div class="api-card-bar">
+          <div class="dots">
+            <span class="dot dot-r"></span>
+            <span class="dot dot-y"></span>
+            <span class="dot dot-g"></span>
+          </div>
+          <span class="route">POST /v1/verify/nid</span>
+        </div>
+        <div class="api-card-body">
+          <div class="api-req">
+<span class="method">POST</span> /v1/verify/nid<br>
+{<br>
+&nbsp;&nbsp;<span class="key">"front_image"</span>: <span class="val">"base64..."</span>,<br>
+&nbsp;&nbsp;<span class="key">"back_image"</span>: <span class="val">"base64..."</span>,<br>
+&nbsp;&nbsp;<span class="key">"selfie"</span>: <span class="val">"base64..."</span>,<br>
+&nbsp;&nbsp;<span class="key">"liveness"</span>: <span class="val">true</span>,<br>
+&nbsp;&nbsp;<span class="key">"face_match"</span>: <span class="val">true</span><br>
+}
+          </div>
+          <div class="api-divider success">200 OK · 0.78s</div>
+          <div class="api-resp">
+{<br>
+&nbsp;&nbsp;<span class="key">"verified"</span>: <span class="val-t">true</span>,<br>
+&nbsp;&nbsp;<span class="key">"liveness_score"</span>: <span class="val-n">0.97</span>,<br>
+&nbsp;&nbsp;<span class="key">"face_match_score"</span>: <span class="val-n">0.94</span>,<br>
+&nbsp;&nbsp;<span class="key">"name"</span>: <span class="val-s">"Md. Rafiqul Islam"</span>,<br>
+&nbsp;&nbsp;<span class="key">"nid_number"</span>: <span class="val-s">"••••••4821"</span>,<br>
+&nbsp;&nbsp;<span class="key">"dob"</span>: <span class="val-s">"1988-03-12"</span><br>
+}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO STRIP -->
+<div class="demo-strip">
+  <div class="demo-inner">
+    <div class="demo-text">
+      <h3>Try it live, right now.</h3>
+      <p>No signup needed to explore the liveness demo or read the API reference.</p>
+    </div>
+    <div class="demo-links">
+      <a href="https://nid.adeptsense.tech/index2.html#/liveness" class="demo-link demo-link-white" target="_blank">Explore Liveness →</a>
+      <a href="https://api.adeptsense.tech/docs" class="demo-link demo-link-outline" target="_blank">View API docs</a>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-wrap" id="services">
+  <div class="section">
+    <div class="s-label">Services</div>
+    <h2 class="s-title">Solutions built for fast, accurate verification.</h2>
+    <p class="s-sub">Choose the right workflow for every identity check — document OCR, face comparison, live presence validation, and name intelligence.</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="svc-icon svc-b">🪪</div>
+        <h3>NID OCR</h3>
+        <p>Extract structured identity fields from Bangladesh NID cards with OCR tuned for front/back formats.</p>
+        <a href="https://nid.adeptsense.tech/index2.html#/nid-ocr" class="svc-link" target="_blank">Learn more →</a>
+      </div>
+      <div class="service-card">
+        <div class="svc-icon svc-r">🤳</div>
+        <h3>Face Match</h3>
+        <p>Compare live selfies to ID portraits, even if source photos are small or compressed.</p>
+        <a href="https://nid.adeptsense.tech/index2.html#/face-match" class="svc-link" target="_blank">Learn more →</a>
+      </div>
+      <div class="service-card">
+        <div class="svc-icon svc-b">👁</div>
+        <h3>Liveness Verification</h3>
+        <p>Detect spoofing and replay attacks with live biometric checks on web, mobile, and WebView flows.</p>
+        <a href="https://nid.adeptsense.tech/index2.html#/liveness" class="svc-link" target="_blank">Learn more →</a>
+      </div>
+      <div class="service-card">
+        <div class="svc-icon svc-r">🔤</div>
+        <h3>Name Translation</h3>
+        <p>Convert Bangla names into English transliteration for reliable identity matching.</p>
+        <a href="https://nid.adeptsense.tech/index2.html#/name-services" class="svc-link" target="_blank">Learn more →</a>
+      </div>
+      <div class="service-card">
+        <div class="svc-icon svc-b">⚡</div>
+        <h3>Gender Estimation</h3>
+        <p>Predict gender with name intelligence models to support verification workflows.</p>
+        <a href="https://nid.adeptsense.tech/index2.html#/name-services" class="svc-link" target="_blank">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section style="background: var(--bg);" id="how-it-works">
+  <div class="section">
+    <div class="s-label">How it works</div>
+    <h2 class="s-title">From document to decision in under a second.</h2>
+    <p class="s-sub">Three clean steps — session, data, response.</p>
+
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h4>Start a session</h4>
+        <p>Create a verification session and choose your integration path — web WebView, native Android/iOS SDK, or direct API call.</p>
+        <div class="step-json">
+<span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span><br>
+<span class="jk">"mode"</span>: <span class="jv">"webview"</span><br>
+<span class="jk">"expires_in"</span>: <span class="jn">600</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h4>Collect identity data</h4>
+        <p>Upload NID front/back images, selfie captures, or name inputs through a secure, encrypted workflow.</p>
+        <div class="step-json">
+<span class="jk">"front_image"</span>: <span class="jv">"base64..."</span><br>
+<span class="jk">"selfie"</span>: <span class="jv">"base64..."</span><br>
+<span class="jk">"liveness"</span>: <span class="jn">true</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h4>Receive verified JSON</h4>
+        <p>Get a structured response with OCR fields, match confidence score, and liveness result — ready to store or act on.</p>
+        <div class="step-json">
+<span class="jk">"verified"</span>: <span class="jv">true</span><br>
+<span class="jk">"liveness_score"</span>: <span class="jn">0.97</span><br>
+<span class="jk">"name"</span>: <span class="jv">"Rafiqul Islam"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATION -->
+<section class="integration-wrap" id="integration">
+  <div class="integration-inner">
+    <div>
+      <div class="s-label">Integration</div>
+      <h2 class="s-title" style="max-width: 360px;">Works in your stack, your way.</h2>
+      <p class="s-sub" style="margin-bottom: 0;">Pick the path that fits your architecture — REST APIs, native mobile SDKs, or a hosted WebView flow requiring zero SDK setup.</p>
+
+      <div class="int-features" style="margin-top: 36px;">
+        <div class="int-feature">
+          <div class="int-ico svc-b">🔌</div>
+          <div>
+            <h4>REST API</h4>
+            <p>Simple JSON endpoints. Works with any backend — Node, Python, PHP, or Go. Docs at api.adeptsense.tech.</p>
+          </div>
+        </div>
+        <div class="int-feature">
+          <div class="int-ico svc-r">📱</div>
+          <div>
+            <h4>Android & iOS SDKs</h4>
+            <p>Native Kotlin/Java and Swift libraries with biometric capture, offline signing, and automatic updates.</p>
+          </div>
+        </div>
+        <div class="int-feature">
+          <div class="int-ico svc-b">🌐</div>
+          <div>
+            <h4>Secure WebView Flow</h4>
+            <p>Embed a hosted verification journey inside any web or hybrid app — no camera permissions to manage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="tab-bar" id="tabs">
+        <button class="tab active" data-lang="node">Node.js</button>
+        <button class="tab" data-lang="python">Python</button>
+        <button class="tab" data-lang="curl">cURL</button>
+      </div>
+
+      <div class="code-wrap" id="code-block">
+<span class="c-kw">import</span> AdeptSense <span class="c-kw">from</span> <span class="c-str">'@adeptsense/node'</span><br><br>
+<span class="c-kw">const</span> client = <span class="c-kw">new</span> <span class="c-fn">AdeptSense</span>({<br>
+&nbsp;&nbsp;apiKey: process.<span class="c-var">env</span>.ADEPT_KEY<br>
+})<br><br>
+<span class="c-cm">// Verify NID + liveness + face match</span><br>
+<span class="c-kw">const</span> result = <span class="c-kw">await</span> client.verify.<span class="c-fn">nid</span>({<br>
+&nbsp;&nbsp;front: frontBuffer,<br>
+&nbsp;&nbsp;back: backBuffer,<br>
+&nbsp;&nbsp;selfie: selfieBuffer,<br>
+&nbsp;&nbsp;liveness: <span class="c-val">true</span>,<br>
+&nbsp;&nbsp;faceMatch: <span class="c-val">true</span><br>
+})<br><br>
+<span class="c-cm">// { verified: true, score: 0.97, ... }</span><br>
+console.<span class="c-fn">log</span>(result.verified)
+      </div>
+
+      <div style="margin-top: 14px; display: flex; gap: 16px;">
+        <a href="https://api.adeptsense.tech/docs" style="font-size: 13px; font-weight: 500; color: var(--blue); text-decoration: none;" target="_blank">Full API reference →</a>
+        <a href="#" style="font-size: 13px; font-weight: 400; color: var(--ink-3); text-decoration: none;">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="num">99.4%</div>
+      <div class="lbl">Verification accuracy</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">&lt;1s</div>
+      <div class="lbl">Average response time</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">180+</div>
+      <div class="lbl">Countries supported</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">50M+</div>
+      <div class="lbl">Verifications processed</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2>Start verifying identities today.</h2>
+  <p>No credit card required. Full API access in minutes.</p>
+  <div class="cta-actions">
+    <a href="#" class="btn-white">Get API key →</a>
+    <a href="https://api.adeptsense.tech/docs" class="btn-outline-w" target="_blank">Read the docs</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="https://nid.adeptsense.tech/AdeptSense_Logo-New-1.png" alt="AdeptSense" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span style="display:none;font-family:'Lora',serif;font-size:17px;font-weight:600;color:var(--ink);display:block;margin-bottom:12px">adeptsense</span>
+      <p>Identity verification for web, mobile, and hybrid apps. Built for developers.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <a href="#">NID OCR</a>
+      <a href="#">Face Match</a>
+      <a href="#">Liveness</a>
+      <a href="#">Name Translation</a>
+      <a href="#">Gender Estimation</a>
+    </div>
+    <div class="footer-col">
+      <h5>Developers</h5>
+      <a href="https://api.adeptsense.tech/docs" target="_blank">API Reference</a>
+      <a href="#">SDKs</a>
+      <a href="#">Changelog</a>
+      <a href="#">Status</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+      <a href="#">Security</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 AdeptSense. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Security</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const codes = {
+  node: `<span class="c-kw">import</span> AdeptSense <span class="c-kw">from</span> <span class="c-str">'@adeptsense/node'</span><br><br><span class="c-kw">const</span> client = <span class="c-kw">new</span> <span class="c-fn">AdeptSense</span>({<br>&nbsp;&nbsp;apiKey: process.<span class="c-var">env</span>.ADEPT_KEY<br>})<br><br><span class="c-cm">// Verify NID + liveness + face match</span><br><span class="c-kw">const</span> result = <span class="c-kw">await</span> client.verify.<span class="c-fn">nid</span>({<br>&nbsp;&nbsp;front: frontBuffer,<br>&nbsp;&nbsp;back: backBuffer,<br>&nbsp;&nbsp;selfie: selfieBuffer,<br>&nbsp;&nbsp;liveness: <span class="c-val">true</span>,<br>&nbsp;&nbsp;faceMatch: <span class="c-val">true</span><br>})<br><br><span class="c-cm">// { verified: true, score: 0.97, ... }</span><br>console.<span class="c-fn">log</span>(result.verified)`,
+
+  python: `<span class="c-kw">from</span> adeptsense <span class="c-kw">import</span> AdeptSense<br><br>client = <span class="c-fn">AdeptSense</span>(api_key=os.environ[<span class="c-str">"ADEPT_KEY"</span>])<br><br><span class="c-cm"># Verify NID + liveness + face match</span><br>result = client.verify.<span class="c-fn">nid</span>(<br>&nbsp;&nbsp;front=front_bytes,<br>&nbsp;&nbsp;back=back_bytes,<br>&nbsp;&nbsp;selfie=selfie_bytes,<br>&nbsp;&nbsp;liveness=<span class="c-val">True</span>,<br>&nbsp;&nbsp;face_match=<span class="c-val">True</span><br>)<br><br><span class="c-cm"># { "verified": true, "score": 0.97 }</span><br><span class="c-fn">print</span>(result[<span class="c-str">"verified"</span>])`,
+
+  curl: `<span class="c-fn">curl</span> -X POST https://api.adeptsense.tech/v1/verify/nid \\<br>&nbsp;&nbsp;-H <span class="c-str">"Authorization: Bearer $ADEPT_KEY"</span> \\<br>&nbsp;&nbsp;-H <span class="c-str">"Content-Type: application/json"</span> \\<br>&nbsp;&nbsp;-d '{<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"front_image"</span>: <span class="c-str">"base64..."</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"back_image"</span>: <span class="c-str">"base64..."</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"selfie"</span>: <span class="c-str">"base64..."</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"liveness"</span>: <span class="c-val">true</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"face_match"</span>: <span class="c-val">true</span><br>&nbsp;&nbsp;}'`
+};
+
+document.getElementById('tabs').addEventListener('click', e => {
+  const btn = e.target.closest('[data-lang]');
+  if (!btn) return;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('code-block').innerHTML = codes[btn.dataset.lang];
+});
+</script>
+
+</body>
+</html>

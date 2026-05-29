@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdeptSense — API Documentation</title>
+  <meta name="description" content="Complete API reference for AdeptSense identity verification. Endpoints, SDKs, error codes, and quickstart guides.">
+  <link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/docs.css">
+</head>
+<body>
+<!-- ── TOP BAR ── -->
+<header class="docs-header">
+  <a href="index.html" class="docs-logo">
+    <img src="/src/assets/logo.png" alt="AdeptSense" class="logo-img">
+  </a>
+  <div class="docs-header-right">
+    <div class="env-toggle" id="env-toggle">
+      <button class="env-btn active" data-env="sandbox">Sandbox</button>
+      <button class="env-btn" data-env="live">Live</button>
+    </div>
+    <div class="docs-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search docs..." id="docs-search-input">
+    </div>
+    <a href="index.html" class="docs-back-link">← Back to site</a>
+  </div>
+</header>
+
+<div class="docs-layout">
+  <!-- ── SIDEBAR ── -->
+  <aside class="docs-sidebar" id="docs-sidebar">
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">
+        <h4>Getting Started</h4>
+        <a href="#overview" class="sidebar-link active">Overview</a>
+        <a href="#authentication" class="sidebar-link">Authentication</a>
+        <a href="#quickstart" class="sidebar-link">Quickstart</a>
+        <a href="#sandbox" class="sidebar-link">Sandbox Environment</a>
+      </div>
+      <div class="sidebar-section">
+        <h4>Endpoints</h4>
+        <a href="#nid-ocr" class="sidebar-link">POST /verify/nid</a>
+        <a href="#face-match" class="sidebar-link">POST /verify/face-match</a>
+        <a href="#liveness" class="sidebar-link">POST /verify/liveness</a>
+        <a href="#name-translate" class="sidebar-link">POST /translate/name</a>
+        <a href="#gender" class="sidebar-link">POST /predict/gender</a>
+      </div>
+      <div class="sidebar-section">
+        <h4>Guides</h4>
+        <a href="#score-thresholds" class="sidebar-link">Score Thresholds</a>
+        <a href="#error-codes" class="sidebar-link">Error Codes</a>
+        <a href="#webhooks" class="sidebar-link">Webhooks</a>
+      </div>
+      <div class="sidebar-section">
+        <h4>Resources</h4>
+        <a href="#sdks" class="sidebar-link">SDKs</a>
+        <a href="#downloads" class="sidebar-link">Postman & OpenAPI</a>
+        <a href="#rate-limits" class="sidebar-link">Rate Limits</a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main class="docs-main">
+
+    <!-- OVERVIEW -->
+    <section id="overview">
+      <h1>AdeptSense API Documentation</h1>
+      <p class="docs-intro">The AdeptSense API provides identity verification services including NID OCR, face match, liveness verification, name translation, and gender estimation. All endpoints accept JSON and return JSON.</p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <span class="info-label">Base URL</span>
+          <code class="info-value">https://api.adeptsense.tech/v1</code>
+        </div>
+        <div class="info-card">
+          <span class="info-label">Sandbox URL</span>
+          <code class="info-value">https://api-sandbox.adeptsense.tech/v1</code>
+        </div>
+        <div class="info-card">
+          <span class="info-label">Content Type</span>
+          <code class="info-value">application/json</code>
+        </div>
+        <div class="info-card">
+          <span class="info-label">Supported Formats</span>
+          <code class="info-value">JPEG · PNG · WebP</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTHENTICATION -->
+    <section id="authentication">
+      <h2>Authentication</h2>
+      <p>All API requests require a Bearer token in the <code>Authorization</code> header:</p>
+      <div class="code-block">
+        <div class="code-header"><span>HTTP Header</span></div>
+        <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+      </div>
+      <p>You can generate API keys from your <a href="#">dashboard</a>. Keep your keys secure — do not commit them to version control or expose them client-side.</p>
+    </section>
+
+    <!-- QUICKSTART -->
+    <section id="quickstart">
+      <h2>Quickstart</h2>
+      <p class="section-intro">Get from zero to your first successful API call in under 5 minutes.</p>
+
+      <div class="quickstart-steps">
+        <div class="qs-step">
+          <div class="qs-num">1</div>
+          <div>
+            <h4>Get your API key</h4>
+            <p>Sign up at <a href="#">adeptsense.tech</a> and generate a key from the dashboard.</p>
+          </div>
+        </div>
+        <div class="qs-step">
+          <div class="qs-num">2</div>
+          <div>
+            <h4>Install the SDK (optional)</h4>
+            <div class="code-block compact">
+              <div class="code-header"><span>npm</span></div>
+              <pre><code><span class="c-fn">npm</span> install @adeptsense/node</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="qs-step">
+          <div class="qs-num">3</div>
+          <div>
+            <h4>Make your first call</h4>
+            <div class="code-tabs" id="qs-tabs">
+              <button class="code-tab active" data-lang="node">Node.js</button>
+              <button class="code-tab" data-lang="python">Python</button>
+              <button class="code-tab" data-lang="curl">cURL</button>
+            </div>
+            <div class="code-block" id="qs-code">
+              <div class="code-header"><span>Node.js</span></div>
+              <pre><code id="qs-code-content"><span class="c-kw">import</span> AdeptSense <span class="c-kw">from</span> <span class="c-str">'@adeptsense/node'</span>
+
+<span class="c-kw">const</span> client = <span class="c-kw">new</span> <span class="c-fn">AdeptSense</span>({
+  apiKey: process.<span class="c-var">env</span>.ADEPT_KEY
+})
+
+<span class="c-kw">const</span> result = <span class="c-kw">await</span> client.verify.<span class="c-fn">nid</span>({
+  front: frontBuffer,
+  selfie: selfieBuffer,
+  liveness: <span class="c-val">true</span>
+})
+
+console.<span class="c-fn">log</span>(result.verified) <span class="c-cm">// true</span></code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SANDBOX -->
+    <section id="sandbox">
+      <h2>Sandbox Environment</h2>
+      <div class="callout callout-info">
+        <strong>Safe testing.</strong> The sandbox uses mock responses — no real NID data is processed and no credits are consumed.
+      </div>
+      <p>Use the sandbox base URL for all testing and development:</p>
+      <div class="code-block compact">
+        <pre><code>https://api-sandbox.adeptsense.tech/v1</code></pre>
+      </div>
+      <p>Sandbox responses return realistic mock data with the same schema as production. Switch to the live URL when you're ready to go live.</p>
+    </section>
+
+    <!-- ENDPOINTS -->
+    <section id="nid-ocr">
+      <h2>POST /verify/nid</h2>
+      <p>Extract structured identity fields from a Bangladesh NID card image. Supports both smart-card and old-format NIDs.</p>
+
+      <h3>Request Body</h3>
+      <div class="params-table">
+        <div class="param-row param-header"><span>Parameter</span><span>Type</span><span>Required</span><span>Description</span></div>
+        <div class="param-row"><code>front_image</code><span>string</span><span class="param-req">Yes</span><span>Base64-encoded front of NID</span></div>
+        <div class="param-row"><code>back_image</code><span>string</span><span class="param-opt">No</span><span>Base64-encoded back of NID</span></div>
+        <div class="param-row"><code>selfie</code><span>string</span><span class="param-opt">No</span><span>Base64-encoded selfie for face match</span></div>
+        <div class="param-row"><code>liveness</code><span>boolean</span><span class="param-opt">No</span><span>Enable liveness verification</span></div>
+        <div class="param-row"><code>face_match</code><span>boolean</span><span class="param-opt">No</span><span>Enable face match against NID photo</span></div>
+      </div>
+
+      <h3>Response — Format A (Current)</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="status-ok">200 OK</span></div>
+        <pre><code>{
+  <span class="c-str">"verified"</span>:         <span class="c-val">true</span>,
+  <span class="c-str">"liveness_score"</span>:   <span class="c-num">0.97</span>,
+  <span class="c-str">"face_match_score"</span>: <span class="c-num">0.94</span>,
+  <span class="c-str">"name"</span>:             <span class="c-str">"Md. Rafiqul Islam"</span>,
+  <span class="c-str">"name_bn"</span>:          <span class="c-str">"মোঃ রফিকুল ইসলাম"</span>,
+  <span class="c-str">"nid_number"</span>:       <span class="c-str">"••••••4821"</span>,
+  <span class="c-str">"dob"</span>:              <span class="c-str">"1988-03-12"</span>
+}</code></pre>
+      </div>
+
+      <h3>Response — Format B (Enhanced)</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="status-err">422 Unprocessable</span></div>
+        <pre><code>{
+  <span class="c-str">"verified"</span>:            <span class="c-val">false</span>,
+  <span class="c-str">"error_code"</span>:          <span class="c-str">"ERR_IMAGE_BLURRY"</span>,
+  <span class="c-str">"error_message"</span>:       <span class="c-str">"OCR couldn't read text"</span>,
+  <span class="c-str">"recommended_action"</span>: <span class="c-str">"Ask user to retake photo"</span>
+}</code></pre>
+      </div>
+    </section>
+
+    <section id="face-match">
+      <h2>POST /verify/face-match</h2>
+      <p>Compare a live selfie against an ID portrait to determine if they belong to the same person.</p>
+      <div class="params-table">
+        <div class="param-row param-header"><span>Parameter</span><span>Type</span><span>Required</span><span>Description</span></div>
+        <div class="param-row"><code>selfie</code><span>string</span><span class="param-req">Yes</span><span>Base64-encoded selfie image</span></div>
+        <div class="param-row"><code>reference</code><span>string</span><span class="param-req">Yes</span><span>Base64-encoded reference/ID photo</span></div>
+      </div>
+    </section>
+
+    <section id="liveness">
+      <h2>POST /verify/liveness</h2>
+      <p>Verify that a submitted image or video is from a live person, not a photo, mask, or digital replay.</p>
+      <div class="params-table">
+        <div class="param-row param-header"><span>Parameter</span><span>Type</span><span>Required</span><span>Description</span></div>
+        <div class="param-row"><code>image</code><span>string</span><span class="param-req">Yes</span><span>Base64-encoded face image or video frame</span></div>
+        <div class="param-row"><code>session_id</code><span>string</span><span class="param-opt">No</span><span>Session ID for async webhook result</span></div>
+      </div>
+    </section>
+
+    <section id="name-translate">
+      <h2>POST /translate/name</h2>
+      <p>Convert a Bangla name to its English transliteration for cross-system identity matching.</p>
+      <div class="params-table">
+        <div class="param-row param-header"><span>Parameter</span><span>Type</span><span>Required</span><span>Description</span></div>
+        <div class="param-row"><code>name_bn</code><span>string</span><span class="param-req">Yes</span><span>Name in Bangla script</span></div>
+      </div>
+    </section>
+
+    <section id="gender">
+      <h2>POST /predict/gender</h2>
+      <p>Predict gender from a given name using name intelligence models trained on South Asian naming conventions.</p>
+      <div class="params-table">
+        <div class="param-row param-header"><span>Parameter</span><span>Type</span><span>Required</span><span>Description</span></div>
+        <div class="param-row"><code>name</code><span>string</span><span class="param-req">Yes</span><span>Full name (English or Bangla)</span></div>
+      </div>
+    </section>
+
+    <!-- SCORE THRESHOLDS -->
+    <section id="score-thresholds">
+      <h2>Score Thresholds Guide</h2>
+      <p>Use these thresholds to interpret <code>face_match_score</code> and <code>liveness_score</code> values:</p>
+      <div class="threshold-table">
+        <div class="th-row th-header"><span>Score Range</span><span>Verdict</span><span>Recommended Action</span></div>
+        <div class="th-row th-green"><span>0.90 – 1.00</span><span>Strong match</span><span>Automatic approval</span></div>
+        <div class="th-row th-amber"><span>0.70 – 0.89</span><span>Possible match</span><span>Flag for manual review</span></div>
+        <div class="th-row th-red"><span>0.00 – 0.69</span><span>No match</span><span>Reject</span></div>
+      </div>
+    </section>
+
+    <!-- ERROR CODES -->
+    <section id="error-codes">
+      <h2>Error Codes</h2>
+      <h3>Tier 1 — HTTP Status Codes (always available)</h3>
+      <div class="threshold-table">
+        <div class="th-row th-header"><span>HTTP Status</span><span>Meaning</span><span>Developer Action</span></div>
+        <div class="th-row"><span>200</span><span>Success — verification complete</span><span>Read verified, scores, fields</span></div>
+        <div class="th-row"><span>400</span><span>Bad request — invalid params</span><span>Check request body against schema</span></div>
+        <div class="th-row"><span>403</span><span>Unauthorized or quota exceeded</span><span>Check API key / upgrade plan</span></div>
+        <div class="th-row"><span>413</span><span>File too large</span><span>Compress image before upload</span></div>
+        <div class="th-row"><span>422</span><span>Unprocessable — image quality</span><span>Ask user to retake photo</span></div>
+        <div class="th-row"><span>500</span><span>Server error</span><span>Retry with exponential backoff</span></div>
+      </div>
+
+      <h3>Tier 2 — Structured Error Codes (enhanced)</h3>
+      <div class="callout callout-info">
+        <strong>Rolling out.</strong> Structured error codes are being added to endpoints incrementally. Check the <code>error_code</code> field in responses — if present, use it for granular error handling.
+      </div>
+      <div class="threshold-table">
+        <div class="th-row th-header"><span>Code</span><span>HTTP</span><span>Cause</span><span>Fix</span></div>
+        <div class="th-row"><span><code>ERR_IMAGE_BLURRY</code></span><span>422</span><span>OCR couldn't read text</span><span>Ask user to retake photo</span></div>
+        <div class="th-row"><span><code>ERR_LOW_LIGHT</code></span><span>422</span><span>Liveness failed — poor lighting</span><span>Improve lighting guidance</span></div>
+        <div class="th-row"><span><code>ERR_INVALID_DOCUMENT</code></span><span>422</span><span>Not a Bangladesh NID</span><span>Validate doc type client-side</span></div>
+        <div class="th-row"><span><code>ERR_LOW_MATCH</code></span><span>200</span><span>Face match below threshold</span><span>Prompt better selfie</span></div>
+        <div class="th-row"><span><code>ERR_LIVENESS_FAIL</code></span><span>200</span><span>Liveness didn't pass</span><span>Re-attempt with anti-spoof guidance</span></div>
+        <div class="th-row"><span><code>ERR_FILE_TOO_LARGE</code></span><span>413</span><span>Exceeds size limit</span><span>Compress before upload</span></div>
+        <div class="th-row"><span><code>ERR_UNAUTHORIZED</code></span><span>403</span><span>API key invalid/expired</span><span>Recheck API key</span></div>
+        <div class="th-row"><span><code>ERR_QUOTA_EXCEEDED</code></span><span>403</span><span>Monthly limit reached</span><span>Upgrade plan</span></div>
+      </div>
+    </section>
+
+    <!-- WEBHOOKS -->
+    <section id="webhooks">
+      <h2>Webhooks</h2>
+      <p>For asynchronous liveness results, AdeptSense can POST a callback to your server when the result is ready.</p>
+      <div class="code-block">
+        <div class="code-header"><span>Webhook Payload</span></div>
+        <pre><code>{
+  <span class="c-str">"event"</span>:      <span class="c-str">"verification.completed"</span>,
+  <span class="c-str">"session_id"</span>: <span class="c-str">"ses_a1b2c3"</span>,
+  <span class="c-str">"result"</span>: {
+    <span class="c-str">"verified"</span>:       <span class="c-val">true</span>,
+    <span class="c-str">"liveness_score"</span>: <span class="c-num">0.97</span>
+  },
+  <span class="c-str">"timestamp"</span>: <span class="c-str">"2025-01-15T10:30:00Z"</span>,
+  <span class="c-str">"signature"</span>: <span class="c-str">"sha256=abc123..."</span>
+}</code></pre>
+      </div>
+      <p>Verify the <code>signature</code> header using your webhook secret. Retries use exponential backoff (1s, 5s, 30s, 5m).</p>
+    </section>
+
+    <!-- SDKs -->
+    <section id="sdks">
+      <h2>SDKs</h2>
+      <div class="sdk-grid">
+        <div class="sdk-card">
+          <h4>Android SDK</h4>
+          <p>Native Kotlin/Java library with biometric capture</p>
+          <div class="code-block compact"><pre><code>implementation 'tech.adeptsense:android-sdk:1.2.0'</code></pre></div>
+          <a href="#" class="sdk-link">View on GitHub →</a>
+        </div>
+        <div class="sdk-card">
+          <h4>iOS SDK</h4>
+          <p>Swift library with camera and liveness support</p>
+          <div class="code-block compact"><pre><code>pod 'AdeptSenseSDK', '~> 1.2.0'</code></pre></div>
+          <a href="#" class="sdk-link">View on GitHub →</a>
+        </div>
+        <div class="sdk-card">
+          <h4>Node.js SDK</h4>
+          <p>Server-side SDK for Node.js applications</p>
+          <div class="code-block compact"><pre><code>npm install @adeptsense/node</code></pre></div>
+          <a href="https://www.npmjs.com/package/@adeptsense/node" class="sdk-link" target="_blank">View on npm →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOWNLOADS -->
+    <section id="downloads">
+      <h2>Postman & OpenAPI</h2>
+      <div class="download-grid">
+        <a href="#" class="download-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download Postman Collection</span>
+          <small>JSON · 24KB</small>
+        </a>
+        <a href="#" class="download-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download OpenAPI Spec</span>
+          <small>YAML · 18KB</small>
+        </a>
+      </div>
+    </section>
+
+    <!-- RATE LIMITS -->
+    <section id="rate-limits">
+      <h2>Rate Limits & File Specs</h2>
+      <div class="threshold-table">
+        <div class="th-row th-header"><span>Spec</span><span>Starter</span><span>Growth</span><span>Enterprise</span></div>
+        <div class="th-row"><span>Requests/second</span><span>5</span><span>20</span><span>Custom</span></div>
+        <div class="th-row"><span>Max file size</span><span>5 MB</span><span>10 MB</span><span>25 MB</span></div>
+        <div class="th-row"><span>Monthly verifications</span><span>500</span><span>10,000</span><span>Unlimited</span></div>
+        <div class="th-row"><span>Timeout recommendation</span><span colspan="3">5,000 ms</span><span></span><span></span></div>
+      </div>
+      <p>Supported image formats: <code>JPEG</code>, <code>PNG</code>, <code>WebP</code>. Maximum resolution: 4096×4096px.</p>
+    </section>
+
+  </main>
+</div>
+
+<script>
+// Sidebar active state
+const sidebarLinks = document.querySelectorAll('.sidebar-link')
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      sidebarLinks.forEach(l => l.classList.remove('active'))
+      const link = document.querySelector(`.sidebar-link[href="#${e.target.id}"]`)
+      if (link) link.classList.add('active')
+    }
+  })
+}, { threshold: 0.1, rootMargin: '-80px 0px -60% 0px' })
+
+document.querySelectorAll('.docs-main section[id]').forEach(s => observer.observe(s))
+
+// Env toggle
+document.getElementById('env-toggle').addEventListener('click', e => {
+  const btn = e.target.closest('.env-btn')
+  if (!btn) return
+  document.querySelectorAll('.env-btn').forEach(b => b.classList.remove('active'))
+  btn.classList.add('active')
+})
+
+// Quickstart code tabs
+const qsCodes = {
+  node: `<span class="c-kw">import</span> AdeptSense <span class="c-kw">from</span> <span class="c-str">'@adeptsense/node'</span>\n\n<span class="c-kw">const</span> client = <span class="c-kw">new</span> <span class="c-fn">AdeptSense</span>({\n  apiKey: process.<span class="c-var">env</span>.ADEPT_KEY\n})\n\n<span class="c-kw">const</span> result = <span class="c-kw">await</span> client.verify.<span class="c-fn">nid</span>({\n  front: frontBuffer,\n  selfie: selfieBuffer,\n  liveness: <span class="c-val">true</span>\n})\n\nconsole.<span class="c-fn">log</span>(result.verified) <span class="c-cm">// true</span>`,
+  python: `<span class="c-kw">from</span> adeptsense <span class="c-kw">import</span> AdeptSense\n\nclient = <span class="c-fn">AdeptSense</span>(api_key=os.environ[<span class="c-str">"ADEPT_KEY"</span>])\n\nresult = client.verify.<span class="c-fn">nid</span>(\n  front=front_bytes,\n  selfie=selfie_bytes,\n  liveness=<span class="c-val">True</span>\n)\n\n<span class="c-fn">print</span>(result[<span class="c-str">"verified"</span>]) <span class="c-cm"># True</span>`,
+  curl: `<span class="c-fn">curl</span> -X POST https://api.adeptsense.tech/v1/verify/nid \\\\\n  -H <span class="c-str">"Authorization: Bearer $ADEPT_KEY"</span> \\\\\n  -H <span class="c-str">"Content-Type: application/json"</span> \\\\\n  -d '{\n    <span class="c-str">"front_image"</span>: <span class="c-str">"base64..."</span>,\n    <span class="c-str">"selfie"</span>: <span class="c-str">"base64..."</span>,\n    <span class="c-str">"liveness"</span>: <span class="c-val">true</span>\n  }'`
+}
+const qsTabs = document.getElementById('qs-tabs')
+const qsCode = document.getElementById('qs-code-content')
+const qsHeader = document.querySelector('#qs-code .code-header span')
+if (qsTabs) {
+  qsTabs.addEventListener('click', e => {
+    const btn = e.target.closest('.code-tab')
+    if (!btn) return
+    qsTabs.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'))
+    btn.classList.add('active')
+    qsCode.innerHTML = qsCodes[btn.dataset.lang]
+    qsHeader.textContent = btn.textContent
+  })
+}
+</script>
+</body>
+</html>
+</code></pre>

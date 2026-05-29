@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdeptSense — Identity Verification API</title>
+  <meta name="description" content="Bangladesh's most precise identity verification API. NID OCR, face match, liveness, name translation — all via one integration.">
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="/src/assets/logo.png" alt="AdeptSense" class="logo-img">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Products</a></li>
+    <li><a href="#use-cases">Use Cases</a></li>
+    <li><a href="#how-it-works">How it works</a></li>
+    <li><a href="docs.html">Docs</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" class="nav-sign">Sign in</a>
+    <a href="#" class="nav-cta">Get API key</a>
+  </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero-section">
+  <div class="hero-inner">
+    <div class="hero-left reveal">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Identity Verification Platform · Bangladesh NID
+      </div>
+      <h1 class="hero-h1">Verify identity.<br><em>Instantly.</em></h1>
+      <p class="hero-p">Secure onboarding for web, mobile, and hybrid apps. NID OCR, face match, liveness, name translation, and gender intelligence — all via one API.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary">Get API key &rarr;</a>
+        <a href="docs.html" class="btn-link">View API docs &rarr;</a>
+      </div>
+    </div>
+
+    <div class="hero-right reveal" style="transition-delay:.1s">
+      <div class="api-card">
+        <div class="api-card-bar">
+          <div class="dots">
+            <span class="dot dot-r"></span>
+            <span class="dot dot-y"></span>
+            <span class="dot dot-g"></span>
+          </div>
+          <span class="api-route">POST /v1/verify/nid</span>
+        </div>
+        <div class="api-body">
+          <div class="api-pre">
+            <span class="tok-method">POST</span> /v1/verify/nid<br>
+            {<br>
+            &nbsp;&nbsp;<span class="tok-key">"front_image"</span>: <span class="tok-val">"base64..."</span>,<br>
+            &nbsp;&nbsp;<span class="tok-key">"back_image"</span>:&nbsp; <span class="tok-val">"base64..."</span>,<br>
+            &nbsp;&nbsp;<span class="tok-key">"selfie"</span>:&nbsp;&nbsp;&nbsp;&nbsp; <span class="tok-val">"base64..."</span>,<br>
+            &nbsp;&nbsp;<span class="tok-key">"liveness"</span>:&nbsp;&nbsp; <span class="tok-val">true</span>,<br>
+            &nbsp;&nbsp;<span class="tok-key">"face_match"</span>: <span class="tok-val">true</span><br>
+            }
+          </div>
+          <div class="api-sep">200 OK &middot; 0.78s</div>
+          <div class="api-resp">
+            {<br>
+            &nbsp;&nbsp;<span class="tok-key">"verified"</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="tok-true">true</span>,<br>
+            &nbsp;&nbsp;<span class="tok-key">"liveness_score"</span>:&nbsp;&nbsp; <span class="tok-num">0.97</span>,<br>
+            &nbsp;&nbsp;<span class="tok-key">"face_match_score"</span>: <span class="tok-num">0.94</span>,<br>
+            &nbsp;&nbsp;<span class="tok-key">"name"</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="tok-str">"Md. Rafiqul Islam"</span>,<br>
+            &nbsp;&nbsp;<span class="tok-key">"nid_number"</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="tok-str">"&bull;&bull;&bull;&bull;&bull;&bull;4821"</span>,<br>
+            &nbsp;&nbsp;<span class="tok-key">"dob"</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="tok-str">"1988-03-12"</span><br>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST STRIP ── -->
+<div class="trust-strip">
+  <div class="trust-inner">
+    <span class="trust-label">Trusted & secure</span>
+    <div class="trust-badges">
+      <span class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        256-bit Encryption
+      </span>
+      <span class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        99.9% Uptime SLA
+      </span>
+      <span class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        GDPR Compliant
+      </span>
+      <span class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        SOC2 Ready
+      </span>
+      <span class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        ISO 27001
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- ── BANGLADESH ADVANTAGE ── -->
+<section class="bd-advantage-wrap">
+  <div class="wrap">
+    <div class="bd-inner reveal">
+      <div class="bd-content">
+        <span class="label-tag" style="color:var(--red)">Built for Bangladesh</span>
+        <h2 class="section-title">The only identity API<br>tuned for Bangladesh NID.</h2>
+        <p class="section-sub" style="margin-bottom:32px">Global players like Onfido and Jumio don't support Bangladesh NID formats. AdeptSense was purpose-built for BD — Bangla OCR, transliteration, and NID-specific field extraction that no other provider offers.</p>
+        <div class="bd-features">
+          <div class="bd-feat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2.5"/><line x1="13" y1="10" x2="20" y2="10"/><line x1="13" y1="14" x2="18" y2="14"/></svg>
+            <div>
+              <h4>NID OCR tuned for BD cards</h4>
+              <p>Front and back extraction with field-level accuracy for smart-card and old-format NIDs.</p>
+            </div>
+          </div>
+          <div class="bd-feat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h6M8 5v6"/><path d="M3 19l4-4 2 3 3-4 4 5"/><path d="M14 3l2 4h4"/></svg>
+            <div>
+              <h4>Bangla → English transliteration</h4>
+              <p>Convert Bangla names into accurate English equivalents for cross-system identity matching.</p>
+            </div>
+          </div>
+          <div class="bd-feat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div>
+              <h4>Local compliance-ready</h4>
+              <p>Designed for Bangladesh regulatory requirements from day one — not retrofitted.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bd-visual">
+        <div class="bd-card">
+          <div class="bd-card-header">🇧🇩 Bangladesh NID — Smart Card</div>
+          <div class="bd-card-fields">
+            <div class="bd-field"><span class="bd-field-label">Name (BN)</span><span class="bd-field-value">মোঃ রফিকুল ইসলাম</span></div>
+            <div class="bd-field"><span class="bd-field-label">Name (EN)</span><span class="bd-field-value">Md. Rafiqul Islam</span></div>
+            <div class="bd-field"><span class="bd-field-label">NID No.</span><span class="bd-field-value">••••••••4821</span></div>
+            <div class="bd-field"><span class="bd-field-label">DOB</span><span class="bd-field-value">1988-03-12</span></div>
+            <div class="bd-field"><span class="bd-field-label">Accuracy</span><span class="bd-field-value bd-field-green">99.4%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DEMO STRIP ── -->
+<div class="demo-strip">
+  <div class="demo-inner reveal">
+    <div class="demo-text">
+      <h3>Try it live, right now.</h3>
+      <p>No signup needed to explore the liveness demo or read the API reference.</p>
+    </div>
+    <div class="demo-links">
+      <a href="playground.html" class="demo-btn demo-btn-solid">Explore Playground &rarr;</a>
+      <a href="docs.html" class="demo-btn demo-btn-outline">View API docs</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── SERVICES ── -->
+<section class="services-wrap" id="services">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="label-tag">Services</span>
+      <h2 class="section-title">Solutions built for fast,<br>accurate verification.</h2>
+      <p class="section-sub">Choose the right workflow for every identity check — document OCR, face comparison, live presence validation, and name intelligence.</p>
+    </div>
+
+    <div class="services-grid reveal">
+
+      <div class="svc-card">
+        <div class="svc-ico svc-ico-b">
+          <!-- NID / ID Card icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="5" width="20" height="14" rx="2"/>
+            <circle cx="8" cy="12" r="2.5"/>
+            <line x1="13" y1="10" x2="20" y2="10"/>
+            <line x1="13" y1="14" x2="18" y2="14"/>
+          </svg>
+        </div>
+        <h3>NID OCR</h3>
+        <p>Extract structured identity fields from Bangladesh NID cards with OCR tuned for front/back formats.</p>
+        <a href="playground.html" class="svc-link">Try it now &rarr;</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-ico svc-ico-r">
+          <!-- Face match icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="7" cy="8" r="3"/>
+            <circle cx="17" cy="8" r="3"/>
+            <path d="M3 20c0-3 1.8-5 4-5"/>
+            <path d="M21 20c0-3-1.8-5-4-5"/>
+            <line x1="11" y1="11" x2="13" y2="11" stroke-dasharray="1 1"/>
+            <polyline points="10 15 12 17 14 15"/>
+          </svg>
+        </div>
+        <h3>Face Match</h3>
+        <p>Compare live selfies to ID portraits, even if source photos are small or compressed.</p>
+        <a href="playground.html" class="svc-link">Try it now &rarr;</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-ico svc-ico-b">
+          <!-- Eye / liveness icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 5v-2M12 21v-2M5 12H3M21 12h-2" opacity=".4"/>
+          </svg>
+        </div>
+        <h3>Liveness Verification</h3>
+        <p>Detect spoofing and replay attacks with live biometric checks on web, mobile, and WebView flows.</p>
+        <a href="playground.html" class="svc-link">Try it now &rarr;</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-ico svc-ico-r">
+          <!-- Translation / language icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 8h6M8 5v6"/>
+            <path d="M3 19l4-4 2 3 3-4 4 5"/>
+            <path d="M14 3l2 4h4"/>
+            <line x1="3" y1="8" x2="3" y2="8"/>
+          </svg>
+        </div>
+        <h3>Name Translation</h3>
+        <p>Convert Bangla names into English transliteration for reliable identity matching across systems.</p>
+        <a href="playground.html" class="svc-link">Try it now &rarr;</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-ico svc-ico-b">
+          <!-- Person / gender icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            <line x1="16" y1="3" x2="20" y2="3"/>
+            <line x1="18" y1="1" x2="18" y2="5"/>
+          </svg>
+        </div>
+        <h3>Gender Estimation</h3>
+        <p>Predict gender with name intelligence models to support verification and onboarding workflows.</p>
+        <a href="playground.html" class="svc-link">Try it now &rarr;</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── USE CASES ── -->
+<section class="usecases-wrap" id="use-cases">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="label-tag">Use Cases</span>
+      <h2 class="section-title">Built for the platforms<br>where trust matters most.</h2>
+      <p class="section-sub">Whether you're onboarding customers, employees, or third-party vendors — AdeptSense fits your stack.</p>
+    </div>
+    <div class="usecases-grid reveal">
+      <div class="uc-card">
+        <div class="uc-icon">🏦</div>
+        <h4>Fintech &amp; KYC/AML</h4>
+        <p>Comply with KYC/AML regulations at user onboarding with automated NID and liveness checks.</p>
+        <a href="#" class="uc-link">View guide &rarr;</a>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">🏢</div>
+        <h4>HR &amp; Employee Onboarding</h4>
+        <p>Verify new hires with NID checks and face match before issuing access credentials or contracts.</p>
+        <a href="#" class="uc-link">View guide &rarr;</a>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">🏥</div>
+        <h4>Healthcare</h4>
+        <p>Verify patient identity for telemedicine consultations, prescription access, and insurance claims.</p>
+        <a href="#" class="uc-link">View guide &rarr;</a>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">🛒</div>
+        <h4>E-commerce</h4>
+        <p>Age-verify buyers and authenticate sellers to build trust on both sides of every transaction.</p>
+        <a href="#" class="uc-link">View guide &rarr;</a>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">🚗</div>
+        <h4>Ride-sharing &amp; Gig Economy</h4>
+        <p>Verify drivers and delivery partners before onboarding to ensure passenger and customer safety.</p>
+        <a href="#" class="uc-link">View guide &rarr;</a>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">🎮</div>
+        <h4>iGaming &amp; Crypto</h4>
+        <p>Age verify and ID check at signup to remain compliant without sacrificing conversion.</p>
+        <a href="#" class="uc-link">View guide &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="steps-wrap" id="how-it-works">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="label-tag">How it works</span>
+      <h2 class="section-title">From document to decision<br>in under a second.</h2>
+      <p class="section-sub">Three clean steps — session, data, response.</p>
+    </div>
+
+    <div class="steps reveal">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h4>Start a session</h4>
+        <p>Create a verification session and choose your integration path — WebView, native SDK, or direct API call.</p>
+        <div class="step-json">
+          <span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span><br>
+          <span class="jk">"mode"</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="jv">"webview"</span><br>
+          <span class="jk">"expires_in"</span>: <span class="jn">600</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h4>Collect identity data</h4>
+        <p>Upload NID front/back images, selfie captures, or name inputs through a secure, encrypted workflow.</p>
+        <div class="step-json">
+          <span class="jk">"front_image"</span>: <span class="jv">"base64..."</span><br>
+          <span class="jk">"selfie"</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="jv">"base64..."</span><br>
+          <span class="jk">"liveness"</span>:&nbsp;&nbsp;&nbsp; <span class="jn">true</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h4>Receive verified JSON</h4>
+        <p>Get a structured response with OCR fields, match confidence score, and liveness result — ready to act on.</p>
+        <div class="step-json">
+          <span class="jk">"verified"</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="jv">true</span><br>
+          <span class="jk">"liveness_score"</span>: <span class="jn">0.97</span><br>
+          <span class="jk">"name"</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="jv">"Rafiqul Islam"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INTEGRATION ── -->
+<section class="integration-wrap" id="integration">
+  <div class="integration-inner">
+
+    <div class="reveal">
+      <span class="label-tag">Integration</span>
+      <h2 class="section-title">Works in your stack,<br>your way.</h2>
+      <p class="section-sub" style="margin-bottom:0">Pick the path that fits your architecture — REST APIs, native mobile SDKs, or a hosted WebView flow requiring zero SDK setup.</p>
+
+      <div class="int-features">
+        <div class="int-feature">
+          <div class="int-ico svc-ico-b">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          </div>
+          <div>
+            <h4>REST API</h4>
+            <p>Simple JSON endpoints. Works with any backend — Node, Python, PHP, or Go.</p>
+          </div>
+        </div>
+        <div class="int-feature">
+          <div class="int-ico svc-ico-r">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <div>
+            <h4>Android &amp; iOS SDKs</h4>
+            <p>Native Kotlin/Java and Swift libraries with biometric capture and offline signing.</p>
+          </div>
+        </div>
+        <div class="int-feature">
+          <div class="int-ico svc-ico-b">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div>
+            <h4>Secure WebView Flow</h4>
+            <p>Embed a hosted verification journey inside any web or hybrid app — no camera permissions to manage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay:.12s">
+      <div class="tab-bar" id="tabs">
+        <button class="tab active" data-lang="node">Node.js</button>
+        <button class="tab" data-lang="python">Python</button>
+        <button class="tab" data-lang="curl">cURL</button>
+      </div>
+      <div class="code-wrap" id="code-block"></div>
+      <div class="code-links">
+        <a href="https://api.adeptsense.tech/docs" class="code-link" target="_blank">Full API reference &rarr;</a>
+        <a href="#" class="code-link-muted">GitHub</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats-wrap">
+  <div class="stats-inner reveal">
+    <div class="stat-item">
+      <span class="stat-num" data-count="99.4" data-suffix="%">99.4%</span>
+      <span class="stat-lbl">Verification accuracy</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">&lt;1s</span>
+      <span class="stat-lbl">Average response time</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="180" data-suffix="+">180+</span>
+      <span class="stat-lbl">Countries supported</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="50" data-suffix="M+">50M+</span>
+      <span class="stat-lbl">Verifications processed</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── PRICING ── -->
+<section class="pricing-wrap" id="pricing">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="label-tag">Pricing</span>
+      <h2 class="section-title">Simple, transparent pricing<br>that scales with you.</h2>
+      <p class="section-sub">Start free. Pay per verification. Volume discounts for growth-stage and enterprise teams.</p>
+    </div>
+    <div class="pricing-grid reveal">
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div class="price-amount"><span class="price-currency">$</span>0.12<span class="price-unit">/verification</span></div>
+        <p class="price-desc">For teams testing the waters. Up to 500 verifications/month included.</p>
+        <ul class="price-features">
+          <li>All 5 API endpoints</li>
+          <li>Sandbox environment</li>
+          <li>Community support</li>
+          <li>Standard rate limits</li>
+        </ul>
+        <a href="#" class="price-btn">Get started free &rarr;</a>
+      </div>
+      <div class="price-card price-card-featured">
+        <div class="price-popular">Most popular</div>
+        <div class="price-tier">Growth</div>
+        <div class="price-amount"><span class="price-currency">$</span>0.08<span class="price-unit">/verification</span></div>
+        <p class="price-desc">Volume discount for scaling products. Up to 10,000 verifications/month.</p>
+        <ul class="price-features">
+          <li>Everything in Starter</li>
+          <li>Priority support</li>
+          <li>Webhooks</li>
+          <li>Higher rate limits</li>
+          <li>Dedicated sandbox</li>
+        </ul>
+        <a href="#" class="price-btn price-btn-primary">Start with Growth &rarr;</a>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Enterprise</div>
+        <div class="price-amount"><span class="price-custom">Custom</span></div>
+        <p class="price-desc">For high-volume platforms needing SLA, dedicated support, and on-premise options.</p>
+        <ul class="price-features">
+          <li>Everything in Growth</li>
+          <li>Custom SLA &amp; uptime</li>
+          <li>Dedicated account manager</li>
+          <li>On-premise deployment</li>
+          <li>Custom integrations</li>
+        </ul>
+        <a href="#" class="price-btn">Contact sales &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<div class="cta-wrap">
+  <div class="reveal">
+    <h2>Start verifying identities today.</h2>
+    <p>No credit card required. Full API access in minutes.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn-cta-white">Get API key &rarr;</a>
+      <a href="docs.html" class="btn-cta-outline">Read the docs</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/src/assets/logo.png" alt="AdeptSense" class="logo-img">
+      <p>Identity verification for web, mobile, and hybrid apps. Built for developers.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <a href="playground.html">NID OCR</a>
+      <a href="playground.html">Face Match</a>
+      <a href="playground.html">Liveness</a>
+      <a href="playground.html">Name Translation</a>
+      <a href="playground.html">Gender Estimation</a>
+    </div>
+    <div class="footer-col">
+      <h5>Use Cases</h5>
+      <a href="#">Fintech & KYC</a>
+      <a href="#">HR & Onboarding</a>
+      <a href="#">Healthcare</a>
+      <a href="#">E-commerce</a>
+      <a href="#">Ride-sharing</a>
+    </div>
+    <div class="footer-col">
+      <h5>Developers</h5>
+      <a href="docs.html">API Reference</a>
+      <a href="docs.html#sdks">SDKs</a>
+      <a href="#">Changelog</a>
+      <a href="#" class="footer-status"><span class="status-dot"></span> API Status</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+      <a href="#">Security</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 AdeptSense. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Security</a>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
