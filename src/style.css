@@ -103,7 +103,7 @@ nav.opaque { background: rgba(250,250,250,0.98); }
 
 .nav-logo { display: flex; align-items: center; }
 .logo-img {
-  height: 32px; width: auto;
+  height: 48px; width: auto;
   transform: scale(1.35); transform-origin: left center;
 }
 
