@@ -2,57 +2,48 @@ import './style.css'
 
 // ── CODE SNIPPETS ──
 const codes = {
-  node: `<span class="c-kw">import</span> AdeptSense <span class="c-kw">from</span> <span class="c-str">'@adeptsense/node'</span>
+  node: `<span class="c-kw">import</span> fs <span class="c-kw">from</span> <span class="c-str">'node:fs/promises'</span>
+<span class="c-kw">import</span> FormData <span class="c-kw">from</span> <span class="c-str">'form-data'</span>
 
-<span class="c-kw">const</span> client = <span class="c-kw">new</span> <span class="c-fn">AdeptSense</span>({
-  apiKey: process.<span class="c-var">env</span>.ADEPT_KEY
+<span class="c-kw">const</span> form = <span class="c-kw">new</span> <span class="c-fn">FormData</span>()
+form.<span class="c-fn">append</span>(<span class="c-str">'front'</span>, frontBuffer, <span class="c-str">'front.jpg'</span>)
+form.<span class="c-fn">append</span>(<span class="c-str">'back'</span>, backBuffer, <span class="c-str">'back.jpg'</span>)
+
+<span class="c-kw">const</span> res = <span class="c-kw">await</span> <span class="c-fn">fetch</span>(<span class="c-str">'https://api.adeptsense.tech/api/v1/ocr/nid'</span>, {
+  method: <span class="c-str">'POST'</span>,
+  headers: {
+    <span class="c-str">'x-api-key'</span>: process.<span class="c-var">env</span>.ADEPT_KEY
+  },
+  body: form
 })
 
-<span class="c-cm">// Verify NID + liveness + face match</span>
-<span class="c-kw">const</span> result = <span class="c-kw">await</span> client.verify.<span class="c-fn">nid</span>({
-  front:     frontBuffer,
-  back:      backBuffer,
-  selfie:    selfieBuffer,
-  liveness:  <span class="c-val">true</span>,
-  faceMatch: <span class="c-val">true</span>
-})
+<span class="c-kw">const</span> result = <span class="c-kw">await</span> res.<span class="c-fn">json</span>()
+console.<span class="c-fn">log</span>(result.ok) <span class="c-cm">// true</span>`,
 
-<span class="c-cm">// { verified: true, liveness_score: 0.97, ... }</span>
-console.<span class="c-fn">log</span>(result.verified)`,
+  python: `<span class="c-kw">import</span> requests
 
-  python: `<span class="c-kw">from</span> adeptsense <span class="c-kw">import</span> AdeptSense
-
-client = <span class="c-fn">AdeptSense</span>(api_key=os.environ[<span class="c-str">"ADEPT_KEY"</span>])
-
-<span class="c-cm"># Verify NID + liveness + face match</span>
-result = client.verify.<span class="c-fn">nid</span>(
-  front=front_bytes,
-  back=back_bytes,
-  selfie=selfie_bytes,
-  liveness=<span class="c-val">True</span>,
-  face_match=<span class="c-val">True</span>
-)
-
-<span class="c-cm"># { "verified": true, "liveness_score": 0.97 }</span>
-<span class="c-fn">print</span>(result[<span class="c-str">"verified"</span>])`,
-
-  curl: `<span class="c-fn">curl</span> -X POST https://api.adeptsense.tech/v1/verify/nid \\
-  -H <span class="c-str">"Authorization: Bearer $ADEPT_KEY"</span> \\
-  -H <span class="c-str">"Content-Type: application/json"</span> \\
-  -d '{
-    <span class="c-str">"front_image"</span>: <span class="c-str">"base64..."</span>,
-    <span class="c-str">"back_image"</span>:  <span class="c-str">"base64..."</span>,
-    <span class="c-str">"selfie"</span>:      <span class="c-str">"base64..."</span>,
-    <span class="c-str">"liveness"</span>:   <span class="c-val">true</span>,
-    <span class="c-str">"face_match"</span>: <span class="c-val">true</span>
-  }'`
+files = {
+  <span class="c-str">'front'</span>: (<span class="c-str">'front.jpg'</span>, open(<span class="c-str">'front.jpg'</span>, <span class="c-str">'rb'</span>), <span class="c-str">'image/jpeg'</span>),
+  <span class="c-str">'back'</span>: (<span class="c-str">'back.jpg'</span>, open(<span class="c-str">'back.jpg'</span>, <span class="c-str">'rb'</span>), <span class="c-str">'image/jpeg'</span>)
 }
 
-// ── NAV SCROLL ──
-const navbar = document.getElementById('navbar')
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('opaque', window.scrollY > 20)
-}, { passive: true })
+res = requests.<span class="c-fn">post</span>(
+  <span class="c-str">'https://api.adeptsense.tech/api/v1/ocr/nid'</span>,
+  headers={<span class="c-str">'x-api-key'</span>: os.environ[<span class="c-str">"ADEPT_KEY"</span>]},
+  files=files
+)
+
+result = res.<span class="c-fn">json</span>()
+<span class="c-fn">print</span>(result[<span class="c-str">"ok"</span>]) <span class="c-cm"># True</span>`,
+
+  curl: `<span class="c-fn">curl</span> -X POST https://api.adeptsense.tech/api/v1/ocr/nid \\
+  -H <span class="c-str">"x-api-key: $ADEPT_KEY"</span> \\
+  -F <span class="c-str">"front=@/path/to/front.jpg"</span> \\
+  -F <span class="c-str">"back=@/path/to/back.jpg"</span>`
+}
+
+// ── NAV SCROLL (glassmorphism — no state change needed) ──
+// The glass nav is always visible; no opaque toggle required
 
 // ── MOBILE NAV ──
 const hamburger = document.getElementById('nav-hamburger')

@@ -66,17 +66,26 @@
     <div class="pg-input-panel">
       <div class="panel-header">
         <h3 id="panel-title">NID OCR</h3>
-        <span class="panel-method">POST /v1/verify/nid</span>
+        <span class="panel-method">POST /api/v1/ocr/nid</span>
       </div>
 
       <div class="form-group">
         <label>API Key</label>
-        <input type="text" class="form-input" id="api-key" placeholder="sk_test_..." value="">
+        <input type="text" class="form-input" id="api-key" placeholder="Enter your 16-character API key" value="">
       </div>
 
       <div class="form-group" id="fg-front">
         <label>Front Image</label>
         <div class="file-drop" id="drop-front">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span>Drop image or click to upload</span>
+          <input type="file" accept="image/*" hidden>
+        </div>
+      </div>
+
+      <div class="form-group" id="fg-back" style="display:none">
+        <label>Back Image</label>
+        <div class="file-drop" id="drop-back">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           <span>Drop image or click to upload</span>
           <input type="file" accept="image/*" hidden>
@@ -92,6 +101,11 @@
         </div>
       </div>
 
+      <div class="form-group" id="fg-userid" style="display:none">
+        <label>User ID</label>
+        <input type="text" class="form-input" id="userid-input" placeholder="user-123">
+      </div>
+
       <div class="form-group" id="fg-name" style="display:none">
         <label>Name (Bangla)</label>
         <input type="text" class="form-input" id="name-input" placeholder="মোঃ রফিকুল ইসলাম">
@@ -102,7 +116,7 @@
         <input type="text" class="form-input" id="name-en-input" placeholder="Md. Rafiqul Islam">
       </div>
 
-      <div class="form-options" id="fg-options">
+      <div class="form-options" id="fg-options" style="display:none">
         <label class="checkbox-wrap">
           <input type="checkbox" id="opt-liveness" checked>
           <span>Liveness check</span>
@@ -124,13 +138,12 @@
           <span>Generated cURL</span>
           <button class="curl-copy" id="curl-copy">Copy</button>
         </div>
-        <pre class="curl-code" id="curl-output">curl -X POST https://api.adeptsense.tech/v1/verify/nid \
-  -H "Authorization: Bearer YOUR_API_KEY" \
+        <pre class="curl-code" id="curl-output">curl -X POST https://api.adeptsense.tech/api/v1/ocr/nid?raw=0 \
+  -H "x-api-key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "front_image": "base64...",
-    "liveness": true,
-    "face_match": true
+    "front": "BASE64_FRONT_IMAGE",
+    "back": "BASE64_BACK_IMAGE"
   }'</pre>
       </div>
     </div>
@@ -177,17 +190,64 @@ const svcBtns = document.querySelectorAll('.svc-btn')
 const panelTitle = document.getElementById('panel-title')
 const panelMethod = document.querySelector('.panel-method')
 const fgFront = document.getElementById('fg-front')
+const fgBack = document.getElementById('fg-back')
 const fgSelfie = document.getElementById('fg-selfie')
+const fgUserid = document.getElementById('fg-userid')
 const fgName = document.getElementById('fg-name')
 const fgNameEn = document.getElementById('fg-name-en')
 const fgOptions = document.getElementById('fg-options')
 
 const services = {
-  nid:      { title: 'NID OCR',              method: 'POST /v1/verify/nid',        fields: ['front','selfie','options'] },
-  face:     { title: 'Face Match',           method: 'POST /v1/verify/face-match', fields: ['front','selfie'] },
-  liveness: { title: 'Liveness Verification',method: 'POST /v1/verify/liveness',   fields: ['front'] },
-  name:     { title: 'Name Translation',     method: 'POST /v1/translate/name',    fields: ['name'] },
-  gender:   { title: 'Gender Estimation',    method: 'POST /v1/predict/gender',    fields: ['name-en'] }
+  nid:      { title: 'NID OCR',              method: 'POST /api/v1/ocr/nid',        fields: ['front','back'] },
+  face:     { title: 'Face Match',           method: 'POST /api/v1/match/face/submit', fields: ['front','selfie'] },
+  liveness: { title: 'Liveness Verification',method: 'POST /api/v1/liveness/create',   fields: ['userid'] },
+  name:     { title: 'Name Translation',     method: 'POST /api/v1/name/translate',    fields: ['name'] },
+  gender:   { title: 'Gender Estimation',    method: 'POST /api/v1/name/gender',    fields: ['name-en'] }
+}
+
+function updateCurl() {
+  const env = document.querySelector('.env-btn.active').dataset.env
+  const baseUrl = env === 'live' ? 'https://api.adeptsense.tech' : 'https://api-sandbox.adeptsense.tech'
+  const apiKey = document.getElementById('api-key').value || 'YOUR_API_KEY'
+  const activeSvcBtn = document.querySelector('.svc-btn.active')
+  const serviceKey = activeSvcBtn ? activeSvcBtn.dataset.service : 'nid'
+
+  let curl = ''
+  if (serviceKey === 'nid') {
+    curl = `curl -X POST "${baseUrl}/api/v1/ocr/nid?raw=0" \\\n  -H "x-api-key: ${apiKey}" \\\n  -H "Content-Type: application/json" \\\n  -d '{\n    "front": "BASE64_FRONT_IMAGE",\n    "back": "BASE64_BACK_IMAGE"\n  }'`
+  } else if (serviceKey === 'face') {
+    curl = `curl -X POST "${baseUrl}/api/v1/match/face/submit" \\\n  -H "x-api-key: ${apiKey}" \\\n  -H "Content-Type: application/json" \\\n  -d '{\n    "referenceImage": "BASE64_REFERENCE_IMAGE",\n    "selfieImage": "BASE64_SELFIE_IMAGE"\n  }'`
+  } else if (serviceKey === 'liveness') {
+    const userId = document.getElementById('userid-input').value || 'user-123'
+    curl = `curl -X POST "${baseUrl}/api/v1/liveness/create" \\\n  -H "x-api-key: ${apiKey}" \\\n  -H "Content-Type: application/json" \\\n  -d '{\n    "userId": "${userId}",\n    "platform": "web"\n  }'`
+  } else if (serviceKey === 'name') {
+    const nameVal = document.getElementById('name-input').value || 'Abdul Karim'
+    curl = `curl -X POST "${baseUrl}/api/v1/name/translate" \\\n  -H "x-api-key: ${apiKey}" \\\n  -H "Content-Type: application/json" \\\n  -d '{\n    "inputLang": "en",\n    "outputLang": "bn",\n    "names": ["${nameVal}"]\n  }'`
+  } else if (serviceKey === 'gender') {
+    const nameEnVal = document.getElementById('name-en-input').value || 'Sara Ali'
+    curl = `curl -X POST "${baseUrl}/api/v1/name/gender" \\\n  -H "x-api-key: ${apiKey}" \\\n  -H "Content-Type: application/json" \\\n  -d '{\n    "inputLang": "en",\n    "names": ["${nameEnVal}"]\n  }'`
+  }
+
+  document.getElementById('curl-output').textContent = curl
+}
+
+function formatJsonHighlight(obj) {
+  const jsonStr = JSON.stringify(obj, null, 2);
+  return jsonStr.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+    let cls = 'rv-num';
+    if (/^"/.test(match)) {
+      if (/:$/.test(match)) {
+        cls = 'rk';
+      } else {
+        cls = 'rv-str';
+      }
+    } else if (/true|false/.test(match)) {
+      cls = 'rv-true';
+    } else if (/null/.test(match)) {
+      cls = 'rv-null';
+    }
+    return '<span class="' + cls + '">' + match + '</span>';
+  });
 }
 
 svcBtns.forEach(btn => {
@@ -197,11 +257,35 @@ svcBtns.forEach(btn => {
     const svc = services[btn.dataset.service]
     panelTitle.textContent = svc.title
     panelMethod.textContent = svc.method
+    
     fgFront.style.display = svc.fields.includes('front') ? '' : 'none'
+    fgBack.style.display = svc.fields.includes('back') ? '' : 'none'
     fgSelfie.style.display = svc.fields.includes('selfie') ? '' : 'none'
+    fgUserid.style.display = svc.fields.includes('userid') ? '' : 'none'
     fgName.style.display = svc.fields.includes('name') ? '' : 'none'
     fgNameEn.style.display = svc.fields.includes('name-en') ? '' : 'none'
     fgOptions.style.display = svc.fields.includes('options') ? '' : 'none'
+
+    // Update labels dynamically
+    if (btn.dataset.service === 'face') {
+      fgFront.querySelector('label').textContent = 'Reference Image'
+      fgSelfie.querySelector('label').textContent = 'Selfie Image'
+    } else {
+      fgFront.querySelector('label').textContent = 'Front Image'
+      fgSelfie.querySelector('label').textContent = 'Selfie'
+    }
+    
+    // Reset file spans
+    document.querySelectorAll('.file-drop span').forEach(s => s.textContent = 'Drop image or click to upload')
+    if (btn.dataset.service === 'nid') {
+      document.querySelector('#drop-front span').textContent = 'Drop front image or click to upload'
+      document.querySelector('#drop-back span').textContent = 'Drop back image or click to upload'
+    } else if (btn.dataset.service === 'face') {
+      document.querySelector('#drop-front span').textContent = 'Drop reference image or click to upload'
+      document.querySelector('#drop-selfie span').textContent = 'Drop selfie image or click to upload'
+    }
+
+    updateCurl()
   })
 })
 
@@ -221,12 +305,11 @@ document.querySelectorAll('.file-drop').forEach(drop => {
   })
 })
 
-// Sample data
-document.getElementById('btn-sample').addEventListener('click', () => {
-  document.querySelectorAll('.file-drop span').forEach(s => s.textContent = 'sample_nid_front.jpg')
-  document.getElementById('resp-status').textContent = '200 OK · 0.78s'
-  document.getElementById('resp-status').className = 'response-status status-ok'
-})
+// Input listeners for cURL update
+document.getElementById('api-key').addEventListener('input', updateCurl)
+document.getElementById('userid-input').addEventListener('input', updateCurl)
+document.getElementById('name-input').addEventListener('input', updateCurl)
+document.getElementById('name-en-input').addEventListener('input', updateCurl)
 
 // Env toggle
 document.getElementById('env-toggle').addEventListener('click', e => {
@@ -234,6 +317,7 @@ document.getElementById('env-toggle').addEventListener('click', e => {
   if (!btn) return
   document.querySelectorAll('.env-btn').forEach(b => b.classList.remove('active'))
   btn.classList.add('active')
+  updateCurl()
 })
 
 // Copy cURL
@@ -242,6 +326,294 @@ document.getElementById('curl-copy').addEventListener('click', () => {
   navigator.clipboard.writeText(text)
   document.getElementById('curl-copy').textContent = 'Copied!'
   setTimeout(() => document.getElementById('curl-copy').textContent = 'Copy', 1500)
+})
+
+// Sample data simulator
+document.getElementById('btn-sample').addEventListener('click', () => {
+  const activeSvcBtn = document.querySelector('.svc-btn.active')
+  const serviceKey = activeSvcBtn ? activeSvcBtn.dataset.service : 'nid'
+  let responseData = {}
+
+  if (serviceKey === 'nid') {
+    document.querySelector('#drop-front span').textContent = 'sample_nid_front.jpg'
+    document.querySelector('#drop-back span').textContent = 'sample_nid_back.jpg'
+    responseData = {
+      "ok": true,
+      "txId": "TX_1773843146096_646FF71CAA17",
+      "username": "demo_user",
+      "tokensRemaining": 998,
+      "tokensUsed": 2,
+      "data": {
+        "fields": {
+          "name_bn": "মোছা: নূর সেলিনা বেগম",
+          "name_en": "Mst Nur Shelina Begum",
+          "father_or_husband_bn": "মোঃ জাহিদ হাসান",
+          "father_or_husband_en": "Md. Jahid Hasan",
+          "mother_bn": "জিনাতুন খাতুন",
+          "mother_en": "Jinatun Khatun",
+          "dob_en": "20 Jan 1970",
+          "nid_number": "1234567890123",
+          "address_bn": "বাসা/হোল্ডিং: খাঁন বাড়ী, গ্রাম/রাস্তা: বড় বাজার, ডাকঘর: ময়মনসিংহ সদর, জেলা: ময়মনসিংহ",
+          "blood_group": "A+",
+          "place_of_birth": "MYMENSINGH"
+        },
+        "normalized": {
+          "dob_iso": "1970-01-20"
+        }
+      }
+    }
+    document.getElementById('interpretation').innerHTML = `
+      <div class="interp-row interp-green">
+        <span class="interp-label">NID OCR</span>
+        <span class="interp-verdict">Verified & Parsed Successfully</span>
+      </div>
+      <div class="interp-row">
+        <span class="interp-label">Identity</span>
+        <span class="interp-verdict">Mst Nur Shelina Begum · 1234567890123</span>
+      </div>
+    `
+  } else if (serviceKey === 'face') {
+    document.querySelector('#drop-front span').textContent = 'sample_reference.jpg'
+    document.querySelector('#drop-selfie span').textContent = 'sample_selfie.jpg'
+    responseData = {
+      "ok": true,
+      "txId": "TX_1773843146098_12345",
+      "username": "demo_user",
+      "tokensRemaining": 994,
+      "tokensUsed": 4,
+      "data": {
+        "taskId": "5190bb5e-0839-49ad-9027-c66d03e64d6f",
+        "status": "completed",
+        "result": {
+          "status": "completed",
+          "result": "PASS",
+          "matched": true,
+          "confidence": 0.8145,
+          "threshold": 0.6,
+          "matchConfidenceLevel": "high"
+        }
+      }
+    }
+    document.getElementById('interpretation').innerHTML = `
+      <div class="interp-row interp-green">
+        <span class="interp-label">Face Match</span>
+        <span class="interp-verdict">Matched (81.4% Confidence) — High Confidence</span>
+      </div>
+    `
+  } else if (serviceKey === 'liveness') {
+    document.getElementById('userid-input').value = 'user-123'
+    responseData = {
+      "ok": true,
+      "txId": "TX_1772631959837_CBADEFA44055",
+      "username": "demo_user",
+      "tokensRemaining": 992,
+      "tokensUsed": 2,
+      "data": {
+        "sessionId": "7995664a-b950-4aed-b4d1-76dc12c779c2",
+        "url": "https://api.adeptsense.tech/liveness?token=eyJzaWQiOiI3OT..."
+      }
+    }
+    document.getElementById('interpretation').innerHTML = `
+      <div class="interp-row interp-green">
+        <span class="interp-label">Session Created</span>
+        <span class="interp-verdict"><a href="${responseData.data.url}" target="_blank" style="color: var(--blue); text-decoration: underline; font-weight: 500;">Open Hosted Liveness UI &rarr;</a></span>
+      </div>
+    `
+  } else if (serviceKey === 'name') {
+    document.getElementById('name-input').value = 'Abdul Karim'
+    responseData = {
+      "ok": true,
+      "txId": "TX_1773843146099_646F",
+      "username": "demo_user",
+      "tokensRemaining": 991,
+      "tokensUsed": 1,
+      "data": {
+        "results": [
+          {
+            "name": "Abdul Karim",
+            "original": "Abdul Karim",
+            "translated": "আব্দুল করিম",
+            "gender": "male"
+          }
+        ]
+      }
+    }
+    document.getElementById('interpretation').innerHTML = `
+      <div class="interp-row interp-green">
+        <span class="interp-label">Translated</span>
+        <span class="interp-verdict">Abdul Karim &rarr; আব্দুল করিম (Male)</span>
+      </div>
+    `
+  } else if (serviceKey === 'gender') {
+    document.getElementById('name-en-input').value = 'Sara Ali'
+    responseData = {
+      "ok": true,
+      "txId": "TX_1773843146100_7777",
+      "username": "demo_user",
+      "tokensRemaining": 990,
+      "tokensUsed": 1,
+      "data": {
+        "results": [
+          {
+            "name": "Sara Ali",
+            "gender": { "value": "female", "confidence": 0.82 },
+            "notes": "Likely feminine usage"
+          }
+        ]
+      }
+    }
+    document.getElementById('interpretation').innerHTML = `
+      <div class="interp-row interp-green">
+        <span class="interp-label">Gender Verdict</span>
+        <span class="interp-verdict">Female (82% Confidence)</span>
+      </div>
+    `
+  }
+
+  document.getElementById('resp-json').innerHTML = formatJsonHighlight(responseData)
+  document.getElementById('resp-status').textContent = '200 OK · 0.42s'
+  document.getElementById('resp-status').className = 'response-status status-ok'
+  updateCurl()
+})
+
+// Submit button handler (mocking / live calls)
+document.getElementById('btn-submit').addEventListener('click', async () => {
+  const apiKey = document.getElementById('api-key').value
+  if (!apiKey) {
+    // Simulate with sample data
+    document.getElementById('resp-status').textContent = 'Simulating...'
+    document.getElementById('resp-status').className = 'response-status'
+    setTimeout(() => {
+      document.getElementById('btn-sample').click()
+    }, 600)
+    return
+  }
+
+  const env = document.querySelector('.env-btn.active').dataset.env
+  const baseUrl = env === 'live' ? 'https://api.adeptsense.tech' : 'https://api-sandbox.adeptsense.tech'
+  const activeSvcBtn = document.querySelector('.svc-btn.active')
+  const serviceKey = activeSvcBtn ? activeSvcBtn.dataset.service : 'nid'
+
+  document.getElementById('resp-status').textContent = 'Sending...'
+  document.getElementById('resp-status').className = 'response-status'
+
+  let url = ''
+  let options = {
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey
+    }
+  }
+
+  try {
+    if (serviceKey === 'nid') {
+      url = `${baseUrl}/api/v1/ocr/nid?raw=0`
+      const formData = new FormData()
+      const frontFile = document.querySelector('#fg-front input').files[0]
+      const backFile = document.querySelector('#fg-back input').files[0]
+      if (!frontFile || !backFile) {
+        throw new Error('Please select both Front and Back NID images.')
+      }
+      formData.append('front', frontFile)
+      formData.append('back', backFile)
+      options.body = formData
+    } else if (serviceKey === 'face') {
+      url = `${baseUrl}/api/v1/match/face/submit`
+      const formData = new FormData()
+      const referenceFile = document.querySelector('#fg-front input').files[0]
+      const selfieFile = document.querySelector('#fg-selfie input').files[0]
+      if (!referenceFile || !selfieFile) {
+        throw new Error('Please select Reference and Selfie images.')
+      }
+      formData.append('referenceImage', referenceFile)
+      formData.append('selfieImage', selfieFile)
+      options.body = formData
+    } else if (serviceKey === 'liveness') {
+      url = `${baseUrl}/api/v1/liveness/create`
+      options.headers['Content-Type'] = 'application/json'
+      const userId = document.getElementById('userid-input').value || 'user-123'
+      options.body = JSON.stringify({ userId, platform: 'web' })
+    } else if (serviceKey === 'name') {
+      url = `${baseUrl}/api/v1/name/translate`
+      options.headers['Content-Type'] = 'application/json'
+      const nameVal = document.getElementById('name-input').value
+      if (!nameVal) throw new Error('Please enter a name to translate.')
+      options.body = JSON.stringify({ inputLang: 'en', outputLang: 'bn', names: [nameVal] })
+    } else if (serviceKey === 'gender') {
+      url = `${baseUrl}/api/v1/name/gender`
+      options.headers['Content-Type'] = 'application/json'
+      const nameEnVal = document.getElementById('name-en-input').value
+      if (!nameEnVal) throw new Error('Please enter a name for gender estimation.')
+      options.body = JSON.stringify({ inputLang: 'en', names: [nameEnVal] })
+    }
+
+    const startTime = performance.now()
+    const res = await fetch(url, options)
+    const duration = ((performance.now() - startTime) / 1000).toFixed(2)
+    const json = await res.json()
+
+    document.getElementById('resp-status').textContent = `${res.status} ${res.statusText} · ${duration}s`
+    if (res.ok) {
+      document.getElementById('resp-status').className = 'response-status status-ok'
+      document.getElementById('resp-json').innerHTML = formatJsonHighlight(json)
+      
+      if (serviceKey === 'nid') {
+        const fields = json.data?.fields || {}
+        document.getElementById('interpretation').innerHTML = `
+          <div class="interp-row interp-green">
+            <span class="interp-label">NID OCR</span>
+            <span class="interp-verdict">Verified & Parsed Successfully</span>
+          </div>
+          <div class="interp-row">
+            <span class="interp-label">Identity</span>
+            <span class="interp-verdict">${fields.name_en || 'N/A'} · ${fields.nid_number || 'N/A'}</span>
+          </div>
+        `
+      } else if (serviceKey === 'face') {
+        const taskId = json.data?.taskId
+        document.getElementById('interpretation').innerHTML = `
+          <div class="interp-row interp-amber">
+            <span class="interp-label">Task Queued</span>
+            <span class="interp-verdict">Task ID: ${taskId}. Please fetch Face Match Result to check matching status.</span>
+          </div>
+        `
+      } else if (serviceKey === 'liveness') {
+        const url = json.data?.url
+        document.getElementById('interpretation').innerHTML = `
+          <div class="interp-row interp-green">
+            <span class="interp-label">Session Created</span>
+            <span class="interp-verdict"><a href="${url}" target="_blank" style="color: var(--blue); text-decoration: underline; font-weight: 500;">Open Hosted Liveness UI &rarr;</a></span>
+          </div>
+        `
+      } else {
+        document.getElementById('interpretation').innerHTML = `
+          <div class="interp-row">
+            <span class="interp-label">API Response</span>
+            <span class="interp-verdict">Request processed successfully</span>
+          </div>
+        `
+      }
+    } else {
+      document.getElementById('resp-status').className = 'response-status status-err'
+      document.getElementById('resp-json').innerHTML = formatJsonHighlight(json)
+      document.getElementById('interpretation').innerHTML = `
+        <div class="interp-row interp-red">
+          <span class="interp-label">Request Failed</span>
+          <span class="interp-verdict">${json.error?.message || 'Error occurred'}</span>
+        </div>
+      `
+    }
+  } catch (err) {
+    document.getElementById('resp-status').textContent = 'Error'
+    document.getElementById('resp-status').className = 'response-status status-err'
+    document.getElementById('resp-json').textContent = err.message
+    document.getElementById('interpretation').innerHTML = `
+      <div class="interp-row interp-red">
+        <span class="interp-label">Local Error</span>
+        <span class="interp-verdict">${err.message}</span>
+      </div>
+    `
+  }
 })
 </script>
 </body>

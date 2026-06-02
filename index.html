@@ -10,29 +10,30 @@
 <body>
 
 <!-- ── NAV ── -->
-<nav id="navbar">
-  <a href="#" class="nav-logo">
-    <img src="/src/assets/logo.png" alt="AdeptSense" class="logo-img">
-  </a>
-  <ul class="nav-links">
-    <li><a href="#services">Products</a></li>
-    <li><a href="#use-cases">Use Cases</a></li>
-    <li><a href="#how-it-works">How it works</a></li>
-    <li><a href="docs.html">Docs</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-  </ul>
-  <div class="nav-right">
-    <a href="#" class="nav-sign">Sign in</a>
-    <a href="#" class="nav-cta">Get API key</a>
-  </div>
-  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+<header id="site-header">
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <img src="/src/assets/logo.png" alt="AdeptSense" class="logo-img">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Products</a></li>
+      <li><a href="#use-cases">Use Cases</a></li>
+      <li><a href="#how-it-works">Resources</a></li>
+      <li><a href="docs.html">Docs <svg class="nav-external" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5H9.5V7.5"/><path d="M9.5 2.5L3 9"/></svg></a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#" class="nav-sign">Sign in</a>
+      <a href="#" class="nav-cta">Get API key</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
 
 <!-- ── HERO ── -->
 <section class="hero-section">
-  <div class="hero-glow-orb"></div>
   <div class="hero-illustration-right">
     <svg viewBox="0 0 160 160" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M40 80h80M80 40v80" stroke-dasharray="4 4" opacity="0.3"/>
@@ -54,10 +55,10 @@
       <h1 class="hero-h1">Verify identity.<br><em>Instantly.</em></h1>
       <p class="hero-p">Secure onboarding for web, mobile, and hybrid apps. NID OCR, face match, liveness, name translation, and gender intelligence — all via one API.</p>
       
-      <form class="hero-cta-form" onsubmit="event.preventDefault(); alert('Trial API Key sent!');">
-        <input type="email" placeholder="Enter your work email" required class="hero-input">
-        <button type="submit" class="btn-primary-form">Get API key &rarr;</button>
-      </form>
+      <div class="hero-cta-btns">
+        <a href="playground.html" class="hero-btn-primary">Try Demo &rarr;</a>
+        <a href="docs.html" class="hero-btn-secondary">API Docs</a>
+      </div>
       
       <div class="hero-trust-proof">
         <span class="trust-stars">★★★★★</span>
@@ -203,24 +204,24 @@
           <div class="terminal-body">
             <div class="terminal-column req">
               <div class="panel-label">HTTP REQUEST</div>
-              <pre><code><span class="tok-method">POST</span> /v1/verify/face
+              <pre><code><span class="tok-method">POST</span> /api/v1/match/face/submit
 Host: api.adeptsense.tech
-Authorization: Bearer sec_key...
+x-api-key: sec_key...
 
 {
-  <span class="tok-key">"selfie"</span>: <span class="tok-val">"base64..."</span>,
-  <span class="tok-key">"nid_avatar"</span>: <span class="tok-val">"base64..."</span>,
-  <span class="tok-key">"liveness_check"</span>: <span class="tok-true">true</span>
+  <span class="tok-key">"referenceImage"</span>: <span class="tok-val">"base64..."</span>,
+  <span class="tok-key">"selfieImage"</span>: <span class="tok-val">"base64..."</span>
 }</code></pre>
             </div>
             <div class="terminal-column resp">
               <div class="panel-label">JSON RESPONSE (200 OK)</div>
               <pre><code>{
-  <span class="tok-key">"matched"</span>: <span class="tok-true">true</span>,
-  <span class="tok-key">"match_score"</span>: <span class="tok-num">0.964</span>,
-  <span class="tok-key">"liveness_passed"</span>: <span class="tok-true">true</span>,
-  <span class="tok-key">"liveness_score"</span>: <span class="tok-num">0.998</span>,
-  <span class="tok-key">"request_id"</span>: <span class="tok-str">"req_fa8b2c"</span>
+  <span class="tok-key">"ok"</span>: <span class="tok-true">true</span>,
+  <span class="tok-key">"txId"</span>: <span class="tok-str">"TX_1773843146098_12345"</span>,
+  <span class="tok-key">"data"</span>: {
+    <span class="tok-key">"taskId"</span>: <span class="tok-str">"5190bb5e-0839-49ad-9027-c66d03e64d6f"</span>,
+    <span class="tok-key">"status"</span>: <span class="tok-str">"queued"</span>
+  }
 }</code></pre>
             </div>
           </div>
@@ -656,8 +657,12 @@ Authorization: Bearer sec_key...
       </div>
       <div class="code-wrap" id="code-block"></div>
       <div class="code-links">
-        <a href="https://api.adeptsense.tech/docs" class="code-link" target="_blank">Full API reference &rarr;</a>
-        <a href="#" class="code-link-muted">GitHub</a>
+        <a href="docs.html" class="code-link">Full API reference &rarr;</a>
+        <span class="code-divider">|</span>
+        <span class="sdk-label">SDKs &amp; Adapters:</span>
+        <a href="docs.html#sdks" class="sdk-link-tag">Android</a>
+        <a href="docs.html#sdks" class="sdk-link-tag">iOS</a>
+        <a href="docs.html#webviews" class="sdk-link-tag">WebView Flow (Flutter/Web)</a>
       </div>
     </div>
 

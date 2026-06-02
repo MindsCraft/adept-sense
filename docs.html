@@ -41,17 +41,18 @@
       </div>
       <div class="sidebar-section">
         <h4>Endpoints</h4>
-        <a href="#nid-ocr" class="sidebar-link">POST /verify/nid</a>
-        <a href="#face-match" class="sidebar-link">POST /verify/face-match</a>
-        <a href="#liveness" class="sidebar-link">POST /verify/liveness</a>
-        <a href="#name-translate" class="sidebar-link">POST /translate/name</a>
-        <a href="#gender" class="sidebar-link">POST /predict/gender</a>
+        <a href="#nid-ocr" class="sidebar-link">POST /api/v1/ocr/nid</a>
+        <a href="#face-match" class="sidebar-link">POST /api/v1/match/face/submit</a>
+        <a href="#liveness" class="sidebar-link">POST /api/v1/liveness/create</a>
+        <a href="#name-translate" class="sidebar-link">POST /api/v1/name/translate</a>
+        <a href="#gender" class="sidebar-link">POST /api/v1/name/gender</a>
       </div>
       <div class="sidebar-section">
         <h4>Guides</h4>
         <a href="#score-thresholds" class="sidebar-link">Score Thresholds</a>
         <a href="#error-codes" class="sidebar-link">Error Codes</a>
         <a href="#webhooks" class="sidebar-link">Webhooks</a>
+        <a href="#webviews" class="sidebar-link">WebView Flow Integration</a>
       </div>
       <div class="sidebar-section">
         <h4>Resources</h4>
@@ -73,11 +74,11 @@
       <div class="info-grid">
         <div class="info-card">
           <span class="info-label">Base URL</span>
-          <code class="info-value">https://api.adeptsense.tech/v1</code>
+          <code class="info-value">https://api.adeptsense.tech/api/v1</code>
         </div>
         <div class="info-card">
           <span class="info-label">Sandbox URL</span>
-          <code class="info-value">https://api-sandbox.adeptsense.tech/v1</code>
+          <code class="info-value">https://api-sandbox.adeptsense.tech/api/v1</code>
         </div>
         <div class="info-card">
           <span class="info-label">Content Type</span>
@@ -93,10 +94,10 @@
     <!-- AUTHENTICATION -->
     <section id="authentication">
       <h2>Authentication</h2>
-      <p>All API requests require a Bearer token in the <code>Authorization</code> header:</p>
+      <p>All protected API requests require your custom API key passed in the <code>x-api-key</code> HTTP header:</p>
       <div class="code-block">
         <div class="code-header"><span>HTTP Header</span></div>
-        <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+        <pre><code>x-api-key: YOUR_API_KEY</code></pre>
       </div>
       <p>You can generate API keys from your <a href="#">dashboard</a>. Keep your keys secure — do not commit them to version control or expose them client-side.</p>
     </section>
@@ -117,11 +118,8 @@
         <div class="qs-step">
           <div class="qs-num">2</div>
           <div>
-            <h4>Install the SDK (optional)</h4>
-            <div class="code-block compact">
-              <div class="code-header"><span>npm</span></div>
-              <pre><code><span class="c-fn">npm</span> install @adeptsense/node</code></pre>
-            </div>
+            <h4>Prepare files &amp; request</h4>
+            <p>Use Node, Python, or standard cURL client to upload images to the API endpoint.</p>
           </div>
         </div>
         <div class="qs-step">
@@ -135,19 +133,23 @@
             </div>
             <div class="code-block" id="qs-code">
               <div class="code-header"><span>Node.js</span></div>
-              <pre><code id="qs-code-content"><span class="c-kw">import</span> AdeptSense <span class="c-kw">from</span> <span class="c-str">'@adeptsense/node'</span>
+              <pre><code id="qs-code-content"><span class="c-kw">import</span> fs <span class="c-kw">from</span> <span class="c-str">'node:fs/promises'</span>
+<span class="c-kw">import</span> FormData <span class="c-kw">from</span> <span class="c-str">'form-data'</span>
 
-<span class="c-kw">const</span> client = <span class="c-kw">new</span> <span class="c-fn">AdeptSense</span>({
-  apiKey: process.<span class="c-var">env</span>.ADEPT_KEY
+<span class="c-kw">const</span> form = <span class="c-kw">new</span> <span class="c-fn">FormData</span>()
+form.<span class="c-fn">append</span>(<span class="c-str">'front'</span>, await fs.readFile(<span class="c-str">'./front.jpg'</span>), <span class="c-str">'front.jpg'</span>)
+form.<span class="c-fn">append</span>(<span class="c-str">'back'</span>, await fs.readFile(<span class="c-str">'./back.jpg'</span>), <span class="c-str">'back.jpg'</span>)
+
+<span class="c-kw">const</span> res = <span class="c-kw">await</span> <span class="c-fn">fetch</span>(<span class="c-str">'https://api.adeptsense.tech/api/v1/ocr/nid'</span>, {
+  method: <span class="c-str">'POST'</span>,
+  headers: {
+    <span class="c-str">'x-api-key'</span>: process.<span class="c-var">env</span>.ADEPT_KEY
+  },
+  body: form
 })
 
-<span class="c-kw">const</span> result = <span class="c-kw">await</span> client.verify.<span class="c-fn">nid</span>({
-  front: frontBuffer,
-  selfie: selfieBuffer,
-  liveness: <span class="c-val">true</span>
-})
-
-console.<span class="c-fn">log</span>(result.verified) <span class="c-cm">// true</span></code></pre>
+<span class="c-kw">const</span> result = <span class="c-kw">await</span> res.<span class="c-fn">json</span>()
+console.<span class="c-fn">log</span>(result.ok) <span class="c-cm">// true</span></code></pre>
             </div>
           </div>
         </div>
@@ -169,80 +171,109 @@ console.<span class="c-fn">log</span>(result.verified) <span class="c-cm">// tru
 
     <!-- ENDPOINTS -->
     <section id="nid-ocr">
-      <h2>POST /verify/nid</h2>
-      <p>Extract structured identity fields from a Bangladesh NID card image. Supports both smart-card and old-format NIDs.</p>
+      <h2>POST /api/v1/ocr/nid</h2>
+      <p>Extract structured identity fields from a Bangladesh NID card image. Supports both smart-card and old-format NIDs. (Cost: 2 tokens)</p>
 
       <h3>Request Body</h3>
       <div class="params-table">
         <div class="param-row param-header"><span>Parameter</span><span>Type</span><span>Required</span><span>Description</span></div>
-        <div class="param-row"><code>front_image</code><span>string</span><span class="param-req">Yes</span><span>Base64-encoded front of NID</span></div>
-        <div class="param-row"><code>back_image</code><span>string</span><span class="param-opt">No</span><span>Base64-encoded back of NID</span></div>
-        <div class="param-row"><code>selfie</code><span>string</span><span class="param-opt">No</span><span>Base64-encoded selfie for face match</span></div>
-        <div class="param-row"><code>liveness</code><span>boolean</span><span class="param-opt">No</span><span>Enable liveness verification</span></div>
-        <div class="param-row"><code>face_match</code><span>boolean</span><span class="param-opt">No</span><span>Enable face match against NID photo</span></div>
+        <div class="param-row"><code>front</code><span>string / file</span><span class="param-req">Yes</span><span>Front of NID (binary file or base64 data URL)</span></div>
+        <div class="param-row"><code>back</code><span>string / file</span><span class="param-req">Yes</span><span>Back of NID (binary file or base64 data URL)</span></div>
       </div>
 
-      <h3>Response — Format A (Current)</h3>
+      <h3>Response — Success Example</h3>
       <div class="code-block">
         <div class="code-header"><span class="status-ok">200 OK</span></div>
         <pre><code>{
-  <span class="c-str">"verified"</span>:         <span class="c-val">true</span>,
-  <span class="c-str">"liveness_score"</span>:   <span class="c-num">0.97</span>,
-  <span class="c-str">"face_match_score"</span>: <span class="c-num">0.94</span>,
-  <span class="c-str">"name"</span>:             <span class="c-str">"Md. Rafiqul Islam"</span>,
-  <span class="c-str">"name_bn"</span>:          <span class="c-str">"মোঃ রফিকুল ইসলাম"</span>,
-  <span class="c-str">"nid_number"</span>:       <span class="c-str">"••••••4821"</span>,
-  <span class="c-str">"dob"</span>:              <span class="c-str">"1988-03-12"</span>
-}</code></pre>
-      </div>
-
-      <h3>Response — Format B (Enhanced)</h3>
-      <div class="code-block">
-        <div class="code-header"><span class="status-err">422 Unprocessable</span></div>
-        <pre><code>{
-  <span class="c-str">"verified"</span>:            <span class="c-val">false</span>,
-  <span class="c-str">"error_code"</span>:          <span class="c-str">"ERR_IMAGE_BLURRY"</span>,
-  <span class="c-str">"error_message"</span>:       <span class="c-str">"OCR couldn't read text"</span>,
-  <span class="c-str">"recommended_action"</span>: <span class="c-str">"Ask user to retake photo"</span>
+  <span class="c-str">"ok"</span>:              <span class="c-val">true</span>,
+  <span class="c-str">"txId"</span>:            <span class="c-str">"TX_1773843146096_646FF71CAA17"</span>,
+  <span class="c-str">"username"</span>:        <span class="c-str">"alice"</span>,
+  <span class="c-str">"tokensRemaining"</span>: <span class="c-num">99601</span>,
+  <span class="c-str">"tokensUsed"</span>:      <span class="c-num">2</span>,
+  <span class="c-str">"data"</span>: {
+    <span class="c-str">"fields"</span>: {
+      <span class="c-str">"name_bn"</span>: <span class="c-str">"রাজা আহমেদ"</span>,
+      <span class="c-str">"name_en"</span>: <span class="c-str">"RAZA AHMED"</span>,
+      <span class="c-str">"nid_number"</span>: <span class="c-str">"2025001221"</span>,
+      <span class="c-str">"dob_en"</span>: <span class="c-str">"01 Sep 1980"</span>,
+      <span class="c-str">"address_bn"</span>: <span class="c-str">"বাসা/হোল্ডিং: ১৩, গ্রাম/রাস্তা: আবাসিক কলোনী..."</span>,
+      <span class="c-str">"father_or_husband_bn"</span>: <span class="c-str">"মোহাম্মদ আলী"</span>,
+      <span class="c-str">"father_or_husband_en"</span>: <span class="c-str">"Mohammad Ali"</span>
+    },
+    <span class="c-str">"normalized"</span>: {
+      <span class="c-str">"dob_iso"</span>: <span class="c-str">"1981-01-01"</span>
+    }
+  }
 }</code></pre>
       </div>
     </section>
 
     <section id="face-match">
-      <h2>POST /verify/face-match</h2>
-      <p>Compare a live selfie against an ID portrait to determine if they belong to the same person.</p>
+      <h2>POST /api/v1/match/face/submit</h2>
+      <p>Submit a face matching task to compare reference and selfie images asynchronously. (Cost: 4 tokens)</p>
       <div class="params-table">
         <div class="param-row param-header"><span>Parameter</span><span>Type</span><span>Required</span><span>Description</span></div>
-        <div class="param-row"><code>selfie</code><span>string</span><span class="param-req">Yes</span><span>Base64-encoded selfie image</span></div>
-        <div class="param-row"><code>reference</code><span>string</span><span class="param-req">Yes</span><span>Base64-encoded reference/ID photo</span></div>
+        <div class="param-row"><code>referenceImage</code><span>string / file</span><span class="param-req">Yes</span><span>Reference or ID card portrait</span></div>
+        <div class="param-row"><code>selfieImage</code><span>string / file</span><span class="param-req">Yes</span><span>Live user selfie image</span></div>
+        <div class="param-row"><code>callbackUrl</code><span>string</span><span class="param-opt">No</span><span>POST webhook URL for final results callback</span></div>
       </div>
+      <h3>Response — Submit Response</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="status-ok">200 OK</span></div>
+        <pre><code>{
+  <span class="c-str">"ok"</span>: <span class="c-val">true</span>,
+  <span class="c-str">"data"</span>: {
+    <span class="c-str">"taskId"</span>: <span class="c-str">"5190bb5e-0839-49ad-9027-c66d03e64d6f"</span>,
+    <span class="c-str">"status"</span>: <span class="c-str">"queued"</span>
+  }
+}</code></pre>
+      </div>
+      <h3>GET /api/v1/match/face/result</h3>
+      <p>Poll this endpoint with <code>taskId</code> to fetch the async face comparison results.</p>
     </section>
 
     <section id="liveness">
-      <h2>POST /verify/liveness</h2>
-      <p>Verify that a submitted image or video is from a live person, not a photo, mask, or digital replay.</p>
+      <h2>POST /api/v1/liveness/create</h2>
+      <p>Create a one-time liveness session. (Cost: 2 tokens)</p>
       <div class="params-table">
         <div class="param-row param-header"><span>Parameter</span><span>Type</span><span>Required</span><span>Description</span></div>
-        <div class="param-row"><code>image</code><span>string</span><span class="param-req">Yes</span><span>Base64-encoded face image or video frame</span></div>
-        <div class="param-row"><code>session_id</code><span>string</span><span class="param-opt">No</span><span>Session ID for async webhook result</span></div>
+        <div class="param-row"><code>userId</code><span>string</span><span class="param-req">Yes</span><span>Unique reference for the user</span></div>
+        <div class="param-row"><code>platform</code><span>string</span><span class="param-opt">No</span><span>Client platform: "web", "mobile", etc.</span></div>
+        <div class="param-row"><code>callbackUrl</code><span>string</span><span class="param-opt">No</span><span>URL to post results once session completes</span></div>
       </div>
+      <h3>Response — Hosted URL Creation</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="status-ok">200 OK</span></div>
+        <pre><code>{
+  <span class="c-str">"ok"</span>: <span class="c-val">true</span>,
+  <span class="c-str">"data"</span>: {
+    <span class="c-str">"sessionId"</span>: <span class="c-str">"7995664a-b950-4aed-b4d1-76dc12c779c2"</span>,
+    <span class="c-str">"url"</span>: <span class="c-str">"https://api.adeptsense.tech/liveness?token=eyJzaWQiOiI3..."</span>
+  }
+}</code></pre>
+      </div>
+      <h3>GET /api/v1/liveness/result</h3>
+      <p>Fetch the stored session results using <code>sessionId</code> query parameter.</p>
     </section>
 
     <section id="name-translate">
-      <h2>POST /translate/name</h2>
-      <p>Convert a Bangla name to its English transliteration for cross-system identity matching.</p>
+      <h2>POST /api/v1/name/translate</h2>
+      <p>Convert a Bangla name to its English transliteration or vice versa for cross-system database matching. (Cost: 1 token)</p>
       <div class="params-table">
         <div class="param-row param-header"><span>Parameter</span><span>Type</span><span>Required</span><span>Description</span></div>
-        <div class="param-row"><code>name_bn</code><span>string</span><span class="param-req">Yes</span><span>Name in Bangla script</span></div>
+        <div class="param-row"><code>inputLang</code><span>string</span><span class="param-req">Yes</span><span>Original script: "en" or "bn"</span></div>
+        <div class="param-row"><code>outputLang</code><span>string</span><span class="param-req">Yes</span><span>Target script: "en" or "bn"</span></div>
+        <div class="param-row"><code>names</code><span>array</span><span class="param-req">Yes</span><span>Array of string names to translate</span></div>
       </div>
     </section>
 
     <section id="gender">
-      <h2>POST /predict/gender</h2>
-      <p>Predict gender from a given name using name intelligence models trained on South Asian naming conventions.</p>
+      <h2>POST /api/v1/name/gender</h2>
+      <p>Predict gender and confidence levels from a given name in a specified language. (Cost: 1 token)</p>
       <div class="params-table">
         <div class="param-row param-header"><span>Parameter</span><span>Type</span><span>Required</span><span>Description</span></div>
-        <div class="param-row"><code>name</code><span>string</span><span class="param-req">Yes</span><span>Full name (English or Bangla)</span></div>
+        <div class="param-row"><code>inputLang</code><span>string</span><span class="param-req">Yes</span><span>Language script: "bn" or "en"</span></div>
+        <div class="param-row"><code>names</code><span>array</span><span class="param-req">Yes</span><span>Array of string names to analyze</span></div>
       </div>
     </section>
 
@@ -307,6 +338,85 @@ console.<span class="c-fn">log</span>(result.verified) <span class="c-cm">// tru
 }</code></pre>
       </div>
       <p>Verify the <code>signature</code> header using your webhook secret. Retries use exponential backoff (1s, 5s, 30s, 5m).</p>
+    </section>
+
+    <!-- WEBVIEW INTEGRATIONS -->
+    <section id="webviews">
+      <h2>WebView Flow Integration</h2>
+      <p>If you're using our hosted verification UI (<code>/liveness?token=...</code>) inside mobile or web applications, you can receive completion events natively via WebView and JavaScript bridges.</p>
+      
+      <h3>A) Web (iframe + postMessage)</h3>
+      <p>Listen for liveness completion event payload using standard browser message handler:</p>
+      <div class="code-block">
+        <div class="code-header"><span>JavaScript</span></div>
+        <pre><code>const livenessUrl = "https://api.adeptsense.tech/liveness?token=YOUR_TOKEN";
+document.getElementById("lvFrame").src = livenessUrl;
+
+window.addEventListener("message", async (event) => {
+  if (event.origin !== "https://api.adeptsense.tech") return;
+  const msg = event.data || {};
+  if (msg.type !== "liveness.result") return;
+
+  const sessionId = msg.sessionId;
+  // Fetch result securely from your backend -> /api/v1/liveness/result?sessionId=...
+  console.log("Session complete:", sessionId);
+});</code></pre>
+      </div>
+
+      <h3>B) Flutter (flutter_inappwebview)</h3>
+      <p>Register Javascript handler name <code>livenessResult</code> in the controller:</p>
+      <div class="code-block">
+        <div class="code-header"><span>Dart</span></div>
+        <pre><code>final String livenessUrl = "https://api.adeptsense.tech/liveness?token=YOUR_TOKEN";
+
+InAppWebView(
+  initialUrlRequest: URLRequest(url: WebUri(livenessUrl)),
+  onWebViewCreated: (controller) {
+    controller.addJavaScriptHandler(
+      handlerName: "livenessResult",
+      callback: (args) async {
+        final payload = args.isNotEmpty ? args[0] : null;
+        final sessionId = payload?["sessionId"];
+        // Call your backend proxy -> /api/v1/liveness/result?sessionId=...
+      },
+    );
+  },
+);</code></pre>
+      </div>
+
+      <h3>C) iOS (Swift + WKWebView)</h3>
+      <p>Observe the userContentController with script handler name <code>livenessResult</code>:</p>
+      <div class="code-block">
+        <div class="code-header"><span>Swift</span></div>
+        <pre><code>import WebKit
+
+config.userContentController.add(self, name: "livenessResult")
+webView.load(URLRequest(url: URL(string: "https://api.adeptsense.tech/liveness?token=YOUR_TOKEN")!))
+
+func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+  guard message.name == "livenessResult" else { return }
+  if let payload = message.body as? [String: Any],
+     let sessionId = payload["sessionId"] as? String {
+       // Call your backend to verify -> /api/v1/liveness/result?sessionId=...
+  }
+}</code></pre>
+      </div>
+
+      <h3>D) Android (Java/Kotlin + WebView)</h3>
+      <p>Create a JavaScript interface class bound as <code>AndroidLiveness</code>:</p>
+      <div class="code-block">
+        <div class="code-header"><span>Kotlin</span></div>
+        <pre><code>class LivenessBridge {
+    @android.webkit.JavascriptInterface
+    fun postMessage(payloadJson: String) {
+        // Parse JSON -> extract sessionId -> retrieve results via backend
+    }
+}
+
+webView.settings.javaScriptEnabled = true
+webView.addJavascriptInterface(LivenessBridge(), "AndroidLiveness")
+webView.loadUrl("https://api.adeptsense.tech/liveness?token=YOUR_TOKEN")</code></pre>
+      </div>
     </section>
 
     <!-- SDKs -->
@@ -392,9 +502,9 @@ document.getElementById('env-toggle').addEventListener('click', e => {
 
 // Quickstart code tabs
 const qsCodes = {
-  node: `<span class="c-kw">import</span> AdeptSense <span class="c-kw">from</span> <span class="c-str">'@adeptsense/node'</span>\n\n<span class="c-kw">const</span> client = <span class="c-kw">new</span> <span class="c-fn">AdeptSense</span>({\n  apiKey: process.<span class="c-var">env</span>.ADEPT_KEY\n})\n\n<span class="c-kw">const</span> result = <span class="c-kw">await</span> client.verify.<span class="c-fn">nid</span>({\n  front: frontBuffer,\n  selfie: selfieBuffer,\n  liveness: <span class="c-val">true</span>\n})\n\nconsole.<span class="c-fn">log</span>(result.verified) <span class="c-cm">// true</span>`,
-  python: `<span class="c-kw">from</span> adeptsense <span class="c-kw">import</span> AdeptSense\n\nclient = <span class="c-fn">AdeptSense</span>(api_key=os.environ[<span class="c-str">"ADEPT_KEY"</span>])\n\nresult = client.verify.<span class="c-fn">nid</span>(\n  front=front_bytes,\n  selfie=selfie_bytes,\n  liveness=<span class="c-val">True</span>\n)\n\n<span class="c-fn">print</span>(result[<span class="c-str">"verified"</span>]) <span class="c-cm"># True</span>`,
-  curl: `<span class="c-fn">curl</span> -X POST https://api.adeptsense.tech/v1/verify/nid \\\\\n  -H <span class="c-str">"Authorization: Bearer $ADEPT_KEY"</span> \\\\\n  -H <span class="c-str">"Content-Type: application/json"</span> \\\\\n  -d '{\n    <span class="c-str">"front_image"</span>: <span class="c-str">"base64..."</span>,\n    <span class="c-str">"selfie"</span>: <span class="c-str">"base64..."</span>,\n    <span class="c-str">"liveness"</span>: <span class="c-val">true</span>\n  }'`
+  node: `<span class="c-kw">import</span> fs <span class="c-kw">from</span> <span class="c-str">'node:fs/promises'</span>\n<span class="c-kw">import</span> FormData <span class="c-kw">from</span> <span class="c-str">'form-data'</span>\n\n<span class="c-kw">const</span> form = <span class="c-kw">new</span> <span class="c-fn">FormData</span>()\nform.<span class="c-fn">append</span>(<span class="c-str">'front'</span>, await fs.readFile(<span class="c-str">'./front.jpg'</span>), <span class="c-str">'front.jpg'</span>)\nform.<span class="c-fn">append</span>(<span class="c-str">'back'</span>, await fs.readFile(<span class="c-str">'./back.jpg'</span>), <span class="c-str">'back.jpg'</span>)\n\n<span class="c-kw">const</span> res = <span class="c-kw">await</span> <span class="c-fn">fetch</span>(<span class="c-str">'https://api.adeptsense.tech/api/v1/ocr/nid'</span>, {\n  method: <span class="c-str">'POST'</span>,\n  headers: {\n    <span class="c-str">'x-api-key'</span>: process.<span class="c-var">env</span>.ADEPT_KEY\n  },\n  body: form\n})\n\n<span class="c-kw">const</span> result = <span class="c-kw">await</span> res.<span class="c-fn">json</span>()\nconsole.<span class="c-fn">log</span>(result.ok) <span class="c-cm">// true</span>`,
+  python: `<span class="c-kw">import</span> requests\n\nfiles = {\n  <span class="c-str">'front'</span>: (<span class="c-str">'front.jpg'</span>, open(<span class="c-str">'front.jpg'</span>, <span class="c-str">'rb'</span>), <span class="c-str">'image/jpeg'</span>),\n  <span class="c-str">'back'</span>: (<span class="c-str">'back.jpg'</span>, open(<span class="c-str">'back.jpg'</span>, <span class="c-str">'rb'</span>), <span class="c-str">'image/jpeg'</span>)\n}\n\nres = requests.<span class="c-fn">post</span>(\n  <span class="c-str">'https://api.adeptsense.tech/api/v1/ocr/nid'</span>,\n  headers={<span class="c-str">'x-api-key'</span>: os.environ[<span class="c-str">"ADEPT_KEY"</span>]},\n  files=files\n)\n\nresult = res.<span class="c-fn">json</span>()\n<span class="c-fn">print</span>(result[<span class="c-str">"ok"</span>]) <span class="c-cm"># True</span>`,
+  curl: `<span class="c-fn">curl</span> -X POST https://api.adeptsense.tech/api/v1/ocr/nid \\\\\n  -H <span class="c-str">"x-api-key: $ADEPT_KEY"</span> \\\\\n  -F <span class="c-str">"front=@/path/to/front.jpg"</span> \\\\\n  -F <span class="c-str">"back=@/path/to/back.jpg"</span>`
 }
 const qsTabs = document.getElementById('qs-tabs')
 const qsCode = document.getElementById('qs-code-content')

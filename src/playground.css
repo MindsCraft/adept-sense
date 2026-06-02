@@ -198,6 +198,7 @@ img { display: block; max-width: 100%; }
   border: 1px solid var(--border); background: var(--surface);
 }
 .response-status.status-ok { color: #059669; border-color: #BBF7D0; background: #F0FDF4; }
+.response-status.status-err { color: var(--red); border-color: #FCA5A5; background: #FEF2F2; }
 
 .response-json {
   background: #0D1117; border-radius: var(--r);
