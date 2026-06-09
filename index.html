@@ -34,48 +34,173 @@
 
 <!-- ── HERO ── -->
 <section class="hero-section">
-  <div class="hero-illustration-right">
-    <svg viewBox="0 0 160 160" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M40 80h80M80 40v80" stroke-dasharray="4 4" opacity="0.3"/>
-      <rect x="50" y="30" width="60" height="100" rx="10" stroke-width="1.5"/>
-      <circle cx="80" cy="55" r="12" stroke-width="1.5"/>
-      <path d="M60 90h40M65 100h30" opacity="0.8"/>
-      <path d="M40 80c20-10 60-10 80 0" stroke="var(--blue)" stroke-width="2" class="scan-beam"/>
-      <circle cx="25" cy="40" r="1.5" fill="currentColor"/>
-      <circle cx="135" cy="110" r="1.5" fill="currentColor"/>
-      <path d="M130 50l4 4m0-4l-4 4M25 115l4 4m0-4l-4 4" stroke-width="1"/>
-    </svg>
-  </div>
+  <!-- Ambient background layers -->
+  <div class="hero-bg-mesh"></div>
+  <div class="hero-bg-glow"></div>
+
   <div class="hero-inner reveal">
-    <div class="hero-center">
+
+    <!-- LEFT: Text Column -->
+    <div class="hero-left-col">
       <div class="hero-badge">
         <span class="hero-badge-dot"></span>
         Identity Verification Platform &middot; Bangladesh NID
       </div>
       <h1 class="hero-h1">Verify identity.<br><em>Instantly.</em></h1>
       <p class="hero-p">Secure onboarding for web, mobile, and hybrid apps. NID OCR, face match, liveness, name translation, and gender intelligence — all via one API.</p>
-      
+
       <div class="hero-cta-btns">
         <a href="playground.html" class="hero-btn-primary">Try Demo &rarr;</a>
         <a href="docs.html" class="hero-btn-secondary">API Docs</a>
       </div>
-      
+
       <div class="hero-trust-proof">
         <span class="trust-stars">★★★★★</span>
         <span class="trust-text">The #1 Developer-Preferred Identity API in Bangladesh</span>
       </div>
+
+      <!-- Floating mini stats on the left -->
+      <div class="hero-left-stats">
+        <div class="hero-stat-pill">
+          <span class="hero-stat-num">99.4%</span>
+          <span class="hero-stat-lbl">Accuracy</span>
+        </div>
+        <div class="hero-stat-pill">
+          <span class="hero-stat-num">&lt;1s</span>
+          <span class="hero-stat-lbl">Response</span>
+        </div>
+        <div class="hero-stat-pill">
+          <span class="hero-stat-num">50M+</span>
+          <span class="hero-stat-lbl">Verifications</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Animated Visual Column -->
+    <div class="hero-right-col">
+      <div class="hero-visual-scene">
+
+        <!-- Floating particles -->
+        <div class="hv-particle hv-p1"></div>
+        <div class="hv-particle hv-p2"></div>
+        <div class="hv-particle hv-p3"></div>
+        <div class="hv-particle hv-p4"></div>
+        <div class="hv-particle hv-p5"></div>
+
+        <!-- Central Face Biometric Ring -->
+        <div class="hv-face-area">
+          <div class="hv-face-outer-ring"></div>
+          <div class="hv-face-ring">
+            <div class="hv-face-spin-ring"></div>
+            <div class="hv-face-mesh"></div>
+            <div class="hv-face-avatar">
+              <div class="hv-face-head"></div>
+              <div class="hv-face-body"></div>
+            </div>
+            <div class="hv-face-scan-line"></div>
+            <!-- Corner brackets -->
+            <span class="hv-corner hv-tl"></span>
+            <span class="hv-corner hv-tr"></span>
+            <span class="hv-corner hv-bl"></span>
+            <span class="hv-corner hv-br"></span>
+          </div>
+          <!-- Live badge on face ring -->
+          <div class="hv-live-pill">
+            <span class="hv-live-dot"></span>
+            LIVE
+          </div>
+        </div>
+
+        <!-- Floating NID Card (bottom-left) -->
+        <div class="hv-nid-card">
+          <div class="hv-nid-header">
+            <span class="hv-flag">🇧🇩</span>
+            <div>
+              <div class="hv-nid-title">National ID Card</div>
+              <div class="hv-nid-subtitle">Government of Bangladesh</div>
+            </div>
+          </div>
+          <div class="hv-nid-row">
+            <span class="hv-nid-lbl">Name</span>
+            <span class="hv-nid-val">Md. Rafiqul Islam</span>
+          </div>
+          <div class="hv-nid-row">
+            <span class="hv-nid-lbl">NID No.</span>
+            <span class="hv-nid-val">••••• 8492</span>
+          </div>
+          <div class="hv-nid-stamp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Verified
+          </div>
+        </div>
+
+        <!-- Liveness Score Badge (top-right) -->
+        <div class="hv-liveness-badge">
+          <div class="hv-lb-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div class="hv-lb-text">
+            <span class="hv-lb-label">Liveness Check</span>
+            <span class="hv-lb-value">Passed · 99.8%</span>
+          </div>
+        </div>
+
+        <!-- API JSON Snippet (bottom-right) -->
+        <div class="hv-api-badge">
+          <div class="hv-api-bar">
+            <span class="hv-api-dot r"></span><span class="hv-api-dot y"></span><span class="hv-api-dot g"></span>
+            <span class="hv-api-title">200 OK</span>
+          </div>
+          <pre class="hv-api-code"><span class="hv-k">"verified"</span>: <span class="hv-v">true</span>,
+<span class="hv-k">"liveness"</span>: <span class="hv-n">0.998</span>,
+<span class="hv-k">"match"</span>: <span class="hv-n">96.4</span></pre>
+        </div>
+
+        <!-- Face Match Confidence arc (floating, center-right) -->
+        <div class="hv-match-arc">
+          <svg viewBox="0 0 80 80" width="80" height="80">
+            <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(124, 58, 237, 0.12)" stroke-width="5"/>
+            <circle cx="40" cy="40" r="32" fill="none" stroke="var(--blue)" stroke-width="5"
+              stroke-linecap="round"
+              stroke-dasharray="170 201"
+              stroke-dashoffset="50"
+              class="hv-arc-fill"/>
+          </svg>
+          <div class="hv-arc-label">
+            <span class="hv-arc-num">96.4</span>
+            <span class="hv-arc-sub">Match %</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+<!-- ── HERO SHOWCASE (moved below hero) ── -->
+<section class="hero-showcase-section">
+  <div class="hero-showcase-inner">
+    <div class="showcase-label-row">
+      <span class="label-tag">Live Product Preview</span>
+      <p class="showcase-sublabel">Explore each capability — click a tab to see it in action.</p>
+    </div>
+
+    <!-- Segmented Tab Switcher Capsule -->
+    <div class="showcase-tabs">
+      <button type="button" class="showcase-tab active" data-target="view-nid-scanner">NID Scanner</button>
+      <button type="button" class="showcase-tab" data-target="view-face-scanner">Biometric Face Scan</button>
+      <button type="button" class="showcase-tab" data-target="view-api-terminal">API Playground</button>
+      <button type="button" class="showcase-tab" data-target="view-bangla-ocr">Bangla OCR</button>
+      <button type="button" class="showcase-tab" data-target="view-live-timeline">Live Timeline</button>
     </div>
 
     <div class="hero-dashboard-wrap">
-      <!-- Segmented Tab Switcher Capsule -->
-      <div class="showcase-tabs">
-        <button type="button" class="showcase-tab active" data-target="view-nid-scanner">NID Scanner</button>
-        <button type="button" class="showcase-tab" data-target="view-face-scanner">Biometric Face Scan</button>
-        <button type="button" class="showcase-tab" data-target="view-api-terminal">API Playground</button>
-        <button type="button" class="showcase-tab" data-target="view-bangla-ocr">Bangla OCR</button>
-        <button type="button" class="showcase-tab" data-target="view-live-timeline">Live Timeline</button>
-      </div>
-
       <!-- Option 1: National ID Scanner (Active by Default) -->
       <div class="showcase-view active" id="view-nid-scanner">
         <div class="showcase-code-bg">
@@ -163,7 +288,6 @@
           </div>
           <div class="face-camera-feed">
             <div class="face-biometric-avatar"></div>
-            <!-- Interactive pulse overlays -->
             <div class="face-mesh-lines"></div>
             <div class="face-target-ring"></div>
             <div class="face-scan-beam"></div>
@@ -183,7 +307,6 @@
                 <span>Spoofing Detection:</span>
                 <span class="metric-badge success font-mono">0.02% Risk</span>
               </div>
-              <!-- Real-time cycling stats coordinates -->
               <div class="coordinates-terminal font-mono">X: 84.21 &nbsp; Y: 104.93 &nbsp; Z: 0.96 &nbsp; SCALE: 1.02</div>
             </div>
           </div>
@@ -249,15 +372,12 @@ x-api-key: sec_key...
               </div>
             </div>
           </div>
-          
-          <!-- Animated Center Bridge (Pulsing node matrix) -->
           <div class="ocr-bridge">
             <div class="bridge-line"></div>
             <div class="bridge-node active n1"></div>
             <div class="bridge-node active n2"></div>
             <div class="bridge-node active n3"></div>
           </div>
-          
           <div class="ocr-pane ocr-bng">
             <div class="pane-tag primary">Bangla Transliteration (AI Output)</div>
             <div class="ocr-card highlight">
@@ -296,7 +416,6 @@ x-api-key: sec_key...
               </div>
             </div>
           </div>
-          
           <div class="timeline-right">
             <div class="timeline-steps">
               <div class="t-step passed">
@@ -305,7 +424,7 @@ x-api-key: sec_key...
                 </div>
                 <div class="t-step-content">
                   <h5>Smart NID Scan Complete</h5>
-                  <p>National ID card authentic credentials matched & parsed.</p>
+                  <p>National ID card authentic credentials matched &amp; parsed.</p>
                 </div>
               </div>
               <div class="t-step passed">

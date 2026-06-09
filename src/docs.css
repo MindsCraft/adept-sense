@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,600;1,600&display=swap');
 
 :root {
-  --blue:     #1A4FBF;
-  --blue-dim: #EEF3FC;
+  --blue:     #7C3AED;
+  --blue-dim: #F5F3FF;
   --red:      #D42B2B;
   --red-dim:  #FDF2F2;
   --ink:      #0A0B0D;
@@ -192,7 +192,7 @@ p code, li code {
   padding: 16px 20px; border-radius: var(--r); margin: 16px 0;
   font-size: 13px; line-height: 1.6;
 }
-.callout-info { background: var(--blue-dim); border: 1px solid #C5D8F8; color: var(--ink-2); }
+.callout-info { background: var(--blue-dim); border: 1px solid #DDD6FE; color: var(--ink-2); }
 
 /* Quickstart */
 .quickstart-steps { display: flex; flex-direction: column; gap: 24px; }
