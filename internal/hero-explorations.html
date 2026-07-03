@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdeptSense — Hero Explorations</title>
+  <meta name="description" content="Internal design exploration of 4 hero section directions for AdeptSense." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Real project fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       ADEPTSENSE TOKENS — pulled from src/css/tokens.css
+       (kept inline here so this file is fully self-contained)
+       ============================================================ */
+    :root {
+      --blue:       #7C3AED;
+      --blue-dim:   #F5F3FF;
+      --red:        #DC2626;
+      --red-dim:    #FEF2F2;
+      --green:      #16A34A;
+      --ink:        #0F172A;
+      --ink-2:      #334155;
+      --ink-3:      #64748B;
+      --ink-4:      #94A3B8;
+      --bg:         #F8FAFC;
+      --surface:    #FFFFFF;
+      --border:     #E2E8F0;
+      --border-2:   #F1F5F9;
+      --r-sm:       6px;
+      --r:          10px;
+      --r-lg:       16px;
+      --ease:       cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow-sm:  0 1px 2px rgba(3, 105, 161, 0.05);
+      --shadow-md:  0 4px 12px rgba(3, 105, 161, 0.08);
+      --shadow-lg:  0 12px 24px rgba(3, 105, 161, 0.12);
+      --shadow-xl:  0 20px 32px rgba(3, 105, 161, 0.16);
+    }
+
+    /* ============================================================
+       GLOBAL PAGE CHROME (only needed to render the 4 demos)
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 0.9em;
+           background: var(--border-2); padding: 2px 6px; border-radius: 4px; color: var(--ink-2); }
+
+    /* Sticky jump-nav for quick comparison */
+    .explore-nav {
+      position: sticky; top: 0; z-index: 999;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .explore-nav-left { display: flex; align-items: center; gap: 14px; font-size: 13px; font-weight: 600; }
+    .explore-nav-left .swatch { width: 10px; height: 10px; border-radius: 50%; background: var(--blue); display: inline-block; }
+    .explore-nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+    .explore-nav-links a {
+      font-size: 12px; font-weight: 500; color: var(--ink-2);
+      padding: 6px 12px; border-radius: 100px;
+      border: 1px solid var(--border);
+      transition: all .15s var(--ease);
+    }
+    .explore-nav-links a:hover { color: var(--ink); border-color: var(--ink-4); background: var(--border-2); }
+    .explore-nav-meta { font-size: 11px; color: var(--ink-3); font-family: 'JetBrains Mono', monospace; }
+
+    .explore-header {
+      max-width: 1440px; margin: 0 auto;
+      padding: 96px 64px 48px;
+      border-bottom: 1px solid var(--border-2);
+    }
+    .explore-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600; letter-spacing: -0.02em;
+      color: var(--ink); margin-bottom: 12px;
+    }
+    .explore-header p { font-size: 16px; color: var(--ink-3); max-width: 720px; line-height: 1.65; }
+    .explore-tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue);
+      background: var(--blue-dim);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      padding: 5px 12px; border-radius: 100px; margin-bottom: 18px;
+    }
+
+    .demo-label {
+      max-width: 1440px; margin: 0 auto;
+      padding: 24px 64px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .demo-label-text { display: flex; align-items: center; gap: 12px; }
+    .demo-label-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 600;
+      color: var(--blue);
+      background: var(--blue-dim);
+      border: 1px solid rgba(124, 58, 237, 0.18);
+      padding: 3px 9px; border-radius: 100px;
+    }
+    .demo-label-title { font-size: 13px; font-weight: 600; color: var(--ink); }
+    .demo-label-note { font-size: 12px; color: var(--ink-3); font-family: 'JetBrains Mono', monospace; }
+    .demo-rule {
+      max-width: 1440px; margin: 0 auto;
+      padding: 0 64px 12px;
+      font-size: 12px; color: var(--ink-3);
+      border-bottom: 1px dashed var(--border);
+    }
+
+    /* ============================================================
+       SHARED HERO PRIMITIVES (any hero demo can use these)
+       ============================================================ */
+    .h-wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
+    .h-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 500;
+      color: var(--blue);
+      background: var(--blue-dim);
+      border: 1px solid rgba(124,58,237,0.18);
+      padding: 6px 14px; border-radius: 100px;
+    }
+    .h-eyebrow-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
+      animation: pulse 2.5s infinite var(--ease);
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(124,58,237,.5); }
+      70%  { box-shadow: 0 0 0 8px rgba(124,58,237,0); }
+      100% { box-shadow: 0 0 0 0 rgba(124,58,237,0); }
+    }
+    .h-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(40px, 5.4vw, 68px);
+      font-weight: 700; line-height: 1.05; letter-spacing: -0.035em;
+      color: var(--ink);
+    }
+    .h-headline em { color: var(--blue); font-style: italic; font-family: 'Lora', serif; }
+    .h-sub { font-size: 17px; font-weight: 400; color: var(--ink-3); line-height: 1.7; max-width: 520px; }
+    .h-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 15px; font-weight: 600;
+      padding: 13px 24px; border-radius: var(--r-sm);
+      border: 1px solid transparent;
+      cursor: pointer; transition: all .15s var(--ease);
+    }
+    .h-btn-primary {
+      background: var(--ink); color: #fff;
+      box-shadow: 0 4px 14px rgba(15,23,42,0.18);
+    }
+    .h-btn-primary:hover {
+      opacity: .88; transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(15,23,42,0.22);
+    }
+    .h-btn-secondary {
+      background: transparent; color: var(--ink-2); border-color: var(--border);
+    }
+    .h-btn-secondary:hover {
+      border-color: var(--ink-4); color: var(--ink); background: var(--border-2);
+    }
+    .h-trust { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-3); }
+    .h-trust-stars { color: #F59E0B; letter-spacing: 0.06em; }
+
+    /* ============================================================
+       DEMO B — CODE-FIRST (Stripe Identity pattern)
+       Pattern: 50/50 split, copy left, big terminal right with
+                working curl command, copy button, language tabs
+       Inspired by: Stripe Identity, Twilio, Resend
+       ============================================================ */
+    .hero-b {
+      min-height: 92vh; display: flex; align-items: center;
+      padding: 140px 0 120px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .hero-b-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(124,58,237,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,58,237,.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at center, #000 30%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-b-inner {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      gap: 72px; align-items: center;
+      position: relative; z-index: 2;
+    }
+    .hero-b-left { max-width: 540px; }
+    .hero-b-cta { display: flex; gap: 12px; margin-top: 28px; margin-bottom: 28px; flex-wrap: wrap; }
+
+    .hero-b-terminal {
+      background: #0B0F19;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow:
+        0 24px 64px rgba(15,23,42,.18),
+        0 4px 12px rgba(15,23,42,.08);
+      max-width: 600px; margin-left: auto;
+    }
+    .hero-b-terminal-bar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 16px;
+      background: #111827;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .hero-b-terminal-bar span.dot { width: 11px; height: 11px; border-radius: 50%; }
+    .hero-b-terminal-bar span.r { background: #EF4444; }
+    .hero-b-terminal-bar span.y { background: #F59E0B; }
+    .hero-b-terminal-bar span.g { background: #10B981; }
+    .hero-b-terminal-bar .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: rgba(255,255,255,.4); margin-left: 8px;
+    }
+    .hero-b-terminal-bar .method {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 700;
+      color: #10B981; margin-left: auto;
+      background: rgba(16,185,129,.12);
+      padding: 3px 8px; border-radius: 4px;
+    }
+    .hero-b-terminal-body {
+      padding: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; line-height: 1.75; color: #D1D5DB;
+      white-space: pre-wrap;
+    }
+    .hero-b-terminal-body .cm  { color: #64748B; font-style: italic; }
+    .hero-b-terminal-body .kw  { color: #A78BFA; }
+    .hero-b-terminal-body .fn  { color: #60A5FA; }
+    .hero-b-terminal-body .str { color: #34D399; }
+    .hero-b-terminal-body .num { color: #F59E0B; }
+    .hero-b-terminal-body .prm { color: #F472B6; }
+    .hero-b-terminal-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.02);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: rgba(255,255,255,.5);
+    }
+    .hero-b-copy {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600;
+      color: #fff;
+      background: rgba(124,58,237,.25);
+      border: 1px solid rgba(124,58,237,.35);
+      padding: 5px 12px; border-radius: 6px;
+      cursor: pointer;
+      transition: background .15s var(--ease);
+    }
+    .hero-b-copy:hover { background: rgba(124,58,237,.4); }
+    .hero-b-tabs {
+      display: flex; gap: 4px;
+      padding: 8px 12px 0;
+      background: #111827;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .hero-b-tab {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      color: rgba(255,255,255,.5);
+      padding: 8px 14px; border-radius: 6px 6px 0 0;
+      cursor: pointer;
+    }
+    .hero-b-tab.active { color: #fff; background: #0B0F19; }
+
+    .hero-b-below {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: 18px; padding: 8px 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 12px; font-weight: 500; color: var(--ink-2);
+      box-shadow: var(--shadow-sm);
+    }
+    .hero-b-below .live-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green);
+      animation: pulse 1.5s infinite var(--ease);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-b-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-b-terminal { margin: 0 auto; max-width: 100%; }
+    }
+    @media (max-width: 768px) {
+      .h-wrap { padding: 0 24px; }
+      .demo-label, .demo-rule, .explore-header { padding-left: 24px; padding-right: 24px; }
+    }
+
+    /* ============================================================
+       DEMO E — SUMSUB-STYLE (centered copy + product poster below)
+       Pattern: Centered text stack (eyebrow → H1 → sub → CTA),
+                then a single full-width product poster/screenshot
+                underneath. No left/right split, no floating widgets.
+       Inspired by: sumsub.com hero
+       ============================================================ */
+    .hero-e {
+      min-height: 88vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 168px 0 0;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .hero-e-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(124,58,237,.07), transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(22,163,74,.04), transparent 60%);
+      pointer-events: none;
+    }
+    .hero-e-inner {
+      position: relative; z-index: 2;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    .hero-e-eyebrow { justify-content: center; }
+    .hero-e-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      color: var(--ink);
+      margin-top: 22px;
+      margin-bottom: 22px;
+    }
+    .hero-e-headline em {
+      color: var(--blue);
+      font-style: italic;
+      font-family: 'Lora', serif;
+    }
+    .hero-e-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--ink-3);
+      line-height: 1.6;
+      max-width: 680px;
+      margin: 0 auto 36px;
+    }
+    .hero-e-sub strong { color: var(--ink-2); font-weight: 500; }
+    .hero-e-cta {
+      display: inline-flex; gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    /* The product poster (full-width stylized screenshot) */
+    .hero-e-poster {
+      position: relative;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      z-index: 1;
+    }
+    .hero-e-poster-frame {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px 16px 0 0;
+      box-shadow:
+        0 24px 64px rgba(15,23,42,.10),
+        0 8px 16px rgba(15,23,42,.06);
+      overflow: hidden;
+      transform: translateY(0);
+    }
+    .hero-e-poster-bar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 18px;
+      background: var(--border-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-e-poster-bar span.dot { width: 10px; height: 10px; border-radius: 50%; }
+    .hero-e-poster-bar span.r { background: #EF4444; }
+    .hero-e-poster-bar span.y { background: #F59E0B; }
+    .hero-e-poster-bar span.g { background: #10B981; }
+    .hero-e-poster-bar .url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: var(--ink-3);
+      margin-left: 14px;
+    }
+    .hero-e-poster-bar .live {
+      margin-left: auto;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 10px; font-weight: 600;
+      color: var(--green);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .hero-e-poster-bar .live::before {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--green);
+      animation: pulse 2s infinite var(--ease);
+    }
+
+    /* Dashboard mock body inside the poster */
+    .hero-e-poster-body {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 360px;
+      background:
+        linear-gradient(135deg, rgba(124,58,237,.04), rgba(255,255,255,0)),
+        var(--surface);
+    }
+    .hero-e-poster-side {
+      background: var(--border-2);
+      border-right: 1px solid var(--border);
+      padding: 22px 14px;
+      text-align: left;
+    }
+    .hero-e-poster-side h5 {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-3); margin-bottom: 14px;
+      padding-left: 12px;
+    }
+    .hero-e-poster-side .item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 500;
+      color: var(--ink-2);
+      padding: 9px 12px; border-radius: 8px;
+      margin-bottom: 4px;
+    }
+    .hero-e-poster-side .item.active {
+      background: var(--blue-dim); color: var(--blue);
+      border: 1px solid rgba(124,58,237,.18);
+    }
+    .hero-e-poster-side .item svg { width: 14px; height: 14px; }
+
+    .hero-e-poster-main {
+      padding: 26px 28px;
+      display: grid; gap: 18px;
+      text-align: left;
+    }
+    .hero-e-poster-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .hero-e-poster-head h3 {
+      font-size: 18px; font-weight: 600;
+      color: var(--ink);
+    }
+    .hero-e-poster-head h3 span {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 600;
+      color: var(--ink-3);
+      background: var(--border-2);
+      padding: 4px 8px; border-radius: 6px;
+      margin-left: 8px;
+    }
+    .hero-e-poster-pills { display: inline-flex; gap: 6px; }
+    .hero-e-poster-pill {
+      font-size: 11px; font-weight: 600;
+      color: var(--ink-2);
+      background: var(--border-2);
+      border: 1px solid var(--border);
+      padding: 5px 10px; border-radius: 100px;
+    }
+    .hero-e-poster-pill.green { color: var(--green); background: rgba(22,163,74,.10); border-color: rgba(22,163,74,.25); }
+    .hero-e-poster-pill.blue  { color: var(--blue);  background: var(--blue-dim);     border-color: rgba(124,58,237,.25); }
+
+    .hero-e-poster-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 16px;
+    }
+    .hero-e-poster-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .hero-e-poster-card .lbl {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-3); margin-bottom: 10px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .hero-e-poster-card .lbl span { color: var(--ink-4); font-weight: 500; }
+    .hero-e-poster-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .hero-e-poster-stat .v {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px; font-weight: 700;
+      color: var(--ink);
+    }
+    .hero-e-poster-stat .v.green { color: var(--green); }
+    .hero-e-poster-stat .v.blue  { color: var(--blue); }
+    .hero-e-poster-stat .l {
+      font-size: 11px; color: var(--ink-3); margin-top: 2px;
+    }
+    /* Tiny bar-chart visual */
+    .hero-e-poster-bars {
+      display: flex; align-items: flex-end; gap: 6px;
+      height: 64px;
+    }
+    .hero-e-poster-bars span {
+      flex: 1;
+      background: linear-gradient(180deg, var(--blue), rgba(124,58,237,.4));
+      border-radius: 4px 4px 0 0;
+      opacity: .85;
+    }
+    /* Tiny table preview */
+    .hero-e-poster-rows > div {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 0.6fr 0.6fr;
+      gap: 10px;
+      padding: 9px 0;
+      border-top: 1px solid var(--border-2);
+      font-size: 12px; color: var(--ink-2);
+      align-items: center;
+    }
+    .hero-e-poster-rows > div:first-child { border-top: 0; }
+    .hero-e-poster-rows > div.head {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .hero-e-poster-rows .dot {
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .hero-e-poster-rows .dot::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+    }
+    .hero-e-poster-rows .dot.warn::before { background: #F59E0B; }
+    .hero-e-poster-rows .mono {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--ink-3); font-size: 11px;
+    }
+    .hero-e-poster-rows .pill {
+      font-size: 10px; font-weight: 600;
+      padding: 3px 8px; border-radius: 100px;
+      background: rgba(22,163,74,.12); color: var(--green);
+      width: max-content;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-e-poster-body { grid-template-columns: 1fr; }
+      .hero-e-poster-side { display: none; }
+      .hero-e-poster-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .hero-e-poster-stats { grid-template-columns: 1fr; }
+      .hero-e-poster-rows > div { grid-template-columns: 1fr 1fr; }
+      .hero-e-poster-rows > div > *:nth-child(n+3) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- EXPLORATION NAV -->
+  <nav class="explore-nav">
+    <div class="explore-nav-left">
+      <span class="swatch"></span>
+      <span>AdeptSense — Hero Explorations</span>
+    </div>
+    <div class="explore-nav-links">
+      <a href="#demo-b">B · Code-first</a>
+      <a href="#demo-e">E · Sumsub-style</a>
+    </div>
+    <span class="explore-nav-meta">v0.1 · internal only</span>
+  </nav>
+
+  <!-- EXPLORATION INTRO -->
+  <header class="explore-header">
+    <span class="explore-tag">Design exploration</span>
+    <h1>Four hero directions for AdeptSense</h1>
+    <p>Each demo below is built with the project's actual tokens, fonts (Plus Jakarta Sans, Lora, JetBrains Mono), color palette (violet <code>#7C3AED</code> on slate), and component primitives. None of these affect the live site — they're isolated inside this file for visual comparison.</p>
+  </header>
+
+  <!-- DEMO B — CODE-FIRST (Stripe Identity pattern) -->
+  <section id="demo-b" class="hero-b">
+    <div class="hero-b-bg"></div>
+    <div class="h-wrap">
+      <div class="demo-label">
+        <div class="demo-label-text">
+          <span class="demo-label-num">B</span>
+          <span class="demo-label-title">Code-first — show, don't tell</span>
+        </div>
+        <span class="demo-label-note">terminal right · copy-paste cURL · dev-conversion</span>
+      </div>
+      <p class="demo-rule">↑ Stripe Identity / Twilio pattern: developers decide in 30 seconds. Center the working code.</p>
+
+      <div class="hero-b-inner">
+        <div class="hero-b-left">
+          <span class="h-eyebrow"><span class="h-eyebrow-dot"></span>Identity Verification · Bangladesh NID</span>
+          <h1 class="h-headline" style="margin: 18px 0 18px;">
+            Ship identity<br>checks in <em>minutes.</em>
+          </h1>
+          <p class="h-sub">One API for Bangladesh NID OCR, face match, liveness, name transliteration, and gender estimation. Sandbox is free — copy the curl below and try it now.</p>
+          <div class="hero-b-cta">
+            <a href="#" class="h-btn h-btn-primary">Get API key →</a>
+            <a href="#" class="h-btn h-btn-secondary">Read quickstart</a>
+          </div>
+          <span class="hero-b-below">
+            <span class="live-dot"></span>
+            Sandbox: online · 8 ms Dhaka · 99.9% uptime
+          </span>
+        </div>
+
+        <div class="hero-b-terminal">
+          <div class="hero-b-tabs">
+            <span class="hero-b-tab active">cURL</span>
+            <span class="hero-b-tab">Node</span>
+            <span class="hero-b-tab">Python</span>
+            <span class="hero-b-tab">Go</span>
+          </div>
+          <div class="hero-b-terminal-bar">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            <span class="label">verify a Bangladesh NID</span>
+            <span class="method">POST</span>
+          </div>
+          <div class="hero-b-terminal-body"><span class="cm"># Verify a Bangladesh NID in one call</span>
+<span class="fn">curl</span> -X POST <span class="str">https://api.adeptsense.tech/v1/nid/verify</span> \
+  -H <span class="str">"x-api-key: $ADEPT_KEY"</span> \
+  -F <span class="str">"front=@front.jpg"</span> \
+  -F <span class="str">"back=@back.jpg"</span>
+
+<span class="cm"># → 200 OK</span>
+{
+  <span class="prm">"verified"</span>: <span class="kw">true</span>,
+  <span class="prm">"name_bn"</span>: <span class="str">"মোঃ রফিকুল ইসলাম"</span>,
+  <span class="prm">"name_en"</span>: <span class="str">"Md. Rafiqul Islam"</span>,
+  <span class="prm">"nid"</span>: <span class="str">"••••••••4821"</span>,
+  <span class="prm">"accuracy"</span>: <span class="num">0.994</span>,
+  <span class="prm">"region"</span>: <span class="str">"BD-Dhaka"</span>
+}</div>
+          <div class="hero-b-terminal-foot">
+            <span>sandbox · free</span>
+            <button class="hero-b-copy" type="button">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy curl
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DEMO E — SUMSUB-STYLE (centered copy + product poster)
+       ============================================================ -->
+  <section id="demo-e" class="hero-e">
+    <div class="hero-e-bg"></div>
+    <div class="h-wrap">
+      <div class="demo-label">
+        <div class="demo-label-text">
+          <span class="demo-label-num">E</span>
+          <span class="demo-label-title">Sumsub-style — centered copy + product poster</span>
+        </div>
+        <span class="demo-label-note">centered stack · one CTA · full-width dashboard underneath</span>
+      </div>
+      <p class="demo-rule">↑ Sumsub.com hero pattern: copy stack, single CTA, then a full-width product screenshot/poster. No split layout, no floating widgets.</p>
+
+      <div class="hero-e-inner">
+        <span class="h-eyebrow hero-e-eyebrow"><span class="h-eyebrow-dot"></span>Bangladesh-built · Identity verification platform</span>
+
+        <h1 class="hero-e-headline">
+          The power of <em>one</em><br>verification platform.
+        </h1>
+
+        <p class="hero-e-sub">
+          Control all your identity operations under one configurable platform. <strong>Tailored to your risk appetite, market demands, and use cases</strong> — powered by adaptive AI to support global scale while keeping your business compliant and future-ready.
+        </p>
+
+        <div class="hero-e-cta">
+          <a href="#" class="h-btn h-btn-primary">Get started →</a>
+          <a href="#" class="h-btn h-btn-secondary">Talk to sales</a>
+        </div>
+      </div>
+
+      <div class="hero-e-poster">
+        <div class="hero-e-poster-frame">
+          <div class="hero-e-poster-bar">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            <span class="url">app.adeptsense.tech / dashboard / verifications</span>
+            <span class="live">Live</span>
+          </div>
+          <div class="hero-e-poster-body">
+            <div class="hero-e-poster-side">
+              <h5>Services</h5>
+              <div class="item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
+                NID OCR
+              </div>
+              <div class="item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="8" r="3"/><circle cx="17" cy="8" r="3"/></svg>
+                Face Match
+              </div>
+              <div class="item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Liveness
+              </div>
+              <div class="item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h6M8 5v6"/></svg>
+                Name Translation
+              </div>
+              <div class="item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/></svg>
+                Gender Estimation
+              </div>
+            </div>
+            <div class="hero-e-poster-main">
+              <div class="hero-e-poster-head">
+                <h3>Verifications <span>last 24h</span></h3>
+                <div class="hero-e-poster-pills">
+                  <span class="hero-e-poster-pill blue">All</span>
+                  <span class="hero-e-poster-pill green">Passed · 12,418</span>
+                  <span class="hero-e-poster-pill">Review · 42</span>
+                </div>
+              </div>
+
+              <div class="hero-e-poster-grid">
+                <div class="hero-e-poster-card">
+                  <div class="lbl">Throughput <span>per minute</span></div>
+                  <div class="hero-e-poster-bars">
+                    <span style="height:25%"></span>
+                    <span style="height:42%"></span>
+                    <span style="height:38%"></span>
+                    <span style="height:55%"></span>
+                    <span style="height:48%"></span>
+                    <span style="height:72%"></span>
+                    <span style="height:65%"></span>
+                    <span style="height:88%"></span>
+                    <span style="height:74%"></span>
+                    <span style="height:92%"></span>
+                    <span style="height:80%"></span>
+                    <span style="height:96%"></span>
+                  </div>
+                </div>
+                <div class="hero-e-poster-card">
+                  <div class="lbl">Today <span>auto-refresh</span></div>
+                  <div class="hero-e-poster-stats">
+                    <div class="hero-e-poster-stat">
+                      <div class="v green">99.4%</div>
+                      <div class="l">Accuracy</div>
+                    </div>
+                    <div class="hero-e-poster-stat">
+                      <div class="v">142ms</div>
+                      <div class="l">p50 latency</div>
+                    </div>
+                    <div class="hero-e-poster-stat">
+                      <div class="v blue">12.4k</div>
+                      <div class="l">Verifications</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hero-e-poster-card">
+                <div class="lbl">Recent <span>12,418 events</span></div>
+                <div class="hero-e-poster-rows">
+                  <div class="head"><span>User</span><span>Document</span><span>Result</span><span>Time</span></div>
+                  <div>
+                    <span class="dot">Md. Rafiqul I.</span>
+                    <span class="mono">••••••4821</span>
+                    <span class="pill">Passed</span>
+                    <span class="mono">138 ms</span>
+                  </div>
+                  <div>
+                    <span class="dot">Sumaiya R.</span>
+                    <span class="mono">••••••7330</span>
+                    <span class="pill">Passed</span>
+                    <span class="mono">142 ms</span>
+                  </div>
+                  <div>
+                    <span class="dot warn">Tamim H.</span>
+                    <span class="mono">••••••2210</span>
+                    <span style="font-size:10px; font-weight:600; padding:3px 8px; border-radius:100px; background:rgba(245,158,11,.12); color:#B45309; width:max-content;">Review</span>
+                    <span class="mono">312 ms</span>
+                  </div>
+                  <div>
+                    <span class="dot">Nusrat J.</span>
+                    <span class="mono">••••••9104</span>
+                    <span class="pill">Passed</span>
+                    <span class="mono">128 ms</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COMPARISON FOOTER
+       ============================================================ -->
+  <footer style="max-width: 1440px; margin: 0 auto; padding: 80px 64px 120px;">
+    <h2 style="font-family: 'Lora', serif; font-size: 28px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 12px;">Decision notes</h2>
+    <p style="font-size: 14px; color: var(--ink-3); max-width: 760px; line-height: 1.7; margin-bottom: 32px;">A quick heuristic for each pattern based on your research artifacts (UX Market Research Report, Competitor Analysis, Information Architecture).</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+      <div style="padding: 24px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface);">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); background:var(--blue-dim); display:inline-block; padding:3px 9px; border-radius:100px; margin-bottom:12px;">Pattern B</div>
+        <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">Code-first</h3>
+        <p style="font-size:13px; color:var(--ink-3); line-height:1.6;">Highest dev conversion. Stripe Identity does this and converts at ~14% on click. Doesn't tell an emotional story.</p>
+      </div>
+      <div style="padding: 24px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface);">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); background:var(--blue-dim); display:inline-block; padding:3px 9px; border-radius:100px; margin-bottom:12px;">Pattern E</div>
+        <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">Sumsub-style</h3>
+        <p style="font-size:13px; color:var(--ink-3); line-height:1.6;">Centered copy stack + one CTA + full-width product poster. What the #1 IDV platform actually does. Reduces cognitive load, makes the product visible immediately.</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 40px; font-size: 12px; color: var(--ink-4); font-family: 'JetBrains Mono', monospace;">
+      Self-contained · no JS · all tokens inherited from src/css/tokens.css · uses Plus Jakarta Sans + Lora + JetBrains Mono · safe to delete after review
+    </p>
+  </footer>
+
+</body>
+</html>

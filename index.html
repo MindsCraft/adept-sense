@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AdeptSense — Identity Verification API</title>
   <meta name="description" content="Bangladesh's most precise identity verification API. NID OCR, face match, liveness, name translation — all via one integration.">
@@ -13,14 +13,13 @@
 <header id="site-header">
   <nav id="navbar">
     <a href="#" class="nav-logo">
-      <img src="/src/assets/logo.png" alt="AdeptSense" class="logo-img">
+      <img src="/logo.png" alt="AdeptSense" class="logo-img">
     </a>
     <ul class="nav-links">
       <li><a href="#services">Products</a></li>
       <li><a href="#use-cases">Use Cases</a></li>
       <li><a href="#how-it-works">Resources</a></li>
       <li><a href="docs.html">Docs <svg class="nav-external" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5H9.5V7.5"/><path d="M9.5 2.5L3 9"/></svg></a></li>
-      <li><a href="#pricing">Pricing</a></li>
     </ul>
     <div class="nav-right">
       <a href="#" class="nav-sign">Sign in</a>
@@ -33,417 +32,153 @@
 </header>
 
 <!-- ── HERO ── -->
-<section class="hero-section">
-  <!-- Ambient background layers -->
-  <div class="hero-bg-mesh"></div>
-  <div class="hero-bg-glow"></div>
+<section class="hero-e">
+  <div class="hero-e-bg"></div>
 
-  <div class="hero-inner reveal">
+  <div class="hero-e-inner">
+    <span class="h-eyebrow hero-e-eyebrow">
+      <span class="h-eyebrow-dot"></span>
+      AI Identity API for Developers
+    </span>
 
-    <!-- LEFT: Text Column -->
-    <div class="hero-left-col">
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        Identity Verification Platform &middot; Bangladesh NID
-      </div>
-      <h1 class="hero-h1">Verify identity.<br><em>Instantly.</em></h1>
-      <p class="hero-p">Secure onboarding for web, mobile, and hybrid apps. NID OCR, face match, liveness, name translation, and gender intelligence — all via one API.</p>
+    <h1 class="hero-e-headline"><em>One API call.</em><br>Verify anyone, anywhere.</h1>
 
-      <div class="hero-cta-btns">
-        <a href="playground.html" class="hero-btn-primary">Try Demo &rarr;</a>
-        <a href="docs.html" class="hero-btn-secondary">API Docs</a>
-      </div>
+    <p class="hero-e-sub">
+      OCR, face match, liveness, name translation, gender estimation —
+      <strong>five production endpoints, one consistent JSON contract</strong>.
+      Models trained and shipped in-house. No third-party black boxes.
+    </p>
 
-      <div class="hero-trust-proof">
-        <span class="trust-stars">★★★★★</span>
-        <span class="trust-text">The #1 Developer-Preferred Identity API in Bangladesh</span>
-      </div>
-
-      <!-- Floating mini stats on the left -->
-      <div class="hero-left-stats">
-        <div class="hero-stat-pill">
-          <span class="hero-stat-num">99.4%</span>
-          <span class="hero-stat-lbl">Accuracy</span>
-        </div>
-        <div class="hero-stat-pill">
-          <span class="hero-stat-num">&lt;1s</span>
-          <span class="hero-stat-lbl">Response</span>
-        </div>
-        <div class="hero-stat-pill">
-          <span class="hero-stat-num">50M+</span>
-          <span class="hero-stat-lbl">Verifications</span>
-        </div>
-      </div>
+    <div class="hero-e-cta">
+      <a href="playground.html" class="h-btn h-btn-primary">Try Demo &rarr;</a>
+      <a href="docs.html" class="h-btn h-btn-secondary">API Docs</a>
     </div>
 
-    <!-- RIGHT: Animated Visual Column -->
-    <div class="hero-right-col">
-      <div class="hero-visual-scene">
-
-        <!-- Floating particles -->
-        <div class="hv-particle hv-p1"></div>
-        <div class="hv-particle hv-p2"></div>
-        <div class="hv-particle hv-p3"></div>
-        <div class="hv-particle hv-p4"></div>
-        <div class="hv-particle hv-p5"></div>
-
-        <!-- Central Face Biometric Ring -->
-        <div class="hv-face-area">
-          <div class="hv-face-outer-ring"></div>
-          <div class="hv-face-ring">
-            <div class="hv-face-spin-ring"></div>
-            <div class="hv-face-mesh"></div>
-            <div class="hv-face-avatar">
-              <div class="hv-face-head"></div>
-              <div class="hv-face-body"></div>
-            </div>
-            <div class="hv-face-scan-line"></div>
-            <!-- Corner brackets -->
-            <span class="hv-corner hv-tl"></span>
-            <span class="hv-corner hv-tr"></span>
-            <span class="hv-corner hv-bl"></span>
-            <span class="hv-corner hv-br"></span>
-          </div>
-          <!-- Live badge on face ring -->
-          <div class="hv-live-pill">
-            <span class="hv-live-dot"></span>
-            LIVE
-          </div>
-        </div>
-
-        <!-- Floating NID Card (bottom-left) -->
-        <div class="hv-nid-card">
-          <div class="hv-nid-header">
-            <span class="hv-flag">🇧🇩</span>
-            <div>
-              <div class="hv-nid-title">National ID Card</div>
-              <div class="hv-nid-subtitle">Government of Bangladesh</div>
-            </div>
-          </div>
-          <div class="hv-nid-row">
-            <span class="hv-nid-lbl">Name</span>
-            <span class="hv-nid-val">Md. Rafiqul Islam</span>
-          </div>
-          <div class="hv-nid-row">
-            <span class="hv-nid-lbl">NID No.</span>
-            <span class="hv-nid-val">••••• 8492</span>
-          </div>
-          <div class="hv-nid-stamp">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            Verified
-          </div>
-        </div>
-
-        <!-- Liveness Score Badge (top-right) -->
-        <div class="hv-liveness-badge">
-          <div class="hv-lb-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </div>
-          <div class="hv-lb-text">
-            <span class="hv-lb-label">Liveness Check</span>
-            <span class="hv-lb-value">Passed · 99.8%</span>
-          </div>
-        </div>
-
-        <!-- API JSON Snippet (bottom-right) -->
-        <div class="hv-api-badge">
-          <div class="hv-api-bar">
-            <span class="hv-api-dot r"></span><span class="hv-api-dot y"></span><span class="hv-api-dot g"></span>
-            <span class="hv-api-title">200 OK</span>
-          </div>
-          <pre class="hv-api-code"><span class="hv-k">"verified"</span>: <span class="hv-v">true</span>,
-<span class="hv-k">"liveness"</span>: <span class="hv-n">0.998</span>,
-<span class="hv-k">"match"</span>: <span class="hv-n">96.4</span></pre>
-        </div>
-
-        <!-- Face Match Confidence arc (floating, center-right) -->
-        <div class="hv-match-arc">
-          <svg viewBox="0 0 80 80" width="80" height="80">
-            <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(124, 58, 237, 0.12)" stroke-width="5"/>
-            <circle cx="40" cy="40" r="32" fill="none" stroke="var(--blue)" stroke-width="5"
-              stroke-linecap="round"
-              stroke-dasharray="170 201"
-              stroke-dashoffset="50"
-              class="hv-arc-fill"/>
-          </svg>
-          <div class="hv-arc-label">
-            <span class="hv-arc-num">96.4</span>
-            <span class="hv-arc-sub">Match %</span>
-          </div>
-        </div>
-
+    <div class="hero-e-stats">
+      <div class="hero-e-stat">
+        <span class="v">99.4%</span>
+        <span class="l">accuracy</span>
+      </div>
+      <span class="hero-e-stat-sep" aria-hidden="true"></span>
+      <div class="hero-e-stat">
+        <span class="v">142ms</span>
+        <span class="l">p50 latency</span>
+      </div>
+      <span class="hero-e-stat-sep" aria-hidden="true"></span>
+      <div class="hero-e-stat">
+        <span class="v">99.9%</span>
+        <span class="l">uptime SLA</span>
       </div>
     </div>
-
   </div>
-</section>
 
-
-
-
-
-
-<!-- ── HERO SHOWCASE (moved below hero) ── -->
-<section class="hero-showcase-section">
-  <div class="hero-showcase-inner">
-    <div class="showcase-label-row">
-      <span class="label-tag">Live Product Preview</span>
-      <p class="showcase-sublabel">Explore each capability — click a tab to see it in action.</p>
-    </div>
-
-    <!-- Segmented Tab Switcher Capsule -->
-    <div class="showcase-tabs">
-      <button type="button" class="showcase-tab active" data-target="view-nid-scanner">NID Scanner</button>
-      <button type="button" class="showcase-tab" data-target="view-face-scanner">Biometric Face Scan</button>
-      <button type="button" class="showcase-tab" data-target="view-api-terminal">API Playground</button>
-      <button type="button" class="showcase-tab" data-target="view-bangla-ocr">Bangla OCR</button>
-      <button type="button" class="showcase-tab" data-target="view-live-timeline">Live Timeline</button>
-    </div>
-
-    <div class="hero-dashboard-wrap">
-      <!-- Option 1: National ID Scanner (Active by Default) -->
-      <div class="showcase-view active" id="view-nid-scanner">
-        <div class="showcase-code-bg">
-          <div class="code-header">
-            <div class="dots">
-              <span class="dot dot-r"></span>
-              <span class="dot dot-y"></span>
-              <span class="dot dot-g"></span>
-            </div>
-            <span class="code-title">identity.verification_report</span>
-          </div>
-          <div class="code-body">
-            <pre><code>{
-  <span class="tok-key">"id"</span>: <span class="tok-str">"vr_pQtGCpMdQkQXH..."</span>,
-  <span class="tok-key">"object"</span>: <span class="tok-str">"identity.verification_report"</span>,
-  <span class="tok-key">"livemode"</span>: <span class="tok-true">true</span>,
-  <span class="tok-key">"document"</span>: {
-    <span class="tok-key">"type"</span>: <span class="tok-str">"national_id"</span>,
-    <span class="tok-key">"status"</span>: <span class="tok-str">"verified"</span>,
-    <span class="tok-key">"extracted_data"</span>: {
-      <span class="tok-key">"name"</span>: <span class="tok-str">"MD. RAFIQUL ISLAM"</span>,
-      <span class="tok-key">"nid_no"</span>: <span class="tok-str">"9182738492"</span>,
-      <span class="tok-key">"dob"</span>: <span class="tok-str">"1988-03-12"</span>
-    }
-  },
-  <span class="tok-key">"liveness"</span>: {
-    <span class="tok-key">"status"</span>: <span class="tok-str">"passed"</span>,
-    <span class="tok-key">"confidence"</span>: <span class="tok-num">0.98</span>
-  }
-}</code></pre>
-          </div>
-        </div>
-
-        <div class="showcase-card-fg">
-          <div class="viewfinder-corners">
-            <span class="corner tl"></span>
-            <span class="corner tr"></span>
-            <span class="corner bl"></span>
-            <span class="corner br"></span>
-          </div>
-          <div class="nid-smart-card">
-            <div class="nid-card-top">
-              <span class="nid-country">Government of Bangladesh</span>
-              <span class="nid-label">National ID Card</span>
-            </div>
-            <div class="nid-card-body">
-              <div class="nid-avatar-box">
-                <div class="nid-photo-avatar"></div>
-                <div class="nid-photo-mesh"></div>
-              </div>
-              <div class="nid-info-box">
-                <div class="nid-field">
-                  <span class="nid-field-lbl">Name (EN)</span>
-                  <span class="nid-field-val">Md. Rafiqul Islam</span>
-                </div>
-                <div class="nid-field">
-                  <span class="nid-field-lbl">NID No.</span>
-                  <span class="nid-field-val">918 273 8492</span>
-                </div>
-                <div class="nid-field">
-                  <span class="nid-field-lbl">DOB</span>
-                  <span class="nid-field-val">12 Mar 1988</span>
-                </div>
-              </div>
-            </div>
-            <!-- Scanning Laser Line -->
-            <div class="scanner-laser-line"></div>
-            <!-- Glowing Verification Stamp -->
-            <div class="success-glow-stamp">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Verified</span>
-            </div>
-          </div>
-        </div>
+  <!-- Product poster (full-width stylized dashboard) -->
+  <div class="hero-e-poster">
+    <div class="hero-e-poster-frame">
+      <div class="hero-e-poster-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="url">app.adeptsense.tech / dashboard / verifications</span>
+        <span class="live">Live</span>
       </div>
-
-      <!-- Option 2: Biometric Face Scanner -->
-      <div class="showcase-view" id="view-face-scanner">
-        <div class="face-scanner-box">
-          <div class="viewfinder-corners">
-            <span class="corner tl"></span>
-            <span class="corner tr"></span>
-            <span class="corner bl"></span>
-            <span class="corner br"></span>
+      <div class="hero-e-poster-body">
+        <div class="hero-e-poster-side">
+          <h5>Services</h5>
+          <div class="item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
+            NID OCR
           </div>
-          <div class="face-camera-feed">
-            <div class="face-biometric-avatar"></div>
-            <div class="face-mesh-lines"></div>
-            <div class="face-target-ring"></div>
-            <div class="face-scan-beam"></div>
+          <div class="item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="8" r="3"/><circle cx="17" cy="8" r="3"/></svg>
+            Face Match
           </div>
-          <div class="face-scanner-metrics">
-            <div class="metrics-header">Biometric Landmark Analysis</div>
-            <div class="metrics-body">
-              <div class="metric-line">
-                <span>Liveness Test:</span>
-                <span class="metric-badge success font-mono">Passed (99.8%)</span>
-              </div>
-              <div class="metric-line">
-                <span>Face Match Comparison:</span>
-                <span class="metric-badge success font-mono">96.4% Match</span>
-              </div>
-              <div class="metric-line">
-                <span>Spoofing Detection:</span>
-                <span class="metric-badge success font-mono">0.02% Risk</span>
-              </div>
-              <div class="coordinates-terminal font-mono">X: 84.21 &nbsp; Y: 104.93 &nbsp; Z: 0.96 &nbsp; SCALE: 1.02</div>
-            </div>
+          <div class="item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Liveness
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h6M8 5v6"/></svg>
+            Name Translation
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/></svg>
+            Gender Estimation
           </div>
         </div>
-      </div>
 
-      <!-- Option 3: API Playground (Interactive JSON terminal) -->
-      <div class="showcase-view" id="view-api-terminal">
-        <div class="playground-terminal">
-          <div class="code-header">
-            <div class="dots">
-              <span class="dot dot-r"></span>
-              <span class="dot dot-y"></span>
-              <span class="dot dot-g"></span>
+        <div class="hero-e-poster-main">
+          <div class="hero-e-poster-head">
+            <h3>Verifications <span>last 24h</span></h3>
+            <div class="hero-e-poster-pills">
+              <span class="hero-e-poster-pill blue">All</span>
+              <span class="hero-e-poster-pill green">Passed · 12,418</span>
+              <span class="hero-e-poster-pill">Review · 42</span>
             </div>
-            <span class="code-title">AdeptSense API Sandbox Playground</span>
           </div>
-          <div class="terminal-body">
-            <div class="terminal-column req">
-              <div class="panel-label">HTTP REQUEST</div>
-              <pre><code><span class="tok-method">POST</span> /api/v1/match/face/submit
-Host: api.adeptsense.tech
-x-api-key: sec_key...
 
-{
-  <span class="tok-key">"referenceImage"</span>: <span class="tok-val">"base64..."</span>,
-  <span class="tok-key">"selfieImage"</span>: <span class="tok-val">"base64..."</span>
-}</code></pre>
+          <div class="hero-e-poster-grid">
+            <div class="hero-e-poster-card">
+              <div class="lbl">Throughput <span>per minute</span></div>
+              <div class="hero-e-poster-bars">
+                <span style="height:25%"></span>
+                <span style="height:42%"></span>
+                <span style="height:38%"></span>
+                <span style="height:55%"></span>
+                <span style="height:48%"></span>
+                <span style="height:72%"></span>
+                <span style="height:65%"></span>
+                <span style="height:88%"></span>
+                <span style="height:74%"></span>
+                <span style="height:92%"></span>
+                <span style="height:80%"></span>
+                <span style="height:96%"></span>
+              </div>
             </div>
-            <div class="terminal-column resp">
-              <div class="panel-label">JSON RESPONSE (200 OK)</div>
-              <pre><code>{
-  <span class="tok-key">"ok"</span>: <span class="tok-true">true</span>,
-  <span class="tok-key">"txId"</span>: <span class="tok-str">"TX_1773843146098_12345"</span>,
-  <span class="tok-key">"data"</span>: {
-    <span class="tok-key">"taskId"</span>: <span class="tok-str">"5190bb5e-0839-49ad-9027-c66d03e64d6f"</span>,
-    <span class="tok-key">"status"</span>: <span class="tok-str">"queued"</span>
-  }
-}</code></pre>
+            <div class="hero-e-poster-card">
+              <div class="lbl">Today <span>auto-refresh</span></div>
+              <div class="hero-e-poster-stats">
+                <div class="hero-e-poster-stat">
+                  <div class="v green">99.4%</div>
+                  <div class="l">Accuracy</div>
+                </div>
+                <div class="hero-e-poster-stat">
+                  <div class="v">142ms</div>
+                  <div class="l">p50 latency</div>
+                </div>
+                <div class="hero-e-poster-stat">
+                  <div class="v blue">12.4k</div>
+                  <div class="l">Verifications</div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Option 4: Bangla OCR / Transliteration Engine -->
-      <div class="showcase-view" id="view-bangla-ocr">
-        <div class="bangla-ocr-box">
-          <div class="ocr-pane ocr-eng">
-            <div class="pane-tag">English Source (OCR Input)</div>
-            <div class="ocr-card">
-              <div class="ocr-line-item">
-                <span class="ocr-lbl">Full Name</span>
-                <span class="ocr-val">Md. Rafiqul Islam</span>
+          <div class="hero-e-poster-card">
+            <div class="lbl">Recent <span>12,418 events</span></div>
+            <div class="hero-e-poster-rows">
+              <div class="head"><span>User</span><span>Document</span><span>Result</span><span>Time</span></div>
+              <div>
+                <span class="dot">Md. Rafiqul I.</span>
+                <span class="mono">••••••4821</span>
+                <span class="pill">Passed</span>
+                <span class="mono">138 ms</span>
               </div>
-              <div class="ocr-line-item">
-                <span class="ocr-lbl">Father's Name</span>
-                <span class="ocr-val">Md. Abul Kalam</span>
+              <div>
+                <span class="dot">Sumaiya R.</span>
+                <span class="mono">••••••7330</span>
+                <span class="pill">Passed</span>
+                <span class="mono">142 ms</span>
               </div>
-              <div class="ocr-confidence-bar">
-                <span>OCR Reliability</span>
-                <div class="conf-meter"><div class="conf-fill" style="width: 99.8%"></div></div>
-                <span class="conf-percent font-mono">99.8%</span>
+              <div>
+                <span class="dot warn">Tamim H.</span>
+                <span class="mono">••••••2210</span>
+                <span style="font-size:10px; font-weight:600; padding:3px 8px; border-radius:100px; background:rgba(245,158,11,.12); color:#B45309; width:max-content;">Review</span>
+                <span class="mono">312 ms</span>
               </div>
-            </div>
-          </div>
-          <div class="ocr-bridge">
-            <div class="bridge-line"></div>
-            <div class="bridge-node active n1"></div>
-            <div class="bridge-node active n2"></div>
-            <div class="bridge-node active n3"></div>
-          </div>
-          <div class="ocr-pane ocr-bng">
-            <div class="pane-tag primary">Bangla Transliteration (AI Output)</div>
-            <div class="ocr-card highlight">
-              <div class="ocr-line-item">
-                <span class="ocr-lbl">নাম (Bangla)</span>
-                <span class="ocr-val bangla-text">মোঃ রফিকুল ইসলাম</span>
-              </div>
-              <div class="ocr-line-item">
-                <span class="ocr-lbl">পিতার নাম</span>
-                <span class="ocr-val bangla-text">মোঃ আবুল কালাম</span>
-              </div>
-              <div class="ocr-gender-tag font-mono">
-                <span class="g-dot"></span> Gender: MALE (পুরুষ)
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Option 5: Live Verification Session Checklist -->
-      <div class="showcase-view" id="view-live-timeline">
-        <div class="timeline-box">
-          <div class="timeline-left">
-            <div class="session-info">
-              <span class="session-label">Session status</span>
-              <h4 class="session-id font-mono">session_usr_91a82f</h4>
-            </div>
-            <div class="radial-progress-container">
-              <svg class="progress-ring" width="110" height="110">
-                <circle class="progress-ring-bg" stroke="#E2E8F0" stroke-width="6" fill="transparent" r="46" cx="55" cy="55"/>
-                <circle class="progress-ring-fill" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" fill="transparent" r="46" cx="55" cy="55"/>
-              </svg>
-              <div class="progress-inner-labels">
-                <div class="progress-value font-mono">100%</div>
-                <div class="progress-lbl">Verified</div>
-              </div>
-            </div>
-          </div>
-          <div class="timeline-right">
-            <div class="timeline-steps">
-              <div class="t-step passed">
-                <div class="t-step-dot">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
-                </div>
-                <div class="t-step-content">
-                  <h5>Smart NID Scan Complete</h5>
-                  <p>National ID card authentic credentials matched &amp; parsed.</p>
-                </div>
-              </div>
-              <div class="t-step passed">
-                <div class="t-step-dot">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
-                </div>
-                <div class="t-step-content">
-                  <h5>Liveness Detection Passed</h5>
-                  <p>Certified biometric anti-spoofing liveness validation (99.8%).</p>
-                </div>
-              </div>
-              <div class="t-step passed">
-                <div class="t-step-dot">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
-                </div>
-                <div class="t-step-content">
-                  <h5>Government Database Verified</h5>
-                  <p>Citizen data synced and validated against Election Commission database.</p>
-                </div>
+              <div>
+                <span class="dot">Nusrat J.</span>
+                <span class="mono">••••••9104</span>
+                <span class="pill">Passed</span>
+                <span class="mono">128 ms</span>
               </div>
             </div>
           </div>
@@ -453,34 +188,14 @@ x-api-key: sec_key...
   </div>
 </section>
 
-<!-- ── TRUST STRIP ── -->
-<div class="trust-strip">
-  <div class="trust-inner">
-    <span class="trust-label">Trusted & secure</span>
-    <div class="trust-badges">
-      <span class="trust-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        256-bit Encryption
-      </span>
-      <span class="trust-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-        99.9% Uptime SLA
-      </span>
-      <span class="trust-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        GDPR Compliant
-      </span>
-      <span class="trust-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        SOC2 Ready
-      </span>
-      <span class="trust-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        ISO 27001
-      </span>
-    </div>
-  </div>
-</div>
+
+
+
+
+
+
+
+
 
 <!-- ── BANGLADESH ADVANTAGE ── -->
 <section class="bd-advantage-wrap">
@@ -525,6 +240,69 @@ x-api-key: sec_key...
             <div class="bd-field"><span class="bd-field-label">Accuracy</span><span class="bd-field-value bd-field-green">99.4%</span></div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SEE IN ACTION (VIDEO SHOWCASE) ── -->
+<section class="video-showcase-wrap" id="showcase">
+  <div class="video-showcase-container reveal">
+    <span class="label-tag">Showcase</span>
+    <h2 class="section-title">See AdeptSense in Action</h2>
+    <p class="section-sub">Watch how quickly and securely our API performs NID scanning, face matching, and passive liveness checks.</p>
+    
+    <div class="video-player-wrapper" id="inline-video-wrapper">
+      <video class="showcase-video" id="inline-showcase-video" loop muted playsinline poster="/src/assets/hero.png">
+        <source src="/services-showcase.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      
+      <!-- Hover / Play Overlay -->
+      <div class="video-play-overlay" id="inline-video-play-overlay">
+        <div class="play-btn-circle">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Custom Glassmorphic Controls -->
+      <div class="video-custom-controls" id="inline-video-controls">
+        <button class="control-btn" id="inline-play-pause-btn" aria-label="Play">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="play-icon" style="width:20px;height:20px;">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+        </button>
+        
+        <!-- Timeline Scrubber -->
+        <div class="video-timeline-container" id="inline-timeline-container">
+          <div class="video-timeline">
+            <div class="video-progress-bar" id="inline-progress-bar"></div>
+          </div>
+        </div>
+        
+        <div class="video-time-display">
+          <span id="inline-current-time">00:00</span> / <span id="inline-duration">00:00</span>
+        </div>
+        
+        <!-- Volume / Mute -->
+        <div class="volume-control-wrap">
+          <button class="control-btn" id="inline-mute-btn" aria-label="Mute">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="volume-icon" style="width:20px;height:20px;">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+          </button>
+          <input type="range" class="volume-slider" id="inline-volume-slider" min="0" max="1" step="0.1" value="0">
+        </div>
+        
+        <!-- Fullscreen / Expand to lightbox -->
+        <button class="control-btn" id="inline-expand-btn" aria-label="Fullscreen Lightbox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">
+            <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
@@ -810,58 +588,6 @@ x-api-key: sec_key...
   </div>
 </div>
 
-<!-- ── PRICING ── -->
-<section class="pricing-wrap" id="pricing">
-  <div class="wrap">
-    <div class="reveal">
-      <span class="label-tag">Pricing</span>
-      <h2 class="section-title">Simple, transparent pricing<br>that scales with you.</h2>
-      <p class="section-sub">Start free. Pay per verification. Volume discounts for growth-stage and enterprise teams.</p>
-    </div>
-    <div class="pricing-grid reveal">
-      <div class="price-card">
-        <div class="price-tier">Starter</div>
-        <div class="price-amount"><span class="price-currency">$</span>0.12<span class="price-unit">/verification</span></div>
-        <p class="price-desc">For teams testing the waters. Up to 500 verifications/month included.</p>
-        <ul class="price-features">
-          <li>All 5 API endpoints</li>
-          <li>Sandbox environment</li>
-          <li>Community support</li>
-          <li>Standard rate limits</li>
-        </ul>
-        <a href="#" class="price-btn">Get started free &rarr;</a>
-      </div>
-      <div class="price-card price-card-featured">
-        <div class="price-popular">Most popular</div>
-        <div class="price-tier">Growth</div>
-        <div class="price-amount"><span class="price-currency">$</span>0.08<span class="price-unit">/verification</span></div>
-        <p class="price-desc">Volume discount for scaling products. Up to 10,000 verifications/month.</p>
-        <ul class="price-features">
-          <li>Everything in Starter</li>
-          <li>Priority support</li>
-          <li>Webhooks</li>
-          <li>Higher rate limits</li>
-          <li>Dedicated sandbox</li>
-        </ul>
-        <a href="#" class="price-btn price-btn-primary">Start with Growth &rarr;</a>
-      </div>
-      <div class="price-card">
-        <div class="price-tier">Enterprise</div>
-        <div class="price-amount"><span class="price-custom">Custom</span></div>
-        <p class="price-desc">For high-volume platforms needing SLA, dedicated support, and on-premise options.</p>
-        <ul class="price-features">
-          <li>Everything in Growth</li>
-          <li>Custom SLA &amp; uptime</li>
-          <li>Dedicated account manager</li>
-          <li>On-premise deployment</li>
-          <li>Custom integrations</li>
-        </ul>
-        <a href="#" class="price-btn">Contact sales &rarr;</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ── CTA ── -->
 <div class="cta-wrap">
   <div class="reveal">
@@ -878,7 +604,7 @@ x-api-key: sec_key...
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <img src="/src/assets/logo.png" alt="AdeptSense" class="logo-img">
+      <img src="/logo.png" alt="AdeptSense" class="logo-img">
       <p>Identity verification for web, mobile, and hybrid apps. Built for developers.</p>
     </div>
     <div class="footer-col">
@@ -922,6 +648,54 @@ x-api-key: sec_key...
     </div>
   </div>
 </footer>
+
+<!-- ── VIDEO LIGHTBOX MODAL ── -->
+<div class="video-lightbox" id="video-lightbox-modal">
+  <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Modal">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"/>
+      <line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+  <div class="lightbox-content">
+    
+    <video class="showcase-video" id="lightbox-video" playsinline>
+      <source src="/services-showcase.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    
+    <!-- Lightbox Custom controls -->
+    <div class="video-custom-controls" id="lightbox-video-controls" style="opacity: 1; transform: translateY(0);">
+      <button class="control-btn" id="lightbox-play-pause-btn" aria-label="Play">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="play-icon" style="width:20px;height:20px;">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+      </button>
+      
+      <!-- Timeline Scrubber -->
+      <div class="video-timeline-container" id="lightbox-timeline-container">
+        <div class="video-timeline">
+          <div class="video-progress-bar" id="lightbox-progress-bar"></div>
+        </div>
+      </div>
+      
+      <div class="video-time-display">
+        <span id="lightbox-current-time">00:00</span> / <span id="lightbox-duration">00:00</span>
+      </div>
+      
+      <!-- Volume / Mute -->
+      <div class="volume-control-wrap">
+        <button class="control-btn" id="lightbox-mute-btn" aria-label="Mute">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="volume-icon" style="width:20px;height:20px;">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+        </button>
+        <input type="range" class="volume-slider" id="lightbox-volume-slider" min="0" max="1" step="0.1" value="1">
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="module" src="/src/main.js"></script>
 </body>

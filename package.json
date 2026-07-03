@@ -1,8 +1,13 @@
 {
-  "name": "adept-sense",
-  "version": "0.0.0",
+  "name": "adeptsense",
   "private": true,
+  "version": "0.1.0",
   "type": "module",
+  "description": "AdeptSense Identity Verification API — marketing site, API docs, and interactive playground.",
+  "author": "AdeptSense",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",

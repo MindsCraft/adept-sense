@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AdeptSense — Style Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   ADEPTSENSE STYLE GUIDE — "Bento Hybrid"
+   Drawn directly from logo colors:
+     • Black 0,0,0     (64% of pixels — the mark itself)
+     • Red 187,45,46   (#BB2D2E, 17.4% — kept tiny: eyebrow dot, live, danger)
+     • Deep purple 38,18,91  (#26125B, 10.9% — quiet voice for code)
+   Philosophy: the accent purple (#4B1D95) sits one shade brighter than
+   the logo's deep purple (#26125B) — same hue family, +8 lightness.
+   That means the brand accent and the logo's voice color feel like
+   one family, not two strangers. Bright enough for CTAs, deep enough
+   to feel premium-fintech (Linear, Plaid, Mercury). Red is reserved
+   for the few moments a developer actually cares: "live", "verified
+   fail", "revoke".
+   Canonical reference. Mirrors src/css/tokens.css.
+   ============================================================ */
+
+:root{
+  /* Accent — PURPLE — one shade brighter than the logo's deep purple */
+  --accent:#4B1D95;
+  --accent-hover:#5A23B3;
+  --accent-pressed:#3A1773;
+  --accent-soft:#F3EFFB;       /* tinted chip background */
+  --accent-line:#D1C2EB;        /* border on accent surfaces */
+  --accent-glow:rgba(75,29,149,.22);
+
+  /* Voice — DEEP PURPLE — kept from logo, reserved for code only */
+  --voice:#26125B;
+  --voice-soft:#EDE9F7;
+  --voice-line:#C7BCE0;
+
+  /* RED — reserved for danger / live / eyebrow dot only */
+  --red:#BB2D2E;
+  --red-hover:#9E2224;
+  --red-soft:#FCEBEC;
+  --red-line:#E9B4B5;
+
+  /* Neutrals — "Ink Spine" (unchanged from A) */
+  --ink:#0B0B0F;
+  --ink-2:#1F2937;
+  --ink-3:#4B5563;
+  --ink-4:#6B7280;
+  --ink-5:#9CA3AF;
+  --line:#E5E7EB;
+  --line-2:#F3F4F6;
+  --bg:#FAFAFA;
+  --surface:#FFFFFF;
+
+  /* Status (use sparingly) */
+  --success:#15803D;
+  --success-soft:#DCFCE7;
+  --warning:#B45309;
+  --warning-soft:#FEF3C7;
+  --danger:#991B1B;
+  --danger-soft:#FEE2E2;
+
+  /* Geometry */
+  --r-sm:6px;
+  --r:12px;
+  --r-lg:18px;
+  --ease:cubic-bezier(.4,0,.2,1);
+
+  --shadow-sm:0 1px 2px rgba(11,11,15,.06);
+  --shadow-md:0 2px 8px rgba(11,11,15,.08);
+  --shadow-lg:0 12px 32px rgba(11,11,15,.10);
+  --shadow-xl:0 24px 48px rgba(11,11,15,.14);
+
+  --font-sans:'Plus Jakarta Sans',system-ui,sans-serif;
+  --font-display:'Sora','Plus Jakarta Sans',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+
+/* ---------- Page chrome ---------- */
+.wrap{max-width:1240px;margin:0 auto;padding:48px 32px 96px}
+.page-head{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--line)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:5px 11px;border-radius:100px;margin-bottom:16px}
+.eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red)}   /* red dot — kept */
+.page-head h1{font-family:var(--font-display);font-size:clamp(34px,4.5vw,52px);font-weight:800;letter-spacing:-.04em;line-height:1.04;color:var(--ink);margin-bottom:14px}
+.page-head h1 em{font-style:italic;font-weight:700;color:var(--accent);font-family:'Lora',serif}
+.page-head .lede{font-size:17px;color:var(--ink-3);max-width:680px;line-height:1.65}
+
+/* Variant-tag chip in header so it's obvious which file is open */
+.variant-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:#fff;padding:5px 11px;border-radius:100px;margin-left:8px;vertical-align:middle}
+.variant-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent)}
+
+/* Side nav */
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:64px;align-items:flex-start}
+.sidenav{position:sticky;top:32px;display:flex;flex-direction:column;gap:2px}
+.sidenav-title{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);padding:0 12px 10px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+.sidenav a{font-size:13px;font-weight:500;color:var(--ink-3);padding:7px 12px;border-radius:var(--r-sm);transition:background .15s var(--ease),color .15s var(--ease)}
+.sidenav a:hover{background:var(--bg);color:var(--ink)}
+.sidenav a span{font-family:var(--font-mono);color:var(--ink-5);font-size:11px;margin-right:8px}
+
+/* Sections */
+section{margin-bottom:72px}
+.section-head{margin-bottom:24px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.section-head .num{font-family:var(--font-mono);font-size:11px;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:4px;font-weight:600}
+.section-head h2{font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.section-head .desc{font-size:14px;color:var(--ink-3);margin-top:6px;flex-basis:100%;line-height:1.6}
+
+/* ---------- Token grid ---------- */
+.swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.swatch{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.swatch-chip{height:96px;display:flex;align-items:flex-end;padding:12px;font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.85);position:relative}
+.swatch-chip.dark{color:rgba(255,255,255,.95)}
+.swatch-meta{padding:12px 14px;border-top:1px solid var(--line)}
+.swatch-meta .name{font-family:var(--font-mono);font-size:12px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.swatch-meta .hex{font-family:var(--font-mono);font-size:11px;color:var(--ink-4)}
+.swatch-meta .role{font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.5}
+
+/* Logo + accent strip */
+.logo-strip{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.logo-block{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.logo-block.dark{background:var(--ink);border-color:#1F2937}
+.logo-block .logo-zone{padding:48px;display:flex;align-items:center;justify-content:center;min-height:160px}
+.logo-block .logo-meta{padding:14px 18px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:11px;color:var(--ink-4);display:flex;justify-content:space-between}
+.logo-block.dark .logo-meta{border-color:#1F2937;color:#9CA3AF}
+
+/* Typography samples */
+.type-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:32px 36px;margin-bottom:14px}
+.type-specimen{display:grid;grid-template-columns:160px 1fr;gap:24px;align-items:baseline;padding:14px 0;border-bottom:1px dashed var(--line-2)}
+.type-specimen:last-child{border-bottom:none}
+.type-specimen .lbl{font-family:var(--font-mono);font-size:11px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.08em}
+.type-specimen .meta{font-family:var(--font-mono);font-size:10px;color:var(--ink-5);margin-top:4px}
+.type-display{font-family:var(--font-display);font-size:52px;font-weight:800;letter-spacing:-.04em;line-height:1.05;color:var(--ink)}
+.type-display em{font-style:italic;color:var(--accent);font-family:'Lora',serif;font-weight:700}
+.type-h1{font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-.025em;line-height:1.15;color:var(--ink)}
+.type-h2{font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-.015em;line-height:1.25;color:var(--ink)}
+.type-body{font-size:16px;color:var(--ink-3);line-height:1.65;max-width:580px}
+.type-mono{font-family:var(--font-mono);font-size:13px;color:var(--voice)}
+.type-quote{font-family:'Lora',serif;font-size:20px;font-style:italic;color:var(--ink-2);line-height:1.5;border-left:3px solid var(--accent);padding:8px 0 8px 18px;margin:8px 0}
+
+/* Buttons */
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:14px;font-weight:600;padding:11px 18px;border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer;transition:all .15s var(--ease);text-decoration:none}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.btn-primary svg{width:14px;height:14px}
+.btn-secondary{background:var(--ink);color:#fff}
+.btn-secondary:hover{background:#000}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{background:var(--bg);border-color:var(--ink-4)}
+.btn-danger{background:var(--surface);color:var(--danger);border-color:var(--line)}
+.btn-danger:hover{background:var(--danger-soft);border-color:var(--danger)}
+.btn-link{background:transparent;color:var(--accent);padding:11px 4px;text-decoration:none;border-bottom:2px solid transparent;border-radius:0}
+.btn-link:hover{border-bottom-color:var(--accent)}
+.btn-sm{padding:7px 12px;font-size:12px}
+.btn-lg{padding:14px 24px;font-size:15px}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.btn-icon{padding:9px;width:38px;height:38px;justify-content:center}
+
+/* Chips / badges */
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.04em;border:1px solid transparent}
+.chip-accent{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-line)}
+.chip-voice{background:var(--voice-soft);color:var(--voice);border-color:var(--voice-line)}
+.chip-red{background:var(--red-soft);color:var(--red);border-color:var(--red-line)}   /* only for "live"-style moments */
+.chip-success{background:var(--success-soft);color:var(--success)}
+.chip-warning{background:var(--warning-soft);color:var(--warning)}
+.chip-neutral{background:var(--bg);color:var(--ink-2);border-color:var(--line)}
+.chip-outline{background:var(--surface);color:var(--ink-2);border-color:var(--line)}
+.chip-mono{font-family:var(--font-mono);background:transparent;color:var(--ink-3);border-color:var(--line);font-weight:500}
+.chip dot, .chip-dot{width:6px;height:6px;border-radius:50%;display:inline-block;background:currentColor}
+
+/* Form controls */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field-label{font-size:12px;font-weight:600;color:var(--ink-2)}
+.field-hint{font-size:11px;color:var(--ink-4);font-family:var(--font-mono)}
+.input, .select, .textarea{font-family:var(--font-sans);font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 14px;transition:border .15s var(--ease),box-shadow .15s var(--ease);width:100%}
+.input:focus, .select:focus, .textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.input.error{border-color:var(--danger)}
+.textarea{resize:vertical;min-height:80px;font-family:var(--font-mono);font-size:13px}
+.checkbox{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:14px;color:var(--ink-3)}
+.checkbox input{width:16px;height:16px;margin-top:2px;accent-color:var(--accent)}
+
+/* Code block — keywords purple, strings warm grey, tokens read as accent */
+.code-block{background:var(--ink);color:#E5E7EB;border-radius:var(--r);padding:20px 24px;font-family:var(--font-mono);font-size:13px;line-height:1.7;overflow-x:auto;border:1px solid #1F2937}
+.code-block .k{color:#C4B5FD}       /* keyword — soft purple, not bright */
+.code-block .v{color:#E5E7EB}       /* string — near-white, NOT red */
+.code-block .n{color:#FCD34D}       /* number */
+.code-block .c{color:#6B7280;font-style:italic}
+.code-block .p{color:#94A3B8}
+.code-block .r{color:#FCA5A5}       /* token — keep some red presence here */
+
+/* Cards */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:var(--shadow-sm)}
+.card-elev{box-shadow:var(--shadow-md)}
+.card .eyebrow-mini{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:8px}
+.card h3{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:-.01em}
+.card p{font-size:13px;color:var(--ink-3);line-height:1.55}
+.card-footer{margin-top:16px;padding-top:14px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--ink-4)}
+
+/* Mock product surface */
+.mock-surface{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-md)}
+.mock-bar{display:flex;align-items:center;gap:6px;padding:10px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
+.mock-bar .d{width:10px;height:10px;border-radius:50%}
+.mock-bar .r{background:#EF4444}
+.mock-bar .y{background:#F59E0B}
+.mock-bar .g{background:#10B981}
+.mock-bar .url{margin-left:14px;font-family:var(--font-mono);font-size:11px;color:var(--ink-4)}
+.mock-bar .live{margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--red);text-transform:uppercase;letter-spacing:.08em;font-weight:700;display:flex;align-items:center;gap:5px}
+.mock-bar .live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.mock-body{display:grid;grid-template-columns:200px 1fr;min-height:300px}
+.mock-side{background:var(--bg);border-right:1px solid var(--line);padding:18px 12px}
+.mock-side .h{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4);margin-bottom:10px;padding:0 10px}
+.mock-side .it{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-3);padding:7px 10px;border-radius:6px;margin-bottom:2px;font-weight:500}
+.mock-side .it.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.mock-side .it svg{width:13px;height:13px}
+.mock-main{padding:24px}
+.mock-main h4{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:6px}
+.mock-main h4 .ok{width:7px;height:7px;border-radius:50%;background:var(--success)}
+.mock-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mock-cell{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px}
+.mock-cell .l{font-family:var(--font-mono);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-4);margin-bottom:5px}
+.mock-cell .v{font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--ink)}
+.mock-cell .v.green{color:var(--success)}
+.mock-cell .v.acc{color:var(--accent)}
+
+/* Comparison strip */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.compare .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.compare .panel.acc{border-color:var(--accent-line);background:var(--accent-soft)}
+.compare .panel h4{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;color:var(--ink-4)}
+.compare .panel.acc h4{color:var(--accent)}
+.compare .panel ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.compare .panel li{font-size:13px;color:var(--ink-2);display:flex;align-items:center;gap:8px}
+.compare .panel li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ink-3)}
+.compare .panel.acc li::before{background:var(--accent)}
+
+/* Stats */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden}
+.stat{padding:24px 28px;border-right:1px solid var(--line-2);position:relative}
+.stat:last-child{border-right:none}
+.stat .v{font-family:var(--font-display);font-size:36px;font-weight:800;letter-spacing:-.03em;color:var(--ink);line-height:1;margin-bottom:6px}
+.stat .v.acc{color:var(--accent)}
+.stat .v.red{color:var(--red)}   /* explicit red stat — danger/live usage */
+.stat .l{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4)}
+
+/* Footer band */
+.foot-band{margin-top:80px;padding:48px 40px;background:var(--ink);color:#E5E7EB;border-radius:var(--r-lg);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+.foot-band h3{font-family:var(--font-display);font-size:22px;font-weight:700;color:#fff}
+.foot-band .meta{font-family:var(--font-mono);font-size:11px;color:#9CA3AF;text-transform:uppercase;letter-spacing:.1em}
+.foot-band .acc{color:#C4B5FD}
+.foot-band .red{color:#FCA5A5}
+
+/* Misc */
+.divider{height:1px;background:var(--line);margin:32px 0}
+.note{font-size:12px;color:var(--ink-4);font-family:var(--font-mono);border-left:2px solid var(--line);padding:6px 14px;margin-top:10px;line-height:1.6}
+
+@media (max-width: 900px){
+  .layout{grid-template-columns:1fr;gap:32px}
+  .sidenav{position:static;flex-direction:row;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--line);padding-bottom:20px}
+  .sidenav-title{display:none}
+  .sidenav a{padding:6px 10px;background:var(--bg);border:1px solid var(--line)}
+  .form-grid{grid-template-columns:1fr}
+  .logo-strip,.compare{grid-template-columns:1fr}
+  .mock-body{grid-template-columns:1fr}
+  .mock-side{display:none}
+  .mock-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr 1fr}
+  .stat{border-right:none;border-bottom:1px solid var(--line-2)}
+  .type-specimen{grid-template-columns:1fr;gap:6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- =================== HEADER =================== -->
+<div class="page-head">
+  <span class="eyebrow">AdeptSense · Internal Style Guide v0.3 <span class="variant-tag">Variant C · Deeper</span></span>
+  <h1>Black &amp; white, <em>deep purple</em> when it matters.</h1>
+  <p class="lede">A mostly-monochrome system with one loud accent (deep purple <code style="font-family:var(--font-mono);font-size:14px;color:var(--voice);background:var(--bg);padding:2px 6px;border-radius:4px">#4B1D95</code> — one shade brighter than the logo's <code style="font-family:var(--font-mono);font-size:14px;color:var(--voice);background:var(--bg);padding:2px 6px;border-radius:4px">#26125B</code>, same hue family), one quiet voice (the logo's deep purple, reserved for code), and red <code style="font-family:var(--font-mono);font-size:14px;color:var(--voice);background:var(--bg);padding:2px 6px;border-radius:4px">#BB2D2E</code> kept <em>tiny</em> — eyebrow dot, live indicator, danger. Open <code style="font-family:var(--font-mono);font-size:14px;color:var(--voice);background:var(--bg);padding:2px 6px;border-radius:4px">styleguide.html</code> side-by-side to compare against the all-red Variant A.</p>
+</div>
+
+<div class="layout">
+
+<!-- =================== SIDENAV =================== -->
+<nav class="sidenav" aria-label="Style guide sections">
+  <div class="sidenav-title">Sections</div>
+  <a href="#logo"><span>01</span> Logo</a>
+  <a href="#colors"><span>02</span> Color</a>
+  <a href="#typography"><span>03</span> Typography</a>
+  <a href="#buttons"><span>04</span> Buttons</a>
+  <a href="#chips"><span>05</span> Chips &amp; pills</a>
+  <a href="#forms"><span>06</span> Forms</a>
+  <a href="#code"><span>07</span> Code</a>
+  <a href="#cards"><span>08</span> Cards</a>
+  <a href="#product"><span>09</span> Product</a>
+  <a href="#ratios"><span>10</span> Usage ratios</a>
+</nav>
+
+<!-- =================== 01 LOGO =================== -->
+<main>
+
+<section id="logo">
+  <div class="section-head">
+    <span class="num">01</span>
+    <h2>Logo</h2>
+    <p class="desc">Same logo at <code style="font-family:var(--font-mono);font-size:13px;color:var(--voice)">public/logo.png</code> (served at <code style="font-family:var(--font-mono);font-size:13px;color:var(--voice)">/logo.png</code>). The logo keeps its hard red — that's the mark. Purple enters the UI around it, never inside it.</p>
+  </div>
+
+  <div class="logo-strip">
+    <div class="logo-block">
+      <div class="logo-zone">
+        <img src="/logo.png" alt="AdeptSense logo on light" style="max-width:280px;width:100%;height:auto"/>
+      </div>
+      <div class="logo-meta"><span>On light surface</span><span>original.png</span></div>
+    </div>
+    <div class="logo-block dark">
+      <div class="logo-zone" style="filter:invert(1) hue-rotate(180deg) saturate(.6)">
+        <img src="/logo.png" alt="AdeptSense logo on dark" style="max-width:280px;width:100%;height:auto"/>
+      </div>
+      <div class="logo-meta"><span>On dark surface (inverted)</span><span>original.png · filter: invert(1)</span></div>
+    </div>
+  </div>
+
+  <p class="note">Rule: <strong>never recolor the logo's red</strong>. Purple UI lives around the logo, never inside it. The red dot inside the eyebrow chip is a deliberate echo of the mark.</p>
+</section>
+
+<!-- =================== 02 COLOR =================== -->
+<section id="colors">
+  <div class="section-head">
+    <span class="num">02</span>
+    <h2>Color</h2>
+    <p class="desc">One loud accent (purple), one quiet voice (deep purple for code), one tiny emergency red. Black &amp; white do the heavy lifting.</p>
+  </div>
+
+  <h3 style="font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin:0 0 12px">Accent — Deep purple (one shade above logo)</h3>
+  <div class="swatch-grid" style="margin-bottom:24px">
+    <div class="swatch"><div class="swatch-chip dark" style="background:#3A1773">#3A1773 · pressed</div><div class="swatch-meta"><div class="name">--accent-pressed</div><div class="hex">#3A1773</div><div class="role">Active / pressed state on accent surfaces</div></div></div>
+    <div class="swatch"><div class="swatch-chip dark" style="background:#5A23B3">#5A23B3 · hover</div><div class="swatch-meta"><div class="name">--accent-hover</div><div class="hex">#5A23B3</div><div class="role">Hover state on accent CTAs</div></div></div>
+    <div class="swatch"><div class="swatch-chip dark" style="background:#4B1D95">#4B1D95 · main</div><div class="swatch-meta"><div class="name">--accent</div><div class="hex">#4B1D95</div><div class="role">Primary CTAs · links · eyebrow · focus ring · brand chip — bridge between voice #26125B and bright violet</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#D1C2EB;color:#26125B">#D1C2EB</div><div class="swatch-meta"><div class="name">--accent-line</div><div class="hex">#D1C2EB</div><div class="role">Border on accent surfaces · input focus border</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#F3EFFB;color:#3A1773">#F3EFFB</div><div class="swatch-meta"><div class="name">--accent-soft</div><div class="hex">#F3EFFB</div><div class="role">Chips · hover bg · "Verified ✓" pill · active nav</div></div></div>
+  </div>
+
+  <h3 style="font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin:0 0 12px">Voice — Deep purple (code only, from logo)</h3>
+  <div class="swatch-grid" style="margin-bottom:24px">
+    <div class="swatch"><div class="swatch-chip dark" style="background:#26125B">#26125B · main</div><div class="swatch-meta"><div class="name">--voice</div><div class="hex">#26125B</div><div class="role">Inline code · terminal headers · secondary tags</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#C7BCE0;color:#26125B">#C7BCE0</div><div class="swatch-meta"><div class="name">--voice-line</div><div class="hex">#C7BCE0</div><div class="role">Border on voice surfaces</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#EDE9F7;color:#26125B">#EDE9F7</div><div class="swatch-meta"><div class="name">--voice-soft</div><div class="hex">#EDE9F7</div><div class="role">Quiet secondary chips · code blocks bg</div></div></div>
+  </div>
+
+  <h3 style="font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin:0 0 12px">Red — reserved (eyebrow dot · live · danger)</h3>
+  <div class="swatch-grid" style="margin-bottom:24px">
+    <div class="swatch"><div class="swatch-chip dark" style="background:#BB2D2E">#BB2D2E · main</div><div class="swatch-meta"><div class="name">--red</div><div class="hex">#BB2D2E</div><div class="role">Eyebrow dot · live dot · destructive CTAs only</div></div></div>
+    <div class="swatch"><div class="swatch-chip dark" style="background:#9E2224">#9E2224 · hover</div><div class="swatch-meta"><div class="name">--red-hover</div><div class="hex">#9E2224</div><div class="role">Hover on red destructive CTA</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#E9B4B5;color:#9E2224">#E9B4B5</div><div class="swatch-meta"><div class="name">--red-line</div><div class="hex">#E9B4B5</div><div class="role">Red chip border</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#FCEBEC;color:#9E2224">#FCEBEC</div><div class="swatch-meta"><div class="name">--red-soft</div><div class="hex">#FCEBEC</div><div class="role">Red chip background · focus error halo</div></div></div>
+  </div>
+
+  <h3 style="font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin:0 0 12px">Neutrals — Ink Spine</h3>
+  <div class="swatch-grid" style="margin-bottom:24px">
+    <div class="swatch"><div class="swatch-chip dark" style="background:#0B0B0F">#0B0B0F · ink</div><div class="swatch-meta"><div class="name">--ink</div><div class="hex">#0B0B0F</div><div class="role">Headlines · primary text · logo's deep black (warm)</div></div></div>
+    <div class="swatch"><div class="swatch-chip dark" style="background:#1F2937">#1F2937</div><div class="swatch-meta"><div class="name">--ink-2</div><div class="hex">#1F2937</div><div class="role">Subheads · nav text</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#4B5563;color:#fff">#4B5563</div><div class="swatch-meta"><div class="name">--ink-3</div><div class="hex">#4B5563</div><div class="role">Body text</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#6B7280;color:#fff">#6B7280</div><div class="swatch-meta"><div class="name">--ink-4</div><div class="hex">#6B7280</div><div class="role">Helper · placeholder</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#9CA3AF;color:#fff">#9CA3AF</div><div class="swatch-meta"><div class="name">--ink-5</div><div class="hex">#9CA3AF</div><div class="role">Disabled · muted</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#E5E7EB;color:#4B5563;border-bottom:1px solid var(--line)">#E5E7EB</div><div class="swatch-meta"><div class="name">--line</div><div class="hex">#E5E7EB</div><div class="role">Default 1px border</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#F3F4F6;color:#4B5563">#F3F4F6</div><div class="swatch-meta"><div class="name">--line-2</div><div class="hex">#F3F4F6</div><div class="role">Card-on-card divider</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#FAFAFA;color:#4B5563;border:1px solid #E5E7EB">#FAFAFA</div><div class="swatch-meta"><div class="name">--bg</div><div class="hex">#FAFAFA</div><div class="role">Page background (off-white, not pure white)</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#FFFFFF;color:#4B5563;border:1px solid #E5E7EB">#FFFFFF</div><div class="swatch-meta"><div class="name">--surface</div><div class="hex">#FFFFFF</div><div class="role">Cards · modals · nav</div></div></div>
+  </div>
+
+  <h3 style="font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin:0 0 12px">Status — use sparingly</h3>
+  <div class="swatch-grid">
+    <div class="swatch"><div class="swatch-chip dark" style="background:#15803D">#15803D</div><div class="swatch-meta"><div class="name">--success</div><div class="hex">#15803D</div><div class="role">"Verified true" · pass pills</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#DCFCE7;color:#15803D">#DCFCE7</div><div class="swatch-meta"><div class="name">--success-soft</div><div class="hex">#DCFCE7</div><div class="role">Success background</div></div></div>
+    <div class="swatch"><div class="swatch-chip dark" style="background:#B45309">#B45309</div><div class="swatch-meta"><div class="name">--warning</div><div class="hex">#B45309</div><div class="role">Under-review pills</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#FEF3C7;color:#B45309">#FEF3C7</div><div class="swatch-meta"><div class="name">--warning-soft</div><div class="hex">#FEF3C7</div><div class="role">Warning background</div></div></div>
+    <div class="swatch"><div class="swatch-chip dark" style="background:#991B1B">#991B1B</div><div class="swatch-meta"><div class="name">--danger</div><div class="hex">#991B1B</div><div class="role">Destructive (darker, never decorative)</div></div></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#FEE2E2;color:#991B1B">#FEE2E2</div><div class="swatch-meta"><div class="name">--danger-soft</div><div class="hex">#FEE2E2</div><div class="role">Destructive background</div></div></div>
+  </div>
+</section>
+
+<!-- =================== 03 TYPOGRAPHY =================== -->
+<section id="typography">
+  <div class="section-head">
+    <span class="num">03</span>
+    <h2>Typography</h2>
+    <p class="desc">Plus Jakarta Sans for body, Sora for display, JetBrains Mono for code, Lora for italic accents. Italic accent is purple, not red — softer on the eye.</p>
+  </div>
+
+  <div class="type-card">
+    <div class="type-specimen">
+      <div><div class="lbl">Display 52 / 800</div><div class="meta">h1 · hero</div></div>
+      <div><div class="type-display">Identity, <em>verified.</em></div></div>
+    </div>
+    <div class="type-specimen">
+      <div><div class="lbl">H1 34 / 700</div><div class="meta">section title</div></div>
+      <div><div class="type-h1">One API for every Bangladesh identity check.</div></div>
+    </div>
+    <div class="type-specimen">
+      <div><div class="lbl">H2 22 / 600</div><div class="meta">card title</div></div>
+      <div><div class="type-h2">Verified instantly. Tuned for Dhaka.</div></div>
+    </div>
+    <div class="type-specimen">
+      <div><div class="lbl">Body 16 / 400</div><div class="meta">paragraph</div></div>
+      <div><p class="type-body">OCR, face match, liveness, name translation, and gender intelligence — every check a Bangladesh product needs, in one API call. Built for developers, tuned for Dhaka.</p></div>
+    </div>
+    <div class="type-specimen">
+      <div><div class="lbl">Quote Lora 20i</div><div class="meta">pull-quote</div></div>
+      <div><p class="type-quote">"Built for Bangladesh, not retrofitted."</p></div>
+    </div>
+    <div class="type-specimen">
+      <div><div class="lbl">Mono 13</div><div class="meta">inline code</div></div>
+      <div><span class="type-mono">POST /verify/nid · Authorization: Bearer YOUR_API_KEY</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 04 BUTTONS =================== -->
+<section id="buttons">
+  <div class="section-head">
+    <span class="num">04</span>
+    <h2>Buttons &amp; links</h2>
+    <p class="desc">One primary (purple), one dark (black), one ghost, one danger (red). No gradient buttons. Hover lifts 1px.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4);margin-bottom:12px">Default</h3>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="#">Try demo →</a>
+      <a class="btn btn-secondary" href="#">Read the docs</a>
+      <a class="btn btn-ghost" href="#">Cancel</a>
+      <a class="btn btn-link" href="#">Or view pricing →</a>
+    </div>
+
+    <h3 style="font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4);margin:18px 0 12px">Sizes</h3>
+    <div class="btn-row" style="align-items:center">
+      <a class="btn btn-primary btn-sm" href="#">Small</a>
+      <a class="btn btn-primary" href="#">Default</a>
+      <a class="btn btn-primary btn-lg" href="#">Large</a>
+      <button class="btn btn-primary" disabled>Disabled</button>
+    </div>
+
+    <h3 style="font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4);margin:18px 0 12px">Destructive (red reserved)</h3>
+    <div class="btn-row">
+      <a class="btn btn-danger" href="#">Revoke API key</a>
+    </div>
+    <p class="note">Destructive actions keep red — that's the moment a developer actually needs the warning.</p>
+  </div>
+</section>
+
+<!-- =================== 05 CHIPS =================== -->
+<section id="chips">
+  <div class="section-head">
+    <span class="num">05</span>
+    <h2>Chips &amp; pills</h2>
+    <p class="desc">Seven styles. Accent chip is purple (brand voice). Red chip is reserved for <em>live</em>, <em>verify-fail</em>, <em>destructive confirm</em>.</p>
+  </div>
+
+  <div class="card">
+    <div class="chip-row">
+      <span class="chip chip-accent"><span class="chip-dot"></span> Bangladesh-only</span>
+      <span class="chip chip-voice">v2024.07</span>
+      <span class="chip chip-red"><span class="chip-dot"></span> LIVE</span>
+      <span class="chip chip-success">✓ verified</span>
+      <span class="chip chip-warning">review</span>
+      <span class="chip chip-neutral">draft</span>
+      <span class="chip chip-outline">archived</span>
+      <span class="chip chip-mono">NID · 4821</span>
+    </div>
+    <div class="chip-row" style="margin-top:18px">
+      <span class="chip chip-accent">SOC 2 Type II</span>
+      <span class="chip chip-success">99.4% accuracy</span>
+      <span class="chip chip-neutral">+12 more</span>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 06 FORMS =================== -->
+<section id="forms">
+  <div class="section-head">
+    <span class="num">06</span>
+    <h2>Forms</h2>
+    <p class="desc">Single-line inputs, purple focus ring (3px glow). Error state switches to red.</p>
+  </div>
+
+  <div class="card">
+    <div class="form-grid">
+      <div class="field">
+        <label class="field-label">API key</label>
+        <input class="input" value="sk_test_••••••••••••3aF2" />
+        <div class="field-hint">starts with sk_test_ or sk_live_</div>
+      </div>
+      <div class="field">
+        <label class="field-label">Endpoint region</label>
+        <select class="select">
+          <option>ap-south-1 (Dhaka edge)</option>
+          <option>ap-southeast-1</option>
+        </select>
+        <div class="field-hint">closest to your users wins</div>
+      </div>
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label class="field-label">Webhook URL</label>
+      <input class="input" placeholder="https://api.yourapp.com/webhooks/adeptsense" />
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label class="field-label">Custom payload (JSON)</label>
+      <textarea class="textarea">{
+  "user_id": "u_4821",
+  "event": "verification.completed"
+}</textarea>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:14px;flex-wrap:wrap">
+      <label class="checkbox"><input type="checkbox" checked/> Send webhook on every verification</label>
+      <label class="checkbox"><input type="checkbox"/> Include extracted NID fields</label>
+    </div>
+
+    <h3 style="font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4);margin:24px 0 12px">Invalid state</h3>
+    <div class="form-grid">
+      <div class="field">
+        <label class="field-label">Email</label>
+        <input class="input error" value="not-an-email" />
+        <div class="field-hint" style="color:var(--danger)">Enter a valid email address.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 07 CODE =================== -->
+<section id="code">
+  <div class="section-head">
+    <span class="num">07</span>
+    <h2>Code &amp; terminal</h2>
+    <p class="desc">Ink-black backgrounds. Purple for keywords, near-white for strings. Red stays on tokens only — quiet presence.</p>
+  </div>
+
+<pre class="code-block"><span class="c">// POST /verify/nid — works in sandbox, no credits used</span>
+<span class="k">curl</span> <span class="v">"https://api.adeptsense.tech/v1/verify/nid"</span> <span class="p">\</span>
+  <span class="p">-H</span> <span class="v">"Authorization: Bearer sk_test_•••"</span> <span class="p">\</span>
+  <span class="p">-F</span> <span class="v">"nid_front=@/path/to/nid.jpg"</span> <span class="p">\</span>
+  <span class="p">-F</span> <span class="v">"selfie=@/path/to/selfie.jpg"</span>
+
+<span class="c">// 200 OK — verification complete</span>
+<span class="p">{</span>
+  <span class="r">"verified"</span>: <span class="n">true</span>,
+  <span class="r">"face_match_score"</span>: <span class="n">0.97</span>,
+  <span class="r">"liveness_score"</span>: <span class="n">0.94</span>,
+  <span class="r">"name_bn"</span>: <span class="v">"মোঃ রফিকুল ইসলাম"</span>,
+  <span class="r">"name_en"</span>: <span class="v">"Md. Rafiqul Islam"</span>,
+  <span class="r">"region"</span>: <span class="v">"BD-Dhaka"</span>,
+  <span class="r">"latency_ms"</span>: <span class="n">142</span>
+<span class="p">}</span>
+</pre>
+</section>
+
+<!-- =================== 08 CARDS =================== -->
+<section id="cards">
+  <div class="section-head">
+    <span class="num">08</span>
+    <h2>Cards</h2>
+    <p class="desc">Border-first, shadow-second. Eyebrow is purple. "Beta" tag is purple-soft. No red here unless you're a destructive action.</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="eyebrow-mini">Live · Production</div>
+      <h3>NID OCR</h3>
+      <p>Extract structured fields from Bangladesh smart and laminated NIDs. Bangla + English in one call.</p>
+      <div class="card-footer"><span>avg 142ms</span><span style="color:var(--success);font-weight:600">99.4% accuracy</span></div>
+    </div>
+    <div class="card card-elev">
+      <div class="eyebrow-mini">Live · Sandbox</div>
+      <h3>Face Match</h3>
+      <p>1:1 selfie-against-NID match with liveness detection. Tuned for low-light Dhaka selfies.</p>
+      <div class="card-footer"><span>avg 280ms</span><span style="color:var(--accent);font-weight:600">Beta</span></div>
+    </div>
+    <div class="card">
+      <div class="eyebrow-mini">Live · Production</div>
+      <h3>Name Translation</h3>
+      <p>Bangla ↔ English transliteration with diacritic preservation. The piece every competitor skips.</p>
+      <div class="card-footer"><span>avg 38ms</span><span style="color:var(--ink-4)">v2024.07</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 09 PRODUCT =================== -->
+<section id="product">
+  <div class="section-head">
+    <span class="num">09</span>
+    <h2>Product surface mock</h2>
+    <p class="desc">Notice: nav active item is purple, success cells are green, but the <strong>LIVE indicator is red</strong> — that's the one moment red earns its keep.</p>
+  </div>
+
+  <div class="mock-surface">
+    <div class="mock-bar">
+      <span class="d r"></span><span class="d y"></span><span class="d g"></span>
+      <span class="url">app.adeptsense.tech/dashboard</span>
+      <span class="live">LIVE · SANDBOX</span>
+    </div>
+    <div class="mock-body">
+      <div class="mock-side">
+        <div class="h">Services</div>
+        <div class="it active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
+          NID OCR
+        </div>
+        <div class="it">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="8" r="3"/><circle cx="17" cy="8" r="3"/></svg>
+          Face Match
+        </div>
+        <div class="it">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Liveness
+        </div>
+        <div class="it">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h6M8 5v6"/></svg>
+          Name Translation
+        </div>
+      </div>
+      <div class="mock-main">
+        <h4><span class="ok"></span> NID OCR · last 24h</h4>
+        <div class="mock-grid">
+          <div class="mock-cell"><div class="l">verified</div><div class="v green">true</div></div>
+          <div class="mock-cell"><div class="l">accuracy</div><div class="v">0.994</div></div>
+          <div class="mock-cell"><div class="l">region</div><div class="v">BD-Dhaka</div></div>
+          <div class="mock-cell"><div class="l">avg latency</div><div class="v">142 ms</div></div>
+          <div class="mock-cell"><div class="l">name_bn</div><div class="v" style="font-size:10px">মোঃ রফিকুল…</div></div>
+          <div class="mock-cell"><div class="l">nid</div><div class="v">••••4821</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 10 RATIOS =================== -->
+<section id="ratios">
+  <div class="section-head">
+    <span class="num">10</span>
+    <h2>Usage ratios &amp; comparison</h2>
+    <p class="desc">Per-screen target. Purple is loud (CTAs, links, focus). Red is tiny (the moments a developer cares). Black &amp; white carry the visual weight.</p>
+  </div>
+
+  <div class="stat-row" style="margin-bottom:24px">
+    <div class="stat"><div class="v">72<span style="font-size:18px;color:var(--ink-4);font-weight:600">%</span></div><div class="l">White · off-white · surfaces</div></div>
+    <div class="stat"><div class="v">18<span style="font-size:18px;color:var(--ink-4);font-weight:600">%</span></div><div class="l">Ink (text)</div></div>
+    <div class="stat"><div class="v acc">8<span style="font-size:18px;color:var(--ink-4);font-weight:600">%</span></div><div class="l">Purple · accent</div></div>
+    <div class="stat"><div class="v red">1.2<span style="font-size:18px;color:var(--ink-4);font-weight:600">%</span></div><div class="l">Red · reserved</div></div>
+    <div class="stat"><div class="v" style="color:var(--voice)">0.5<span style="font-size:18px;color:var(--ink-4);font-weight:600">%</span></div><div class="l">Deep purple · code</div></div>
+    <div class="stat"><div class="v" style="color:var(--success)">0.3<span style="font-size:18px;color:var(--ink-4);font-weight:600">%</span></div><div class="l">Status only</div></div>
+  </div>
+
+  <div class="compare">
+    <div class="panel">
+      <h4>Variant A · red-as-accent</h4>
+      <ul>
+        <li>Red carries brand, chips, links, eyebrows, focus ring</li>
+        <li>~8% per-screen — heavy for an identity-verification context</li>
+        <li>Risks reading as <em>"danger"</em> on first scan (Stripe/Vercel reserve red for errors)</li>
+        <li>Logo's red blends with UI red — mark loses its pop</li>
+      </ul>
+    </div>
+    <div class="panel acc">
+      <h4>Variant C · deep purple + tiny red</h4>
+      <ul>
+        <li><strong>Purple #4B1D95</strong> — same hue family as logo's deep purple #26125B, one shade brighter</li>
+        <li>Red #BB2D2E appears <strong>only</strong> at: eyebrow dot, live indicator, destructive CTA</li>
+        <li>Reads as Linear / Plaid / Mercury — premium-fintech, not bright violet Stripe</li>
+        <li>Logo's red and purple now feel like <strong>one family</strong> with the UI accent</li>
+        <li>All three logo colors present, each at its honest ratio</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+</div><!-- /layout -->
+
+<!-- =================== FOOTER BAND =================== -->
+<div class="foot-band">
+  <div>
+    <h3>AdeptSense · Style Guide v0.3 — <span class="acc">Variant C · Deeper</span></h3>
+    <div class="meta">Black · White · <span class="acc">Deep purple #4B1D95</span> · red reserved — built from <span class="red">assets/logo/adeptsense-logo-original.png</span></div>
+  </div>
+  <div style="display:flex;gap:14px">
+    <a class="btn btn-ghost" href="styleguide.html" style="color:#fff;border-color:#374151">Switch to Variant A</a>
+    <a class="btn btn-primary" href="index.html" style="color:#fff">Back to site</a>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+</body>
+</html>

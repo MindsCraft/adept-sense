@@ -1,0 +1,79 @@
+/* ── DESIGN TOKENS — Variant C · Deeper ──
+   Sourced from assets/logo/adeptsense-logo-original.png:
+     • Black 0,0,0            (64% of pixels — the mark)
+     • Red #BB2D2E            (17.4% — reserved for live/danger/dot only)
+     • Deep purple #26125B    (10.9% — voice for code)
+   Brand accent: #4B1D95 — one shade brighter than the logo's deep purple,
+   same hue family. Bridge between logo and UI. Linear / Plaid / Mercury vibe.
+   ───────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Brand accent — DEEP PURPLE (one shade above logo) */
+  --blue:       #4B1D95;      /* Brand Accent Deep Purple */
+  --blue-hover: #5A23B3;
+  --blue-pressed: #3A1773;
+  --blue-dim:   #F3EFFB;      /* Soft purple chip background */
+  --blue-glow:  rgba(75, 29, 149, 0.22);
+
+  /* Voice — DEEP PURPLE from logo, reserved for code/voice */
+  --voice:      #26125B;
+  --voice-soft: #EDE9F7;
+  --voice-line: #C7BCE0;
+
+  /* Red — RESERVED (eyebrow dot · live · danger only) */
+  --red:        #BB2D2E;      /* Logo red, used only at 1-3 places per screen */
+  --red-hover:  #9E2224;
+  --red-dim:    #FCEBEC;
+  --red-line:   #E9B4B5;
+
+  /* Green — semantic success / live indicator (dashboard mock) */
+  --green:      #10B981;
+  --green-dim:  rgba(16, 185, 129, 0.12);
+  --green-line: rgba(16, 185, 129, 0.25);
+
+  /* Neutrals — warm "Ink Spine" matching logo's warm black */
+  --ink:        #0B0B0F;      /* Logo's warm black — primary text */
+  --ink-2:      #1F2937;
+  --ink-3:      #4B5563;
+  --ink-4:      #6B7280;
+  --bg:         #FAFAFA;      /* Off-white, not pure white */
+  --surface:    #FFFFFF;
+  --border:     #E5E7EB;
+  --border-2:   #F3F4F6;
+
+  /* Code / Terminal mock — GitHub-Dark-aligned */
+  --code-bg:    #0D1117;
+  --code-bg-2:  #0B0F19;
+  --code-fg:    #C9D1D9;
+  --code-fg-2:  #D1D5DB;
+  --code-line:  #21262D;
+  --code-kw:    #FF7B72;      /* keyword (def, import, return) */
+  --code-fn:    #79C0FF;      /* function / call */
+  --code-str:   #A5D6FF;      /* string literal */
+  --code-val:   #56D364;      /* numeric / boolean literal */
+  --code-var:   #FFA657;      /* variable / parameter */
+  --code-cm:    #6E7681;      /* comment */
+  --code-acc:   #A78BFA;      /* accent-highlighted (≈ violet-400, on dark) */
+  --code-ok:    #34D399;      /* success string */
+  --code-warn:  #F59E0B;      /* warning / number */
+
+  --r-sm:       6px;
+  --r:          10px;
+  --r-lg:       16px;
+  --ease:       cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Spacing Scale (unchanged) */
+  --space-xs:   4px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   32px;
+  --space-2xl:  48px;
+  --space-3xl:  64px;
+
+  /* Shadow Scale — tinted toward ink, not blue */
+  --shadow-sm:  0 1px 2px rgba(11, 11, 15, 0.06);
+  --shadow-md:  0 4px 12px rgba(11, 11, 15, 0.08);
+  --shadow-lg:  0 12px 24px rgba(11, 11, 15, 0.10);
+  --shadow-xl:  0 20px 32px rgba(11, 11, 15, 0.14);
+}
