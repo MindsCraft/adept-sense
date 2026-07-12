@@ -69,7 +69,7 @@
     <!-- OVERVIEW -->
     <section id="overview">
       <h1>AdeptSense API Documentation</h1>
-      <p class="docs-intro">The AdeptSense API provides identity verification services including NID OCR, face match, liveness verification, name translation, and gender estimation. All endpoints accept JSON and return JSON.</p>
+      <p class="docs-intro">The AdeptSense API provides identity verification services including ID card OCR, face match, liveness verification, name translation, and gender estimation. All endpoints accept JSON and return JSON.</p>
 
       <div class="info-grid">
         <div class="info-card">
@@ -172,7 +172,7 @@ console.<span class="c-fn">log</span>(result.ok) <span class="c-cm">// true</spa
     <!-- ENDPOINTS -->
     <section id="nid-ocr">
       <h2>POST /api/v1/ocr/nid</h2>
-      <p>Extract structured identity fields from a Bangladesh NID card image. Supports both smart-card and old-format NIDs. (Cost: 2 tokens)</p>
+      <p>Extract structured identity fields from any government-issued ID card image &mdash; Bangladesh NID, passport, driver's license, voter ID, and more. The endpoint is named <code>/ocr/nid</code> for historical reasons but accepts any ID card format. (Cost: 2 tokens)</p>
 
       <h3>Request Body</h3>
       <div class="params-table">

@@ -1,0 +1,48 @@
+/* ── USE CASES ──
+   6-card industry grid between Demo strip and How it works.
+   Glass cards on transparent background.                   */
+.usecases-wrap { background: transparent; }
+.usecases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+}
+.uc-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  padding: 28px 24px;
+  transition: background 250ms var(--ease), border-color 250ms var(--ease),
+              transform 250ms var(--ease), box-shadow 250ms var(--ease);
+  display: flex; flex-direction: column;
+  cursor: pointer;
+  border-radius: var(--r-lg);
+}
+.uc-card:hover {
+  background: #FFFFFF;
+  border-color: rgba(3, 105, 161, 0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(3, 105, 161, 0.06);
+}
+.uc-card:active {
+  transform: translateY(-1px) scale(0.99);
+}
+.uc-icon { font-size: 22px; margin-bottom: 14px; }
+.uc-card h4 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.uc-card p  { font-size: 13px; color: var(--ink-3); line-height: 1.55; flex: 1; }
+.uc-link { font-size: 12px; font-weight: 500; color: var(--blue); margin-top: 14px; display: inline-block; }
+.uc-link:hover { text-decoration: underline; }
+
+/* Tablet — 2 columns */
+@media (max-width: 900px) {
+  .usecases-grid { grid-template-columns: repeat(2, 1fr); }
+}
+/* Mobile — 1 column */
+@media (max-width: 560px) {
+  .usecases-grid { grid-template-columns: 1fr; }
+}

@@ -25,9 +25,9 @@
 
 .hero-inner {
   width: 100%;
-  max-width: 1440px;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 0 64px;
+  padding: 0 var(--gutter);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -43,7 +43,7 @@
   }
 }
 @media (max-width: 768px) {
-  .hero-inner { padding: 0 24px; }
+  .hero-inner { padding: 0 var(--gutter-sm); }
 }
 
 /* ── LEFT COLUMN ── */
@@ -504,12 +504,12 @@
 }
 .hero-e-inner {
   position: relative; z-index: 2;
-  max-width: 880px;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 0 64px;
+  padding: 0 var(--gutter);
 }
 .hero-e-eyebrow {
-  justify-content: center;
+  justify-content: flex-start;
 }
 .hero-e-headline {
   font-family: 'Sora', 'Plus Jakarta Sans', sans-serif;
@@ -532,14 +532,15 @@
   color: var(--ink-3);
   line-height: 1.6;
   max-width: 680px;
-  margin: 0 auto 36px;
+  margin: 0 auto 44px;
 }
 .hero-e-sub strong { color: var(--ink-2); font-weight: 500; }
 .hero-e-cta {
-  display: inline-flex; gap: 12px;
+  display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 32px;
+  gap: 14px;
+  margin-bottom: 72px;
 }
 .hero-e-trust {
   display: inline-flex; align-items: center; gap: 8px;
@@ -549,39 +550,33 @@
 }
 .hero-e-trust .stars { color: #F59E0B; letter-spacing: 0.08em; }
 
-/* Stats strip — dev trust proof (accuracy · latency · uptime) */
+/* Stats — bare numerals with hairline separators */
 .hero-e-stats {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 18px;
-  margin-top: 8px;
-  margin-bottom: 64px;
-  padding: 14px 22px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+  gap: 24px 32px;
+  margin-bottom: 32px;
 }
 .hero-e-stat {
   display: inline-flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 10px;
   white-space: nowrap;
 }
 .hero-e-stat .v {
   font-family: 'Sora', 'Plus Jakarta Sans', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
   color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
 .hero-e-stat .l {
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
   color: var(--ink-4);
 }
 .hero-e-stat-sep {
@@ -589,26 +584,31 @@
   height: 18px;
   background: var(--border);
 }
+
 @media (max-width: 640px) {
   .hero-e-stats {
-    flex-wrap: wrap;
-    border-radius: 14px;
-    gap: 10px 16px;
-    padding: 12px 18px;
-    margin-bottom: 48px;
+    gap: 10px 14px;
+    margin-bottom: 32px;
   }
   .hero-e-stat-sep { display: none; }
-  .hero-e-stat { flex: 1 1 30%; justify-content: center; }
-  .hero-e-stat .v { font-size: 16px; }
+  .hero-e-stat { flex: 1 1 40%; justify-content: center; }
+  .hero-e-stat .v { font-size: 18px; }
+  .hero-e-stat .l { font-size: 11px; }
 }
 
-/* Product poster — full-width stylized dashboard screenshot */
+/* Product poster — sits between .hero-e-inner and the next section.
+   Uses the same container rule as .ep-rows (max-width: var(--container);
+   padding: 0 var(--gutter); margin: 0 auto) so the left/right edges align
+   perfectly with the sections below. */
 .hero-e-poster {
   position: relative;
-  max-width: 1280px;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 var(--gutter);
   z-index: 1;
+}
+@media (max-width: 768px) {
+  .hero-e-poster { padding: 0 var(--gutter-sm); }
 }
 .hero-e-poster-frame {
   background: var(--surface);

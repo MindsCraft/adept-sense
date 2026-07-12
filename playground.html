@@ -38,7 +38,7 @@
     <h4>Services</h4>
     <button class="svc-btn active" data-service="nid">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2.5"/><line x1="13" y1="10" x2="20" y2="10"/><line x1="13" y1="14" x2="18" y2="14"/></svg>
-      NID OCR
+      ID Card OCR
     </button>
     <button class="svc-btn" data-service="face">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="8" r="3"/><circle cx="17" cy="8" r="3"/><polyline points="10 15 12 17 14 15"/></svg>
@@ -65,7 +65,7 @@
     <!-- LEFT: Input Form -->
     <div class="pg-input-panel">
       <div class="panel-header">
-        <h3 id="panel-title">NID OCR</h3>
+        <h3 id="panel-title">ID Card OCR</h3>
         <span class="panel-method">POST /api/v1/ocr/nid</span>
       </div>
 
@@ -198,7 +198,7 @@ const fgNameEn = document.getElementById('fg-name-en')
 const fgOptions = document.getElementById('fg-options')
 
 const services = {
-  nid:      { title: 'NID OCR',              method: 'POST /api/v1/ocr/nid',        fields: ['front','back'] },
+  nid:      { title: 'ID Card OCR',          method: 'POST /api/v1/ocr/nid',        fields: ['front','back'] },
   face:     { title: 'Face Match',           method: 'POST /api/v1/match/face/submit', fields: ['front','selfie'] },
   liveness: { title: 'Liveness Verification',method: 'POST /api/v1/liveness/create',   fields: ['userid'] },
   name:     { title: 'Name Translation',     method: 'POST /api/v1/name/translate',    fields: ['name'] },
@@ -364,7 +364,7 @@ document.getElementById('btn-sample').addEventListener('click', () => {
     }
     document.getElementById('interpretation').innerHTML = `
       <div class="interp-row interp-green">
-        <span class="interp-label">NID OCR</span>
+        <span class="interp-label">ID Card OCR</span>
         <span class="interp-verdict">Verified & Parsed Successfully</span>
       </div>
       <div class="interp-row">
@@ -561,7 +561,7 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
         const fields = json.data?.fields || {}
         document.getElementById('interpretation').innerHTML = `
           <div class="interp-row interp-green">
-            <span class="interp-label">NID OCR</span>
+            <span class="interp-label">ID Card OCR</span>
             <span class="interp-verdict">Verified & Parsed Successfully</span>
           </div>
           <div class="interp-row">

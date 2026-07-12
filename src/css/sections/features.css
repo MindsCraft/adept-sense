@@ -1,262 +1,611 @@
-/* ── SERVICES ── */
-.services-wrap { background: transparent; border-bottom: 1px solid var(--border); }
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  overflow: visible;
+/* ── ENDPOINTS (row-per-service) ── */
+.endpoints-wrap {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 96px 0;
 }
-.svc-card {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  padding: 32px 24px;
-  transition: background 250ms var(--ease), border-color 250ms var(--ease), transform 250ms var(--ease), box-shadow 250ms var(--ease);
-  cursor: pointer;
-  display: flex; flex-direction: column; gap: 0;
-  border-radius: var(--r-lg);
+.endpoints-head {
+  max-width: var(--container);
+  margin: 0 auto 64px;
+  padding: 0 var(--gutter);
+  text-align: center;
 }
-.svc-card:nth-child(1) {
-  grid-column: span 2;
-}
-.svc-card:hover {
-  background: #FFFFFF;
-  border-color: rgba(3, 105, 161, 0.35);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(3, 105, 161, 0.08);
-}
-.svc-card:active {
-  transform: translateY(-1px) scale(0.99);
-}
-.svc-ico {
-  width: 40px; height: 40px; border-radius: var(--r);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 20px; flex-shrink: 0;
-}
-.svc-ico-b { background: var(--blue-dim); color: var(--blue); }
-.svc-ico-r { background: var(--red-dim); color: var(--red); }
-.svc-ico svg { width: 20px; height: 20px; }
-.svc-card h3 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
-.svc-card p  { font-size: 13px; color: var(--ink-3); line-height: 1.55; margin-bottom: 18px; flex: 1; }
-.svc-link { font-size: 12px; font-weight: 500; color: var(--blue); }
-.svc-link:hover { text-decoration: underline; }
-
-/* ── HOW IT WORKS ── */
-.steps-wrap { background: transparent; }
-.steps {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--border); border-radius: var(--r-lg);
-  overflow: hidden; background: var(--border); gap: 1px;
-}
-.step-card { background: var(--surface); padding: 40px 32px; position: relative; }
-.step-card + .step-card::before {
-  content: '→';
-  position: absolute; left: -13px; top: 50%; transform: translateY(-50%);
-  font-size: 13px; color: var(--ink-4);
-  background: var(--surface); padding: 4px 2px; z-index: 1;
-}
-.step-num {
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--ink); color: #fff;
-  font-size: 12px; font-weight: 600;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 20px;
-}
-.step-card h4 { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
-.step-card p  { font-size: 13.5px; color: var(--ink-3); line-height: 1.6; margin-bottom: 20px; }
-.step-json {
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 14px 16px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11.5px; line-height: 1.75; color: var(--ink-2);
-}
-.jk { color: var(--blue); }
-.jv { color: #059669; }
-.jn { color: var(--blue); }
-
-/* ── INTEGRATION ── */
-.integration-wrap { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.integration-inner {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 96px 64px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
-}
-@media (min-width: 1024px) {
-  .integration-inner {
-    border-left: 1px solid var(--border-2);
-    border-right: 1px solid var(--border-2);
-  }
-}
-@media (max-width: 768px) {
-  .integration-inner {
-    padding: 64px 24px;
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-}
-.int-features { display: flex; flex-direction: column; gap: 2px; margin-top: 32px; }
-.int-feature {
-  display: flex; gap: 16px; align-items: flex-start;
-  padding: 20px; border: 1px solid transparent;
-  border-radius: var(--r); transition: all .15s var(--ease);
-}
-.int-feature:hover { border-color: var(--border); background: var(--bg); }
-.int-ico {
-  width: 36px; height: 36px; border-radius: var(--r);
-  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-}
-.int-ico svg { width: 18px; height: 18px; }
-.int-feature h4 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
-.int-feature p  { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
-
-/* Code block */
-.tab-bar {
-  display: flex; gap: 2px;
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 3px; width: fit-content; margin-bottom: 16px;
-}
-.tab {
-  font-size: 12px; font-weight: 400; color: var(--ink-3);
-  padding: 6px 14px; border-radius: calc(var(--r) - 3px);
-  cursor: pointer; transition: all .15s; border: none; background: none;
-}
-.tab.active { background: var(--surface); color: var(--ink); font-weight: 500; box-shadow: 0 1px 3px rgba(10,11,13,0.06); }
-.code-wrap {
-  background: var(--code-bg); border-radius: var(--r-lg); padding: 28px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12.5px; line-height: 1.8; color: var(--code-fg); overflow-x: auto;
-  border: 1px solid var(--code-line);
-}
-.c-kw  { color: var(--code-kw); }
-.c-fn  { color: var(--code-fn); }
-.c-str { color: var(--code-str); }
-.c-val { color: var(--code-val); }
-.c-cm  { color: var(--code-cm); }
-.c-var { color: var(--code-var); }
-.code-links { margin-top: 16px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
-.code-link { font-size: 13px; font-weight: 500; color: var(--blue); }
-.code-link:hover { text-decoration: underline; }
-.code-link-muted { font-size: 13px; color: var(--ink-3); }
-.code-divider { color: var(--border); font-size: 13px; }
-.sdk-label { font-size: 12px; font-weight: 600; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.05em; }
-.sdk-link-tag {
-  font-size: 12px; font-weight: 500; color: var(--ink-2);
-  background: var(--bg); border: 1px solid var(--border);
-  padding: 4px 10px; border-radius: 6px;
-  transition: all 0.15s var(--ease);
-}
-.sdk-link-tag:hover {
-  background: var(--border-2); color: var(--ink); border-color: var(--ink-4);
-}
-
-  /* ── STATS ── */
-  .stats-wrap { background: var(--ink); padding: 72px 0; }
-.stats-inner {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 64px;
-  display: grid; grid-template-columns: repeat(4, 1fr);
-}
-@media (min-width: 1024px) {
-  .stats-inner {
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
-    border-right: 1px solid rgba(255, 255, 255, 0.15);
-  }
-}
-@media (max-width: 768px) {
-  .stats-inner {
-    padding: 0 24px;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
-  }
-}
-.stat-item {
-  padding: 0 32px; text-align: center;
-  border-right: 1px solid rgba(255,255,255,0.15);
-}
-.stat-item:first-child { padding-left: 0; }
-.stat-item:last-child  { border-right: none; padding-right: 0; }
-.stat-num {
+.endpoints-head .label-tag { color: var(--green); }
+.endpoints-head .section-title em {
   font-family: 'Lora', serif;
-  font-size: 48px; font-weight: 600; color: #fff;
-  letter-spacing: -0.04em; line-height: 1; margin-bottom: 8px;
+  font-style: italic;
+  color: var(--blue);
+  font-weight: 600;
+}
+.endpoints-head .section-sub code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  padding: 2px 7px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--ink);
+}
+
+/* ── Left-aligned P2 variant: mono kicker [ 02 / ENDPOINTS ] ──
+   Shares the same `.ep-rows` container so the head and rows are
+   anchored to the same left edge. Inner content is constrained
+   to a readable max-width (840px) — wide enough that "One consistent
+   JSON contract." fits on a single line at the max section-title
+   size, so the title reads as exactly 2 lines, not 3. The kicker +
+   title sit at the left of the section's content area, not flush
+   to the gutter. */
+.endpoints-head--p2l {
+  text-align: left;
+  max-width: var(--container);
+  margin: 0 auto 64px;
+  padding: 0 var(--gutter);
+}
+.endpoints-head--p2l .ep-head-inner {
+  max-width: 840px;
+}
+.endpoints-head--p2l .ep-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  margin-bottom: 22px;
+  text-transform: uppercase;
+}
+.endpoints-head--p2l .ep-kicker::before { content: "[ "; color: var(--ink-4); }
+.endpoints-head--p2l .ep-kicker::after  { content: " ]"; color: var(--ink-4); }
+.endpoints-head--p2l .ep-kicker .num {
+  color: var(--blue);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.endpoints-head--p2l .section-title { text-align: left; margin: 0 0 16px; }
+.endpoints-head--p2l .section-sub { text-align: left; margin: 0; }
+@media (max-width: 640px) {
+  .endpoints-head--p2l { padding: 0 var(--gutter-sm); }
+}
+
+/* 5 alternating rows, each: text + viz stub */
+.ep-rows {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 768px) {
+  .ep-rows { padding: 0 var(--gutter-sm); }
+}
+
+/* ── V1.B — stylized soft card variant ──
+   Each row becomes a single rounded surface card.
+   - Top-left blue wash (echoes SDK bridge gradient)
+   - Hairline border that picks up purple on hover + soft shadow + 2px lift
+   - Top kicker row: [ NN ] mono number, fading hairline divider, category tag
+   No top-border on the card-head; the card itself is the divider.
+   Selector specificity (.ep-row.ep-row--card-b = 2 classes) is intentionally
+   higher than the plain .ep-row rule below so padding/border win. */
+.ep-rows--card-b { gap: 28px; padding-top: 8px; }
+.ep-row.ep-row--card-b {
+  padding: 48px;
+  background: var(--surface);
+  border: 0;
+  border-radius: var(--r-lg);
+  gap: 48px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow .2s var(--ease),
+    transform .2s var(--ease);
+}
+.ep-row--card-b:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.ep-row--card-b::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 0% 0%, var(--blue-dim), transparent 45%);
+  pointer-events: none;
+  opacity: .75;
+  z-index: 0;
+}
+.ep-row--card-b > * { position: relative; z-index: 1; }
+
+.ep-row-card-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 4px;
+}
+.ep-row-card-num {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--blue);
+  text-transform: uppercase;
+}
+.ep-row-card-num::before { content: "[ "; color: var(--ink-4); }
+.ep-row-card-num::after  { content: " ]"; color: var(--ink-4); }
+.ep-row-card-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink-4);
+  text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+  /* tablet: uniform 32px (lose the wide side gutters, keep card breathing room) */
+  .ep-row--card-b { padding: 32px; gap: 32px; }
+}
+@media (max-width: 768px) {
+  /* phone: 24px keeps the kicker row compact without crushing the content */
+  .ep-row--card-b { padding: 24px; gap: 28px; }
+  .ep-row-card-head { gap: 10px; }
+  .ep-row-card-tag { font-size: 10px; }
+}
+
+/* ── SDK BRIDGE ── Sits between row 02 (Face Match) and row 03 (NID OCR).
+  Same container width as .ep-rows, but a horizontal band with a soft
+  blue wash, mono kicker + headline + sub + CTA stacked on the left,
+  and two enhanced platform cards on the right. CTA lives inside
+  .ep-sdk-bridge-left, NOT inside .ep-sdk-bridge-right. Padding is
+  matched to .ep-row--card-b (48/32/24 responsive) so the bridge reads
+  as part of the same card family as the endpoint rows above and below. */
+.ep-sdk-bridge {
+  margin: 8px 0 8px;
+  background: var(--blue-dim);
+  border: 0;
+  border-radius: var(--r);
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+/* Subtle wash so the band feels intentional, not just a tinted box */
+.ep-sdk-bridge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 0% 50%, var(--blue-glow), transparent 55%),
+    radial-gradient(circle at 100% 50%, var(--green-dim), transparent 55%);
+  pointer-events: none;
+  opacity: .65;
+}
+.ep-sdk-bridge-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: stretch;
+  gap: 56px;
+}
+.ep-sdk-bridge-left {
+  flex: 1.1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ep-sdk-bridge-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.ep-sdk-bridge-kicker::before { content: "[ "; color: var(--ink-4); }
+.ep-sdk-bridge-kicker::after  { content: " ]"; color: var(--ink-4); }
+.ep-sdk-bridge-kicker .num {
+  color: var(--blue);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.ep-sdk-bridge-title {
+  font-family: 'Lora', serif;
+  font-size: clamp(22px, 2.3vw, 28px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ep-sdk-bridge-title-line {
   display: block;
 }
-.stat-lbl { font-size: 13px; color: rgba(255,255,255,0.6); }
+.ep-sdk-bridge-title em {
+  font-style: italic;
+  color: var(--blue);
+}
+.ep-sdk-bridge-sub {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  margin: 0 0 20px;
+  max-width: 540px;
+}
 
-/* ── USE CASES ── */
-.usecases-wrap { background: transparent; }
-.usecases-grid {
+/* CTA — now lives at the bottom of .ep-sdk-bridge-left */
+.ep-sdk-bridge-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--blue);
+  color: #fff;
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  transition: background .15s var(--ease), transform .15s var(--ease), box-shadow .15s var(--ease);
+}
+.ep-sdk-bridge-cta:hover {
+  background: var(--blue-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.ep-sdk-bridge-cta svg {
+  transition: transform .2s var(--ease);
+}
+.ep-sdk-bridge-cta:hover svg {
+  transform: translateX(2px);
+}
+
+/* Right column — two frosted-glass square platform cards side-by-side */
+.ep-sdk-bridge-right {
+  flex: 0 0 auto;
+  min-width: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: 144px 144px;
+  gap: 12px;
+  align-content: center;
+}
+.ep-sdk-bridge-platform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 12px;
+  /* Frosted glass: translucent white on top of the blue wash, backdrop
+     blur for the diffusion, inset highlight at the top edge for the
+     "glass" reflection, inset ring for the refraction border, and a
+     soft outer shadow so the card lifts off the wash. */
+  aspect-ratio: 1 / 1;
+  background: rgba(255, 255, 255, 0.42);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--r-sm);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    0 6px 18px rgba(45, 30, 90, 0.10),
+    0 1px 2px rgba(45, 30, 90, 0.06);
+  color: var(--ink-2);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  transition:
+    background .2s var(--ease),
+    border-color .2s var(--ease),
+    transform .2s var(--ease),
+    box-shadow .2s var(--ease);
+}
+/* Soft top sheen to sell the "glass" feel */
+.ep-sdk-bridge-platform::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.32), transparent 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+.ep-sdk-bridge-platform:hover {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(255, 255, 255, 0.75);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28),
+    0 12px 28px rgba(45, 30, 90, 0.16),
+    0 2px 4px rgba(45, 30, 90, 0.08);
+}
+.ep-sdk-bridge-platform-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  color: var(--blue);
+  border-radius: var(--r-sm);
+  transition: none;
+}
+.ep-sdk-bridge-platform-icon svg {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 22px;
+  height: 22px;
+}
+.ep-sdk-bridge-platform-icon-eyebrow {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--blue);
+  opacity: .55;
+}
+.ep-sdk-bridge-platform-body {
+  flex: 0 0 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  position: relative;
+  z-index: 1;
+}
+.ep-sdk-bridge-platform-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ep-sdk-bridge-platform-name {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+.ep-sdk-bridge-platform-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-4);
+  letter-spacing: -0.005em;
+}
+
+@media (max-width: 1024px) {
+  .ep-sdk-bridge { padding: 32px; }
+}
+@media (max-width: 900px) {
+  .ep-sdk-bridge-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 28px;
+  }
+  .ep-sdk-bridge-right {
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 768px) {
+  .ep-sdk-bridge { padding: 24px; }
+  .ep-sdk-bridge-right {
+    grid-template-columns: 120px 120px;
+    gap: 10px;
+  }
+  .ep-sdk-bridge-platform { padding: 12px 10px; }
+  .ep-sdk-bridge-platform-icon { width: 38px; height: 38px; }
+  .ep-sdk-bridge-platform-icon svg { width: 20px; height: 20px; }
+}
+
+.ep-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 64px;
+  align-items: center;
+  padding: 56px 0;
+  border-top: 1px solid var(--border);
+}
+
+.ep-row-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ep-row-text h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(24px, 2.6vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.15;
+}
+.ep-row-text p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-3);
+  max-width: 480px;
+}
+.ep-row-text-foot {
+  display: flex; align-items: center; gap: 18px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+.ep-row-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+  transition: gap 180ms var(--ease);
+}
+.ep-row-link:hover { gap: 10px; }
+
+/* Viz cell — centers whatever viz child renders (NID stage, face match, liveness,
+   name translation, gender) both axes inside the grid cell. */
+.ep-row-viz {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+}
+
+/* Viz stub — small framed icon + label, neutral until production vizes ship */
+.ep-row-viz-stub {
+  position: relative;
+  min-height: 280px;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 32px;
+  color: var(--ink-3);
+}
+.ep-row-viz-ico {
+  width: 56px; height: 56px;
+  border-radius: var(--r);
+  background: var(--blue-dim);
+  color: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+}
+.ep-row-viz-ico svg { width: 28px; height: 28px; }
+.ep-row-viz-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* Alternation: even rows = viz left, text right */
+.ep-row.flip { direction: rtl; }
+.ep-row.flip > * { direction: ltr; }
+
+/* V4 voice-mono eyebrow */
+.v4-eyebrow {
+  display: inline-flex; align-items: center;
+  align-self: flex-start;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--voice-soft);
+  border: 1px solid var(--voice-line);
+  border-radius: var(--r-sm);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--voice);
+  letter-spacing: 0.05em;
+}
+.v4-eyebrow .br { color: var(--voice-line); }
+.v4-eyebrow .num { font-weight: 700; }
+.v4-eyebrow .lbl { text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* Responsive — single column on tablet, tighter padding */
+@media (max-width: 960px) {
+  .ep-row {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 48px 0;
+  }
+  .ep-row.flip { direction: ltr; }
+  .ep-row-viz-stub { min-height: 220px; }
+}
+
+/* Wide call-out: example integration (formerly .ep-code-card) */
+.ep-callout {
+  margin-top: 24px;
+  background: var(--code-bg);
+  border: 1px solid var(--code-line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.ep-callout-head {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 16px;
+  background: var(--code-bg-2);
+  border-bottom: 1px solid var(--code-line);
+}
+.ep-callout-dots { display: inline-flex; gap: 6px; }
+.ep-callout-dots i {
+  display: block; width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--code-line);
+}
+.ep-callout-file {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--code-fg-2);
   background: transparent;
   border: none;
-  border-radius: 0;
-  overflow: visible;
+  padding: 0;
 }
-.uc-card {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  padding: 28px 24px;
-  transition: background 250ms var(--ease), border-color 250ms var(--ease), transform 250ms var(--ease), box-shadow 250ms var(--ease);
-  display: flex; flex-direction: column;
-  cursor: pointer;
-  border-radius: var(--r-lg);
+.ep-callout-status {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--code-fg);
+  display: inline-flex; align-items: center; gap: 6px;
 }
-.uc-card:hover {
-  background: #FFFFFF;
-  border-color: rgba(3, 105, 161, 0.35);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(3, 105, 161, 0.06);
+.ep-callout-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  display: inline-block;
 }
-.uc-card:active {
-  transform: translateY(-1px) scale(0.99);
+.ep-callout-body {
+  margin: 0;
+  padding: 22px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--code-fg);
+  overflow-x: auto;
+  background: var(--code-bg);
 }
-.uc-icon { font-size: 22px; margin-bottom: 14px; }
-.uc-card h4 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
-.uc-card p  { font-size: 13px; color: var(--ink-3); line-height: 1.55; flex: 1; }
-.uc-link { font-size: 12px; font-weight: 500; color: var(--blue); margin-top: 14px; display: inline-block; }
-.uc-link:hover { text-decoration: underline; }
+.ep-callout-body code { font-family: inherit; }
 
-/* ── BANGLADESH ADVANTAGE ── */
-.bd-advantage-wrap { background: transparent; padding: 96px 0; border-bottom: 1px solid var(--border); }
-.bd-inner { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 72px; align-items: center; }
-.bd-features { display: flex; flex-direction: column; gap: 4px; }
-.bd-feat {
-  display: flex; gap: 14px; align-items: flex-start;
-  padding: 16px; border-radius: var(--r);
-  transition: background .15s;
+.ep-c-comment { color: var(--code-cm); font-style: italic; }
+.ep-c-verb    { color: var(--code-fn); font-weight: 500; }
+.ep-c-str     { color: var(--code-str); }
+.ep-c-path    { color: var(--code-acc); }
+.ep-c-brace   { color: var(--code-fg-2); }
+.ep-c-key     { color: var(--code-fn); }
+.ep-c-bool    { color: var(--code-val); }
+.ep-c-num     { color: var(--code-warn); }
+
+@media (max-width: 600px) {
+  .ep-callout-body { font-size: 11.5px; padding: 18px 16px; }
 }
-.bd-feat:hover { background: var(--bg); }
-.bd-feat svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 2px; color: var(--red); }
-.bd-feat h4 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
-.bd-feat p  { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
-.bd-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--r-lg); overflow: hidden;
-  box-shadow: 0 4px 24px rgba(10,11,13,0.06), 0 1px 4px rgba(10,11,13,0.04);
-}
-.bd-card-header {
-  background: var(--ink); color: rgba(255,255,255,0.6);
-  padding: 14px 20px; font-size: 12px; font-weight: 500;
-  letter-spacing: 0.03em;
-}
-.bd-card-fields { padding: 8px 0; }
-.bd-field {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border-2);
-  font-size: 13px;
-}
-.bd-field:last-child { border-bottom: none; }
-.bd-field-label { color: var(--ink-3); font-weight: 400; }
-.bd-field-value { color: var(--ink); font-weight: 500; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; }
-.bd-field-green { color: #059669; }
+

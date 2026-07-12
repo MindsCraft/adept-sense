@@ -1,66 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,600;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,600;1,600&family=Noto+Sans+Bengali:wght@500;600&display=swap');
 
 @import "./css/tokens.css";
 @import "./css/base.css";
 @import "./css/components.css";
 @import "./css/sections/hero.css";
 @import "./css/sections/features.css";
+@import "./css/sections/endpoints-vizes.css";
+@import "./css/sections/demo-strip.css";
+@import "./css/sections/use-cases.css";
+@import "./css/sections/steps.css";
+@import "./css/sections/integration.css";
+@import "./css/sections/stats.css";
+@import "./css/sections/cta.css";
 @import "./css/sections/footer.css";
 @import "./css/sections/video-showcase.css";
 @import "./css/responsive.css";
-
-/* ── DEMO STRIP & CTA ── */
-.demo-strip { background: var(--ink); padding: 48px 0; }
-.demo-inner {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 64px;
-  display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
-}
-@media (min-width: 1024px) {
-  .demo-inner {
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-  }
-}
-@media (max-width: 768px) {
-  .demo-inner {
-    padding: 0 24px;
-  }
-}
-.demo-text h3 {
-  font-family: 'Lora', serif;
-  font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 4px;
-}
-.demo-text p { font-size: 14px; color: rgba(255,255,255,0.45); }
-.demo-links { display: flex; gap: 12px; flex-wrap: wrap; }
-.demo-btn {
-  font-size: 13px; font-weight: 500; text-decoration: none;
-  padding: 9px 20px; border-radius: var(--r-sm); border: 1px solid;
-  transition: all .15s var(--ease);
-}
-.demo-btn-solid { background: #fff; color: var(--ink); border-color: #fff; }
-.demo-btn-solid:hover { opacity: 0.88; }
-.demo-btn-outline { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.18); }
-.demo-btn-outline:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
-
-.cta-wrap { background: var(--blue); padding: 96px 0; text-align: center; }
-.cta-wrap h2 {
-  font-family: 'Lora', serif;
-  font-size: clamp(28px, 3.5vw, 44px); font-weight: 600;
-  color: #fff; letter-spacing: -0.02em; margin-bottom: 12px;
-}
-.cta-wrap p { font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 32px; }
-.cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.btn-cta-white {
-  font-size: 14px; font-weight: 500; color: var(--blue);
-  background: #fff; padding: 11px 28px; border-radius: var(--r-sm);
-  transition: opacity .15s;
-}
-.btn-cta-white:hover { opacity: 0.92; }
-.btn-cta-outline {
-  font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.8);
-  border: 1px solid rgba(255,255,255,0.25); padding: 11px 28px;
-  border-radius: var(--r-sm); transition: border-color .15s, color .15s;
-}
-.btn-cta-outline:hover { border-color: rgba(255,255,255,0.6); color: #fff; }

@@ -1,0 +1,91 @@
+/* ── INTEGRATION ──
+   Two-column section: feature list on the left, code tabs on the right.
+   Tab switcher JS lives in src/main.js (codes object).        */
+.integration-wrap {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.integration-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 96px var(--gutter);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+}
+@media (min-width: 1024px) {
+  .integration-inner {
+    border-left: 1px solid var(--border-2);
+    border-right: 1px solid var(--border-2);
+  }
+}
+@media (max-width: 768px) {
+  .integration-inner {
+    padding: 64px var(--gutter-sm);
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* Feature list (left column) */
+.int-features { display: flex; flex-direction: column; gap: 2px; margin-top: 32px; }
+.int-feature {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px; border: 1px solid transparent;
+  border-radius: var(--r); transition: all 0.15s var(--ease);
+}
+.int-feature:hover { border-color: var(--border); background: var(--bg); }
+.int-ico {
+  width: 36px; height: 36px; border-radius: var(--r);
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+}
+.int-ico svg { width: 18px; height: 18px; }
+.int-feature h4 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.int-feature p  { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
+
+/* Code block (right column) */
+.tab-bar {
+  display: flex; gap: 2px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 3px; width: fit-content; margin-bottom: 16px;
+}
+.tab {
+  font-size: 12px; font-weight: 400; color: var(--ink-3);
+  padding: 6px 14px; border-radius: calc(var(--r) - 3px);
+  cursor: pointer; transition: all 0.15s; border: none; background: none;
+}
+.tab.active {
+  background: var(--surface); color: var(--ink); font-weight: 500;
+  box-shadow: 0 1px 3px rgba(10, 11, 13, 0.06);
+}
+.code-wrap {
+  background: var(--code-bg); border-radius: var(--r-lg); padding: 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px; line-height: 1.8; color: var(--code-fg); overflow-x: auto;
+  border: 1px solid var(--code-line);
+}
+.c-kw  { color: var(--code-kw); }
+.c-fn  { color: var(--code-fn); }
+.c-str { color: var(--code-str); }
+.c-val { color: var(--code-val); }
+.c-cm  { color: var(--code-cm); }
+.c-var { color: var(--code-var); }
+
+/* Code footer — docs link + SDK tag list */
+.code-links { margin-top: 16px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+.code-link { font-size: 13px; font-weight: 500; color: var(--blue); }
+.code-link:hover { text-decoration: underline; }
+.code-link-muted { font-size: 13px; color: var(--ink-3); }
+.code-divider { color: var(--border); font-size: 13px; }
+.sdk-label {
+  font-size: 12px; font-weight: 600; color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.sdk-link-tag {
+  font-size: 12px; font-weight: 500; color: var(--ink-2);
+  background: var(--bg); border: 1px solid var(--border);
+  padding: 4px 10px; border-radius: 6px;
+  transition: all 0.15s var(--ease);
+}
+.sdk-link-tag:hover {
+  background: var(--border-2); color: var(--ink); border-color: var(--ink-4);
+}

@@ -1,0 +1,35 @@
+/* ── DEMO STRIP ──
+   Dark ink band between Endpoints and Use Cases.
+   Two-button layout: solid white primary, translucent secondary. */
+.demo-strip { background: var(--ink); padding: 48px 0; }
+.demo-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap;
+}
+@media (min-width: 1024px) {
+  .demo-inner {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+@media (max-width: 768px) {
+  .demo-inner { padding: 0 var(--gutter-sm); }
+}
+.demo-text h3 {
+  font-family: 'Lora', serif;
+  font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 4px;
+}
+.demo-text p { font-size: 14px; color: rgba(255, 255, 255, 0.45); }
+.demo-links { display: flex; gap: 12px; flex-wrap: wrap; }
+.demo-btn {
+  font-size: 13px; font-weight: 500; text-decoration: none;
+  padding: 9px 20px; border-radius: var(--r-sm); border: 1px solid;
+  transition: all 0.15s var(--ease);
+}
+.demo-btn-solid { background: #fff; color: var(--ink); border-color: #fff; }
+.demo-btn-solid:hover { opacity: 0.88; }
+.demo-btn-outline { color: rgba(255, 255, 255, 0.7); border-color: rgba(255, 255, 255, 0.18); }
+.demo-btn-outline:hover { border-color: rgba(255, 255, 255, 0.5); color: #fff; }

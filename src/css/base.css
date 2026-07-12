@@ -15,9 +15,9 @@ button { font-family: inherit; }
 
 /* ── LAYOUT ── */
 .wrap {
-  max-width: 1440px;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 0 64px;
+  padding: 0 var(--gutter);
 }
 @media (min-width: 1024px) {
   .wrap {
@@ -27,7 +27,7 @@ button { font-family: inherit; }
 }
 @media (max-width: 768px) {
   .wrap {
-    padding: 0 24px;
+    padding: 0 var(--gutter-sm);
   }
 }
 section { padding: 96px 0; }
@@ -41,10 +41,10 @@ section { padding: 96px 0; }
 }
 .section-title {
   font-family: 'Lora', serif;
-  font-size: clamp(28px, 3.5vw, 40px);
-  font-weight: 600; line-height: 1.15;
-  letter-spacing: -0.02em; color: var(--ink);
-  margin-bottom: 12px;
+  font-size: clamp(34px, 4.4vw, 52px);
+  font-weight: 600; line-height: 1.1;
+  letter-spacing: -0.025em; color: var(--ink);
+  margin-bottom: 14px;
 }
 .section-sub {
   font-size: 16px; font-weight: 400;

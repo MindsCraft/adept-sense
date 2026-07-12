@@ -67,6 +67,35 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
 
+// ── STAT COUNTER ANIMATION ──
+// Animate [data-count] elements from 0 → target when they scroll into view.
+// Honors a single decimal place (e.g. "99.4") and an optional [data-suffix] ("%", "+", "M+").
+const statObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return
+    const el = e.target
+    const target = parseFloat(el.dataset.count)
+    const suffix = el.dataset.suffix || ''
+    if (Number.isNaN(target)) { statObserver.unobserve(el); return }
+    const isFloat = String(el.dataset.count).includes('.')
+    const duration = 1400
+    const start = performance.now()
+    function tick(now) {
+      const t = Math.min(1, (now - start) / duration)
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - t, 3)
+      const v = target * eased
+      el.textContent = (isFloat ? v.toFixed(1) : Math.floor(v).toLocaleString()) + suffix
+      if (t < 1) requestAnimationFrame(tick)
+      else el.textContent = (isFloat ? target.toFixed(1) : target.toLocaleString()) + suffix
+    }
+    requestAnimationFrame(tick)
+    statObserver.unobserve(el)
+  })
+}, { threshold: 0.4 })
+
+document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el))
+
 // ── CODE TAB SWITCHER ──
 const tabsEl = document.getElementById('tabs')
 const codeEl = document.getElementById('code-block')
@@ -160,7 +189,7 @@ function initVideoShowcase() {
       if (video.paused) {
         playPromise = video.play();
         if (playPromise !== undefined) {
-          playPromise.catch(err => console.log('Video play interrupted:', err));
+          playPromise.catch(() => { /* play interrupted — silent */ });
         }
       } else {
         if (playPromise) {
@@ -325,11 +354,10 @@ function initVideoShowcase() {
       lightboxVideo.muted = false;
       const playPromise = lightboxVideo.play();
       if (playPromise !== undefined) {
-        playPromise.catch(err => {
-          console.log('Lightbox play fail:', err);
+        playPromise.catch(() => {
           // Fallback: if browser blocks loud autoplay, mute it and try playing again
           lightboxVideo.muted = true;
-          lightboxVideo.play().catch(e => console.log('Muted lightbox autoplay also failed:', e));
+          lightboxVideo.play().catch(() => { /* muted autoplay blocked too — silent */ });
         });
       }
     }

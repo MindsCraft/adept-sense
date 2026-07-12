@@ -1,0 +1,44 @@
+/* ── STATS BAND ──
+   Dark ink strip between Integration and CTA.
+   4 numbers with labels, separated by vertical dividers.
+   data-count attributes drive the counter animation in main.js. */
+.stats-wrap { background: var(--ink); padding: 72px 0; }
+.stats-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+@media (min-width: 1024px) {
+  .stats-inner {
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+  }
+}
+@media (max-width: 768px) {
+  .stats-inner {
+    padding: 0 var(--gutter-sm);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+.stat-item {
+  padding: 0 32px; text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+.stat-item:first-child { padding-left: 0; }
+.stat-item:last-child  { border-right: none; padding-right: 0; }
+.stat-num {
+  font-family: 'Lora', serif;
+  font-size: 48px; font-weight: 600; color: #fff;
+  letter-spacing: -0.04em; line-height: 1; margin-bottom: 8px;
+  display: block;
+}
+.stat-lbl { font-size: 13px; color: rgba(255, 255, 255, 0.6); }
+
+/* Mobile — vertical dividers off, horizontal between rows */
+@media (max-width: 768px) {
+  .stat-item { border-right: none; padding: 0; }
+  .stat-item:nth-child(odd) { border-right: 1px solid rgba(255, 255, 255, 0.15); padding-right: 16px; }
+  .stat-item:nth-child(even) { padding-left: 16px; }
+}
