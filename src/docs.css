@@ -230,6 +230,150 @@ p code, li code {
 .download-card span { font-size: 14px; font-weight: 500; }
 .download-card small { font-size: 12px; color: var(--ink-4); margin-left: auto; }
 
+/* ── BY-VERTICAL B-VARIANT (tabbed verticals on docs) ── */
+.uc-bv-frame {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  margin: 24px 0 8px;
+}
+.uc-bv-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 8px;
+  position: sticky;
+  top: 72px;
+  align-self: start;
+}
+.uc-bv-tab {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  padding: 8px 10px;
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  font-size: 13px;
+  color: var(--ink-2);
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+.uc-bv-tab:hover { background: var(--blue-dim); color: var(--blue); }
+.uc-bv-tab[aria-selected="true"] {
+  background: var(--blue);
+  color: #fff;
+}
+.uc-bv-tab-ico { color: var(--blue); display: grid; place-items: center; }
+.uc-bv-tab[aria-selected="true"] .uc-bv-tab-ico { color: #fff; }
+.uc-bv-tab-ico svg { width: 14px; height: 14px; }
+.uc-bv-tab-sub {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-4);
+  margin-top: 1px;
+}
+.uc-bv-tab[aria-selected="true"] .uc-bv-tab-sub { color: rgba(255,255,255,0.7); }
+
+.uc-bv-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 22px 24px;
+  display: none;
+}
+.uc-bv-panel.is-active { display: block; animation: ucbv-in 0.22s ease both; }
+@keyframes ucbv-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+.uc-bv-panel-head {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 6px;
+}
+.uc-bv-panel-head .badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--blue-dim); color: var(--blue);
+  padding: 3px 8px; border-radius: 100px;
+}
+.uc-bv-panel h3 {
+  font-size: 18px; font-weight: 600; color: var(--ink);
+  margin: 4px 0 8px;
+}
+.uc-bv-panel-lede {
+  font-size: 13.5px; color: var(--ink-3); line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.uc-bv-endpoints {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.uc-bv-endpoints a {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  color: var(--ink);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+}
+.uc-bv-endpoints a:hover { border-color: var(--blue); }
+.uc-bv-endpoints .verb {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+  padding: 2px 6px; border-radius: 4px;
+  background: var(--blue-dim); color: var(--blue);
+}
+.uc-bv-endpoints .arrow { color: var(--ink-4); font-size: 12px; }
+
+.uc-bv-snippet {
+  background: #0D1117;
+  color: #E6EDF3;
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  overflow-x: auto;
+  white-space: pre;
+}
+.uc-bv-snippet .c-str { color: #A5D6FF; }
+.uc-bv-snippet .c-kw  { color: #FF7B72; }
+.uc-bv-snippet .c-fn  { color: #D2A8FF; }
+
+.uc-bv-snippet-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-4);
+  margin: 0 0 6px;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 900px) {
+  .uc-bv-frame { grid-template-columns: 1fr; }
+  .uc-bv-nav {
+    flex-direction: row; overflow-x: auto; position: static;
+    scrollbar-width: none;
+  }
+  .uc-bv-nav::-webkit-scrollbar { display: none; }
+  .uc-bv-tab { flex-shrink: 0; min-width: 150px; }
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .docs-sidebar { display: none; }

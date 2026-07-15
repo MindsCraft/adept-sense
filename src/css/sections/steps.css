@@ -1,40 +1,184 @@
-/* ── HOW IT WORKS ──
-   3-step flow between Use Cases and Integration.
-   Each card has a numbered badge + JSON snippet.            */
-.steps-wrap { background: transparent; }
-.steps {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--border); border-radius: var(--r-lg);
-  overflow: hidden; background: var(--border); gap: 1px;
-}
-.step-card { background: var(--surface); padding: 40px 32px; position: relative; }
-.step-card + .step-card::before {
-  content: '→';
-  position: absolute; left: -13px; top: 50%; transform: translateY(-50%);
-  font-size: 13px; color: var(--ink-4);
-  background: var(--surface); padding: 4px 2px; z-index: 1;
-}
-.step-num {
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--ink); color: #fff;
-  font-size: 12px; font-weight: 600;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 20px;
-}
-.step-card h4 { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
-.step-card p  { font-size: 13.5px; color: var(--ink-3); line-height: 1.6; margin-bottom: 20px; }
-.step-json {
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 14px 16px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11.5px; line-height: 1.75; color: var(--ink-2);
-}
-.jk { color: var(--blue); }
-.jv { color: #059669; }
-.jn { color: var(--blue); }
+/* ── HOW IT WORKS — Pattern D (sticky-scroll narrative) ──
+   Left column with title + progress bullets sticks while the
+   right column carries the reader through 3 full-width step
+   panels, each with its own terminal block. Scroll-driven. */
 
-/* Tablet — single column, hide the arrow between cards */
+.howit-wrap {
+  background: var(--bg);
+  padding: 96px 0 64px;
+}
+.howit-wrap .wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Two-column frame: sticky-left + scroll-right */
+.howit-d-frame {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.4fr);
+  gap: 80px;
+  align-items: start;
+}
+
+/* Left rail — sticky */
+.howit-d-left {
+  position: sticky;
+  top: 96px;
+  padding-top: 4px;
+}
+.howit-d-left .shared-eyebrow {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 14px;
+}
+.howit-d-left h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+.howit-d-left h3 em {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--blue);
+}
+.howit-d-left p {
+  font-size: 15px;
+  color: var(--ink-3);
+  line-height: 1.6;
+  max-width: 320px;
+  margin: 0 0 24px;
+}
+
+/* Progress bullets */
+.howit-d-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 280px;
+}
+.howit-d-progress-row {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 12px;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-4);
+  transition: color .2s var(--ease);
+}
+.howit-d-progress-row.active { color: var(--ink); }
+.howit-d-progress-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  justify-self: center;
+  transition: background .2s var(--ease), box-shadow .2s var(--ease);
+}
+.howit-d-progress-row.active .howit-d-progress-bullet {
+  background: var(--blue);
+  box-shadow: 0 0 0 4px var(--blue-dim);
+}
+
+/* Right rail — step panels stacked */
+.howit-d-right {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 8px 0 64px;
+}
+.howit-d-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 36px 36px 32px;
+  box-shadow: var(--shadow-md);
+  transition: border-color .2s var(--ease);
+}
+.howit-d-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.howit-d-panel-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+.howit-d-panel-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--blue);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.howit-d-panel h4 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+.howit-d-panel p {
+  font-size: 15px;
+  color: var(--ink-3);
+  line-height: 1.65;
+  max-width: 520px;
+  margin: 0 0 18px;
+}
+
+/* Terminal block */
+.howit-d-panel-term {
+  background: var(--code-bg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--r);
+  padding: 18px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--code-fg);
+  white-space: pre;
+  overflow-x: auto;
+  margin: 0;
+}
+.howit-d-panel-term .cm  { color: var(--code-cm); font-style: italic; }
+.howit-d-panel-term .jk  { color: var(--code-str); }
+.howit-d-panel-term .jv  { color: var(--code-val); }
+.howit-d-panel-term .kw  { color: var(--code-kw); }
+.howit-d-panel-term .fn  { color: var(--code-fn); }
+.howit-d-panel-term .acc { color: var(--code-acc); }
+
+/* Responsive: stack columns under 900px (sticky releases) */
 @media (max-width: 900px) {
-  .steps { grid-template-columns: 1fr; }
-  .step-card + .step-card::before { display: none; }
+  .howit-wrap { padding: 72px 0 48px; }
+  .howit-d-frame { grid-template-columns: 1fr; gap: 32px; }
+  .howit-d-left { position: static; }
+  .howit-d-right { padding-bottom: 24px; }
+  .howit-d-panel { padding: 28px 24px 24px; }
+}
+
+@media (max-width: 560px) {
+  .howit-wrap .wrap { padding: 0 20px; }
+  .howit-d-panel { padding: 22px 18px 20px; }
+  .howit-d-panel-term { font-size: 11.5px; padding: 14px 16px; }
 }

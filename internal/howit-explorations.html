@@ -1,0 +1,1435 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>How-it-works explorations · AdeptSense (internal)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Internal design exploration of 5 how-it-works section directions for AdeptSense.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Project fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,600;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       ADEPTSENSE TOKENS — pulled from src/css/tokens.css
+       (kept inline so this file is fully self-contained)
+       ============================================================ */
+    :root {
+      --blue:        #4B1D95;
+      --blue-hover:  #5A23B3;
+      --blue-dim:    #F3EFFB;
+      --blue-glow:   rgba(75, 29, 149, 0.22);
+      --voice:       #26125B;
+      --voice-soft:  #EDE9F7;
+      --voice-line:  #C7BCE0;
+      --red:         #BB2D2E;
+      --green:       #10B981;
+      --green-dim:   rgba(16, 185, 129, 0.12);
+      --ink:         #0B0B0F;
+      --ink-2:       #1F2937;
+      --ink-3:       #4B5563;
+      --ink-4:       #6B7280;
+      --bg:          #FAFAFA;
+      --surface:     #FFFFFF;
+      --border:      #E5E7EB;
+      --border-2:    #F3F4F6;
+      --code-bg:     #0D1117;
+      --code-bg-2:   #0B0F19;
+      --code-fg:     #C9D1D9;
+      --code-line:   #21262D;
+      --code-kw:     #FF7B72;
+      --code-fn:     #79C0FF;
+      --code-str:    #A5D6FF;
+      --code-val:    #56D364;
+      --code-var:    #FFA657;
+      --code-cm:     #6E7681;
+      --code-acc:    #A78BFA;
+      --r-sm:        6px;
+      --r:           10px;
+      --r-lg:        16px;
+      --shadow-sm:   0 1px 2px rgba(11, 11, 15, 0.06);
+      --shadow-md:   0 4px 12px rgba(11, 11, 15, 0.08);
+      --shadow-lg:   0 12px 24px rgba(11, 11, 15, 0.10);
+      --shadow-xl:   0 20px 32px rgba(11, 11, 15, 0.14);
+      --ease:        cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================================================
+       PAGE CHROME
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    .explore-nav {
+      position: sticky; top: 0; z-index: 999;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .explore-nav-left { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; }
+    .explore-nav-left .swatch { width: 10px; height: 10px; border-radius: 50%; background: var(--blue); display: inline-block; }
+    .explore-nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+    .explore-nav-links a {
+      font-size: 12px; font-weight: 500; color: var(--ink-3);
+      padding: 6px 12px; border-radius: 100px;
+      border: 1px solid var(--border);
+      transition: all .15s var(--ease);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .explore-nav-links a:hover { color: var(--ink); border-color: var(--ink-4); background: var(--border-2); }
+    .explore-nav-meta { font-size: 11px; color: var(--ink-4); font-family: 'JetBrains Mono', monospace; }
+
+    /* ── HEADER ──────────────────────────────────────────────── */
+    .explore-header {
+      max-width: 1440px; margin: 0 auto;
+      padding: 96px 64px 48px;
+      border-bottom: 1px solid var(--border-2);
+    }
+    .explore-header h1 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600; letter-spacing: -0.02em;
+      color: var(--ink); margin-bottom: 14px;
+    }
+    .explore-header p {
+      font-size: 16px; color: var(--ink-3);
+      max-width: 760px; line-height: 1.65;
+    }
+    .explore-header code {
+      font-family: 'JetBrains Mono', monospace; font-size: 13px;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 1px 7px; border-radius: 4px; color: var(--ink-2);
+    }
+    .explore-tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue);
+      background: var(--blue-dim);
+      border: 1px solid rgba(75, 29, 149, 0.2);
+      padding: 5px 12px; border-radius: 100px; margin-bottom: 18px;
+    }
+
+    /* ── DEMO LABEL (per-section header) ─────────────────────── */
+    .demo-label {
+      max-width: 1440px; margin: 0 auto;
+      padding: 56px 64px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .demo-label-text { display: flex; align-items: center; gap: 12px; }
+    .demo-label-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 700;
+      color: #fff; background: var(--blue);
+      padding: 4px 10px; border-radius: 100px;
+      letter-spacing: 0.04em;
+    }
+    .demo-label-title { font-size: 18px; font-weight: 600; color: var(--ink); }
+    .demo-label-note { font-size: 11px; color: var(--ink-4); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
+    .demo-rule {
+      max-width: 1440px; margin: 0 auto;
+      padding: 12px 64px 0;
+      font-size: 12px; color: var(--ink-3); line-height: 1.6;
+    }
+    .demo-rule code {
+      font-family: 'JetBrains Mono', monospace; font-size: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 1px 6px; border-radius: 4px; color: var(--ink-2);
+    }
+
+    /* Stage canvas — every demo body sits inside this */
+    .stage {
+      max-width: 1440px; margin: 0 auto;
+      padding: 32px 64px 96px;
+    }
+    .demo + .demo { border-top: 1px solid var(--border-2); }
+
+    /* ============================================================
+       SHARED CONTENT — same title/sub/eyebrow across every demo
+       so only the body changes.
+       ============================================================ */
+    .shared-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--green);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 5px 12px; border-radius: 100px;
+      margin-bottom: 18px;
+    }
+    .shared-eyebrow::before {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--green);
+    }
+    .shared-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(34px, 4.4vw, 52px);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+    .shared-title em {
+      font-family: 'Lora', serif; font-style: italic; font-weight: 600;
+      color: var(--blue);
+    }
+    .shared-sub {
+      font-size: 17px; color: var(--ink-3); line-height: 1.65;
+      max-width: 600px; margin-bottom: 56px;
+    }
+    .shared-sub code {
+      font-family: 'JetBrains Mono', monospace; font-size: 13px;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 1px 7px; border-radius: 4px; color: var(--ink);
+    }
+
+    /* ============================================================
+       DEMO A — TIMELINE
+       Vertical line down the middle; alternating step cards.
+       Inspired by Stripe Onboarding / Linear Changelog.
+       ============================================================ */
+    .howit-a {
+      background: var(--bg);
+      padding-top: 56px;
+    }
+    .howit-a-frame {
+      position: relative;
+      max-width: 980px; margin: 0 auto;
+      padding: 32px 0 24px;
+    }
+    .howit-a-line {
+      position: absolute;
+      left: 50%; top: 0; bottom: 0;
+      width: 2px; transform: translateX(-50%);
+      background: linear-gradient(180deg,
+        var(--border) 0%,
+        var(--voice-line) 35%,
+        var(--voice-line) 65%,
+        var(--border) 100%);
+    }
+    .howit-a-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 64px 1fr;
+      gap: 32px;
+      align-items: start;
+      padding: 28px 0;
+    }
+    .howit-a-row.left  .howit-a-card { grid-column: 1; text-align: right; }
+    .howit-a-row.right .howit-a-card { grid-column: 3; text-align: left; }
+    .howit-a-row .howit-a-card { grid-row: 1; }
+    .howit-a-dot {
+      grid-column: 2;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      margin: 6px auto 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; font-weight: 700;
+      color: var(--blue);
+      box-shadow: 0 0 0 6px var(--bg);
+      position: relative; z-index: 2;
+    }
+    .howit-a-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 22px 22px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .howit-a-step {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .howit-a-card h4 {
+      font-size: 17px; font-weight: 600;
+      color: var(--ink); margin-bottom: 6px;
+    }
+    .howit-a-card p {
+      font-size: 14px; color: var(--ink-3); line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .howit-a-chip {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 600;
+      color: var(--ink-3);
+      background: var(--border-2);
+      border: 1px solid var(--border);
+      padding: 3px 8px; border-radius: 4px;
+    }
+    .howit-a-row.left .howit-a-card .howit-a-chip { float: right; }
+    @media (max-width: 720px) {
+      .howit-a-line { left: 22px; }
+      .howit-a-row,
+      .howit-a-row.left,
+      .howit-a-row.right { grid-template-columns: 44px 1fr; gap: 16px; }
+      .howit-a-dot { grid-column: 1; margin: 4px 0 0 4px; }
+      .howit-a-row .howit-a-card,
+      .howit-a-row.left .howit-a-card,
+      .howit-a-row.right .howit-a-card {
+        grid-column: 2; text-align: left;
+      }
+      .howit-a-row.left .howit-a-card .howit-a-chip { float: none; }
+    }
+
+    /* ============================================================
+       DEMO B — TABBED TERMINAL
+       Three tabs on the left, one big terminal pane on the right
+       with the matching request body. Inspired by Replit / Postman.
+       ============================================================ */
+    .howit-b-frame {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .howit-b-tabs {
+      display: flex; flex-direction: column;
+      gap: 4px;
+      padding: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    .howit-b-tab {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px; align-items: center;
+      padding: 14px 14px;
+      border-radius: var(--r);
+      cursor: pointer;
+      transition: all .15s var(--ease);
+      border: 1px solid transparent;
+      background: transparent;
+      text-align: left;
+    }
+    .howit-b-tab:hover { background: var(--border-2); }
+    .howit-b-tab.active {
+      background: var(--blue-dim);
+      border-color: rgba(75, 29, 149, 0.18);
+    }
+    .howit-b-tab-num {
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; font-weight: 700;
+      background: var(--surface); color: var(--ink-3);
+      border: 1px solid var(--border);
+    }
+    .howit-b-tab.active .howit-b-tab-num {
+      background: var(--blue); color: #fff; border-color: var(--blue);
+    }
+    .howit-b-tab-meta { display: flex; flex-direction: column; gap: 2px; }
+    .howit-b-tab-title {
+      font-size: 13px; font-weight: 600; color: var(--ink);
+    }
+    .howit-b-tab.active .howit-b-tab-title { color: var(--blue); }
+    .howit-b-tab-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--ink-4); letter-spacing: 0.04em;
+    }
+
+    /* Terminal */
+    .howit-b-term {
+      background: var(--code-bg);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      min-height: 360px;
+      display: flex; flex-direction: column;
+    }
+    .howit-b-term-bar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 16px;
+      background: var(--code-bg-2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .howit-b-term-bar .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .howit-b-term-bar .r { background: #FF5F57; }
+    .howit-b-term-bar .y { background: #FEBC2E; }
+    .howit-b-term-bar .g { background: #28C840; }
+    .howit-b-term-bar .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: rgba(255, 255, 255, 0.5);
+      margin-left: 12px;
+    }
+    .howit-b-term-bar .method {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 700; color: var(--code-val);
+      background: rgba(86, 211, 100, 0.12);
+      border: 1px solid rgba(86, 211, 100, 0.3);
+      padding: 3px 8px; border-radius: 4px;
+    }
+    .howit-b-term-bar .method.post { color: #79C0FF; background: rgba(121, 192, 255, 0.12); border-color: rgba(121, 192, 255, 0.3); }
+    .howit-b-term-tabs {
+      display: flex; gap: 2px;
+      padding: 8px 12px 0;
+      background: var(--code-bg-2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .howit-b-term-tabs .pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      color: rgba(255, 255, 255, 0.45);
+      padding: 7px 12px; border-radius: 6px 6px 0 0;
+    }
+    .howit-b-term-tabs .pill.active { color: #fff; background: var(--code-bg); }
+    .howit-b-term-body {
+      flex: 1;
+      padding: 22px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; line-height: 1.75;
+      color: var(--code-fg);
+      white-space: pre;
+      overflow: auto;
+    }
+    .howit-b-term-body .cm  { color: var(--code-cm); font-style: italic; }
+    .howit-b-term-body .kw  { color: var(--code-kw); }
+    .howit-b-term-body .fn  { color: var(--code-fn); }
+    .howit-b-term-body .str { color: var(--code-str); }
+    .howit-b-term-body .val { color: var(--code-val); }
+    .howit-b-term-body .var { color: var(--code-var); }
+    .howit-b-term-body .acc { color: var(--code-acc); }
+    .howit-b-term-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.02);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: rgba(255, 255, 255, 0.5);
+    }
+    .howit-b-copy {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; color: #fff;
+      background: rgba(167, 139, 250, 0.18);
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      padding: 5px 12px; border-radius: 6px;
+      cursor: pointer;
+      transition: background .15s var(--ease);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .howit-b-copy:hover { background: rgba(167, 139, 250, 0.32); }
+    @media (max-width: 820px) {
+      .howit-b-frame { grid-template-columns: 1fr; }
+      .howit-b-tabs { flex-direction: row; overflow-x: auto; }
+      .howit-b-tab { min-width: 180px; }
+    }
+
+    /* ============================================================
+       DEMO C — CARD GRID v2
+       Denser than the current 3-card live version.
+       3 cards on top row, 1 long card on bottom with a flow arrow.
+       ============================================================ */
+    .howit-c {
+      background: var(--bg);
+      padding-top: 56px;
+    }
+    .howit-c-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 1100px; margin: 0 auto 16px;
+    }
+    .howit-c-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+      transition: all .15s var(--ease);
+    }
+    .howit-c-card:hover {
+      border-color: rgba(75, 29, 149, 0.25);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+    .howit-c-card-head {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 14px;
+    }
+    .howit-c-num {
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 8px;
+      background: var(--blue-dim);
+      color: var(--blue);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; font-weight: 700;
+      border: 1px solid rgba(75, 29, 149, 0.18);
+    }
+    .howit-c-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 600;
+      color: var(--ink-4);
+      letter-spacing: 0.04em;
+    }
+    .howit-c-card h4 {
+      font-size: 17px; font-weight: 600;
+      color: var(--ink); margin-bottom: 6px;
+    }
+    .howit-c-card p {
+      font-size: 13px; color: var(--ink-3); line-height: 1.55;
+      margin-bottom: 14px;
+    }
+    .howit-c-snippet {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: var(--code-bg);
+      color: var(--code-fg);
+      padding: 10px 12px;
+      border-radius: var(--r-sm);
+      line-height: 1.5;
+      overflow: hidden;
+    }
+    .howit-c-snippet .jk { color: var(--code-str); }
+    .howit-c-snippet .jv { color: var(--code-val); }
+    .howit-c-snippet .jn { color: var(--code-var); }
+
+    /* Bottom flow row */
+    .howit-c-flow {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      max-width: 1100px; margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 24px 28px;
+      box-shadow: var(--shadow-sm);
+    }
+    .howit-c-flow-step {
+      display: flex; align-items: center; gap: 14px;
+      position: relative;
+    }
+    .howit-c-flow-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -8px; top: 50%;
+      width: 16px; height: 1px;
+      background: linear-gradient(90deg, var(--blue), transparent);
+    }
+    .howit-c-flow-num {
+      flex: 0 0 32px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; font-weight: 700;
+      background: var(--blue-dim); color: var(--blue);
+    }
+    .howit-c-flow-meta { display: flex; flex-direction: column; gap: 2px; }
+    .howit-c-flow-title {
+      font-size: 13px; font-weight: 600; color: var(--ink);
+    }
+    .howit-c-flow-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--ink-4); letter-spacing: 0.04em;
+    }
+    @media (max-width: 820px) {
+      .howit-c-grid { grid-template-columns: 1fr; }
+      .howit-c-flow { grid-template-columns: 1fr; }
+      .howit-c-flow-step:not(:last-child)::after { display: none; }
+    }
+
+    /* ============================================================
+       DEMO D — STICKY-SCROLL NARRATIVE
+       Left column with title sticks; right column scrolls through
+       step panels. Inspired by Arc browser / Vercel changelog.
+       ============================================================ */
+    .howit-d {
+      background: var(--surface);
+      padding-top: 56px;
+    }
+    .howit-d-frame {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.4fr);
+      gap: 80px;
+      max-width: 1240px; margin: 0 auto;
+      align-items: start;
+    }
+    .howit-d-left {
+      position: sticky;
+      top: 96px;
+      padding-top: 4px;
+    }
+    .howit-d-left h3 {
+      font-family: 'Lora', serif;
+      font-size: clamp(26px, 2.6vw, 34px);
+      font-weight: 600; letter-spacing: -0.02em;
+      line-height: 1.15; color: var(--ink);
+      margin-bottom: 14px;
+    }
+    .howit-d-left h3 em {
+      color: var(--blue); font-style: italic; font-weight: 600;
+    }
+    .howit-d-left p {
+      font-size: 15px; color: var(--ink-3); line-height: 1.6;
+      max-width: 320px;
+    }
+    .howit-d-progress {
+      margin-top: 24px;
+      display: flex; flex-direction: column; gap: 8px;
+      max-width: 280px;
+    }
+    .howit-d-progress-row {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 12px; align-items: center;
+      font-size: 12px; color: var(--ink-4);
+      transition: color .2s var(--ease);
+    }
+    .howit-d-progress-row.active { color: var(--ink); }
+    .howit-d-progress-bullet {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      justify-self: center;
+      transition: background .2s var(--ease);
+    }
+    .howit-d-progress-row.active .howit-d-progress-bullet {
+      background: var(--blue);
+      box-shadow: 0 0 0 4px var(--blue-dim);
+    }
+
+    .howit-d-right {
+      display: flex; flex-direction: column;
+      gap: 32px;
+      padding: 8px 0 64px;
+    }
+    .howit-d-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 36px 36px 32px;
+      box-shadow: var(--shadow-md);
+      transition: border-color .2s var(--ease);
+    }
+    .howit-d-panel-head {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 14px;
+    }
+    .howit-d-panel-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--blue); color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; font-weight: 700;
+    }
+    .howit-d-panel-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 600;
+      color: var(--blue); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .howit-d-panel h4 {
+      font-size: 22px; font-weight: 600;
+      color: var(--ink); margin-bottom: 10px;
+    }
+    .howit-d-panel p {
+      font-size: 15px; color: var(--ink-3); line-height: 1.65;
+      max-width: 520px; margin-bottom: 18px;
+    }
+    .howit-d-panel-term {
+      background: var(--code-bg);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--r);
+      padding: 18px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px; line-height: 1.7;
+      color: var(--code-fg);
+      white-space: pre;
+      overflow: auto;
+    }
+    .howit-d-panel-term .cm  { color: var(--code-cm); font-style: italic; }
+    .howit-d-panel-term .jk  { color: var(--code-str); }
+    .howit-d-panel-term .jv  { color: var(--code-val); }
+    .howit-d-panel-term .jn  { color: var(--code-var); }
+    .howit-d-panel-term .kw  { color: var(--code-kw); }
+    .howit-d-panel-term .fn  { color: var(--code-fn); }
+    .howit-d-panel-term .acc { color: var(--code-acc); }
+    @media (max-width: 900px) {
+      .howit-d-frame { grid-template-columns: 1fr; gap: 32px; }
+      .howit-d-left { position: static; }
+    }
+
+    /* ============================================================
+       DEMO E — BENTO FLOW
+       Asymmetric grid: one wide hero card (API call) + two stacked
+       detail cards + a small stat card + a dark callout strip.
+       Inspired by Vercel home / Linear features / Notion AI.
+       ============================================================ */
+    .howit-e {
+      background: var(--bg);
+      padding-top: 56px;
+    }
+    .howit-e-bento {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: minmax(0, auto);
+      gap: 14px;
+      max-width: 1240px; margin: 0 auto;
+    }
+    /* Big tile — API call summary */
+    .howit-e-cell-1 {
+      grid-column: span 4;
+      grid-row: span 2;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+    .howit-e-cell-1::before {
+      content: '';
+      position: absolute;
+      top: -40%; right: -10%;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(75, 29, 149, 0.08), transparent 65%);
+      pointer-events: none;
+    }
+    .howit-e-cell-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+    .howit-e-cell-1 h4 {
+      font-size: 22px; font-weight: 600;
+      color: var(--ink); margin-bottom: 8px;
+      position: relative;
+    }
+    .howit-e-cell-1 p {
+      font-size: 14px; color: var(--ink-3); line-height: 1.55;
+      max-width: 420px; margin-bottom: 18px;
+      position: relative;
+    }
+    .howit-e-big-term {
+      background: var(--code-bg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--r);
+      padding: 18px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px; line-height: 1.7;
+      color: var(--code-fg);
+      position: relative;
+      overflow: hidden;
+    }
+    .howit-e-big-term .cm  { color: var(--code-cm); font-style: italic; }
+    .howit-e-big-term .jk  { color: var(--code-str); }
+    .howit-e-big-term .jv  { color: var(--code-val); }
+    .howit-e-big-term .jn  { color: var(--code-var); }
+    .howit-e-big-term .kw  { color: var(--code-kw); }
+    .howit-e-big-term .fn  { color: var(--code-fn); }
+    .howit-e-big-term .acc { color: var(--code-acc); }
+
+    /* Step 1 — quick */
+    .howit-e-cell-2 {
+      grid-column: span 2;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 22px 22px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    /* Step 3 — quick */
+    .howit-e-cell-3 {
+      grid-column: span 2;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 22px 22px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    /* Dark callout strip */
+    .howit-e-cell-4 {
+      grid-column: span 3;
+      grid-row: span 2;
+      background: var(--code-bg);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--r-lg);
+      padding: 26px 28px;
+      color: var(--code-fg);
+      position: relative;
+      overflow: hidden;
+    }
+    .howit-e-cell-4::after {
+      content: '';
+      position: absolute;
+      bottom: -30%; left: -10%;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.18), transparent 65%);
+      pointer-events: none;
+    }
+    .howit-e-cell-4 .live {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 700;
+      color: var(--green); letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .howit-e-cell-4 .live::before {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--green);
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+    }
+    .howit-e-cell-4 h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 20px; font-weight: 600;
+      color: #fff; margin-bottom: 8px;
+      position: relative;
+    }
+    .howit-e-cell-4 p {
+      font-size: 13px; color: rgba(255, 255, 255, 0.6); line-height: 1.55;
+      margin-bottom: 18px; max-width: 360px;
+      position: relative;
+    }
+    .howit-e-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px; position: relative;
+    }
+    .howit-e-stat .v {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px; font-weight: 700;
+      color: #fff; line-height: 1;
+    }
+    .howit-e-stat .v.green { color: var(--green); }
+    .howit-e-stat .v.acc  { color: var(--code-acc); }
+    .howit-e-stat .l {
+      font-size: 11px; color: rgba(255, 255, 255, 0.55);
+      margin-top: 4px;
+    }
+
+    /* Right tile */
+    .howit-e-cell-5 {
+      grid-column: span 3;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 22px 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* shared bento header */
+    .howit-e-cell-head {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 12px;
+    }
+    .howit-e-cell-head .badge {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--blue-dim);
+      color: var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 700;
+      border: 1px solid rgba(75, 29, 149, 0.18);
+    }
+    .howit-e-cell-head .label {
+      font-size: 13px; font-weight: 600; color: var(--ink);
+    }
+    .howit-e-cell-body {
+      font-size: 13px; color: var(--ink-3); line-height: 1.55;
+    }
+    .howit-e-mini-term {
+      margin-top: 12px;
+      background: var(--code-bg);
+      border-radius: var(--r-sm);
+      padding: 10px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px; line-height: 1.6;
+      color: var(--code-fg);
+    }
+    .howit-e-mini-term .jk  { color: var(--code-str); }
+    .howit-e-mini-term .jv  { color: var(--code-val); }
+    .howit-e-mini-term .cm  { color: var(--code-cm); font-style: italic; }
+    .howit-e-mini-term .acc { color: var(--code-acc); }
+
+    .howit-e-cell-3 ul, .howit-e-cell-5 ul {
+      list-style: none; padding: 0; margin: 0;
+    }
+    .howit-e-cell-3 ul li, .howit-e-cell-5 ul li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 10px; align-items: start;
+      font-size: 13px; color: var(--ink-2);
+      padding: 6px 0;
+      border-top: 1px dashed var(--border-2);
+    }
+    .howit-e-cell-3 ul li:first-child, .howit-e-cell-5 ul li:first-child { border-top: 0; }
+    .howit-e-cell-3 ul li svg, .howit-e-cell-5 ul li svg { margin-top: 3px; color: var(--blue); }
+
+    /* Responsive bento */
+    @media (max-width: 980px) {
+      .howit-e-bento { grid-template-columns: repeat(2, 1fr); }
+      .howit-e-cell-1,
+      .howit-e-cell-2,
+      .howit-e-cell-3,
+      .howit-e-cell-4,
+      .howit-e-cell-5 {
+        grid-column: span 2;
+        grid-row: auto;
+      }
+    }
+    @media (max-width: 560px) {
+      .howit-e-bento { grid-template-columns: 1fr; }
+      .howit-e-cell-1,
+      .howit-e-cell-2,
+      .howit-e-cell-3,
+      .howit-e-cell-4,
+      .howit-e-cell-5 { grid-column: span 1; }
+    }
+
+    /* ============================================================
+       MOBILE / GUTTERS
+       ============================================================ */
+    @media (max-width: 768px) {
+      .explore-header,
+      .demo-label, .demo-rule, .stage { padding-left: 24px; padding-right: 24px; }
+      .stage { padding-top: 24px; padding-bottom: 56px; }
+      .demo-label { padding-top: 32px; }
+    }
+    @media (max-width: 520px) {
+      .explore-nav { padding: 12px 18px; }
+      .explore-nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="explore-nav">
+    <div class="explore-nav-left">
+      <span class="swatch"></span>
+      <span>AdeptSense — How-it-works Explorations</span>
+    </div>
+    <div class="explore-nav-links">
+      <a href="#demo-a">A · timeline</a>
+      <a href="#demo-b">B · tabbed term</a>
+      <a href="#demo-c">C · card grid v2</a>
+      <a href="#demo-d">D · sticky-scroll</a>
+      <a href="#demo-e">E · bento flow</a>
+    </div>
+    <span class="explore-nav-meta">v0.1 · internal only</span>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="explore-header">
+    <span class="explore-tag">Design exploration</span>
+    <h1>Five how-it-works directions for AdeptSense</h1>
+    <p>Same title, sub, and eyebrow in every demo — only the body changes. Each pattern uses the project's actual tokens (deep purple <code>#4B1D95</code> on warm ink, GitHub-Dark code colors), the same step content (session → collect → verify), and the same <code>{ ok, data, error }</code> JSON envelope that the live <code>/v1/nid/verify</code> returns.</p>
+  </header>
+
+  <!-- ============================================================
+       DEMO A — TIMELINE
+       ============================================================ -->
+  <section id="demo-a" class="demo">
+    <div class="demo-label">
+      <div class="demo-label-text">
+        <span class="demo-label-num">A</span>
+        <span class="demo-label-title">Timeline — alternating steps on a center rail</span>
+      </div>
+      <span class="demo-label-note">scannable · reading flow · Stripe-style</span>
+    </div>
+    <p class="demo-rule">↑ Vertical spine down the middle; step cards alternate left/right. Reads naturally top-to-bottom, the numbered dots track scroll progress. Best when the reader is <strong>walking through one continuous journey</strong>.</p>
+
+    <div class="stage howit-a">
+      <div class="howit-a-frame">
+        <span class="shared-eyebrow">How it works</span>
+        <h2 class="shared-title">From document to decision in <em>under a second.</em></h2>
+        <p class="shared-sub">Three clean steps — start a session, upload identity data, and receive a verified JSON envelope ready to store or act on.</p>
+
+        <div class="howit-a-line" aria-hidden="true"></div>
+
+        <div class="howit-a-row left">
+          <article class="howit-a-card">
+            <div class="howit-a-step">Step 01 · ~120 ms</div>
+            <h4>Start a session</h4>
+            <p>Create a verification session and choose your integration path — hosted WebView, native SDK, or direct API.</p>
+            <span class="howit-a-chip">POST /v1/sessions</span>
+          </article>
+          <div class="howit-a-dot">1</div>
+          <div></div>
+        </div>
+
+        <div class="howit-a-row right">
+          <div></div>
+          <div class="howit-a-dot">2</div>
+          <article class="howit-a-card">
+            <div class="howit-a-step">Step 02 · ~680 ms</div>
+            <h4>Collect identity data</h4>
+            <p>Upload NID front/back images, selfie captures, or name input through a secure, encrypted workflow.</p>
+            <span class="howit-a-chip">multipart/form-data</span>
+          </article>
+        </div>
+
+        <div class="howit-a-row left">
+          <article class="howit-a-card">
+            <div class="howit-a-step">Step 03 · ~140 ms</div>
+            <h4>Receive verified JSON</h4>
+            <p>Get back the same <code>{ ok, data, error }</code> envelope with OCR fields, match confidence, and liveness score.</p>
+            <span class="howit-a-chip">200 OK · &lt; 1s p50</span>
+          </article>
+          <div class="howit-a-dot">3</div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DEMO B — TABBED TERMINAL
+       ============================================================ -->
+  <section id="demo-b" class="demo">
+    <div class="demo-label">
+      <div class="demo-label-text">
+        <span class="demo-label-num">B</span>
+        <span class="demo-label-title">Tabbed terminal — one pane, three payloads</span>
+      </div>
+      <span class="demo-label-note">dev-first · POST already shown</span>
+    </div>
+    <p class="demo-rule">↑ Each step is a numbered tab on the left. The terminal pane on the right swaps to show the matching request body. The first tab is active by default with <code>POST /v1/sessions</code> pre-filled. Buyers see the actual wire format instantly.</p>
+
+    <div class="stage">
+      <div class="howit-b-frame">
+        <div class="howit-b-tabs" role="tablist">
+          <button class="howit-b-tab active" type="button">
+            <span class="howit-b-tab-num">1</span>
+            <span class="howit-b-tab-meta">
+              <span class="howit-b-tab-title">Session</span>
+              <span class="howit-b-tab-sub">POST /v1/sessions</span>
+            </span>
+          </button>
+          <button class="howit-b-tab" type="button">
+            <span class="howit-b-tab-num">2</span>
+            <span class="howit-b-tab-meta">
+              <span class="howit-b-tab-title">Upload</span>
+              <span class="howit-b-tab-sub">POST /v1/uploads</span>
+            </span>
+          </button>
+          <button class="howit-b-tab" type="button">
+            <span class="howit-b-tab-num">3</span>
+            <span class="howit-b-tab-meta">
+              <span class="howit-b-tab-title">Verify</span>
+              <span class="howit-b-tab-sub">POST /v1/nid/verify</span>
+            </span>
+          </button>
+        </div>
+
+        <div class="howit-b-term">
+          <div class="howit-b-term-bar">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            <span class="label">session: create</span>
+            <span class="method post">POST</span>
+          </div>
+          <div class="howit-b-term-tabs">
+            <span class="pill active">Body</span>
+            <span class="pill">cURL</span>
+            <span class="pill">Node</span>
+            <span class="pill">Python</span>
+          </div>
+          <div class="howit-b-term-body"><span class="cm">// 1. Start a verification session</span>
+<span class="fn">POST</span> <span class="str">https://api.adeptsense.tech/v1/sessions</span>
+<span class="kw">Headers</span>:
+  <span class="str">x-api-key</span>: <span class="acc">$ADEPT_KEY</span>
+  <span class="str">Content-Type</span>: <span class="acc">application/json</span>
+
+<span class="kw">Body</span>:
+<span class="var">{</span>
+  <span class="str">"mode"</span>:        <span class="val">"webview"</span>,
+  <span class="str">"locale"</span>:      <span class="val">"bn-BD"</span>,
+  <span class="str">"expiry_secs"</span>: <span class="val">600</span>,
+  <span class="str">"callback_url"</span>: <span class="val">"https://acme.com/hooks/verify"</span>
+<span class="var">}</span>
+
+<span class="cm">// → 200 OK</span>
+<span class="var">{</span>
+  <span class="str">"ok"</span>:         <span class="val">true</span>,
+  <span class="str">"data"</span>: <span class="var">{</span>
+    <span class="str">"session_id"</span>: <span class="val">"ses_a1b2c3"</span>,
+    <span class="str">"webview_url"</span>: <span class="val">"https://id.adeptsense.tech/s/a1b2c3"</span>,
+    <span class="str">"expires_at"</span>:  <span class="val">"2026-07-12T10:21:08Z"</span>
+  <span class="var">}</span>,
+  <span class="str">"error"</span>:      <span class="val">null</span>
+<span class="var">}</span></div>
+          <div class="howit-b-term-foot">
+            <span>p50: 120 ms · 99.9% uptime · sandbox: free</span>
+            <button class="howit-b-copy" type="button">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DEMO C — CARD GRID v2
+       ============================================================ -->
+  <section id="demo-c" class="demo">
+    <div class="demo-label">
+      <div class="demo-label-text">
+        <span class="demo-label-num">C</span>
+        <span class="demo-label-title">Card grid v2 — denser, with a flow strip below</span>
+      </div>
+      <span class="demo-label-note">3 columns + flow row · matches current density</span>
+    </div>
+    <p class="demo-rule">↑ Same three steps as the live site, but each card carries a small in-card JSON snippet so the <strong>wire format stays visible</strong>. A horizontal flow strip underneath stitches the cards into one pipeline (with thin connector arrows). Reads as one system, not three loose cards.</p>
+
+    <div class="stage howit-c">
+      <div style="max-width: 1100px; margin: 0 auto 0;">
+        <span class="shared-eyebrow">How it works</span>
+        <h2 class="shared-title">From document to decision in <em>under a second.</em></h2>
+        <p class="shared-sub">Three clean steps — start a session, upload identity data, and receive a verified JSON envelope ready to store or act on.</p>
+      </div>
+
+      <div class="howit-c-grid">
+        <div class="howit-c-card">
+          <div class="howit-c-card-head">
+            <div class="howit-c-num">1</div>
+            <span class="howit-c-tag">~120 ms</span>
+          </div>
+          <h4>Start a session</h4>
+          <p>Create a verification session and pick your integration path — hosted WebView, native SDK, or direct API.</p>
+          <div class="howit-c-snippet"><span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span>
+<span class="jk">"mode"</span>: <span class="jv">"webview"</span>
+<span class="jk">"expires_in"</span>: <span class="jn">600</span></div>
+        </div>
+
+        <div class="howit-c-card">
+          <div class="howit-c-card-head">
+            <div class="howit-c-num">2</div>
+            <span class="howit-c-tag">~680 ms</span>
+          </div>
+          <h4>Collect identity data</h4>
+          <p>Upload NID front/back, selfie, or name input through a secure, encrypted multipart flow.</p>
+          <div class="howit-c-snippet"><span class="jk">"front_image"</span>: <span class="jv">"base64..."</span>
+<span class="jk">"selfie"</span>: <span class="jv">"base64..."</span>
+<span class="jk">"liveness"</span>: <span class="jv">true</span></div>
+        </div>
+
+        <div class="howit-c-card">
+          <div class="howit-c-card-head">
+            <div class="howit-c-num">3</div>
+            <span class="howit-c-tag">~140 ms</span>
+          </div>
+          <h4>Receive verified JSON</h4>
+          <p>Get the same <code>{ ok, data, error }</code> envelope with OCR fields, match confidence, and liveness score.</p>
+          <div class="howit-c-snippet"><span class="jk">"verified"</span>: <span class="jv">true</span>
+<span class="jk">"liveness_score"</span>: <span class="jn">0.97</span>
+<span class="jk">"name"</span>: <span class="jv">"Rafiqul Islam"</span></div>
+        </div>
+      </div>
+
+      <div class="howit-c-flow">
+        <div class="howit-c-flow-step">
+          <div class="howit-c-flow-num">1</div>
+          <div class="howit-c-flow-meta">
+            <span class="howit-c-flow-title">Session created</span>
+            <span class="howit-c-flow-sub">webview_url returned · 600s TTL</span>
+          </div>
+        </div>
+        <div class="howit-c-flow-step">
+          <div class="howit-c-flow-num">2</div>
+          <div class="howit-c-flow-meta">
+            <span class="howit-c-flow-title">Documents uploaded</span>
+            <span class="howit-c-flow-sub">encrypted in-flight + at rest</span>
+          </div>
+        </div>
+        <div class="howit-c-flow-step">
+          <div class="howit-c-flow-num">3</div>
+          <div class="howit-c-flow-meta">
+            <span class="howit-c-flow-title">Verified JSON returned</span>
+            <span class="howit-c-flow-sub">webhook + polling both supported</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DEMO D — STICKY-SCROLL NARRATIVE
+       ============================================================ -->
+  <section id="demo-d" class="demo">
+    <div class="demo-label">
+      <div class="demo-label-text">
+        <span class="demo-label-num">D</span>
+        <span class="demo-label-title">Sticky-scroll — left stays, right reads</span>
+      </div>
+      <span class="demo-label-note">tall · narrative · scroll-driven</span>
+    </div>
+    <p class="demo-rule">↑ Left column (title + scroll progress dots) sticks while the right column carries the reader through full-width step panels, each with its own terminal block. Works as a slow, deliberate on-scroll story — closer to <strong>Arc, Vercel changelog, Linear features</strong>.</p>
+
+    <div class="stage howit-d">
+      <div class="howit-d-frame">
+        <aside class="howit-d-left">
+          <span class="shared-eyebrow">How it works</span>
+          <h3>Three steps from <em>document</em> to <em>decision.</em></h3>
+          <p>Each panel below shows the exact request and the exact response. Scroll for the next step.</p>
+
+          <nav class="howit-d-progress" aria-label="Step progress">
+            <div class="howit-d-progress-row active">
+              <span class="howit-d-progress-bullet"></span>
+              <span>01 · Session</span>
+            </div>
+            <div class="howit-d-progress-row">
+              <span class="howit-d-progress-bullet"></span>
+              <span>02 · Collect</span>
+            </div>
+            <div class="howit-d-progress-row">
+              <span class="howit-d-progress-bullet"></span>
+              <span>03 · Verify</span>
+            </div>
+          </nav>
+        </aside>
+
+        <div class="howit-d-right">
+          <article class="howit-d-panel">
+            <div class="howit-d-panel-head">
+              <div class="howit-d-panel-num">1</div>
+              <span class="howit-d-panel-kicker">Step 01 · ~120 ms</span>
+            </div>
+            <h4>Start a verification session</h4>
+            <p>Create a session, pick the integration mode, and get back a hosted WebView URL or an SDK token. Sessions expire after 10 minutes and are idempotent on retry.</p>
+            <div class="howit-d-panel-term"><span class="cm">// POST /v1/sessions</span>
+<span class="kw">body</span> = <span class="acc">{</span>
+  <span class="jk">"mode"</span>:        <span class="jv">"webview"</span>,
+  <span class="jk">"locale"</span>:      <span class="jv">"bn-BD"</span>,
+  <span class="jk">"expiry_secs"</span>: <span class="jv">600</span>
+<span class="acc">}</span>
+
+<span class="cm">// → 200 OK</span>
+{ <span class="jk">"ok"</span>: <span class="jv">true</span>, <span class="jk">"data"</span>: { <span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span> } }</div>
+          </article>
+
+          <article class="howit-d-panel">
+            <div class="howit-d-panel-head">
+              <div class="howit-d-panel-num">2</div>
+              <span class="howit-d-panel-kicker">Step 02 · ~680 ms</span>
+            </div>
+            <h4>Collect identity data</h4>
+            <p>Upload NID front and back images, capture a selfie, and run a passive liveness check — all in one multipart request. Storage is encrypted in transit and at rest.</p>
+            <div class="howit-d-panel-term"><span class="cm">// multipart/form-data · /v1/uploads/{session_id}</span>
+<span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"front_image"</span>, <span class="jv">file://front.jpg</span>)
+<span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"back_image"</span>,  <span class="jv">file://back.jpg</span>)
+<span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"selfie"</span>,      <span class="jv">file://selfie.jpg</span>)
+<span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"liveness"</span>,    <span class="jv">true</span>)
+
+<span class="cm">// → 202 Accepted · upload_id returned</span></div>
+          </article>
+
+          <article class="howit-d-panel">
+            <div class="howit-d-panel-head">
+              <div class="howit-d-panel-num">3</div>
+              <span class="howit-d-panel-kicker">Step 03 · ~140 ms</span>
+            </div>
+            <h4>Receive the verified JSON</h4>
+            <p>Run the verification, then read the structured <code>{ ok, data, error }</code> envelope. Score fields are normalized so the same shape works for every endpoint.</p>
+            <div class="howit-d-panel-term"><span class="cm">// POST /v1/nid/verify</span>
+<span class="kw">body</span> = <span class="acc">{</span> <span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span> <span class="acc">}</span>
+
+<span class="cm">// → 200 OK</span>
+{ <span class="jk">"verified"</span>: <span class="jv">true</span>,
+  <span class="jk">"name_en"</span>: <span class="jv">"Md. Rafiqul Islam"</span>,
+  <span class="jk">"nid"</span>: <span class="jv">"••••••••4821"</span>,
+  <span class="jk">"match_score"</span>: <span class="jv">0.994</span>,
+  <span class="jk">"liveness_score"</span>: <span class="jv">0.97</span> }</div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DEMO E — BENTO FLOW
+       ============================================================ -->
+  <section id="demo-e" class="demo">
+    <div class="demo-label">
+      <div class="demo-label-text">
+        <span class="demo-label-num">E</span>
+        <span class="demo-label-title">Bento flow — asymmetric tiles, mixed scale</span>
+      </div>
+      <span class="demo-label-note">Vercel/Linear feel · rich &amp; scannable</span>
+    </div>
+    <p class="demo-rule">↑ Five tiles in an asymmetric 6-column grid: one big "all three steps as JSON" tile, two compact step tiles, one dark live-stat tile, and one "what you get back" tile. The dark tile carries the brand color and draws the eye. Reads as <strong>one piece</strong> instead of three cards.</p>
+
+    <div class="stage howit-e">
+      <div style="max-width: 1240px; margin: 0 auto 0;">
+        <span class="shared-eyebrow">How it works</span>
+        <h2 class="shared-title">From document to decision in <em>under a second.</em></h2>
+        <p class="shared-sub">One API, three short steps. The bento below is the entire flow on a single screen — what you call, what you send, what you get back.</p>
+      </div>
+
+      <div class="howit-e-bento">
+
+        <!-- Tile 1 — wide top, full payload -->
+        <div class="howit-e-cell-1">
+          <div class="howit-e-cell-kicker">The single API call</div>
+          <h4>One endpoint, one envelope</h4>
+          <p>Every step collapses into a single <code>POST /v1/nid/verify</code> call. You pass the session, the images, and the liveness flag — the platform handles the rest.</p>
+          <div class="howit-e-big-term"><span class="cm">// POST /v1/nid/verify</span>
+<span class="fn">fetch</span>(<span class="str">"https://api.adeptsense.tech/v1/nid/verify"</span>, <span class="acc">{</span>
+  <span class="kw">method</span>: <span class="val">"POST"</span>,
+  <span class="kw">headers</span>: <span class="acc">{</span> <span class="jk">"x-api-key"</span>: <span class="var">ADEPT_KEY</span> <span class="acc">}</span>,
+  <span class="kw">body</span>: <span class="var">formData</span>     <span class="cm">// front, back, selfie, liveness</span>
+<span class="acc">}</span>)
+  .<span class="fn">then</span>(<span class="var">r</span> =&gt; <span class="var">r</span>.<span class="fn">json</span>())</div>
+        </div>
+
+        <!-- Tile 2 — step 1 -->
+        <div class="howit-e-cell-2">
+          <div class="howit-e-cell-head">
+            <span class="badge">1</span>
+            <span class="label">Start a session</span>
+          </div>
+          <p class="howit-e-cell-body">Pick a mode and get back a hosted WebView URL or an SDK token.</p>
+          <div class="howit-e-mini-term"><span class="jk">"mode"</span>: <span class="jv">"webview"</span>, <span class="cm">// or "sdk"</span>
+<span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span></div>
+        </div>
+
+        <!-- Tile 3 — step 3 (skips 2 to balance bento) -->
+        <div class="howit-e-cell-3">
+          <div class="howit-e-cell-head">
+            <span class="badge">3</span>
+            <span class="label">Receive verified JSON</span>
+          </div>
+          <ul>
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>OCR fields: name_bn, name_en, nid, dob</span>
+            </li>
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Face-match score (0–1, normalized)</span>
+            </li>
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Liveness score + region / gender if requested</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tile 4 — dark callout strip -->
+        <div class="howit-e-cell-4">
+          <span class="live">Live · sandbox online</span>
+          <h4>Production-grade from day one.</h4>
+          <p>The same endpoint serves sandbox and live traffic. p50 latency in Bangladesh is under 200 ms.</p>
+          <div class="howit-e-stats">
+            <div class="howit-e-stat">
+              <div class="v green">99.4%</div>
+              <div class="l">OCR accuracy</div>
+            </div>
+            <div class="howit-e-stat">
+              <div class="v">142<span style="font-size:13px;">ms</span></div>
+              <div class="l">p50 latency</div>
+            </div>
+            <div class="howit-e-stat">
+              <div class="v acc">12.4k</div>
+              <div class="l">Verifications / day</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tile 5 — step 2 (collect) -->
+        <div class="howit-e-cell-5">
+          <div class="howit-e-cell-head">
+            <span class="badge">2</span>
+            <span class="label">Collect identity data</span>
+          </div>
+          <ul>
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>NID front &amp; back image (auto-rotate, auto-crop)</span>
+            </li>
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Selfie capture with on-device liveness</span>
+            </li>
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Encrypted in-transit &amp; at-rest, auto-purged on completion</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DECISION NOTES
+       ============================================================ -->
+  <footer style="max-width: 1440px; margin: 0 auto; padding: 80px 64px 120px; border-top: 1px solid var(--border-2);">
+    <h2 style="font-family: 'Lora', serif; font-size: 28px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 12px;">Decision notes</h2>
+    <p style="font-size: 14px; color: var(--ink-3); max-width: 760px; line-height: 1.7; margin-bottom: 32px;">A quick heuristic for each pattern based on your research artifacts (<code>AdeptSense_UX_Market_Research_Report.md</code>, <code>competitors.md</code>, <code>adeptsense-ia.md</code>). Pick the one whose trade-off matches the page beneath it.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+      <div style="padding: 24px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface);">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#fff; background:var(--blue); display:inline-block; padding:3px 10px; border-radius:100px; margin-bottom:12px;">Pattern A</div>
+        <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">Timeline</h3>
+        <p style="font-size:13px; color:var(--ink-3); line-height:1.6;">Reads as one continuous journey. Best when the reader is genuinely learning the flow. Doubles scan time vs. cards. Stripe-style.</p>
+      </div>
+      <div style="padding: 24px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface);">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#fff; background:var(--blue); display:inline-block; padding:3px 10px; border-radius:100px; margin-bottom:12px;">Pattern B</div>
+        <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">Tabbed terminal</h3>
+        <p style="font-size:13px; color:var(--ink-3); line-height:1.6;">Highest developer conversion — they see the wire format before they ever talk to sales. Needs a real swap interaction (light JS).</p>
+      </div>
+      <div style="padding: 24px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface);">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#fff; background:var(--blue); display:inline-block; padding:3px 10px; border-radius:100px; margin-bottom:12px;">Pattern C</div>
+        <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">Card grid v2</h3>
+        <p style="font-size:13px; color:var(--ink-3); line-height:1.6;">Same shape as today's live version, denser. Each card carries a snippet. Flow strip stitches the cards into one pipeline.</p>
+      </div>
+      <div style="padding: 24px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface);">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#fff; background:var(--blue); display:inline-block; padding:3px 10px; border-radius:100px; margin-bottom:12px;">Pattern D</div>
+        <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">Sticky-scroll narrative</h3>
+        <p style="font-size:13px; color:var(--ink-3); line-height:1.6;">Slow, deliberate, editorial. Best for a scroll-driven homepage hero below. Tall — won't fit above-the-fold.</p>
+      </div>
+      <div style="padding: 24px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface);">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#fff; background:var(--blue); display:inline-block; padding:3px 10px; border-radius:100px; margin-bottom:12px;">Pattern E</div>
+        <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">Bento flow</h3>
+        <p style="font-size:13px; color:var(--ink-3); line-height:1.6;">Highest information density per square inch. Reads as one piece. Asymmetry carries the eye to the live-stat tile. Most on-brand for the current visual language.</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 40px; font-size: 12px; color: var(--ink-4); font-family: 'JetBrains Mono', monospace;">
+      Self-contained · no JS (the B tabs are static) · tokens inherited from <code>src/css/tokens.css</code> · uses Plus Jakarta Sans + Lora + JetBrains Mono · safe to delete after review
+    </p>
+  </footer>
+
+</body>
+</html>

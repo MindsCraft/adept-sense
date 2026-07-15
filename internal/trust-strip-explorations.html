@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trust Strip — 5 design explorations</title>
+  <link rel="stylesheet" href="../src/style.css">
+  <style>
+    /* ── Page-local helpers for the explorations doc only ── */
+    body { background: var(--bg); }
+    .exp-shell { max-width: 1480px; margin: 0 auto; padding: 56px 64px 96px; }
+    .exp-shell > h1 {
+      font-family: 'Lora', serif; font-weight: 600;
+      font-size: clamp(32px, 3.6vw, 44px);
+      letter-spacing: -0.025em; color: var(--ink);
+      margin: 0 0 8px;
+    }
+    .exp-shell > .lede {
+      font-size: 16px; line-height: 1.6;
+      color: var(--ink-3); margin: 0 0 48px; max-width: 720px;
+    }
+    .exp-card {
+      margin: 0 0 80px;
+      padding-bottom: 80px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .exp-card:last-child { border-bottom: 0; padding-bottom: 0; }
+    .exp-meta {
+      display: flex; align-items: baseline; gap: 14px;
+      margin-bottom: 8px;
+    }
+    .exp-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue); background: var(--blue-dim);
+      padding: 4px 10px; border-radius: 100px;
+    }
+    .exp-card h2 {
+      font-family: 'Lora', serif; font-weight: 600;
+      font-size: 28px;
+      letter-spacing: -0.02em; color: var(--ink);
+      margin: 0 0 8px;
+    }
+    .exp-card p {
+      font-size: 14px; line-height: 1.6;
+      color: var(--ink-3); margin: 0 0 28px; max-width: 640px;
+    }
+
+    /* ════════════════════════════════════════════════════════
+       01 — HORIZONTAL ROW · Current / shipped
+       ════════════════════════════════════════════════════════ */
+    .ex1-wrap {
+      background: var(--surface);
+      padding: 64px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .ex1-inner {
+      max-width: var(--container);
+      margin: 0 auto; padding: 0 var(--gutter);
+      text-align: center;
+    }
+    .ex1-head .label-tag {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 12px;
+    }
+    .ex1-head h2 {
+      font-family: 'Lora', serif; font-weight: 600;
+      font-size: clamp(26px, 3vw, 36px);
+      letter-spacing: -0.025em; line-height: 1.15;
+      color: var(--ink); margin: 0 0 10px;
+    }
+    .ex1-head p {
+      font-size: 15px; line-height: 1.6;
+      color: var(--ink-3); max-width: 560px;
+      margin: 0 auto 36px;
+    }
+    .ex1-row {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 24px;
+    }
+    .ex1-badge {
+      height: 64px; min-width: 132px; padding: 0 18px;
+      display: flex; align-items: center; gap: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+    }
+    .ex1-mark {
+      width: 28px; height: 28px;
+      display: grid; place-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--blue); background: var(--surface);
+      border: 1px solid var(--border); border-radius: 6px;
+    }
+    .ex1-badge .b-name {
+      display: block; font-size: 12px; font-weight: 600;
+      color: var(--ink); line-height: 1.1;
+    }
+    .ex1-badge .b-sub {
+      display: block; font-size: 10px; color: var(--ink-4);
+      letter-spacing: 0.04em; text-transform: uppercase;
+      margin-top: 2px;
+    }
+    @media (max-width: 700px) {
+      .ex1-row { gap: 10px; }
+      .ex1-badge { flex: 1 1 calc(50% - 5px); min-width: 0; }
+    }
+
+    /* ════════════════════════════════════════════════════════
+       02 — MONO RIBBON · single dense row, hairline border, no card chrome
+       ════════════════════════════════════════════════════════ */
+    .ex2-wrap {
+      background: var(--bg);
+      padding: 56px 0;
+      border-top: 1px solid var(--border-2);
+      border-bottom: 1px solid var(--border-2);
+    }
+    .ex2-inner {
+      max-width: var(--container);
+      margin: 0 auto; padding: 0 var(--gutter);
+      display: flex; align-items: center; gap: 32px;
+    }
+    .ex2-lead {
+      flex: 0 0 280px;
+      padding-right: 32px;
+      border-right: 1px solid var(--border);
+    }
+    .ex2-lead .label-tag {
+      display: inline-block; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 10px;
+    }
+    .ex2-lead h3 {
+      font-family: 'Lora', serif; font-weight: 600;
+      font-size: 22px; letter-spacing: -0.02em;
+      color: var(--ink); margin: 0 0 6px; line-height: 1.2;
+    }
+    .ex2-lead p {
+      font-size: 13px; line-height: 1.55;
+      color: var(--ink-3); margin: 0;
+    }
+    .ex2-row {
+      flex: 1; min-width: 0;
+      display: flex; flex-wrap: wrap; gap: 14px 28px;
+      justify-content: flex-end;
+    }
+    .ex2-chip {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 500;
+      color: var(--ink-2); white-space: nowrap;
+    }
+    .ex2-chip::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--blue);
+    }
+    @media (max-width: 800px) {
+      .ex2-inner { flex-direction: column; align-items: stretch; gap: 24px; }
+      .ex2-lead { border-right: 0; border-bottom: 1px solid var(--border); padding: 0 0 18px; }
+      .ex2-row { justify-content: flex-start; }
+    }
+
+    /* ════════════════════════════════════════════════════════
+       03 — DARK BAND · high-contrast cyan on ink, signal a "regulated stack"
+       ════════════════════════════════════════════════════════ */
+    .ex3-wrap {
+      background: var(--ink); color: #fff;
+      padding: 72px 0;
+    }
+    .ex3-inner {
+      max-width: var(--container);
+      margin: 0 auto; padding: 0 var(--gutter);
+    }
+    .ex3-head {
+      display: flex; align-items: end; justify-content: space-between;
+      gap: 32px; margin-bottom: 36px;
+    }
+    .ex3-head .label-tag {
+      display: inline-block; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #B8A8E5; margin-bottom: 12px;
+    }
+    .ex3-head h3 {
+      font-family: 'Lora', serif; font-weight: 600;
+      font-size: clamp(24px, 2.6vw, 30px);
+      letter-spacing: -0.025em; color: #fff;
+      margin: 0; max-width: 460px; line-height: 1.2;
+    }
+    .ex3-cta {
+      flex: 0 0 auto;
+      font-size: 13px; font-weight: 500; color: #B8A8E5;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .ex3-cta:hover { color: #fff; }
+    .ex3-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+    .ex3-cell {
+      padding: 28px 22px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      display: flex; flex-direction: column; gap: 10px;
+      min-height: 120px;
+    }
+    .ex3-cell:last-child { border-right: 0; }
+    .ex3-mark {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: #B8A8E5;
+      padding: 3px 8px; border: 1px solid rgba(184,168,229,0.3);
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+    .ex3-name {
+      font-size: 13px; font-weight: 600; color: #fff;
+      letter-spacing: -0.005em; line-height: 1.25;
+    }
+    .ex3-sub {
+      font-size: 11px; color: rgba(255,255,255,0.55);
+      line-height: 1.45; letter-spacing: 0.02em;
+    }
+    @media (max-width: 1000px) {
+      .ex3-grid { grid-template-columns: repeat(3, 1fr); }
+      .ex3-cell:nth-child(3n) { border-right: 0; }
+      .ex3-cell:nth-child(n+4) { border-top: 1px solid rgba(255,255,255,0.08); }
+    }
+    @media (max-width: 560px) {
+      .ex3-head { flex-direction: column; align-items: flex-start; }
+      .ex3-grid { grid-template-columns: repeat(2, 1fr); }
+      .ex3-cell { border-right: 1px solid rgba(255,255,255,0.08) !important; }
+      .ex3-cell:nth-child(2n) { border-right: 0; }
+      .ex3-cell:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,0.08); }
+    }
+
+    /* ════════════════════════════════════════════════════════
+       04 — VERIFIED-BADGE MASONRY · large featured badges + subgrid
+       ════════════════════════════════════════════════════════ */
+    .ex4-wrap {
+      background: var(--bg);
+      padding: 80px 0;
+    }
+    .ex4-inner {
+      max-width: var(--container);
+      margin: 0 auto; padding: 0 var(--gutter);
+    }
+    .ex4-head { text-align: center; margin-bottom: 44px; }
+    .ex4-head .label-tag {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 12px;
+    }
+    .ex4-head h2 {
+      font-family: 'Lora', serif; font-weight: 600;
+      font-size: clamp(26px, 3vw, 36px);
+      letter-spacing: -0.025em; color: var(--ink);
+      margin: 0 0 10px; line-height: 1.15;
+    }
+    .ex4-head p {
+      font-size: 15px; line-height: 1.6;
+      color: var(--ink-3); max-width: 580px; margin: 0 auto;
+    }
+    .ex4-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: repeat(2, 200px);
+      gap: 16px;
+    }
+    .ex4-cell {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 26px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: border-color .2s var(--ease), transform .2s var(--ease);
+    }
+    .ex4-cell:hover { border-color: var(--ink-4); transform: translateY(-2px); }
+    .ex4-cell .top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .ex4-cell .icon {
+      width: 44px; height: 44px;
+      display: grid; place-items: center;
+      color: var(--blue); background: var(--blue-dim);
+      border-radius: 10px; font-family: 'Lora', serif;
+      font-size: 22px; font-weight: 600;
+    }
+    .ex4-cell .meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--blue);
+      padding: 3px 8px; background: var(--blue-dim);
+      border-radius: 4px;
+    }
+    .ex4-cell h4 {
+      font-family: 'Lora', serif; font-weight: 600;
+      font-size: 18px; letter-spacing: -0.015em;
+      color: var(--ink); margin: 0 0 4px;
+    }
+    .ex4-cell p {
+      font-size: 12.5px; line-height: 1.5;
+      color: var(--ink-3); margin: 0;
+    }
+    .ex4-cell.feature {
+      grid-row: span 2;
+      background: var(--ink); color: #fff;
+      border-color: var(--ink);
+    }
+    .ex4-cell.feature .icon {
+      background: rgba(255,255,255,0.06); color: #B8A8E5;
+    }
+    .ex4-cell.feature .meta {
+      background: rgba(255,255,255,0.06); color: #B8A8E5;
+    }
+    .ex4-cell.feature h4 { font-size: 22px; color: #fff; }
+    .ex4-cell.feature p { color: rgba(255,255,255,0.65); }
+    .ex4-cell.feature .checklist {
+      list-style: none; padding: 0; margin: 14px 0 0;
+      display: flex; flex-direction: column; gap: 6px;
+      font-size: 13px; color: rgba(255,255,255,0.85);
+    }
+    .ex4-cell.feature .checklist li::before {
+      content: '✓'; color: #B8A8E5; margin-right: 8px;
+    }
+    @media (max-width: 900px) {
+      .ex4-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+      .ex4-cell { min-height: 160px; }
+      .ex4-cell.feature { grid-row: span 1; grid-column: span 2; }
+    }
+    @media (max-width: 520px) {
+      .ex4-grid { grid-template-columns: 1fr; }
+      .ex4-cell.feature { grid-column: span 1; }
+    }
+
+    /* ════════════════════════════════════════════════════════
+       05 — INLINE TEXT BAR · prose-first, minimal chrome
+       ════════════════════════════════════════════════════════ */
+    .ex5-wrap {
+      background: var(--surface);
+      padding: 56px 0;
+      border-top: 1px solid var(--border);
+    }
+    .ex5-inner {
+      max-width: 920px;
+      margin: 0 auto; padding: 0 var(--gutter);
+      text-align: center;
+    }
+    .ex5-head .label-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 16px;
+    }
+    .ex5-head .label-tag::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--blue);
+    }
+    .ex5-head h2 {
+      font-family: 'Lora', serif; font-weight: 600;
+      font-size: clamp(26px, 2.8vw, 34px);
+      letter-spacing: -0.025em; color: var(--ink);
+      margin: 0 0 10px; line-height: 1.2;
+    }
+    .ex5-head p {
+      font-size: 16px; line-height: 1.6;
+      color: var(--ink-3); margin: 0 auto 32px; max-width: 620px;
+    }
+    .ex5-list {
+      display: inline-flex; flex-wrap: wrap; gap: 8px 10px;
+      justify-content: center; max-width: 760px;
+    }
+    .ex5-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px;
+      font-size: 13px; font-weight: 500; color: var(--ink-2);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+    }
+    .ex5-pill .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--blue);
+    }
+    .ex5-meta {
+      margin-top: 28px;
+      font-size: 12px; color: var(--ink-4);
+      letter-spacing: 0.02em;
+    }
+    .ex5-meta a {
+      color: var(--blue); text-decoration: none;
+      border-bottom: 1px solid var(--blue-dim);
+    }
+    .ex5-meta a:hover { border-color: var(--blue); }
+    @media (max-width: 640px) {
+      .ex5-pill { font-size: 12px; padding: 6px 12px; }
+    }
+  </style>
+</head>
+<body>
+<div class="exp-shell">
+
+  <h1>Trust strip explorations</h1>
+  <p class="lede">Five layouts for the Security &amp; Compliance band below the integration section. Same 11 credentials are listed; treatment and rhythm differ. Pick a direction; I'll port the chosen one into <code>index.html</code> + <code>trust.css</code>.</p>
+
+  <!-- ═══ 01 ═══ -->
+  <article class="exp-card">
+    <div class="exp-meta">
+      <span class="exp-tag">01 · Row</span>
+      <span style="font-size:13px; color:var(--ink-4);">Currently shipped</span>
+    </div>
+    <h2>Horizontal row with card chrome</h2>
+    <p>Section heading + two rows of small card-style badges with a chip mark and 2-line label. Reads as "wall of certifications," safe and conventional.</p>
+
+    <div class="ex1-wrap">
+      <div class="ex1-inner">
+        <div class="ex1-head">
+          <span class="label-tag">Security &amp; Compliance</span>
+          <h2>Full security &amp; compliance.</h2>
+          <p>Independently audited, globally recognized, and continuously monitored. AdeptSense meets the standards enterprise security teams require.</p>
+        </div>
+        <div class="ex1-row">
+          <div class="ex1-badge"><span class="ex1-mark">iβL1</span><span><span class="b-name">iBeta Level 1</span><span class="b-sub">ISO 30107-3</span></span></div>
+          <div class="ex1-badge"><span class="ex1-mark">iβL2</span><span><span class="b-name">iBeta Level 2</span><span class="b-sub">ISO 30107-3</span></span></div>
+          <div class="ex1-badge"><span class="ex1-mark">SOC2</span><span><span class="b-name">AICPA SOC 2</span><span class="b-sub">Type II</span></span></div>
+          <div class="ex1-badge"><span class="ex1-mark">PCI</span><span><span class="b-name">PCI DSS</span><span class="b-sub">v4.0</span></span></div>
+          <div class="ex1-badge"><span class="ex1-mark">EU</span><span><span class="b-name">GDPR Ready</span><span class="b-sub">EU data residency</span></span></div>
+          <div class="ex1-badge"><span class="ex1-mark">eID</span><span><span class="b-name">e-IDVT</span><span class="b-sub">EU AMLD aligned</span></span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══ 02 ═══ -->
+  <article class="exp-card">
+    <div class="exp-meta"><span class="exp-tag">02 · Mono ribbon</span></div>
+    <h2>Heading-left, dense bullet list, hairline rules</h2>
+    <p>Asymmetric split: intro paragraph pinned to the left rail, comma-separated list of badges flowing to the right. Editorial / paper-like feel, almost zero chrome.</p>
+
+    <div class="ex2-wrap">
+      <div class="ex2-inner">
+        <div class="ex2-lead">
+          <span class="label-tag">Security &amp; Compliance</span>
+          <h3>Audited, certified, regulated.</h3>
+          <p>Eleven independent frameworks. Continuous monitoring. SOC 2 Type II renewed annually.</p>
+        </div>
+        <div class="ex2-row">
+          <span class="ex2-chip">iBeta Level 1</span>
+          <span class="ex2-chip">iBeta Level 2</span>
+          <span class="ex2-chip">SOC 2 Type II</span>
+          <span class="ex2-chip">PCI DSS v4.0</span>
+          <span class="ex2-chip">GDPR Ready</span>
+          <span class="ex2-chip">e-IDVT</span>
+          <span class="ex2-chip">ISO 27001</span>
+          <span class="ex2-chip">ISO 27017</span>
+          <span class="ex2-chip">ISO 27018</span>
+          <span class="ex2-chip">ACCS 2:2021</span>
+          <span class="ex2-chip">UKAS 21087</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══ 03 ═══ -->
+  <article class="exp-card">
+    <div class="exp-meta"><span class="exp-tag">03 · Dark band</span></div>
+    <h2>High-contrast dark band with a 6-cell rule grid</h2>
+    <p>Ink-black band with a 6-column grid of bordered cells — each badge gets a small monospace kicker and short sub. Stronger visual break; treats compliance like a serious stack, not decoration.</p>
+
+    <div class="ex3-wrap">
+      <div class="ex3-inner">
+        <div class="ex3-head">
+          <div>
+            <span class="label-tag">Security &amp; Compliance</span>
+            <h3>Independent audits across eleven frameworks.</h3>
+          </div>
+          <a class="ex3-cta" href="#">View trust portal →</a>
+        </div>
+        <div class="ex3-grid">
+          <div class="ex3-cell"><span class="ex3-mark">iβ L1</span><span class="ex3-name">iBeta Level 1</span><span class="ex3-sub">ISO 30107-3 PAD</span></div>
+          <div class="ex3-cell"><span class="ex3-mark">iβ L2</span><span class="ex3-name">iBeta Level 2</span><span class="ex3-sub">Presentation attack</span></div>
+          <div class="ex3-cell"><span class="ex3-mark">SOC 2</span><span class="ex3-name">AICPA SOC 2</span><span class="ex3-sub">Type II, annual</span></div>
+          <div class="ex3-cell"><span class="ex3-mark">PCI</span><span class="ex3-name">PCI DSS</span><span class="ex3-sub">v4.0 compliant</span></div>
+          <div class="ex3-cell"><span class="ex3-mark">GDPR</span><span class="ex3-name">GDPR Ready</span><span class="ex3-sub">EU data residency</span></div>
+          <div class="ex3-cell"><span class="ex3-mark">e-ID</span><span class="ex3-name">e-IDVT</span><span class="ex3-sub">EU AMLD aligned</span></div>
+          <div class="ex3-cell"><span class="ex3-mark">ISO 27k</span><span class="ex3-name">ISO 27001</span><span class="ex3-sub">ISMS certified</span></div>
+          <div class="ex3-cell"><span class="ex3-mark">ISO 17</span><span class="ex3-name">ISO 27017</span><span class="ex3-sub">Cloud controls</span></div>
+          <div class="ex3-cell"><span class="ex3-mark">ISO 18</span><span class="ex3-name">ISO 27018</span><span class="ex3-sub">PII in clouds</span></div>
+          <div class="ex3-cell"><span class="ex3-mark">ACCS</span><span class="ex3-name">ACCS 2:2021</span><span class="ex3-sub">Data &amp; privacy</span></div>
+          <div class="ex3-cell"><span class="ex3-mark">UKAS</span><span class="ex3-name">UKAS 21087</span><span class="ex3-sub">Test methodology</span></div>
+          <div class="ex3-cell"><span class="ex3-mark">Audit</span><span class="ex3-name">Continuous</span><span class="ex3-sub">Drata-monitored</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══ 04 ═══ -->
+  <article class="exp-card">
+    <div class="exp-meta"><span class="exp-tag">04 · Masonry</span></div>
+    <h2>Featured-cell masonry with a dark anchor tile</h2>
+    <p>One large dark "headline" badge (SOC 2 Type II) anchors the layout; five smaller tiles surround it with icon + meta + 1-line label. Bento-grid feel — most visually distinctive.</p>
+
+    <div class="ex4-wrap">
+      <div class="ex4-inner">
+        <div class="ex4-head">
+          <span class="label-tag">Security &amp; Compliance</span>
+          <h2>Eleven frameworks. One promise.</h2>
+          <p>AdeptSense is independently audited against the standards enterprise security teams require. Renewed annually, monitored continuously.</p>
+        </div>
+        <div class="ex4-grid">
+          <div class="ex4-cell feature">
+            <div class="top">
+              <div class="icon">S</div>
+              <span class="meta">SOC 2</span>
+            </div>
+            <div>
+              <h4>AICPA SOC 2 Type II</h4>
+              <p>Annual, audit-issued, covering security, availability &amp; confidentiality.</p>
+              <ul class="checklist">
+                <li>Drata continuous control monitoring</li>
+                <li>Public report on request</li>
+                <li>Penetration tested quarterly</li>
+              </ul>
+            </div>
+          </div>
+          <div class="ex4-cell">
+            <div class="top">
+              <div class="icon">iβ</div>
+              <span class="meta">Level 1</span>
+            </div>
+            <div>
+              <h4>iBeta Level 1</h4>
+              <p>ISO 30107-3 presentation attack detection.</p>
+            </div>
+          </div>
+          <div class="ex4-cell">
+            <div class="top">
+              <div class="icon">iβ</div>
+              <span class="meta">Level 2</span>
+            </div>
+            <div>
+              <h4>iBeta Level 2</h4>
+              <p>Higher-effort spoof resistance certified.</p>
+            </div>
+          </div>
+          <div class="ex4-cell">
+            <div class="top">
+              <div class="icon">PCI</div>
+              <span class="meta">v4.0</span>
+            </div>
+            <div>
+              <h4>PCI DSS</h4>
+              <p>Card-network data security standard.</p>
+            </div>
+          </div>
+          <div class="ex4-cell">
+            <div class="top">
+              <div class="icon">EU</div>
+              <span class="meta">GDPR</span>
+            </div>
+            <div>
+              <h4>GDPR Ready</h4>
+              <p>EU data residency &amp; DPA on request.</p>
+            </div>
+          </div>
+          <div class="ex4-cell">
+            <div class="top">
+              <div class="icon">eD</div>
+              <span class="meta">e-IDVT</span>
+            </div>
+            <div>
+              <h4>e-IDVT</h4>
+              <p>Aligned with EU AMLD remote onboarding.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══ 05 ═══ -->
+  <article class="exp-card">
+    <div class="exp-meta"><span class="exp-tag">05 · Inline bar</span></div>
+    <h2>Prose-led sentence with small pills</h2>
+    <p>Trust signal stays close to the copy — a single short paragraph plus a row of pill-shaped micro-badges. Quietest treatment; competes least with other sections.</p>
+
+    <div class="ex5-wrap">
+      <div class="ex5-inner">
+        <div class="ex5-head">
+          <span class="label-tag">Security &amp; Compliance</span>
+          <h2>Audited against the standards your security team already trusts.</h2>
+          <p>Independently verified by accredited labs. Reports renewed annually. Continuous monitoring for SOC 2 controls.</p>
+          <div class="ex5-list">
+            <span class="ex5-pill"><span class="dot"></span>iBeta Level 1</span>
+            <span class="ex5-pill"><span class="dot"></span>iBeta Level 2</span>
+            <span class="ex5-pill"><span class="dot"></span>SOC 2 Type II</span>
+            <span class="ex5-pill"><span class="dot"></span>PCI DSS v4.0</span>
+            <span class="ex5-pill"><span class="dot"></span>GDPR Ready</span>
+            <span class="ex5-pill"><span class="dot"></span>e-IDVT</span>
+            <span class="ex5-pill"><span class="dot"></span>ISO 27001</span>
+            <span class="ex5-pill"><span class="dot"></span>ISO 27017</span>
+            <span class="ex5-pill"><span class="dot"></span>ISO 27018</span>
+            <span class="ex5-pill"><span class="dot"></span>ACCS 2:2021</span>
+            <span class="ex5-pill"><span class="dot"></span>UKAS 21087</span>
+          </div>
+          <p class="ex5-meta">Reports available under NDA · <a href="#">Open trust portal →</a></p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+</div>
+</body>
+</html>

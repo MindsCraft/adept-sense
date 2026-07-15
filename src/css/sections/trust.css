@@ -1,0 +1,155 @@
+/* ── TRUST / COMPLIANCE STRIP ──
+   Full-width band between Integration and Stats.
+   Two-row badge layout: security/compliance on top,
+   data/quality on the bottom. All badges are inline SVG
+   or styled text so no external asset files are needed. */
+
+.trust-wrap {
+  background: var(--bg);
+  padding: 96px 0 88px;
+}
+.trust-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  text-align: center;
+}
+@media (min-width: 1024px) {
+  .trust-inner {
+    border-left: 1px solid var(--border-2);
+    border-right: 1px solid var(--border-2);
+  }
+}
+@media (max-width: 768px) {
+  .trust-inner { padding: 0 var(--gutter-sm); }
+  .trust-wrap  { padding: 72px 0; }
+}
+
+.trust-head {
+  margin-bottom: 56px;
+}
+.trust-head .label-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 14px;
+}
+.trust-head .section-title {
+  font-family: 'Lora', serif;
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+.trust-head .section-sub {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-3);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* Badge rows */
+.trust-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+.trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Generic badge — monochrome ink on light surface.
+   Two-line layout: small top kicker (issuer), big middle label,
+   tiny bottom note. Tight, business-card feel. */
+.trust-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-width: 168px;
+  height: 78px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  text-align: left;
+  transition: border-color .15s var(--ease), transform .15s var(--ease);
+}
+.trust-badge:hover {
+  border-color: var(--ink-4);
+  transform: translateY(-1px);
+}
+.trust-badge .tb-mark {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  color: var(--ink);
+}
+.trust-badge .tb-mark svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.trust-badge .tb-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.trust-badge .tb-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  line-height: 1.2;
+}
+.trust-badge .tb-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.trust-badge .tb-note {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10.5px;
+  color: var(--ink-3);
+  line-height: 1.25;
+}
+
+/* The plain-text badge (no mark icon) variant */
+.trust-badge.tb-plain {
+  flex-direction: column;
+  text-align: center;
+  gap: 2px;
+  min-width: 168px;
+  padding: 14px 18px;
+}
+.trust-badge.tb-plain .tb-text {
+  align-items: center;
+}
+
+/* Responsive — tighter chips on small screens */
+@media (max-width: 640px) {
+  .trust-badge { min-width: 0; flex: 1 1 calc(50% - 12px); height: 72px; padding: 10px 12px; }
+  .trust-badge .tb-mark { width: 30px; height: 30px; }
+  .trust-badge .tb-label { font-size: 12px; }
+  .trust-badge .tb-note { font-size: 10px; }
+}

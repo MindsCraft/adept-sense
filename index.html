@@ -451,53 +451,311 @@
   </div>
 </section>
 
-<!-- ── USE CASES ── -->
-<section class="usecases-wrap" id="use-cases">
+<!-- â”€â”€ HOW IT WORKS â€” Pattern D (sticky-scroll narrative) â”€â”€ -->
+<section class="howit-wrap" id="how-it-works" data-howit-root>
+  <div class="wrap">
+    <div class="howit-d-frame">
+      <aside class="howit-d-left">
+        <span class="shared-eyebrow">Three steps</span>
+        <h3>From <em>document</em> to <em>decision.</em></h3>
+        <p>The same JSON contract every endpoint returns. Sessions are idempotent, retries are safe, and verified payloads are signed.</p>
+
+        <nav class="howit-d-progress" aria-label="Step progress">
+          <div class="howit-d-progress-row active" data-howit-step="0">
+            <span class="howit-d-progress-bullet"></span>
+            <span>01 &middot; Session</span>
+          </div>
+          <div class="howit-d-progress-row" data-howit-step="1">
+            <span class="howit-d-progress-bullet"></span>
+            <span>02 &middot; Collect</span>
+          </div>
+          <div class="howit-d-progress-row" data-howit-step="2">
+            <span class="howit-d-progress-bullet"></span>
+            <span>03 &middot; Verify</span>
+          </div>
+        </nav>
+      </aside>
+
+      <div class="howit-d-right">
+        <article class="howit-d-panel" data-howit-panel="0">
+          <div class="howit-d-panel-head">
+            <div class="howit-d-panel-num">1</div>
+            <span class="howit-d-panel-kicker">Step 01 &middot; ~120 ms</span>
+          </div>
+          <h4>Start a verification session</h4>
+          <p>Create a session, pick the integration mode, and get back a hosted WebView URL or an SDK token. Sessions expire after 10 minutes and are idempotent on retry.</p>
+          <div class="howit-d-panel-term"><span class="cm">// POST /v1/sessions</span>
+<span class="kw">body</span> = <span class="acc">{</span>
+  <span class="jk">"mode"</span>:        <span class="jv">"webview"</span>,
+  <span class="jk">"locale"</span>:      <span class="jv">"bn-BD"</span>,
+  <span class="jk">"expiry_secs"</span>: <span class="jv">600</span>
+<span class="acc">}</span>
+
+<span class="cm">// â†’ 200 OK</span>
+{ <span class="jk">"ok"</span>: <span class="jv">true</span>, <span class="jk">"data"</span>: <span class="acc">{</span> <span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span> <span class="acc">}</span> }</div>
+        </article>
+
+        <article class="howit-d-panel" data-howit-panel="1">
+          <div class="howit-d-panel-head">
+            <div class="howit-d-panel-num">2</div>
+            <span class="howit-d-panel-kicker">Step 02 &middot; ~680 ms</span>
+          </div>
+          <h4>Collect identity data</h4>
+          <p>Upload NID front and back images, capture a selfie, and run a passive liveness check &mdash; all in one multipart request. Storage is encrypted in transit and at rest.</p>
+          <div class="howit-d-panel-term"><span class="cm">// multipart/form-data &middot; /v1/uploads/{session_id}</span>
+<span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"front_image"</span>, <span class="jv">"file://front.jpg"</span>)
+<span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"back_image"</span>,  <span class="jv">"file://back.jpg"</span>)
+<span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"selfie"</span>,      <span class="jv">"file://selfie.jpg"</span>)
+<span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"liveness"</span>,    <span class="jv">true</span>)
+
+<span class="cm">// â†’ 202 Accepted &middot; upload_id returned</span></div>
+        </article>
+
+        <article class="howit-d-panel" data-howit-panel="2">
+          <div class="howit-d-panel-head">
+            <div class="howit-d-panel-num">3</div>
+            <span class="howit-d-panel-kicker">Step 03 &middot; ~140 ms</span>
+          </div>
+          <h4>Receive the verified JSON</h4>
+          <p>Run the verification, then read the structured <code>{ ok, data, error }</code> envelope. Score fields are normalized so the same shape works for every endpoint.</p>
+          <div class="howit-d-panel-term"><span class="cm">// POST /v1/nid/verify</span>
+<span class="kw">body</span> = <span class="acc">{</span> <span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span> <span class="acc">}</span>
+
+<span class="cm">// â†’ 200 OK</span>
+<span class="acc">{</span>
+  <span class="jk">"verified"</span>:      <span class="jv">true</span>,
+  <span class="jk">"name_en"</span>:       <span class="jv">"Md. Rafiqul Islam"</span>,
+  <span class="jk">"nid"</span>:           <span class="jv">"&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;4821"</span>,
+  <span class="jk">"match_score"</span>:   <span class="jv">0.994</span>,
+  <span class="jk">"liveness_score"</span>: <span class="jv">0.97</span>
+<span class="acc">}</span></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- â”€â”€ USE CASES â€” Pattern C2 (horizontal scroll-snap card row) â”€â”€ -->
+<section class="usecases-wrap" id="use-cases" data-uc-root>
   <div class="wrap">
     <div class="reveal">
       <span class="label-tag">Use Cases</span>
       <h2 class="section-title">Built for the platforms<br>where trust matters most.</h2>
-      <p class="section-sub">Whether you're onboarding customers, employees, or third-party vendors — AdeptSense fits your stack.</p>
+      <p class="section-sub">Whether you&apos;re onboarding customers, employees, or third-party vendors â€” pick a vertical and AdeptSense fits your stack.</p>
     </div>
-    <div class="usecases-grid reveal">
-      <div class="uc-card">
-        <div class="uc-icon">🏦</div>
-        <h4>Fintech &amp; KYC/AML</h4>
-        <p>Comply with KYC/AML regulations at user onboarding with automated NID and liveness checks.</p>
-        <a href="#" class="uc-link">View guide &rarr;</a>
-      </div>
-      <div class="uc-card">
-        <div class="uc-icon">🏢</div>
-        <h4>HR &amp; Employee Onboarding</h4>
-        <p>Verify new hires with NID checks and face match before issuing access credentials or contracts.</p>
-        <a href="#" class="uc-link">View guide &rarr;</a>
-      </div>
-      <div class="uc-card">
-        <div class="uc-icon">🏥</div>
-        <h4>Healthcare</h4>
-        <p>Verify patient identity for telemedicine consultations, prescription access, and insurance claims.</p>
-        <a href="#" class="uc-link">View guide &rarr;</a>
-      </div>
-      <div class="uc-card">
-        <div class="uc-icon">🛒</div>
-        <h4>E-commerce</h4>
-        <p>Age-verify buyers and authenticate sellers to build trust on both sides of every transaction.</p>
-        <a href="#" class="uc-link">View guide &rarr;</a>
-      </div>
-      <div class="uc-card">
-        <div class="uc-icon">🚗</div>
-        <h4>Ride-sharing &amp; Gig Economy</h4>
-        <p>Verify drivers and delivery partners before onboarding to ensure passenger and customer safety.</p>
-        <a href="#" class="uc-link">View guide &rarr;</a>
-      </div>
-      <div class="uc-card">
-        <div class="uc-icon">🎮</div>
-        <h4>iGaming &amp; Crypto</h4>
-        <p>Age verify and ID check at signup to remain compliant without sacrificing conversion.</p>
-        <a href="#" class="uc-link">View guide &rarr;</a>
-      </div>
+
+    <div class="uc-cards reveal" role="tablist" aria-label="Use case verticals">
+      <button class="uc-card is-active" type="button" role="tab" aria-selected="true" data-uc-card="fintech" tabindex="0">
+        <div class="uc-card-head">
+          <span class="uc-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M9 13h2M13 9h2M13 13h2M9 17h6"/></svg></span>
+          <span class="uc-card-num">01 / 06</span>
+        </div>
+        <div>
+          <h3 class="uc-card-name">Fintech &amp; KYC</h3>
+          <p class="uc-card-teaser">Onboard customers without breaking conversion.</p>
+        </div>
+      </button>      <button class="uc-card" type="button" role="tab" aria-selected="false" data-uc-card="hr" tabindex="-1">
+        <div class="uc-card-head">
+          <span class="uc-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 21c.5-3.5 3-6 6-6s5.5 2.5 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M14 21c.3-2.4 1.7-4 3-4s2.7 1.6 3 4"/></svg></span>
+          <span class="uc-card-num">02 / 06</span>
+        </div>
+        <div>
+          <h3 class="uc-card-name">HR &amp; Onboarding</h3>
+          <p class="uc-card-teaser">Verify every new hire before they pick up a badge.</p>
+        </div>
+      </button>      <button class="uc-card" type="button" role="tab" aria-selected="false" data-uc-card="health" tabindex="-1">
+        <div class="uc-card-head">
+          <span class="uc-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-7 11-7 11z"/><path d="M9 11h2v4M13 11h2"/></svg></span>
+          <span class="uc-card-num">03 / 06</span>
+        </div>
+        <div>
+          <h3 class="uc-card-name">Healthcare</h3>
+          <p class="uc-card-teaser">Verify the patient, not just the appointment.</p>
+        </div>
+      </button>      <button class="uc-card" type="button" role="tab" aria-selected="false" data-uc-card="ecom" tabindex="-1">
+        <div class="uc-card-head">
+          <span class="uc-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h2l3 12h11l2-9H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg></span>
+          <span class="uc-card-num">04 / 06</span>
+        </div>
+        <div>
+          <h3 class="uc-card-name">E-commerce</h3>
+          <p class="uc-card-teaser">Build trust on both sides of every transaction.</p>
+        </div>
+      </button>      <button class="uc-card" type="button" role="tab" aria-selected="false" data-uc-card="mobility" tabindex="-1">
+        <div class="uc-card-head">
+          <span class="uc-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17V9l3-4h8l3 4v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><circle cx="8" cy="14" r="1.2"/><circle cx="16" cy="14" r="1.2"/></svg></span>
+          <span class="uc-card-num">05 / 06</span>
+        </div>
+        <div>
+          <h3 class="uc-card-name">Ride-sharing</h3>
+          <p class="uc-card-teaser">Verify drivers before their first trip.</p>
+        </div>
+      </button>      <button class="uc-card" type="button" role="tab" aria-selected="false" data-uc-card="igaming" tabindex="-1">
+        <div class="uc-card-head">
+          <span class="uc-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="3"/><path d="M8 12h2M8 15h6M14 12h2"/><circle cx="17" cy="8" r="0.8"/></svg></span>
+          <span class="uc-card-num">06 / 06</span>
+        </div>
+        <div>
+          <h3 class="uc-card-name">iGaming &amp; Crypto</h3>
+          <p class="uc-card-teaser">Stay compliant without losing signup conversion.</p>
+        </div>
+      </button>
     </div>
+
+    <article class="uc-panel" data-uc-panel role="tabpanel" aria-live="polite"></article>
   </div>
+
+  <template data-uc-tpl="fintech">
+    <div class="uc-panel-head">
+      <div class="uc-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M9 13h2M13 9h2M13 13h2M9 17h6"/></svg></div>
+      <div>
+        <span class="uc-panel-kicker">Fintech &middot; Live in production</span>
+        <h3>Onboard a customer <em>without breaking conversion.</em></h3>
+      </div>
+    </div>
+    <p class="uc-panel-lede">A digital wallet in Dhaka replaced a 12-step manual KYC queue with a single AdeptSense WebView. Users upload NID + selfie, the platform returns a verified JSON envelope in under a second, and the wallet credits the account before the loader disappears.</p>
+    <div class="uc-flow">
+      <div class="uc-flow-step"><span class="uc-flow-num">1</span><div><div class="uc-flow-title">Open WebView</div><div class="uc-flow-sub">~120 ms &middot; /v1/sessions</div></div></div>
+      <div class="uc-flow-arrow">&#8594;</div>
+      <div class="uc-flow-step"><span class="uc-flow-num">2</span><div><div class="uc-flow-title">NID + selfie</div><div class="uc-flow-sub">~680 ms &middot; /v1/uploads</div></div></div>
+      <div class="uc-flow-arrow">&#8594;</div>
+      <div class="uc-flow-step"><span class="uc-flow-num">3</span><div><div class="uc-flow-title">Verified JSON</div><div class="uc-flow-sub">~140 ms &middot; /v1/nid/verify</div></div></div>    </div>
+    <ul class="uc-features">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Bangladesh Bank KYC checklist covered out of the box â€” NID OCR, liveness, face match.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Webhook + polling both supported for AML/fraud teams downstream.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Same API serves sandbox and live â€” promote keys without code changes.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>PII auto-purged on completion â€” no manual retention work.</span></li>
+    </ul>
+    <div class="uc-actions">
+      <a href="#" class="uc-cta">View Fintech integration guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <a href="#" class="uc-ghost">Talk to a fintech solutions engineer</a>
+    </div>
+  </template>  <template data-uc-tpl="hr">
+    <div class="uc-panel-head">
+      <div class="uc-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 21c.5-3.5 3-6 6-6s5.5 2.5 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M14 21c.3-2.4 1.7-4 3-4s2.7 1.6 3 4"/></svg></div>
+      <div>
+        <span class="uc-panel-kicker">HR &middot; Workforce &middot; Day-1 ready</span>
+        <h3>Verify every new hire <em>before they pick up a badge.</em></h3>
+      </div>
+    </div>
+    <p class="uc-panel-lede">Onboard dozens of hires per week without back-and-forth. Candidates upload NID + selfie from any device, HR sees per-row status in the dashboard, and the verified payload lands in your ATS via webhook.</p>
+    <div class="uc-flow">
+      <div class="uc-flow-step"><span class="uc-flow-num">1</span><div><div class="uc-flow-title">Invite by email</div><div class="uc-flow-sub">bulk &middot; CSV upload</div></div></div>
+      <div class="uc-flow-arrow">&#8594;</div>
+      <div class="uc-flow-step"><span class="uc-flow-num">2</span><div><div class="uc-flow-title">Candidate WebView</div><div class="uc-flow-sub">mobile-first &middot; ~620 ms</div></div></div>
+      <div class="uc-flow-arrow">&#8594;</div>
+      <div class="uc-flow-step"><span class="uc-flow-num">3</span><div><div class="uc-flow-title">Status to ATS</div><div class="uc-flow-sub">verified &middot; webhook</div></div></div>    </div>
+    <ul class="uc-features">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>NID + face match â€” covers Bangladesh, India, Pakistan, Nepal identity documents.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Bulk candidates via signed-URL upload â€” one CSV, hundreds of rows.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Per-row callback with status â€” HR dashboard, Workday, BambooHR.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>PII encrypted at rest, auto-purged 30 days after verification.</span></li>
+    </ul>
+    <div class="uc-actions">
+      <a href="#" class="uc-cta">View HR integration guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <a href="#" class="uc-ghost">See a sample ATS webhook payload</a>
+    </div>
+  </template>  <template data-uc-tpl="health">
+    <div class="uc-panel-head">
+      <div class="uc-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-7 11-7 11z"/><path d="M9 11h2v4M13 11h2"/></svg></div>
+      <div>
+        <span class="uc-panel-kicker">Healthcare &middot; Patient identity</span>
+        <h3>Verify the patient, <em>not just the appointment.</em></h3>
+      </div>
+    </div>
+    <p class="uc-panel-lede">Telemedicine platforms and hospital networks use AdeptSense to confirm patient identity before issuing prescriptions, sharing lab results, or processing insurance claims. Multilingual OCR handles the languages your patients actually speak.</p>
+    <div class="uc-flow">
+      <div class="uc-flow-step"><span class="uc-flow-num">1</span><div><div class="uc-flow-title">Pre-visit link</div><div class="uc-flow-sub">SMS &middot; email</div></div></div>
+      <div class="uc-flow-arrow">&#8594;</div>
+      <div class="uc-flow-step"><span class="uc-flow-num">2</span><div><div class="uc-flow-title">NID + selfie</div><div class="uc-flow-sub">~640 ms &middot; bn / en / hi</div></div></div>
+      <div class="uc-flow-arrow">&#8594;</div>
+      <div class="uc-flow-step"><span class="uc-flow-num">3</span><div><div class="uc-flow-title">Confirmed patient</div><div class="uc-flow-sub">EMR &middot; claim ready</div></div></div>    </div>
+    <ul class="uc-features">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>HIPAA-friendly data handling â€” encrypted in transit and at rest, no PII logging.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Multilingual OCR â€” Bengali, English, Hindi, Urdu out of the box.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Sub-second verification p50 keeps the pre-visit flow under 30 seconds.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Drop-in WebView â€” no camera permissions to manage in your app.</span></li>
+    </ul>
+    <div class="uc-actions">
+      <a href="#" class="uc-cta">View Healthcare integration guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <a href="#" class="uc-ghost">Read the HIPAA compliance brief</a>
+    </div>
+  </template>  <template data-uc-tpl="ecom">
+    <div class="uc-panel-head">
+      <div class="uc-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h2l3 12h11l2-9H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg></div>
+      <div>
+        <span class="uc-panel-kicker">E-commerce &middot; Marketplace trust</span>
+        <h3>Build trust on <em>both sides</em> of every transaction.</h3>
+      </div>
+    </div>
+    <p class="uc-panel-lede">Marketplaces use AdeptSense to age-verify buyers at checkout and authenticate sellers before payouts. The same WebView handles both â€” buyers see a friendly age-gate, sellers see a KYC step that unlocks their first withdrawal.</p>
+    <div class="uc-flow">
+      <div class="uc-flow-step"><span class="uc-flow-num">1</span><div><div class="uc-flow-title">Buyer age-gate</div><div class="uc-flow-sub">checkout overlay</div></div></div>
+      <div class="uc-flow-arrow">&#8594;</div>
+      <div class="uc-flow-step"><span class="uc-flow-num">2</span><div><div class="uc-flow-title">Seller KYC</div><div class="uc-flow-sub">payout unlock</div></div></div>
+      <div class="uc-flow-arrow">&#8594;</div>
+      <div class="uc-flow-step"><span class="uc-flow-num">3</span><div><div class="uc-flow-title">Trust badge</div><div class="uc-flow-sub">profile &middot; listings</div></div></div>    </div>
+    <ul class="uc-features">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Age-gate without breaking signup â€” most buyers clear in under 8 seconds.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Seller KYC re-check on first withdrawal â€” no manual ops queue.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Verified-buyer badge surfaces in listings and chat â€” lift conversion.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Mobile SDK + WebView fallback for Flutter, React Native, native shells.</span></li>
+    </ul>
+    <div class="uc-actions">
+      <a href="#" class="uc-cta">View E-commerce integration guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <a href="#" class="uc-ghost">See a sample seller dashboard</a>
+    </div>
+  </template>  <template data-uc-tpl="mobility">
+    <div class="uc-panel-head">
+      <div class="uc-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17V9l3-4h8l3 4v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><circle cx="8" cy="14" r="1.2"/><circle cx="16" cy="14" r="1.2"/></svg></div>
+      <div>
+        <span class="uc-panel-kicker">Mobility &middot; Driver &amp; partner</span>
+        <h3>Verify drivers <em>before their first trip.</em></h3>
+      </div>
+    </div>
+    <p class="uc-panel-lede">Ride-sharing and delivery platforms use AdeptSense to verify drivers and partners at signup, then re-verify on a rolling schedule. Passengers see a verified-by-AdeptSense badge in the app, and trust becomes a measurable metric.</p>
+    <div class="uc-flow">
+      <div class="uc-flow-step"><span class="uc-flow-num">1</span><div><div class="uc-flow-title">Driver signup</div><div class="uc-flow-sub">in-app SDK</div></div></div>
+      <div class="uc-flow-arrow">&#8594;</div>
+      <div class="uc-flow-step"><span class="uc-flow-num">2</span><div><div class="uc-flow-title">NID + selfie</div><div class="uc-flow-sub">~700 ms</div></div></div>
+      <div class="uc-flow-arrow">&#8594;</div>
+      <div class="uc-flow-step"><span class="uc-flow-num">3</span><div><div class="uc-flow-title">Vehicle match</div><div class="uc-flow-sub">docs &middot; plate</div></div></div>    </div>
+    <ul class="uc-features">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>NID + selfie at signup â€” driver is verified before they accept a trip.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Auto re-verify every 12 months â€” no manual ops to chase expiries.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Vehicle document matching â€” cross-check NID against registration.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Passenger-visible verified badge â€” measurable trust lift on bookings.</span></li>
+    </ul>
+    <div class="uc-actions">
+      <a href="#" class="uc-cta">View Mobility integration guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <a href="#" class="uc-ghost">See a driver-fraud reduction case study</a>
+    </div>
+  </template>  <template data-uc-tpl="igaming">
+    <div class="uc-panel-head">
+      <div class="uc-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="3"/><path d="M8 12h2M8 15h6M14 12h2"/><circle cx="17" cy="8" r="0.8"/></svg></div>
+      <div>
+        <span class="uc-panel-kicker">iGaming &amp; Crypto &middot; Regulated</span>
+        <h3>Stay compliant <em>without losing signup conversion.</em></h3>
+      </div>
+    </div>
+    <p class="uc-panel-lede">Gaming and crypto platforms use AdeptSense in two stages â€” a fast age-gate at signup that most users clear in seconds, then a full KYC step at first withdrawal that satisfies regulators without sending users to a second vendor.</p>
+    <div class="uc-flow">
+      <div class="uc-flow-step"><span class="uc-flow-num">1</span><div><div class="uc-flow-title">Age-gate</div><div class="uc-flow-sub">~3 s &middot; signup</div></div></div>
+      <div class="uc-flow-arrow">&#8594;</div>
+      <div class="uc-flow-step"><span class="uc-flow-num">2</span><div><div class="uc-flow-title">Play &amp; deposit</div><div class="uc-flow-sub">light KYC</div></div></div>
+      <div class="uc-flow-arrow">&#8594;</div>
+      <div class="uc-flow-step"><span class="uc-flow-num">3</span><div><div class="uc-flow-title">Full KYC</div><div class="uc-flow-sub">1st withdrawal</div></div></div>    </div>
+    <ul class="uc-features">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Two-stage verification â€” light at signup, full KYC at first withdrawal.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Region + self-exclusion checks surfaced as flags on the verified payload.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Same API key across sandbox + live â€” promote without code changes.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Audit log + signed payloads â€” your regulator asks, you answer in minutes.</span></li>
+    </ul>
+    <div class="uc-actions">
+      <a href="#" class="uc-cta">View iGaming integration guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <a href="#" class="uc-ghost">Read the regulator audit checklist</a>
+    </div>
+  </template>
 </section>
 
 <!-- ── INTEGRATION ── -->
@@ -560,7 +818,318 @@
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- ── TRUST / COMPLIANCE STRIP ── -->
+<section class="trust-wrap reveal" id="trust">
+  <div class="trust-inner">
+    <div class="trust-head">
+      <span class="label-tag">Security &amp; Compliance</span>
+      <h2 class="section-title">Full security &amp; compliance.</h2>
+      <p class="section-sub">Independently audited, globally recognized, and continuously monitored. AdeptSense meets the standards enterprise security teams require.</p>
+    </div>
+
+    <div class="trust-rows">
+
+      <!-- Row 1 — Security / compliance audit badges -->
+      <div class="trust-row">
+        <div class="trust-badge" aria-label="iBeta Level 1 ISO 30107-3 Presentation Attack Detection compliant">
+          <span class="tb-mark" aria-hidden="true">
+            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+              <rect x="3" y="3" width="32" height="32" rx="4"/>
+              <text x="19" y="14" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">iBeta</text>
+              <text x="19" y="23" font-family="JetBrains Mono, monospace" font-size="6.5" font-weight="500" text-anchor="middle" fill="currentColor" stroke="none">LEVEL 1</text>
+              <text x="19" y="30" font-family="JetBrains Mono, monospace" font-size="5" font-weight="500" text-anchor="middle" fill="currentColor" stroke="none" letter-spacing="0">TESTED</text>
+            </svg>
+          </span>
+          <span class="tb-text">
+            <span class="tb-kicker">ISO 30107-3</span>
+            <span class="tb-label">iBeta Level 1</span>
+            <span class="tb-note">PAD Compliant</span>
+          </span>
+        </div>
+
+        <div class="trust-badge" aria-label="iBeta Level 2 ISO 30107-3 Presentation Attack Detection compliant">
+          <span class="tb-mark" aria-hidden="true">
+            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+              <rect x="3" y="3" width="32" height="32" rx="4"/>
+              <text x="19" y="14" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">iBeta</text>
+              <text x="19" y="23" font-family="JetBrains Mono, monospace" font-size="6.5" font-weight="500" text-anchor="middle" fill="currentColor" stroke="none">LEVEL 2</text>
+              <text x="19" y="30" font-family="JetBrains Mono, monospace" font-size="5" font-weight="500" text-anchor="middle" fill="currentColor" stroke="none" letter-spacing="0">TESTED</text>
+            </svg>
+          </span>
+          <span class="tb-text">
+            <span class="tb-kicker">ISO 30107-3</span>
+            <span class="tb-label">iBeta Level 2</span>
+            <span class="tb-note">PAD Compliant</span>
+          </span>
+        </div>
+
+        <div class="trust-badge" aria-label="AICPA SOC 2 Type II audited">
+          <span class="tb-mark" aria-hidden="true">
+            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="19" cy="19" r="15"/>
+              <circle cx="19" cy="19" r="11"/>
+              <text x="19" y="17" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">AICPA</text>
+              <text x="19" y="25" font-family="JetBrains Mono, monospace" font-size="6" font-weight="500" text-anchor="middle" fill="currentColor" stroke="none">SOC 2</text>
+            </svg>
+          </span>
+          <span class="tb-text">
+            <span class="tb-kicker">AICPA</span>
+            <span class="tb-label">SOC 2 Type II</span>
+            <span class="tb-note">Audited annually</span>
+          </span>
+        </div>
+
+        <div class="trust-badge" aria-label="PCI DSS Compliant">
+          <span class="tb-mark" aria-hidden="true">
+            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="3" y="3" width="32" height="32" rx="3"/>
+              <text x="8" y="18" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="currentColor" stroke="none">PCI</text>
+              <path d="M14 22 L17 25 L24 18" stroke-width="2"/>
+              <text x="26" y="28" font-family="JetBrains Mono, monospace" font-size="5.5" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">DSS</text>
+            </svg>
+          </span>
+          <span class="tb-text">
+            <span class="tb-kicker">PCI Security</span>
+            <span class="tb-label">PCI DSS</span>
+            <span class="tb-note">Compliant</span>
+          </span>
+        </div>
+
+        <div class="trust-badge tb-plain" aria-label="GDPR Ready">
+          <span class="tb-text">
+            <span class="tb-kicker">EU Privacy</span>
+            <span class="tb-label" style="font-size:14px;letter-spacing:0.04em">GDPR Ready</span>
+            <span class="tb-note">DPA on request</span>
+          </span>
+        </div>
+
+        <div class="trust-badge" aria-label="eIDAS e-Identity Verification Trust">
+          <span class="tb-mark" aria-hidden="true">
+            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M19 4 L31 10 V20 C31 28 25 33 19 34 C13 33 7 28 7 20 V10 Z"/>
+              <text x="19" y="22" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">eA</text>
+            </svg>
+          </span>
+          <span class="tb-text">
+            <span class="tb-kicker">e-IDVT</span>
+            <span class="tb-label">eIDAS Aligned</span>
+            <span class="tb-note">Trust framework</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Row 2 — Data privacy / quality standards -->
+      <div class="trust-row">
+        <div class="trust-badge" aria-label="ISO/IEC 27001 Information Security Management">
+          <span class="tb-mark" aria-hidden="true">
+            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="19" cy="19" r="14"/>
+              <path d="M5 19 H33" stroke-width="1"/>
+              <path d="M19 5 C25 11 25 27 19 33 C13 27 13 11 19 5"/>
+            </svg>
+          </span>
+          <span class="tb-text">
+            <span class="tb-kicker">ISO/IEC</span>
+            <span class="tb-label">27001</span>
+            <span class="tb-note">InfoSec Mgmt</span>
+          </span>
+        </div>
+
+        <div class="trust-badge" aria-label="UK GDPR Data Protection 2018 Approved">
+          <span class="tb-mark" aria-hidden="true">
+            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="4" y="4" width="30" height="30" rx="2"/>
+              <text x="19" y="17" font-family="JetBrains Mono, monospace" font-size="6.5" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">ACCS</text>
+              <text x="19" y="24" font-family="JetBrains Mono, monospace" font-size="5" font-weight="500" text-anchor="middle" fill="currentColor" stroke="none">2:2021</text>
+              <path d="M14 28 L17 31 L24 24" stroke-width="1.8"/>
+            </svg>
+          </span>
+          <span class="tb-text">
+            <span class="tb-kicker">ACCS 2:2021</span>
+            <span class="tb-label">Data &amp; Privacy</span>
+            <span class="tb-note">UK GDPR Approved</span>
+          </span>
+        </div>
+
+        <div class="trust-badge" aria-label="UKAS Management Systems Certification">
+          <span class="tb-mark" aria-hidden="true">
+            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="19" cy="19" r="13"/>
+              <text x="19" y="22" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">UK</text>
+              <path d="M14 26 L17 29 L24 22" stroke-width="1.8"/>
+            </svg>
+          </span>
+          <span class="tb-text">
+            <span class="tb-kicker">UKAS</span>
+            <span class="tb-label">21087</span>
+            <span class="tb-note">Cert. body</span>
+          </span>
+        </div>
+
+        <div class="trust-badge" aria-label="ISO/IEC 27017 Cloud Security Controls">
+          <span class="tb-mark" aria-hidden="true">
+            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="19" cy="19" r="14"/>
+              <path d="M5 19 H33" stroke-width="1"/>
+              <path d="M19 5 C25 11 25 27 19 33 C13 27 13 11 19 5"/>
+            </svg>
+          </span>
+          <span class="tb-text">
+            <span class="tb-kicker">ISO/IEC</span>
+            <span class="tb-label">27017</span>
+            <span class="tb-note">Cloud Security</span>
+          </span>
+        </div>
+
+        <div class="trust-badge" aria-label="ISO/IEC 27018 PII Protection in Public Clouds">
+          <span class="tb-mark" aria-hidden="true">
+            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="19" cy="19" r="14"/>
+              <path d="M5 19 H33" stroke-width="1"/>
+              <path d="M19 5 C25 11 25 27 19 33 C13 27 13 11 19 5"/>
+            </svg>
+          </span>
+          <span class="tb-text">
+            <span class="tb-kicker">ISO/IEC</span>
+            <span class="tb-label">27018</span>
+            <span class="tb-note">PII in Cloud</span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS BAND ── -->
+<section class="stats-wrap reveal" id="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num" data-count="99.4" data-suffix="%">0%</span>
+      <span class="stat-lbl">Field accuracy on Bangladesh NID OCR</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="0.8" data-suffix="s">&lt;1s</span>
+      <span class="stat-lbl">Median end-to-end verification time</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="180" data-suffix="+">0+</span>
+      <span class="stat-lbl">Countries supported by document coverage</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="50" data-suffix="M+">0M+</span>
+      <span class="stat-lbl">Verifications processed to date</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ── -->
+<section class="pricing-wrap reveal" id="pricing">
+  <div class="pricing-inner">
+
+    <div class="pricing-head">
+      <span class="label-tag">Pricing</span>
+      <h2 class="section-title">Pay for verifications, not seats.</h2>
+      <p class="section-sub">Start free in the sandbox. Move to live when you're ready. Volume tiers kick in automatically — no negotiation call required.</p>
+    </div>
+
+    <!-- Volume estimator -->
+    <div class="pricing-estimator" aria-label="Volume estimator">
+      <label class="pe-label" for="pe-volume">Estimate your monthly cost</label>
+      <div class="pe-row">
+        <input type="range" id="pe-volume" class="pe-range" min="500" max="100000" step="500" value="5000" aria-label="Monthly verifications">
+        <div class="pe-readout">
+          <span class="pe-vol" data-pe-volume>5,000</span>
+          <span class="pe-vol-unit">verifications / month</span>
+        </div>
+      </div>
+      <div class="pe-cost">
+        <span class="pe-cost-label">Estimated</span>
+        <span class="pe-cost-val" data-pe-cost>$0</span>
+        <span class="pe-cost-unit">/ month</span>
+      </div>
+    </div>
+
+    <!-- Tier cards -->
+    <div class="pricing-grid">
+
+      <article class="tier">
+        <div class="tier-head">
+          <span class="tier-name">Starter</span>
+          <p class="tier-tag">For prototypes &amp; small launches</p>
+        </div>
+        <div class="tier-price">
+          <span class="tier-amount" data-tier-price="0.35">$0.35</span>
+          <span class="tier-unit">/ verification</span>
+        </div>
+        <ul class="tier-features">
+          <li><span class="tier-check" aria-hidden="true">✓</span> Up to 2,000 verifications / mo</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> Sandbox &amp; live environment</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> All 5 endpoints included</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> Community Discord support</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> 99.4% accuracy SLA</li>
+        </ul>
+        <a href="#" class="tier-cta tier-cta-ghost">Start free</a>
+      </article>
+
+      <article class="tier tier-featured">
+        <div class="tier-ribbon">Most popular</div>
+        <div class="tier-head">
+          <span class="tier-name">Growth</span>
+          <p class="tier-tag">For production apps at scale</p>
+        </div>
+        <div class="tier-price">
+          <span class="tier-amount" data-tier-price="0.18">$0.18</span>
+          <span class="tier-unit">/ verification</span>
+        </div>
+        <ul class="tier-features">
+          <li><span class="tier-check" aria-hidden="true">✓</span> From 2,001 verifications / mo</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> Volume auto-tiered pricing</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> Webhook callbacks included</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> Email support &mdash; &lt; 4h response</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> 99.9% uptime SLA</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> Structured error codes (Format B)</li>
+        </ul>
+        <a href="#" class="tier-cta tier-cta-primary">Get API key</a>
+      </article>
+
+      <article class="tier">
+        <div class="tier-head">
+          <span class="tier-name">Enterprise</span>
+          <p class="tier-tag">For regulated &amp; high-volume operators</p>
+        </div>
+        <div class="tier-price">
+          <span class="tier-amount">Custom</span>
+          <span class="tier-unit">volume-based</span>
+        </div>
+        <ul class="tier-features">
+          <li><span class="tier-check" aria-hidden="true">✓</span> 100k+ verifications / mo</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> Dedicated infrastructure</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> On-prem &amp; private cloud</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> 24/7 priority support</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> Custom SLAs &amp; compliance</li>
+          <li><span class="tier-check" aria-hidden="true">✓</span> Solutions engineering</li>
+        </ul>
+        <a href="#" class="tier-cta tier-cta-ghost">Talk to sales</a>
+      </article>
+
+    </div>
+
+    <p class="pricing-fineprint">All prices in USD. Sandbox is free forever. Live tier activates instantly. No credit card to start.</p>
+
+  </div>
+</section>
+
+<!-- ── CTA BAND ── -->
+<section class="cta-wrap reveal" id="cta">
+  <h2>Start verifying identities today.</h2>
+  <p>Spin up the sandbox in 30 seconds. Move to live when you're ready &mdash; same API, real data.</p>
+  <div class="cta-actions">
+    <a href="#" class="btn-cta-white">Get API key &rarr;</a>
+    <a href="#" class="btn-cta-outline">Talk to sales</a>
+  </div>
+</section>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
@@ -577,11 +1146,11 @@
     </div>
     <div class="footer-col">
       <h5>Use Cases</h5>
-      <a href="#">Fintech & KYC</a>
-      <a href="#">HR & Onboarding</a>
-      <a href="#">Healthcare</a>
-      <a href="#">E-commerce</a>
-      <a href="#">Ride-sharing</a>
+      <a href="#use-cases">Fintech &amp; KYC</a>
+      <a href="#use-cases">HR &amp; Onboarding</a>
+      <a href="#use-cases">Healthcare</a>
+      <a href="#use-cases">E-commerce</a>
+      <a href="#use-cases">Ride-sharing</a>
     </div>
     <div class="footer-col">
       <h5>Developers</h5>

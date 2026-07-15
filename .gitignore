@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 .venv
 .puku
+
+# Scratch / exploration artifacts
+.tmp/
+_howit_*
+_*.tmp

@@ -96,6 +96,35 @@ const statObserver = new IntersectionObserver(entries => {
 
 document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el))
 
+// ── PRICING VOLUME ESTIMATOR ──
+// Sliding scale: 500–2,000 = $0.35, 2,001–25,000 = $0.18, 25,001–100,000 = $0.10, 100k+ = $0.05
+const peRange = document.getElementById('pe-volume')
+const peVol   = document.querySelector('[data-pe-volume]')
+const peCost  = document.querySelector('[data-pe-cost]')
+
+function priceForVolume(v) {
+  if (v <= 2000)   return v * 0.35
+  if (v <= 25000)  return v * 0.18
+  if (v <= 100000) return v * 0.10
+  return v * 0.05
+}
+
+function formatVol(n) { return n.toLocaleString('en-US') }
+function formatCost(n) {
+  if (n >= 1000) return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+  return '$' + n.toFixed(2)
+}
+
+if (peRange && peVol && peCost) {
+  const update = () => {
+    const v = Number(peRange.value)
+    peVol.textContent  = formatVol(v)
+    peCost.textContent = formatCost(priceForVolume(v))
+  }
+  peRange.addEventListener('input', update)
+  update()
+}
+
 // ── CODE TAB SWITCHER ──
 const tabsEl = document.getElementById('tabs')
 const codeEl = document.getElementById('code-block')
@@ -405,6 +434,135 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initVideoShowcase);
 } else {
   initVideoShowcase();
+}
+
+/* ── USE CASES — Option A tabbed verticals ──
+   6 cards swap a single <article data-uc-panel> by cloning the
+   matching <template data-uc-tpl="X">. Keyboard nav on the cards.
+   ────────────────────────────────────────────────────────────── */
+function initUseCasesTabs() {
+  const root = document.querySelector('[data-uc-root]')
+  if (!root) return
+
+  const cards  = Array.from(root.querySelectorAll('[data-uc-card]'))
+  const panel  = root.querySelector('[data-uc-panel]')
+  const templates = new Map(
+    Array.from(root.querySelectorAll('[data-uc-tpl]'))
+         .map(t => [t.dataset.ucTpl, t])
+  )
+  if (!cards.length || !panel) return
+
+  function activate(key, focus = false) {
+    cards.forEach(c => {
+      const active = c.dataset.ucCard === key
+      c.setAttribute('aria-selected', active ? 'true' : 'false')
+      c.setAttribute('tabindex', active ? '0' : '-1')
+      if (active && focus) c.focus()
+    })
+    const tpl = templates.get(key)
+    if (tpl) panel.innerHTML = ''
+    if (tpl) panel.appendChild(tpl.content.cloneNode(true))
+  } cards.forEach((card, i) => {
+    card.addEventListener('click', () => activate(card.dataset.ucCard))
+    card.addEventListener('keydown', (e) => {
+      let next = -1
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % cards.length
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + cards.length) % cards.length
+      else if (e.key === 'Home') next = 0
+      else if (e.key === 'End') next = cards.length - 1
+      if (next !== -1) {
+        e.preventDefault()
+        activate(cards[next].dataset.ucCard, true)
+      }
+    })
+  })
+
+  // Hydrate the initial panel from the card marked is-active.
+  const initial = cards.find(c => c.classList.contains('is-active')) || cards[0]
+  if (initial) activate(initial.dataset.ucCard)
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initUseCasesTabs)
+} else {
+  initUseCasesTabs()
+}
+
+/* ── HOW IT WORKS (Pattern D) — toggle active progress dot on scroll ─ */
+function initHowItWorks() {
+  const root = document.querySelector('[data-howit-root]');
+  if (!root) return;
+  const panels = Array.from(root.querySelectorAll('[data-howit-panel]'));
+  const dots = Array.from(root.querySelectorAll('[data-howit-step]'));
+  if (!panels.length || !dots.length) return;
+
+  function setActive(i) {
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+  }
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      let best = null;
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        if (!best || e.boundingClientRect.top < best.boundingClientRect.top) best = e;
+      });
+      if (best) {
+        const i = Number(best.target.getAttribute('data-howit-panel'));
+        if (!Number.isNaN(i)) setActive(i);
+      }
+    },
+    { rootMargin: '-30% 0px -55% 0px', threshold: 0 }
+  );
+
+  panels.forEach((p) => io.observe(p));
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHowItWorks)
+} else {
+  initHowItWorks()
+}
+
+
+/* ── By-vertical cookbook tabs (docs.html) ───────────────────────── */
+function initVerticalCookbook() {
+  const roots = document.querySelectorAll('[data-ucbv-root]')
+  roots.forEach(root => {
+    const tabs   = Array.from(root.querySelectorAll('[data-ucbv-tab]'))
+    const panels = Array.from(root.querySelectorAll('[data-ucbv-panel]'))
+    if (!tabs.length || !panels.length) return
+
+    const activate = (key) => {
+      tabs.forEach(t => t.setAttribute(
+        'aria-selected', String(t.dataset.ucbvTab === key)
+      ))
+      panels.forEach(p => p.classList.toggle(
+        'is-active', p.dataset.ucbvPanel === key
+      ))
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => activate(tab.dataset.ucbvTab))
+      tab.addEventListener('keydown', (e) => {
+        let next = i
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = (i + 1) % tabs.length
+        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length
+        else if (e.key === 'Home') next = 0
+        else if (e.key === 'End') next = tabs.length - 1
+        else return
+        e.preventDefault()
+        tabs[next].focus()
+        activate(tabs[next].dataset.ucbvTab)
+      })
+    })
+  })
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initVerticalCookbook)
+} else {
+  initVerticalCookbook()
 }
 
 

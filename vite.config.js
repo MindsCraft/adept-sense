@@ -9,6 +9,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         docs: resolve(__dirname, 'docs.html'),
         playground: resolve(__dirname, 'playground.html'),
+        explorations: resolve(__dirname, 'internal/trust-strip-explorations.html'),
       },
     },
   },

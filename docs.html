@@ -49,6 +49,7 @@
       </div>
       <div class="sidebar-section">
         <h4>Guides</h4>
+        <a href="#by-vertical" class="sidebar-link">Cookbook by vertical</a>
         <a href="#score-thresholds" class="sidebar-link">Score Thresholds</a>
         <a href="#error-codes" class="sidebar-link">Error Codes</a>
         <a href="#webhooks" class="sidebar-link">Webhooks</a>
@@ -169,7 +170,148 @@ console.<span class="c-fn">log</span>(result.ok) <span class="c-cm">// true</spa
       <p>Sandbox responses return realistic mock data with the same schema as production. Switch to the live URL when you're ready to go live.</p>
     </section>
 
-    <!-- ENDPOINTS -->
+<!-- BY VERTICAL -->
+    <section id="by-vertical">
+      <h2>Cookbook by vertical</h2>
+      <p class="section-intro">Pick the vertical you're building for — the right endpoints, sample payloads, and order of operations for each integration pattern.</p>
+
+      <div class="uc-bv-frame" data-ucbv-root>
+        <nav class="uc-bv-nav" role="tablist" aria-label="Vertical cookbooks">
+
+          <button class="uc-bv-tab" type="button" role="tab" aria-selected="true" data-ucbv-tab="fintech">
+            <span class="uc-bv-tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/></svg></span>
+            <span><span>Fintech</span><span class="uc-bv-tab-sub">KYC · onboarding</span></span>
+          </button>
+
+          <button class="uc-bv-tab" type="button" role="tab" aria-selected="false" data-ucbv-tab="hr">
+            <span class="uc-bv-tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 21c.5-3.5 3-6 6-6s5.5 2.5 6 6"/></svg></span>
+            <span><span>HR</span><span class="uc-bv-tab-sub">workforce</span></span>
+          </button>
+
+          <button class="uc-bv-tab" type="button" role="tab" aria-selected="false" data-ucbv-tab="health">
+            <span class="uc-bv-tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-7 11-7 11z"/></svg></span>
+            <span><span>Healthcare</span><span class="uc-bv-tab-sub">patient</span></span>
+          </button>
+
+          <button class="uc-bv-tab" type="button" role="tab" aria-selected="false" data-ucbv-tab="ecom">
+            <span class="uc-bv-tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h2l3 12h11l2-9H7"/></svg></span>
+            <span><span>E-commerce</span><span class="uc-bv-tab-sub">marketplace</span></span>
+          </button>
+
+          <button class="uc-bv-tab" type="button" role="tab" aria-selected="false" data-ucbv-tab="mobility">
+            <span class="uc-bv-tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17V9l3-4h8l3 4v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/></svg></span>
+            <span><span>Mobility</span><span class="uc-bv-tab-sub">drivers</span></span>
+          </button>
+
+          <button class="uc-bv-tab" type="button" role="tab" aria-selected="false" data-ucbv-tab="igaming">
+            <span class="uc-bv-tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="3"/><path d="M8 12h2M14 12h2"/></svg></span>
+            <span><span>iGaming</span><span class="uc-bv-tab-sub">age · KYC</span></span>
+          </button>
+
+        </nav>
+        <!-- FINTECH -->
+        <article class="uc-bv-panel is-active" data-ucbv-panel="fintech" role="tabpanel">
+          <div class="uc-bv-panel-head"><span class="badge">Fintech · KYC</span></div>
+          <h3>Open a wallet or account in one WebView</h3>
+          <p class="uc-bv-panel-lede">The flagship pattern: open a session, upload NID + selfie, get a verified envelope. Most users clear in &lt;8 seconds.</p>
+          <ul class="uc-bv-endpoints">
+            <li><a href="#nid-ocr"><span class="verb">POST</span><span>/api/v1/ocr/nid</span><span class="arrow">→</span></a></li>
+            <li><a href="#face-match"><span class="verb">POST</span><span>/api/v1/match/face/submit</span><span class="arrow">→</span></a></li>
+            <li><a href="#liveness"><span class="verb">POST</span><span>/api/v1/liveness/create</span><span class="arrow">→</span></a></li>
+          </ul>
+          <p class="uc-bv-snippet-label">// 1. Open a verification session</p>
+          <div class="uc-bv-snippet"><span class="c-kw">curl</span> -X POST https://api.adeptsense.tech/api/v1/sessions \
+  -H <span class="c-str">"x-api-key: $ADEPT_KEY"</span> \
+  -d <span class="c-str">'{"vertical":"fintech","flow":"webview"}'</span></div>
+        </article>
+
+        <!-- HR -->
+        <article class="uc-bv-panel" data-ucbv-panel="hr" role="tabpanel">
+          <div class="uc-bv-panel-head"><span class="badge">HR · Workforce</span></div>
+          <h3>Verify every candidate before day one</h3>
+          <p class="uc-bv-panel-lede">Bulk-friendly: invite candidates by email, collect NID + selfie, receive a per-row webhook with their verification status.</p>
+          <ul class="uc-bv-endpoints">
+            <li><a href="#nid-ocr"><span class="verb">POST</span><span>/api/v1/ocr/nid</span><span class="arrow">→</span></a></li>
+            <li><a href="#face-match"><span class="verb">POST</span><span>/api/v1/match/face/submit</span><span class="arrow">→</span></a></li>
+            <li><a href="#webhooks"><span class="verb">POST</span><span>/api/v1/webhooks/hr</span><span class="arrow">→</span></a></li>
+          </ul>
+          <p class="uc-bv-snippet-label">// 2. Upload candidate's NID</p>
+          <div class="uc-bv-snippet"><span class="c-kw">curl</span> -X POST https://api.adeptsense.tech/api/v1/ocr/nid \
+  -H <span class="c-str">"x-api-key: $ADEPT_KEY"</span> \
+  -F <span class="c-str">"front=@candidate-front.jpg"</span> \
+  -F <span class="c-str">"back=@candidate-back.jpg"</span></div>
+        </article>
+
+        <!-- HEALTHCARE -->
+        <article class="uc-bv-panel" data-ucbv-panel="health" role="tabpanel">
+          <div class="uc-bv-panel-head"><span class="badge">Healthcare · Patient</span></div>
+          <h3>Verify the patient before the appointment</h3>
+          <p class="uc-bv-panel-lede">Send a pre-visit link via SMS or email. The patient verifies from their phone; you get a confirmed-identity flag in your EMR.</p>
+          <ul class="uc-bv-endpoints">
+            <li><a href="#nid-ocr"><span class="verb">POST</span><span>/api/v1/ocr/nid</span><span class="arrow">→</span></a></li>
+            <li><a href="#face-match"><span class="verb">POST</span><span>/api/v1/match/face/submit</span><span class="arrow">→</span></a></li>
+            <li><a href="#webviews"><span class="verb">GET</span><span>/api/v1/webview/health</span><span class="arrow">→</span></a></li>
+          </ul>
+          <p class="uc-bv-snippet-label">// 3. Confirm face matches the NID</p>
+          <div class="uc-bv-snippet"><span class="c-kw">curl</span> -X POST https://api.adeptsense.tech/api/v1/match/face/submit \
+  -H <span class="c-str">"x-api-key: $ADEPT_KEY"</span> \
+  -F <span class="c-str">"nid_image=@nid-front.jpg"</span> \
+  -F <span class="c-str">"selfie=@selfie.jpg"</span></div>
+        </article>
+
+
+        <!-- E-COMMERCE -->
+        <article class="uc-bv-panel" data-ucbv-panel="ecom" role="tabpanel">
+          <div class="uc-bv-panel-head"><span class="badge">E-commerce · Marketplace</span></div>
+          <h3>Age-gate buyers, KYC sellers</h3>
+          <p class="uc-bv-panel-lede">Two-stage on the same WebView — buyers see an age-gate at checkout, sellers see a full KYC step that unlocks their first payout.</p>
+          <ul class="uc-bv-endpoints">
+            <li><a href="#nid-ocr"><span class="verb">POST</span><span>/api/v1/ocr/nid</span><span class="arrow">→</span></a></li>
+            <li><a href="#liveness"><span class="verb">POST</span><span>/api/v1/liveness/create</span><span class="arrow">→</span></a></li>
+            <li><a href="#webviews"><span class="verb">GET</span><span>/api/v1/webview/marketplace</span><span class="arrow">→</span></a></li>
+          </ul>
+          <p class="uc-bv-snippet-label">// Age-gate a buyer at checkout</p>
+          <div class="uc-bv-snippet"><span class="c-kw">curl</span> -X POST https://api.adeptsense.tech/api/v1/age/verify \
+  -H <span class="c-str">"x-api-key: $ADEPT_KEY"</span> \
+  -d <span class="c-str">'{"vertical":"ecom","gate":"age","min_age":18}'</span></div>
+        </article>
+
+        <!-- MOBILITY -->
+        <article class="uc-bv-panel" data-ucbv-panel="mobility" role="tabpanel">
+          <div class="uc-bv-panel-head"><span class="badge">Mobility · Drivers</span></div>
+          <h3>Verify drivers before their first trip</h3>
+          <p class="uc-bv-panel-lede">Drivers verify once at signup, then re-verify on a rolling schedule. Passengers see a verified badge in the app.</p>
+          <ul class="uc-bv-endpoints">
+            <li><a href="#nid-ocr"><span class="verb">POST</span><span>/api/v1/ocr/nid</span><span class="arrow">→</span></a></li>
+            <li><a href="#face-match"><span class="verb">POST</span><span>/api/v1/match/face/submit</span><span class="arrow">→</span></a></li>
+            <li><a href="#webhooks"><span class="verb">POST</span><span>/api/v1/webhooks/driver</span><span class="arrow">→</span></a></li>
+          </ul>
+          <p class="uc-bv-snippet-label">// Re-verify a driver (12-month cadence)</p>
+          <div class="uc-bv-snippet"><span class="c-kw">curl</span> -X POST https://api.adeptsense.tech/api/v1/sessions \
+  -H <span class="c-str">"x-api-key: $ADEPT_KEY"</span> \
+  -d <span class="c-str">'{"vertical":"mobility","flow":"driver_reverify","driver_id":"D-00421"}'</span></div>
+        </article>
+
+        <!-- IGAMING -->
+        <article class="uc-bv-panel" data-ucbv-panel="igaming" role="tabpanel">
+          <div class="uc-bv-panel-head"><span class="badge">iGaming · Regulated</span></div>
+          <h3>Light KYC at signup, full KYC at withdrawal</h3>
+          <p class="uc-bv-panel-lede">Most users clear the signup age-gate in seconds. Full KYC kicks in only when they try to withdraw — same API, two stages.</p>
+          <ul class="uc-bv-endpoints">
+            <li><a href="#liveness"><span class="verb">POST</span><span>/api/v1/liveness/create</span><span class="arrow">→</span></a></li>
+            <li><a href="#nid-ocr"><span class="verb">POST</span><span>/api/v1/ocr/nid</span><span class="arrow">→</span></a></li>
+            <li><a href="#face-match"><span class="verb">POST</span><span>/api/v1/match/face/submit</span><span class="arrow">→</span></a></li>
+          </ul>
+          <p class="uc-bv-snippet-label">// Stage 1 — age-gate at signup</p>
+          <div class="uc-bv-snippet"><span class="c-kw">curl</span> -X POST https://api.adeptsense.tech/api/v1/age/verify \
+  -H <span class="c-str">"x-api-key: $ADEPT_KEY"</span> \
+  -d <span class="c-str">'{"vertical":"igaming","gate":"signup","min_age":18,"region":"BD"}'</span></div>
+        </article>
+
+      </div>
+    </section>
+
+<!-- ENDPOINTS -->
     <section id="nid-ocr">
       <h2>POST /api/v1/ocr/nid</h2>
       <p>Extract structured identity fields from any government-issued ID card image &mdash; Bangladesh NID, passport, driver's license, voter ID, and more. The endpoint is named <code>/ocr/nid</code> for historical reasons but accepts any ID card format. (Cost: 2 tokens)</p>
@@ -523,3 +665,4 @@ if (qsTabs) {
 </body>
 </html>
 </code></pre>
+
