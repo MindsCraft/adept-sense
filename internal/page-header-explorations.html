@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page-header explorations · AdeptSense (internal)</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --blue:       #7C3AED;
+      --blue-dim:   #F5F3FF;
+      --blue-line:  rgba(124, 58, 237, 0.2);
+      --green:      #16A34A;
+      --ink:        #0F172A;
+      --ink-2:      #334155;
+      --ink-3:      #64748B;
+      --ink-4:      #94A3B8;
+      --bg:         #F8FAFC;
+      --surface:    #FFFFFF;
+      --border:     #E2E8F0;
+      --border-2:   #F1F5F9;
+      --r-sm:       6px;
+      --r:          10px;
+      --r-lg:       16px;
+      --ease:       cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow-sm:  0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-md:  0 4px 12px rgba(15, 23, 42, 0.06);
+      --shadow-lg:  0 12px 28px rgba(15, 23, 42, 0.10);
+      --container:  1440px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 0.9em;
+           background: var(--border-2); padding: 2px 6px; border-radius: 4px; color: var(--ink-2); }
+
+    /* ── MOCK NAVBAR (so each page-top feels complete) ── */
+    .demo-nav {
+      display: flex; align-items: center;
+      gap: 28px;
+      padding: 14px 32px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .demo-nav-logo { font-weight: 700; letter-spacing: -0.01em; font-size: 14px; }
+    .demo-nav-logo .lg-acc { color: var(--blue); }
+    .demo-nav-links { display: flex; gap: 4px; }
+    .demo-nav-links a {
+      padding: 6px 12px; border-radius: 8px;
+      color: var(--ink-3); transition: color .15s, background .15s;
+    }
+    .demo-nav-links a:hover { color: var(--ink); background: rgba(15, 23, 42, 0.04); }
+
+    /* ── SECTION HEADER LABEL between demos ── */
+    .demo-label {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 28px 32px 14px;
+      display: flex; align-items: baseline; gap: 14px;
+      border-bottom: 1px dashed var(--border);
+      margin-bottom: 0;
+    }
+    .demo-label-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      color: var(--blue); background: var(--blue-dim);
+      padding: 3px 9px; border-radius: 100px;
+    }
+    .demo-label-title {
+      font-family: 'Lora', serif;
+      font-size: 20px; font-weight: 600;
+      letter-spacing: -0.015em; color: var(--ink);
+    }
+    .demo-label-note {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: var(--ink-4);
+      letter-spacing: 0.04em; margin-left: auto;
+    }
+    .demo-rule {
+      max-width: 1480px; margin: 0 auto;
+      padding: 10px 32px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; color: var(--ink-3);
+      background: rgba(255, 255, 255, 0.6);
+      border-left: 3px solid var(--blue);
+    }
+
+    /* ── DOC HEADER ── */
+    .ex-head {
+      max-width: 1480px; margin: 0 auto;
+      padding: 80px 32px 32px;
+    }
+    .ex-tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue);
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-line);
+      padding: 5px 12px; border-radius: 100px; margin-bottom: 18px;
+    }
+    .ex-head h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 600; letter-spacing: -0.02em;
+      margin-bottom: 12px; max-width: 880px;
+    }
+    .ex-head p { font-size: 16px; color: var(--ink-3); max-width: 760px; line-height: 1.65; }
+    .ex-head strong { color: var(--ink); font-weight: 600; }
+    .ex-head .ex-jump {
+      display: inline-flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 20px;
+    }
+    .ex-head .ex-jump a {
+      font-size: 12px; font-weight: 500; color: var(--ink-2);
+      padding: 5px 10px; border-radius: 100px;
+      border: 1px solid var(--border);
+      transition: all .15s var(--ease);
+    }
+    .ex-head .ex-jump a:hover { color: var(--ink); border-color: var(--ink-4); background: white; }
+
+    /* ── DIVIDER between page-top demos ── */
+    .demo-section { background: var(--surface); border-top: 1px solid var(--border); }
+    .demo-section + .demo-section { margin-top: 28px; }
+    .demo-section:last-child { border-bottom: 1px solid var(--border); }
+
+    /* ─────────────────────────────────────────────────
+       SHARED CONTENT — same in every page-top so only
+       the introductory pattern varies
+       ───────────────────────────────────────────────── */
+    .s-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue);
+      background: var(--blue-dim);
+      padding: 5px 12px; border-radius: 100px;
+      margin-bottom: 22px;
+    }
+    .s-eyebrow::before {
+      content: ""; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--blue);
+    }
+    .s-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(40px, 5.4vw, 68px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.04;
+      color: var(--ink);
+      margin: 0 0 20px;
+    }
+    .s-title em { font-style: italic; color: var(--blue); font-weight: 600; }
+    .s-sub {
+      font-size: 18px; line-height: 1.55;
+      color: var(--ink-3);
+      max-width: 620px;
+      margin: 0 0 32px;
+    }
+    .s-sub code { color: var(--ink); }
+
+    .s-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 22px;
+      font-size: 14px; font-weight: 600;
+      border-radius: 10px;
+      transition: all .15s var(--ease);
+      cursor: pointer; border: 1px solid transparent;
+    }
+    .s-btn svg { width: 14px; height: 14px; }
+    .s-btn-primary { color: #fff; background: var(--ink); }
+    .s-btn-primary:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .s-btn-ghost { color: var(--ink); background: transparent; border-color: var(--border); }
+    .s-btn-ghost:hover { border-color: var(--ink-4); background: rgba(15, 23, 42, 0.02); }
+
+    /* ═══════════════════════════════════════════════════════
+       P1 — Editorial centered.
+       Most restrained / reading-first.
+       ═══════════════════════════════════════════════════════ */
+    .p1 {
+      padding: 120px 24px 96px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .p1::before {
+      content: ""; position: absolute;
+      top: -200px; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(closest-side, rgba(124, 58, 237, 0.10), rgba(124, 58, 237, 0) 70%);
+      pointer-events: none;
+    }
+    .p1-inner { position: relative; max-width: 900px; margin: 0 auto; }
+    .p1 .s-title { max-width: 900px; }
+    .p1 .s-sub { margin-left: auto; margin-right: auto; }
+    .p1-actions {
+      display: inline-flex; gap: 12px; flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       P2 — Side meta rail. Left column has the eyebrow +
+       page metadata, right carries title + sub. Two columns.
+       Reads like a magazine spread.
+       ═══════════════════════════════════════════════════════ */
+    .p2 {
+      padding: 96px 24px 80px;
+    }
+    .p2-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .p2-left {
+      display: flex; flex-direction: column;
+      gap: 16px; padding-top: 12px;
+      position: sticky; top: 100px;
+    }
+    .p2-left .lbl-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; color: var(--ink-4);
+      letter-spacing: 0.04em; line-height: 1.7;
+    }
+    .p2-right { max-width: 760px; }
+
+    /* ═══════════════════════════════════════════════════════
+       P3 — Mono breadcrumb. Crumb path top, mono kicker
+       [ 04 / CONTACT ], then title. Most developer-feeling.
+       ═══════════════════════════════════════════════════════ */
+    .p3 {
+      padding: 96px 24px 80px;
+    }
+    .p3-inner {
+      max-width: 1080px; margin: 0 auto;
+    }
+    .p3-breadcrumb {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; color: var(--ink-3);
+      letter-spacing: 0.04em;
+      margin-bottom: 32px;
+    }
+    .p3-breadcrumb .crumb-sep { color: var(--ink-4); }
+    .p3-breadcrumb .crumb-here { color: var(--ink); font-weight: 600; }
+    .p3-kicker {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 6px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; font-weight: 500;
+      color: var(--ink-3);
+      letter-spacing: 0.04em;
+      margin-bottom: 22px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .p3-kicker::before { content: "[ "; color: var(--ink-4); }
+    .p3-kicker::after  { content: " ]"; color: var(--ink-4); }
+    .p3-kicker .num { color: var(--blue); font-weight: 700; }
+
+    /* ═══════════════════════════════════════════════════════
+       P4 — Three-column with section index left, title
+       center, meta card right. Best for service pages
+       where readers will scroll through anchors.
+       ═══════════════════════════════════════════════════════ */
+    .p4 { padding: 96px 24px 80px; }
+    .p4-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 200px 1fr 240px;
+      gap: 56px;
+      align-items: start;
+    }
+    .p4-side {
+      display: flex; flex-direction: column;
+      gap: 6px; padding-top: 14px;
+      position: sticky; top: 100px;
+    }
+    .p4-side-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-4);
+      margin-bottom: 8px;
+    }
+    .p4-side-link {
+      display: block;
+      padding: 8px 0;
+      font-size: 13px; color: var(--ink-3);
+      border-top: 1px solid var(--border-2);
+      transition: color .12s var(--ease);
+    }
+    .p4-side-link:last-child { border-bottom: 1px solid var(--border-2); }
+    .p4-side-link.active,
+    .p4-side-link:hover { color: var(--ink); }
+    .p4-side-link.active { font-weight: 600; }
+    .p4-side-link small {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--ink-4);
+      letter-spacing: 0.04em; margin-right: 10px;
+    }
+    .p4-center { max-width: 640px; }
+    .p4-meta {
+      display: flex; flex-direction: column; gap: 14px;
+      padding: 18px 20px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      font-size: 12px; color: var(--ink-3);
+      position: sticky; top: 100px;
+    }
+    .p4-meta-row {
+      display: flex; justify-content: space-between; gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .p4-meta-row:last-child { padding-bottom: 0; border-bottom: 0; }
+    .p4-meta-row .k {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--ink-4);
+    }
+    .p4-meta-row .v {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--ink); font-weight: 500;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       P5 — Wide type with side rail. Title left-aligned,
+       vertical "EST. 2024" rail on the right running from
+       above the title down past the sub. Most editorial.
+       ═══════════════════════════════════════════════════════ */
+    .p5 { padding: 96px 24px 80px; }
+    .p5-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .p5-rail {
+      position: absolute;
+      right: 24px; top: -12px; bottom: 24px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--blue) 0%, transparent 100%);
+    }
+    .p5-rail-label {
+      position: absolute;
+      right: 56px; top: 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 600;
+      color: var(--blue);
+      letter-spacing: 0.18em; text-transform: uppercase;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 880px) {
+      .demo-label, .demo-rule { padding-left: 20px; padding-right: 20px; }
+      .p1, .p2, .p3, .p4, .p5 { padding-left: 20px; padding-right: 20px; }
+      .p2-inner { grid-template-columns: 1fr; gap: 24px; }
+      .p2-left { position: static; }
+      .p4-inner { grid-template-columns: 1fr; gap: 24px; }
+      .p4-side, .p4-meta { position: static; }
+      .p5-rail, .p5-rail-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="ex-head">
+    <span class="ex-tag">Design exploration</span>
+    <h1>Five page-top directions for subpages</h1>
+    <p>The top of a subpage is the first thing a reader sees after the navbar. These five options range from restrained centered to highly structured three-column. Built with the project's actual tokens (deep purple <code>#7C3AED</code> on warm ink) and fonts (Plus Jakarta Sans, Lora, JetBrains Mono). The page top continues straight into the page body below.</p>
+    <div class="ex-jump">
+      <a href="#p1">P1 centered</a>
+      <a href="#p2">P2 rail split</a>
+      <a href="#p3">P3 mono breadcrumb</a>
+      <a href="#p4">P4 section index</a>
+      <a href="#p5">P5 editorial rail</a>
+    </div>
+  </header>
+
+  <!-- ════════════════════════════════════════════════════════
+       P1 — Editorial centered
+       ════════════════════════════════════════════════════════ -->
+  <div class="demo-label">
+    <span class="demo-label-num">P1</span>
+    <span class="demo-label-title">Editorial centered</span>
+    <span class="demo-label-note">default · recommended</span>
+  </div>
+  <p class="demo-rule">↑ Centered. Mono eyebrow → giant serif title → restrained sub → two CTAs. Symmetrical, easy to scan, works on every page type. This is what most premium docs sites ship (Linear / Stripe / Vercel blogs).</p>
+
+  <section id="p1" class="demo-section">
+    <div class="demo-nav">
+      <span class="demo-nav-logo">adept<span class="lg-acc">sense</span></span>
+      <nav class="demo-nav-links">
+        <a>Home</a><a>Services</a><a>Pricing</a><a>Docs</a><a>Contact</a>
+      </nav>
+    </div>
+    <header class="p1">
+      <div class="p1-inner">
+        <span class="s-eyebrow">Contact</span>
+        <h1 class="s-title">Talk to a <em>human.</em></h1>
+        <p class="s-sub">Enterprise sales, partnerships, security review, or just a quick question — pick a path and we'll route it to the right person.</p>
+        <div class="p1-actions">
+          <a class="s-btn s-btn-primary">Send a message
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6"/><path d="M6.5 3.5L9 6L6.5 8.5"/></svg>
+          </a>
+          <a class="s-btn s-btn-ghost">Email sales</a>
+        </div>
+      </div>
+    </header>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       P2 — Side meta rail split
+       ════════════════════════════════════════════════════════ -->
+  <div class="demo-label">
+    <span class="demo-label-num">P2</span>
+    <span class="demo-label-title">Side meta rail — sticky left, title right</span>
+    <span class="demo-label-note">editorial · reading-first</span>
+  </div>
+  <p class="demo-rule">↑ Left rail (sticky) holds the eyebrow + page metadata. Right side carries the actual title + sub. Title takes 80% of the canvas width — biggest readable serif title. Magazine-spread feel.</p>
+
+  <section id="p2" class="demo-section">
+    <div class="demo-nav">
+      <span class="demo-nav-logo">adept<span class="lg-acc">sense</span></span>
+      <nav class="demo-nav-links">
+        <a>Home</a><a>Services</a><a>Pricing</a><a>Docs</a><a>Contact</a>
+      </nav>
+    </div>
+    <header class="p2">
+      <div class="p2-inner">
+        <div class="p2-left">
+          <span class="s-eyebrow">Contact</span>
+          <div class="lbl-meta">
+            page · 04 / 06<br>
+            type · support<br>
+            updated · jul 2026
+          </div>
+        </div>
+        <div class="p2-right">
+          <h1 class="s-title">Talk to a <em>human.</em></h1>
+          <p class="s-sub">Enterprise sales, partnerships, security review, or just a quick question — pick a path and we'll route it to the right person.</p>
+          <div class="p1-actions">
+            <a class="s-btn s-btn-primary">Send a message
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6"/><path d="M6.5 3.5L9 6L6.5 8.5"/></svg>
+            </a>
+            <a class="s-btn s-btn-ghost">Email sales</a>
+          </div>
+        </div>
+      </div>
+    </header>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       P3 — Mono breadcrumb
+       ════════════════════════════════════════════════════════ -->
+  <div class="demo-label">
+    <span class="demo-label-num">P3</span>
+    <span class="demo-label-title">Mono breadcrumb + index kicker</span>
+    <span class="demo-label-note">developer · log-style</span>
+  </div>
+  <p class="demo-rule">↑ Crumb path on top ("Home / Contact"), then a tiny mono kicker [ 04 / CONTACT ], then a wide left-aligned title. Developer-flavored; leans into the brand's identity-verification-for-engineers positioning.</p>
+
+  <section id="p3" class="demo-section">
+    <div class="demo-nav">
+      <span class="demo-nav-logo">adept<span class="lg-acc">sense</span></span>
+      <nav class="demo-nav-links">
+        <a>Home</a><a>Services</a><a>Pricing</a><a>Docs</a><a>Contact</a>
+      </nav>
+    </div>
+    <header class="p3">
+      <div class="p3-inner">
+        <nav class="p3-breadcrumb" aria-label="Breadcrumb">
+          <span class="crumb">Home</span>
+          <span class="crumb-sep">/</span>
+          <span class="crumb-here">Contact</span>
+        </nav>
+        <span class="p3-kicker"><span class="num">04</span> &nbsp;/&nbsp; CONTACT</span>
+        <h1 class="s-title">Talk to a <em>human.</em></h1>
+        <p class="s-sub">Enterprise sales, partnerships, security review, or just a quick question — pick a path and we'll route it to the right person.</p>
+      </div>
+    </header>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       P4 — Three-column with section index
+       ════════════════════════════════════════════════════════ -->
+  <div class="demo-label">
+    <span class="demo-label-num">P4</span>
+    <span class="demo-label-title">Section index — three-column with sticky side nav</span>
+    <span class="demo-label-note">service pages · anchored</span>
+  </div>
+  <p class="demo-rule">↑ Left rail is a vertical page-section index (sticky). Right card is page metadata (latency / accuracy / endpoint URL). Center carries the title + sub + CTAs. Useful for service pages where readers will scroll past multiple anchors.</p>
+
+  <section id="p4" class="demo-section">
+    <div class="demo-nav">
+      <span class="demo-nav-logo">adept<span class="lg-acc">sense</span></span>
+      <nav class="demo-nav-links">
+        <a>Home</a><a>Services</a><a>Pricing</a><a>Docs</a><a>Contact</a>
+      </nav>
+    </div>
+    <header class="p4">
+      <div class="p4-inner">
+        <nav class="p4-side" aria-label="Page sections">
+          <span class="p4-side-label">On this page</span>
+          <a href="#" class="p4-side-link active"><small>01</small> Overview</a>
+          <a href="#" class="p4-side-link"><small>02</small> Use cases</a>
+          <a href="#" class="p4-side-link"><small>03</small> Pricing</a>
+          <a href="#" class="p4-side-link"><small>04</small> Examples</a>
+          <a href="#" class="p4-side-link"><small>05</small> FAQ</a>
+        </nav>
+        <div class="p4-center">
+          <h1 class="s-title">Talk to a <em>human.</em></h1>
+          <p class="s-sub">Enterprise sales, partnerships, security review, or just a quick question — pick a path and we'll route it to the right person.</p>
+          <div class="p1-actions">
+            <a class="s-btn s-btn-primary">Send a message
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6"/><path d="M6.5 3.5L9 6L6.5 8.5"/></svg>
+            </a>
+            <a class="s-btn s-btn-ghost">Email sales</a>
+          </div>
+        </div>
+        <aside class="p4-meta" aria-label="Page metadata">
+          <div class="p4-meta-row"><span class="k">Latency</span><span class="v">~340ms</span></div>
+          <div class="p4-meta-row"><span class="k">Accuracy</span><span class="v">99.4%</span></div>
+          <div class="p4-meta-row"><span class="k">Endpoint</span><span class="v">POST /v1</span></div>
+          <div class="p4-meta-row"><span class="k">Version</span><span class="v">v1.4</span></div>
+        </aside>
+      </div>
+    </header>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       P5 — Editorial vertical rail
+       ════════════════════════════════════════════════════════ -->
+  <div class="demo-label">
+    <span class="demo-label-num">P5</span>
+    <span class="demo-label-title">Editorial with vertical brand rail</span>
+    <span class="demo-label-note">editorial · premium</span>
+  </div>
+  <p class="demo-rule">↑ Single column, title left-aligned, a 2px deep-purple rail runs down the right side from above the title to below the sub. A rotated mono label ("ADEPT · 2026") anchors the top of the rail. Title takes full canvas width for max reading comfort.</p>
+
+  <section id="p5" class="demo-section">
+    <div class="demo-nav">
+      <span class="demo-nav-logo">adept<span class="lg-acc">sense</span></span>
+      <nav class="demo-nav-links">
+        <a>Home</a><a>Services</a><a>Pricing</a><a>Docs</a><a>Contact</a>
+      </nav>
+    </div>
+    <header class="p5">
+      <div class="p5-inner">
+        <div class="p5-rail" aria-hidden="true"></div>
+        <span class="p5-rail-label" aria-hidden="true">adept · 2026 · contact</span>
+        <span class="s-eyebrow">Contact</span>
+        <h1 class="s-title">Talk to a <em>human.</em></h1>
+        <p class="s-sub">Enterprise sales, partnerships, security review, or just a quick question — pick a path and we'll route it to the right person.</p>
+        <div class="p1-actions">
+          <a class="s-btn s-btn-primary">Send a message
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6"/><path d="M6.5 3.5L9 6L6.5 8.5"/></svg>
+          </a>
+          <a class="s-btn s-btn-ghost">Email sales</a>
+        </div>
+      </div>
+    </header>
+  </section>
+
+</body>
+</html>

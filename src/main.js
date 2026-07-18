@@ -55,6 +55,87 @@ if (hamburger) {
   })
 }
 
+// ── NAV DROPDOWNS (Services) ──
+// Modern pattern: CSS handles the hover-open via the ::before bridge.
+// JS manages click toggle, outside-click close, ESC close, and a small
+// close-grace so the cursor can travel from trigger to panel without
+// losing the menu.
+function initNavDropdowns() {
+  const dropdowns = Array.from(document.querySelectorAll('.nav-dropdown'))
+  if (!dropdowns.length) return
+
+  const isDesktop = () => window.matchMedia('(min-width: 881px)').matches
+  const graceTimers = new WeakMap()
+
+  function open(dd) {
+    if (graceTimers.has(dd)) {
+      clearTimeout(graceTimers.get(dd))
+      graceTimers.delete(dd)
+    }
+    dropdowns.forEach(other => {
+      if (other !== dd) other.setAttribute('aria-expanded', 'false')
+    })
+    dd.setAttribute('aria-expanded', 'true')
+  }
+
+  function close(dd, { grace = false } = {}) {
+    if (graceTimers.has(dd)) {
+      clearTimeout(graceTimers.get(dd))
+      graceTimers.delete(dd)
+    }
+    if (grace && isDesktop()) {
+      const t = setTimeout(() => {
+        dd.setAttribute('aria-expanded', 'false')
+        graceTimers.delete(dd)
+      }, 120)
+      graceTimers.set(dd, t)
+    } else {
+      dd.setAttribute('aria-expanded', 'false')
+    }
+  }
+
+  function closeAll() {
+    dropdowns.forEach(dd => close(dd))
+  }
+
+  dropdowns.forEach(dd => {
+    const trigger = dd.querySelector('.nav-dropdown-trigger')
+    if (!trigger) return
+    dd.setAttribute('aria-expanded', 'false')
+
+    // Click toggles (works on both desktop and touch)
+    trigger.addEventListener('click', e => {
+      e.stopPropagation()
+      const isOpen = dd.getAttribute('aria-expanded') === 'true'
+      isOpen ? close(dd) : open(dd)
+    })
+
+    // Hover open on desktop only — CSS handles the actual show/hide,
+    // we just coordinate the open state and the close-grace window.
+    dd.addEventListener('mouseenter', () => {
+      if (!isDesktop()) return
+      open(dd)
+    })
+    dd.addEventListener('mouseleave', () => {
+      if (!isDesktop()) return
+      close(dd, { grace: true })
+    })
+  })
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.nav-dropdown')) closeAll()
+  })
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeAll()
+  })
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initNavDropdowns)
+} else {
+  initNavDropdowns()
+}
+
 // ── REVEAL ON SCROLL ──
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -563,6 +644,49 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initVerticalCookbook)
 } else {
   initVerticalCookbook()
+}
+
+
+/* ── CONTACT FORM (contact.html) — show success state on submit ──
+   No backend yet; this just gives the right UX so the page feels done.
+   Wire to a real endpoint when the API Console exists. */
+function initContactForm() {
+  const form = document.getElementById('contact-form')
+  if (!form) return
+
+  const success = form.querySelector('.form-success')
+  const submitBtn = form.querySelector('.form-submit')
+  if (!success || !submitBtn) return
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+
+    // HTML5 validity check (required fields)
+    if (!form.checkValidity()) {
+      form.reportValidity()
+      return
+    }
+
+    submitBtn.disabled = true
+    submitBtn.style.opacity = '0.6'
+    submitBtn.textContent = 'Sending…'
+
+    // Simulate network — replace with real fetch when backend is ready
+    setTimeout(() => {
+      form.querySelectorAll('input, select, textarea').forEach(el => {
+        el.disabled = true
+        el.style.opacity = '0.6'
+      })
+      submitBtn.hidden = true
+      success.hidden = false
+    }, 700)
+  })
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initContactForm)
+} else {
+  initContactForm()
 }
 
 

@@ -3,6 +3,7 @@
 @import "./css/tokens.css";
 @import "./css/base.css";
 @import "./css/components.css";
+@import "./css/components/navbar.css";
 @import "./css/sections/hero.css";
 @import "./css/sections/features.css";
 @import "./css/sections/endpoints-vizes.css";
@@ -16,4 +17,5 @@
 @import "./css/sections/cta.css";
 @import "./css/sections/footer.css";
 @import "./css/sections/video-showcase.css";
+@import "./css/sections/contact.css";
 @import "./css/responsive.css";
