@@ -2,6 +2,7 @@
 
 @import "./css/tokens.css";
 @import "./css/base.css";
+@import "./css/components/section-head.css"; /* Section header system (tag/title/sub) */
 @import "./css/components.css";
 @import "./css/components/navbar.css";
 @import "./css/sections/hero.css";

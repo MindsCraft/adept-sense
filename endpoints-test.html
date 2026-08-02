@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Endpoints Section Test — AdeptSense</title>
+  <link rel="stylesheet" href="/src/css/sections/endpoints-experiment.css" />
+</head>
+<body>
+
+<!--#include file="_partials/navbar.html" -->
+
+<main style="padding-top: 40px; padding-bottom: 80px;">
+
+<!-- ── ENDPOINTS (row-per-service) ── -->
+<section class="endpoints-wrap" id="endpoints">
+  <div class="wrap">
+    <div class="endpoints-head reveal endpoints-head--p2l">
+      <div class="ep-head-inner">
+        <span class="ep-kicker"><span class="num">02</span> &nbsp;/&nbsp; ENDPOINTS</span>
+        <h2 class="section-head__title">Five endpoints.<br>One consistent <em>JSON contract.</em></h2>
+      </div>
+    </div>
+
+    <div class="ep-rows ep-rows--card-b reveal">
+
+      <!-- ROW 01 — Liveness -->
+      <div class="ep-row ep-row--card-b">
+        <div class="ep-row-text">
+          <div class="ep-row-card-head">
+            <span class="ep-row-card-num">01</span>
+            <span class="ep-row-card-tag">Biometric &middot; SDK</span>
+          </div>
+          <h3>Liveness</h3>
+          <p>Block spoofing and replay attacks with passive biometric checks. Works on web, mobile, and inside WebViews &mdash; no special gestures, no extra camera prompts, no onboarding drop-off.</p>
+          <div class="ep-row-text-foot">
+            <a class="ep-row-link" href="docs.html#liveness">Read docs &rarr;</a>
+            <a class="ep-row-link" href="playground.html?endpoint=liveness">Try playground &rarr;</a>
+          </div>
+        </div>
+        <div class="ep-row-viz">
+          <div class="ep-viz-card">
+            <div class="stage">
+              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
+                <!-- face outline -->
+                <ellipse class="face-outline" cx="160" cy="104" rx="58" ry="76"/>
+
+                <!-- mesh connecting landmarks -->
+                <g class="mesh">
+                  <line x1="133" y1="86" x2="187" y2="86"/>
+                  <line x1="133" y1="86" x2="160" y2="106"/>
+                  <line x1="187" y1="86" x2="160" y2="106"/>
+                  <line x1="160" y1="106" x2="142" y2="132"/>
+                  <line x1="160" y1="106" x2="178" y2="132"/>
+                  <line x1="142" y1="132" x2="178" y2="132"/>
+                  <line x1="112" y1="104" x2="133" y2="86"/>
+                  <line x1="208" y1="104" x2="187" y2="86"/>
+                  <line x1="112" y1="104" x2="142" y2="132"/>
+                  <line x1="208" y1="104" x2="178" y2="132"/>
+                  <line x1="142" y1="132" x2="160" y2="168"/>
+                  <line x1="178" y1="132" x2="160" y2="168"/>
+                </g>
+
+                <!-- landmark points, staggered pop-in as scan passes -->
+                <circle class="lm" cx="133" cy="86"  r="3" style="animation-delay:.05s"/>
+                <circle class="lm" cx="187" cy="86"  r="3" style="animation-delay:.10s"/>
+                <circle class="lm" cx="112" cy="104" r="3" style="animation-delay:.20s"/>
+                <circle class="lm" cx="208" cy="104" r="3" style="animation-delay:.22s"/>
+                <circle class="lm" cx="160" cy="106" r="3" style="animation-delay:.35s"/>
+                <circle class="lm" cx="142" cy="132" r="3" style="animation-delay:.55s"/>
+                <circle class="lm" cx="178" cy="132" r="3" style="animation-delay:.57s"/>
+                <circle class="lm" cx="160" cy="168" r="3" style="animation-delay:.80s"/>
+
+                <!-- scanning beam -->
+                <line class="scanline" x1="96" y1="30" x2="224" y2="30"/>
+
+                <!-- thinking ring, appears during analysis phase, near lower-right -->
+                <circle class="think-ring" cx="256" cy="170" r="14"/>
+
+                <!-- verdict badge -->
+                <circle class="badge-soft" cx="256" cy="170" r="20"/>
+                <circle class="badge-ring" cx="256" cy="170" r="16"/>
+                <path class="badge-check" d="M248 170 L254 176 L265 162"/>
+              </svg>
+            </div>
+
+            <div class="status">
+              <span class="s1">&gt; scanning_face()<span style="opacity:.5;">_</span></span>
+              <span class="s2">&gt; analyzing_liveness_signals()</span>
+              <span class="s3">&gt; result: real_presence &#10003;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 02 — Face Match -->
+      <div class="ep-row flip ep-row--card-b">
+        <div class="ep-row-viz">
+          <div class="ep-viz-card">
+            <div class="stage">
+              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
+                <!-- ID reference photo, static, already on file -->
+                <rect class="id-frame" x="30" y="46" width="70" height="98" rx="7"/>
+                <text class="id-label" x="65" y="154" text-anchor="middle">ID ON FILE</text>
+                <ellipse class="ref-outline" cx="65" cy="94" rx="21" ry="28"/>
+                <circle class="ref-lm" cx="57" cy="86"  r="2.2"/>
+                <circle class="ref-lm" cx="73" cy="86"  r="2.2"/>
+                <circle class="ref-lm" cx="65" cy="98"  r="2.2"/>
+                <circle class="ref-lm" cx="58" cy="108" r="2.2"/>
+                <circle class="ref-lm" cx="72" cy="108" r="2.2"/>
+
+                <!-- live selfie capture -->
+                <defs>
+                  <clipPath id="selfieClip">
+                    <ellipse cx="234" cy="98" rx="46" ry="60"/>
+                  </clipPath>
+                </defs>
+                <g clip-path="url(#selfieClip)">
+                  <image
+                    href="https://i.pravatar.cc/300?img=12"
+                    x="188" y="38" width="92" height="120"
+                    preserveAspectRatio="xMidYMid slice"/>
+                </g>
+                <ellipse class="live-outline" cx="234" cy="98" rx="46" ry="60"/>
+
+                <!-- comparison links between matching features -->
+                <g class="compare-line">
+                  <line x1="73" y1="86"  x2="216" y2="82"/>
+                  <line x1="57" y1="86"  x2="252" y2="82"/>
+                  <line x1="65" y1="98"  x2="234" y2="100"/>
+                  <line x1="58" y1="108" x2="220" y2="122"/>
+                  <line x1="72" y1="108" x2="248" y2="122"/>
+                </g>
+
+                <!-- live landmark points, popping in during scan -->
+                <circle class="lm" cx="216" cy="82"  r="3.2" style="animation-delay:.06s"/>
+                <circle class="lm" cx="252" cy="82"  r="3.2" style="animation-delay:.12s"/>
+                <circle class="lm" cx="234" cy="100" r="3.2" style="animation-delay:.30s"/>
+                <circle class="lm" cx="220" cy="122" r="3.2" style="animation-delay:.55s"/>
+                <circle class="lm" cx="248" cy="122" r="3.2" style="animation-delay:.60s"/>
+
+                <!-- scanning beam over the live selfie only -->
+                <line class="scanline" x1="188" y1="40" x2="280" y2="40"/>
+
+                <!-- thinking indicator between the two faces during compare phase -->
+                <circle class="think-ring" cx="150" cy="96" r="15"/>
+
+                <!-- verdict: match score + check -->
+                <text class="score-text" x="160" y="176">98.6% MATCH</text>
+                <circle class="badge-soft" cx="160" cy="150" r="17"/>
+                <circle class="badge-ring" cx="160" cy="150" r="14"/>
+                <path class="badge-check" d="M153 150 L158 155 L168 143"/>
+              </svg>
+            </div>
+
+            <div class="status">
+              <span class="s1">&gt; capturing_live_selfie()<span style="opacity:.5;">_</span></span>
+              <span class="s2">&gt; comparing_facial_geometry()</span>
+              <span class="s3">&gt; match_score: 98.6% &#10003;</span>
+            </div>
+          </div>
+        </div>
+        <div class="ep-row-text">
+          <div class="ep-row-card-head">
+            <span class="ep-row-card-num">02</span>
+            <span class="ep-row-card-tag">Biometric &middot; SDK</span>
+          </div>
+          <h3>Face Match</h3>
+          <p>Compare a live selfie to the ID portrait and get a calibrated match score. Robust to compression, pose, and lighting &mdash; built for the small, low-quality selfies users actually upload.</p>
+          <div class="ep-row-text-foot">
+            <a class="ep-row-link" href="docs.html#face-match">Read docs &rarr;</a>
+            <a class="ep-row-link" href="playground.html?endpoint=face-match">Try playground &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ep-sdk-bridge">
+        <div class="ep-sdk-bridge-inner">
+          <div class="ep-sdk-bridge-left">
+            <span class="ep-sdk-bridge-kicker">
+              <span class="num">SDK</span> &nbsp;·&nbsp; Liveness + Face Match
+            </span>
+            <h4 class="ep-sdk-bridge-title">
+              <span class="ep-sdk-bridge-title-line"><em>Liveness</em> + <em>Face Match</em></span>
+              <span class="ep-sdk-bridge-title-line">Get both as a native drop-in.</span>
+            </h4>
+            <p class="ep-sdk-bridge-sub">
+              Camera capture, frame quality checks, and the API call &mdash; all bundled. Add a working biometric flow in under 30 lines, no UI work needed.
+            </p>
+            <a class="ep-sdk-bridge-cta" href="docs.html#sdk">
+              SDK setup
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6"/>
+              </svg>
+            </a>
+          </div>
+          <div class="ep-sdk-bridge-right">
+
+            <a class="ep-sdk-bridge-platform" href="docs.html#sdk">
+              <span class="ep-sdk-bridge-platform-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.523 15.341a1.04 1.04 0 1 1 0-2.08 1.04 1.04 0 0 1 0 2.08m-11.046 0a1.04 1.04 0 1 1 0-2.08 1.04 1.04 0 0 1 0 2.08m11.42-6.018l2.078-3.604a.42.42 0 0 0-.155-.572.42.42 0 0 0-.572.155l-2.104 3.646A14.5 14.5 0 0 0 12 8c-1.86 0-3.591.36-5.142.948L4.754 5.302a.42.42 0 0 0-.572-.155.42.42 0 0 0-.155.572l2.078 3.604C3.353 10.83 1.61 13.139 1.61 15.5h20.78c0-2.361-1.743-4.67-4.493-6.177"/>
+                </svg>
+                <span class="ep-sdk-bridge-platform-icon-eyebrow">A</span>
+              </span>
+              <span class="ep-sdk-bridge-platform-body">
+                <span class="ep-sdk-bridge-platform-head">
+                  <span class="ep-sdk-bridge-platform-name">Android</span>
+                </span>
+                <span class="ep-sdk-bridge-platform-meta">Kotlin &middot; 12.4 MB</span>
+              </span>
+            </a>
+
+            <a class="ep-sdk-bridge-platform" href="docs.html#sdk">
+              <span class="ep-sdk-bridge-platform-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09M12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25"/>
+                </svg>
+                <span class="ep-sdk-bridge-platform-icon-eyebrow">i</span>
+              </span>
+              <span class="ep-sdk-bridge-platform-body">
+                <span class="ep-sdk-bridge-platform-head">
+                  <span class="ep-sdk-bridge-platform-name">iOS</span>
+                </span>
+                <span class="ep-sdk-bridge-platform-meta">Swift &middot; 9.8 MB</span>
+              </span>
+            </a>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 03 — NID OCR -->
+      <div class="ep-row ep-row--card-b">
+        <div class="ep-row-text">
+          <div class="ep-row-card-head">
+            <span class="ep-row-card-num">03</span>
+            <span class="ep-row-card-tag">Document scanning</span>
+          </div>
+          <h3>ID Card OCR</h3>
+          <p>Extract every field from an ID card &mdash; name, ID number, date of birth, address, region &mdash; from both front and back. Works with Bangladesh NID, passports, driver's licenses, and voter IDs in a single call.</p>
+          <div class="ep-row-text-foot">
+            <a class="ep-row-link" href="docs.html#ocr">Read docs &rarr;</a>
+            <a class="ep-row-link" href="playground.html?endpoint=ocr">Try playground &rarr;</a>
+          </div>
+        </div>
+        <div class="ep-row-viz">
+          <div class="ep-viz-card">
+            <div class="stage">
+              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
+                <!-- the ID card being scanned -->
+                <rect class="card-body" x="34" y="14" width="252" height="102" rx="10"/>
+
+                <!-- clipPath for ID photo -->
+                <defs>
+                  <clipPath id="idPhotoClip">
+                    <rect x="50" y="28" width="50" height="62" rx="5"/>
+                  </clipPath>
+                </defs>
+                <g clip-path="url(#idPhotoClip)">
+                  <image href="https://i.pravatar.cc/200?img=33" x="50" y="28" width="50" height="62" preserveAspectRatio="xMidYMid slice"/>
+                </g>
+
+                <!-- chip icon, decorative -->
+                <rect class="chip" x="50" y="94" width="20" height="14" rx="3"/>
+                <line class="chip-line" x1="55" y1="98" x2="65" y2="98"/>
+                <line class="chip-line" x1="55" y1="103" x2="65" y2="103"/>
+
+                <!-- scanned text lines -->
+                <rect class="ocr-bar flash" x="112" y="30" width="98" height="6" rx="2" style="animation-delay:.05s"/>
+                <rect class="ocr-bar flash" x="112" y="46" width="120" height="5" rx="2" style="animation-delay:.20s"/>
+                <rect class="ocr-bar flash" x="112" y="60" width="80"  height="5" rx="2" style="animation-delay:.35s"/>
+                <rect class="ocr-bar flash" x="112" y="74" width="105" height="5" rx="2" style="animation-delay:.50s"/>
+                <rect class="ocr-bar flash" x="112" y="88" width="65"  height="5" rx="2" style="animation-delay:.65s"/>
+
+                <!-- scanning beam over the card -->
+                <line class="scanline" x1="40" y1="20" x2="280" y2="20"/>
+
+                <!-- extracted, structured fields read out below the card -->
+                <text class="field" x="40" y="140" style="animation-delay:0s">
+                  <tspan class="lbl">NAME</tspan><tspan class="val" dx="8">J. MITCHELL</tspan>
+                </text>
+                <text class="field" x="40" y="158" style="animation-delay:.06s">
+                  <tspan class="lbl">DOB</tspan><tspan class="val" dx="14">14 MAR 1994</tspan>
+                </text>
+                <text class="field" x="40" y="176" style="animation-delay:.12s">
+                  <tspan class="lbl">ID NO</tspan><tspan class="val" dx="6">BD-4471029</tspan>
+                </text>
+
+                <!-- verified stamp on the card corner -->
+                <circle class="badge-soft" cx="272" cy="20" r="14"/>
+                <circle class="badge-ring" cx="272" cy="20" r="11"/>
+                <path class="badge-check" d="M266 20 L270 24 L279 14"/>
+              </svg>
+            </div>
+
+            <div class="status">
+              <span class="s1">&gt; scanning_document()<span style="opacity:.5;">_</span></span>
+              <span class="s2">&gt; extracting_fields()</span>
+              <span class="s3">&gt; fields_verified &#10003;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 04 — Name Translation -->
+      <div class="ep-row flip ep-row--card-b">
+        <div class="ep-row-viz">
+          <div class="ep-viz-card">
+            <div class="stage">
+              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
+                <!-- left: name as written on the ID, native script -->
+                <text class="chip-label" x="79" y="52">ID NAME</text>
+                <rect class="chip-box" x="20" y="58" width="118" height="70" rx="10"/>
+                <text class="native-text" x="79" y="102">নাজমুল ইসলাম</text>
+                <line class="scanline" x1="26" y1="64" x2="132" y2="64"/>
+
+                <!-- right: name as entered at sign-up, transliterated by the AI -->
+                <text class="chip-label" x="241" y="52">ENTERED NAME</text>
+                <rect class="chip-box" x="182" y="58" width="118" height="70" rx="10"/>
+                <text class="translit-text" x="194" y="99" style="animation-delay:2.30s">N</text>
+                <text class="translit-text" x="202" y="99" style="animation-delay:2.45s">A</text>
+                <text class="translit-text" x="210" y="99" style="animation-delay:2.60s">J</text>
+                <text class="translit-text" x="217" y="99" style="animation-delay:2.75s">M</text>
+                <text class="translit-text" x="225" y="99" style="animation-delay:2.90s">U</text>
+                <text class="translit-text" x="233" y="99" style="animation-delay:3.05s">L</text>
+                <text class="translit-text" x="249" y="99" style="animation-delay:3.20s">I</text>
+                <text class="translit-text" x="256" y="99" style="animation-delay:3.35s">S</text>
+                <text class="translit-text" x="264" y="99" style="animation-delay:3.50s">L</text>
+                <text class="translit-text" x="272" y="99" style="animation-delay:3.65s">A</text>
+                <text class="translit-text" x="280" y="99" style="animation-delay:3.80s">M</text>
+
+                <!-- static translate affordance, always faintly present -->
+                <path class="static-arrow" d="M148 93 L162 93" opacity=".55"/>
+                <path class="static-arrow" d="M156 88 L162 93 L156 98" opacity=".55"/>
+
+                <!-- AI comparison, appears mid-cycle -->
+                <line class="compare-line" x1="138" y1="93" x2="182" y2="93"/>
+                <circle class="think-ring" cx="160" cy="93" r="15"/>
+
+                <!-- verdict -->
+                <text class="score-text" x="160" y="180">NAME MATCH</text>
+                <circle class="badge-soft" cx="160" cy="152" r="16"/>
+                <circle class="badge-ring" cx="160" cy="152" r="13"/>
+                <path class="badge-check" d="M154 152 L159 157 L168 145"/>
+              </svg>
+            </div>
+
+            <div class="status">
+              <span class="s1">&gt; reading_native_script()<span style="opacity:.5;">_</span></span>
+              <span class="s2">&gt; transliterating_name()</span>
+              <span class="s3">&gt; name_match: confirmed &#10003;</span>
+            </div>
+          </div>
+        </div>
+        <div class="ep-row-text">
+          <div class="ep-row-card-head">
+            <span class="ep-row-card-num">04</span>
+            <span class="ep-row-card-tag">Identity</span>
+          </div>
+          <h3>Name Translation</h3>
+          <p>Convert Bangla names into clean English transliteration. Handles honorifics, compound surnames, and the variations that break naive transliteration. Built for cross-system identity matching.</p>
+          <div class="ep-row-text-foot">
+            <a class="ep-row-link" href="docs.html#name-translation">Read docs &rarr;</a>
+            <a class="ep-row-link" href="playground.html?endpoint=name-translation">Try playground &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 05 — Gender Estimation -->
+      <div class="ep-row ep-row--card-b">
+        <div class="ep-row-text">
+          <div class="ep-row-card-head">
+            <span class="ep-row-card-num">05</span>
+            <span class="ep-row-card-tag">Identity</span>
+          </div>
+          <h3>Gender Estimation</h3>
+          <p>Predict gender from a first name to support onboarding dropdowns, analytics, and compliance flows. Returns a probability distribution, not a label &mdash; your downstream logic decides how to use it.</p>
+          <div class="ep-row-text-foot">
+            <a class="ep-row-link" href="docs.html#gender-estimation">Read docs &rarr;</a>
+            <a class="ep-row-link" href="playground.html?endpoint=gender-estimation">Try playground &rarr;</a>
+          </div>
+        </div>
+        <div class="ep-row-viz">
+          <div class="ep-viz-card">
+            <div class="stage">
+              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
+                <!-- the first name, entered during onboarding -->
+                <text class="field-label" x="160" y="24">FIRST NAME</text>
+                <rect class="field-box" x="56" y="30" width="208" height="32" rx="8"/>
+                <text class="typed-text" x="70" y="52" style="animation-delay:.30s">S</text>
+                <text class="typed-text" x="82" y="52" style="animation-delay:.42s">A</text>
+                <text class="typed-text" x="94" y="52" style="animation-delay:.54s">M</text>
+                <text class="typed-text" x="107" y="52" style="animation-delay:.66s">I</text>
+                <text class="typed-text" x="115" y="52" style="animation-delay:.78s">R</text>
+                <text class="typed-text" x="126" y="52" style="animation-delay:.90s">A</text>
+                <rect class="cursor" x="139" y="40" width="1.6" height="16"/>
+
+                <!-- AI resolves the prediction -->
+                <path class="static-arrow" d="M160 68 L160 80" opacity=".55"/>
+                <path class="static-arrow" d="M155 75 L160 81 L165 75" opacity=".55"/>
+                <circle class="think-ring" cx="160" cy="90" r="15"/>
+
+                <!-- predicted gender, auto-filled into the dropdown -->
+                <text class="field-label" x="160" y="108">PREDICTED GENDER</text>
+                <rect class="field-box" x="56" y="114" width="208" height="32" rx="8"/>
+                <text class="predicted-text" x="70" y="135">Female</text>
+                <text class="conf-text" x="222" y="134">92% conf.</text>
+                <path class="chevron" d="M240 126 L246 132 L252 126" opacity=".7"/>
+
+                <circle class="badge-soft" cx="278" cy="130" r="12"/>
+                <circle class="badge-ring" cx="278" cy="130" r="9.5"/>
+                <path class="badge-check" d="M273 130 L277 134 L284 125"/>
+
+                <!-- where the prediction gets used -->
+                <rect class="use-pill" x="34"  y="170" width="76" height="20" rx="10" style="animation-delay:.05s"/>
+                <text class="use-label" x="72" y="183" style="animation-delay:.05s">ONBOARDING</text>
+
+                <rect class="use-pill" x="118" y="170" width="68" height="20" rx="10" style="animation-delay:.10s"/>
+                <text class="use-label" x="152" y="183" style="animation-delay:.10s">ANALYTICS</text>
+
+                <rect class="use-pill" x="194" y="170" width="86" height="20" rx="10" style="animation-delay:.15s"/>
+                <text class="use-label" x="237" y="183" style="animation-delay:.15s">COMPLIANCE</text>
+              </svg>
+            </div>
+
+            <div class="status">
+              <span class="s1">&gt; reading_first_name()<span style="opacity:.5;">_</span></span>
+              <span class="s2">&gt; predicting_gender()</span>
+              <span class="s3">&gt; dropdown_autofilled &#10003;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!--#include file="_partials/footer.html" -->
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

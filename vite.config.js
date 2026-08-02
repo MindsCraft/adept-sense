@@ -1,7 +1,35 @@
 import { defineConfig } from 'vite'
-import { resolve } from 'path'
+import { resolve, dirname } from 'path'
+import { fileURLToPath } from 'url'
+import fs from 'fs'
+
+// Tiny HTML include plugin: resolves <!--#include file="..." --> at dev/build time.
+// Paths are resolved relative to the HTML file that contains the include.
+const __dirname = dirname(fileURLToPath(import.meta.url))
+function htmlInclude() {
+  return {
+    name: 'html-include',
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html, ctx) {
+        const baseDir = ctx.filename ? dirname(ctx.filename) : __dirname
+        return html.replace(
+          /<!--\s*#include\s+file="([^"]+)"\s*-->/g,
+          (_, file) => {
+            const target = resolve(baseDir, file)
+            if (!fs.existsSync(target)) {
+              throw new Error(`[html-include] missing partial: ${target}`)
+            }
+            return fs.readFileSync(target, 'utf8')
+          }
+        )
+      },
+    },
+  }
+}
 
 export default defineConfig({
+  plugins: [htmlInclude()],
   base: '/',
   build: {
     rollupOptions: {
@@ -16,6 +44,7 @@ export default defineConfig({
         liveness: resolve(__dirname, 'liveness.html'),
         'name-translation': resolve(__dirname, 'name-translation.html'),
         'gender-estimation': resolve(__dirname, 'gender-estimation.html'),
+        'endpoints-test': resolve(__dirname, 'endpoints-test.html'),
       },
     },
   },
