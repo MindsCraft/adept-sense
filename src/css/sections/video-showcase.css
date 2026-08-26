@@ -1,6 +1,6 @@
 /* ── VIDEO SHOWCASE ── */
 .video-showcase-wrap {
-  padding: 100px 0;
+  padding: 140px 0;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
   position: relative;
@@ -16,6 +16,12 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .video-showcase-wrap {
+    padding: 96px 0;
+  }
 }
 
 @media (max-width: 768px) {

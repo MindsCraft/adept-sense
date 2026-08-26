@@ -9,7 +9,6 @@
   .usecases-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: 1fr; }
   .step-card + .step-card::before { display: none; }
-  .integration-inner { grid-template-columns: 1fr; }
   .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 40px; }
   .stat-item { border: none; padding: 0; }
   .bd-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -55,6 +54,5 @@
   .usecases-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-  .integration-inner { padding: 64px 20px; }
   .bd-advantage-wrap { padding: 64px 0; }
 }

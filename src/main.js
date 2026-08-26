@@ -1,47 +1,5 @@
 import './style.css'
 
-// ── CODE SNIPPETS ──
-const codes = {
-  node: `<span class="c-kw">import</span> fs <span class="c-kw">from</span> <span class="c-str">'node:fs/promises'</span>
-<span class="c-kw">import</span> FormData <span class="c-kw">from</span> <span class="c-str">'form-data'</span>
-
-<span class="c-kw">const</span> form = <span class="c-kw">new</span> <span class="c-fn">FormData</span>()
-form.<span class="c-fn">append</span>(<span class="c-str">'front'</span>, frontBuffer, <span class="c-str">'front.jpg'</span>)
-form.<span class="c-fn">append</span>(<span class="c-str">'back'</span>, backBuffer, <span class="c-str">'back.jpg'</span>)
-
-<span class="c-kw">const</span> res = <span class="c-kw">await</span> <span class="c-fn">fetch</span>(<span class="c-str">'https://api.adeptsense.tech/api/v1/ocr/nid'</span>, {
-  method: <span class="c-str">'POST'</span>,
-  headers: {
-    <span class="c-str">'x-api-key'</span>: process.<span class="c-var">env</span>.ADEPT_KEY
-  },
-  body: form
-})
-
-<span class="c-kw">const</span> result = <span class="c-kw">await</span> res.<span class="c-fn">json</span>()
-console.<span class="c-fn">log</span>(result.ok) <span class="c-cm">// true</span>`,
-
-  python: `<span class="c-kw">import</span> requests
-
-files = {
-  <span class="c-str">'front'</span>: (<span class="c-str">'front.jpg'</span>, open(<span class="c-str">'front.jpg'</span>, <span class="c-str">'rb'</span>), <span class="c-str">'image/jpeg'</span>),
-  <span class="c-str">'back'</span>: (<span class="c-str">'back.jpg'</span>, open(<span class="c-str">'back.jpg'</span>, <span class="c-str">'rb'</span>), <span class="c-str">'image/jpeg'</span>)
-}
-
-res = requests.<span class="c-fn">post</span>(
-  <span class="c-str">'https://api.adeptsense.tech/api/v1/ocr/nid'</span>,
-  headers={<span class="c-str">'x-api-key'</span>: os.environ[<span class="c-str">"ADEPT_KEY"</span>]},
-  files=files
-)
-
-result = res.<span class="c-fn">json</span>()
-<span class="c-fn">print</span>(result[<span class="c-str">"ok"</span>]) <span class="c-cm"># True</span>`,
-
-  curl: `<span class="c-fn">curl</span> -X POST https://api.adeptsense.tech/api/v1/ocr/nid \\
-  -H <span class="c-str">"x-api-key: $ADEPT_KEY"</span> \\
-  -F <span class="c-str">"front=@/path/to/front.jpg"</span> \\
-  -F <span class="c-str">"back=@/path/to/back.jpg"</span>`
-}
-
 // ── NAV SCROLL (glassmorphism — no state change needed) ──
 // The glass nav is always visible; no opaque toggle required
 
@@ -177,50 +135,96 @@ const statObserver = new IntersectionObserver(entries => {
 
 document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el))
 
-// ── PRICING VOLUME ESTIMATOR ──
-// Sliding scale: 500–2,000 = $0.35, 2,001–25,000 = $0.18, 25,001–100,000 = $0.10, 100k+ = $0.05
-const peRange = document.getElementById('pe-volume')
-const peVol   = document.querySelector('[data-pe-volume]')
-const peCost  = document.querySelector('[data-pe-cost]')
+// ── INTERACTIVE PIPELINE PRICING CALCULATOR ──
+function initPricingCalculator() {
+  const epItems = document.querySelectorAll('.ep-item')
+  const volSlider = document.getElementById('calc-vol-slider')
+  const volNum = document.getElementById('calc-vol-num')
+  const totalCostEl = document.getElementById('calc-total-cost')
+  const unitRateEl = document.getElementById('calc-unit-rate')
+  const jsonOutput = document.getElementById('calc-json-output')
+  const discountBadge = document.getElementById('calc-discount-badge')
+  const discText = document.getElementById('calc-disc-text')
 
-function priceForVolume(v) {
-  if (v <= 2000)   return v * 0.35
-  if (v <= 25000)  return v * 0.18
-  if (v <= 100000) return v * 0.10
-  return v * 0.05
-}
+  if (!epItems.length || !volSlider || !totalCostEl || !unitRateEl || !jsonOutput) return
 
-function formatVol(n) { return n.toLocaleString('en-US') }
-function formatCost(n) {
-  if (n >= 1000) return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
-  return '$' + n.toFixed(2)
-}
+  function updateCalculator() {
+    let baseRate = 0
+    let selectedKeys = []
+    let totalCount = 0
 
-if (peRange && peVol && peCost) {
-  const update = () => {
-    const v = Number(peRange.value)
-    peVol.textContent  = formatVol(v)
-    peCost.textContent = formatCost(priceForVolume(v))
+    epItems.forEach(item => {
+      if (item.classList.contains('selected')) {
+        baseRate += parseFloat(item.dataset.price || '0')
+        selectedKeys.push(item.dataset.id)
+        totalCount++
+      }
+    })
+
+    const volume = parseInt(volSlider.value, 10)
+    if (volNum) volNum.textContent = volume.toLocaleString() + ' verifications'
+
+    // Tier volume discount:
+    let volMultiplier = 1.0
+    if (volume > 50000) volMultiplier = 0.65
+    else if (volume > 20000) volMultiplier = 0.80
+    else if (volume > 5000) volMultiplier = 0.90
+
+    // Multi-service bundle discount
+    let bundleDiscount = (totalCount === 5) ? 0.75 : (totalCount >= 3 ? 0.88 : 1.0)
+    
+    // Preserve fixed layout without jumping
+    if (discountBadge && discText) {
+      if (totalCount >= 3) {
+        discountBadge.classList.remove('hidden')
+        discText.textContent = totalCount === 5 ? '-25% BUNDLE' : '-12% MULTI-SVC'
+      } else {
+        discountBadge.classList.add('hidden')
+      }
+    }
+
+    const effectiveUnitRate = Math.max(0.01, baseRate * volMultiplier * bundleDiscount)
+    const totalCost = volume * effectiveUnitRate
+
+    totalCostEl.textContent = '$' + Math.round(totalCost).toLocaleString()
+    unitRateEl.textContent = `Effective rate: $${effectiveUnitRate.toFixed(3)} / call`
+
+    // Update JSON preview with exact design system syntax tokens
+    const servicesStr = selectedKeys.length > 0 
+      ? selectedKeys.map(k => `<span class="str">"${k}"</span>`).join(', ')
+      : `<span class="cm">/* none */</span>`
+    
+    const slaTier = volume > 20000 ? "99.99% Enterprise Dedicated" : "99.9% Production"
+    const totalStr = '$' + totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+    
+    jsonOutput.innerHTML = `<span class="cm">// Calculated API Contract</span>
+{
+  <span class="key">"services"</span>: [${servicesStr}],
+  <span class="key">"volume"</span>: <span class="val">${volume}</span>,
+  <span class="key">"unit_rate"</span>: <span class="str">"$${effectiveUnitRate.toFixed(3)}"</span>,
+  <span class="key">"monthly_total"</span>: <span class="str">"${totalStr}"</span>,
+  <span class="key">"sla_tier"</span>: <span class="str">"${slaTier}"</span>,
+  <span class="key">"p50_latency"</span>: <span class="acc">"142ms"</span>
+}`
   }
-  peRange.addEventListener('input', update)
-  update()
-}
 
-// ── CODE TAB SWITCHER ──
-const tabsEl = document.getElementById('tabs')
-const codeEl = document.getElementById('code-block')
-
-if (tabsEl && codeEl) {
-  codeEl.innerHTML = codes.node
-
-  tabsEl.addEventListener('click', e => {
-    const btn = e.target.closest('[data-lang]')
-    if (!btn) return
-    tabsEl.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
-    btn.classList.add('active')
-    codeEl.innerHTML = codes[btn.dataset.lang]
+  epItems.forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('selected')
+      updateCalculator()
+    })
   })
+
+  volSlider.addEventListener('input', updateCalculator)
+  updateCalculator()
 }
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPricingCalculator)
+} else {
+  initPricingCalculator()
+}
+
 
 // ── HERO VISUAL SHOWCASE SWITCHER ──
 const showcaseTabs = document.querySelectorAll('.showcase-tab')
@@ -517,50 +521,292 @@ if (document.readyState === 'loading') {
   initVideoShowcase();
 }
 
-/* ── USE CASES — Option A tabbed verticals ──
-   6 cards swap a single <article data-uc-panel> by cloning the
-   matching <template data-uc-tpl="X">. Keyboard nav on the cards.
-   ────────────────────────────────────────────────────────────── */
+/* ── USE CASES — Split Architectural Sandbox Deck with Auto-Slide ── */
 function initUseCasesTabs() {
-  const root = document.querySelector('[data-uc-root]')
-  if (!root) return
+  const root = document.querySelector('.usecases-wrap')
+  const tabsContainer = root ? root.querySelector('.uc-tabs') : null
+  const tabs = Array.from(document.querySelectorAll('.uc-tab-btn'))
+  const badgeEl = document.getElementById('uc-badge-text')
+  const kickerEl = document.getElementById('uc-kicker-text')
+  const titleEl = document.getElementById('uc-title-text')
+  const descEl = document.getElementById('uc-desc-text')
+  const statsRow = document.getElementById('uc-stats-row')
+  const checklistEl = document.getElementById('uc-checklist')
+  const stageBox = document.getElementById('uc-stage-box')
+  const jsonPreview = document.getElementById('uc-json-preview')
+  const autoLabel = document.getElementById('uc-auto-label')
+  const prevBtn = document.getElementById('uc-prev-btn')
+  const nextBtn = document.getElementById('uc-next-btn')
+  const leftNarrative = document.querySelector('.uc-deck-left')
 
-  const cards  = Array.from(root.querySelectorAll('[data-uc-card]'))
-  const panel  = root.querySelector('[data-uc-panel]')
-  const templates = new Map(
-    Array.from(root.querySelectorAll('[data-uc-tpl]'))
-         .map(t => [t.dataset.ucTpl, t])
-  )
-  if (!cards.length || !panel) return
+  if (!tabs.length || !titleEl || !descEl || !stageBox || !jsonPreview) return
 
-  function activate(key, focus = false) {
-    cards.forEach(c => {
-      const active = c.dataset.ucCard === key
-      c.setAttribute('aria-selected', active ? 'true' : 'false')
-      c.setAttribute('tabindex', active ? '0' : '-1')
-      if (active && focus) c.focus()
-    })
-    const tpl = templates.get(key)
-    if (tpl) panel.innerHTML = ''
-    if (tpl) panel.appendChild(tpl.content.cloneNode(true))
-  } cards.forEach((card, i) => {
-    card.addEventListener('click', () => activate(card.dataset.ucCard))
-    card.addEventListener('keydown', (e) => {
-      let next = -1
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % cards.length
-      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + cards.length) % cards.length
-      else if (e.key === 'Home') next = 0
-      else if (e.key === 'End') next = cards.length - 1
-      if (next !== -1) {
-        e.preventDefault()
-        activate(cards[next].dataset.ucCard, true)
+  const keys = ['fintech', 'hr', 'healthcare', 'ecommerce', 'mobility', 'igaming']
+  let currentIndex = 0
+  let autoTimer = null
+  let isPaused = false
+
+  const verticalData = {
+    fintech: {
+      badge: "Production Live",
+      kicker: "FINTECH & DIGITAL BANKING",
+      title: "Onboard customers in sub-seconds <em>without KYC drop-off.</em>",
+      desc: "Leading digital banks replace manual back-office queues with AdeptSense drop-in biometric verification. Smart card NID OCR, passive 3D liveness, and 1:1 facial matching execute seamlessly in one unified API session.",
+      stats: [
+        { val: "99.4%", lbl: "Field Precision", cls: "green" },
+        { val: "~840ms", lbl: "p50 Pipeline", cls: "accent" },
+        { val: "0 ops", lbl: "Manual Queue", cls: "" }
+      ],
+      bullets: [
+        "Full compliance with Bangladesh Bank e-KYC guidelines out of the box.",
+        "Idempotent session tokens with webhook + real-time polling fallback.",
+        "Automatic PII encryption & configurable purge policies."
+      ],
+      stages: [
+        { num: "01", title: "Smart NID Document Parser", sub: "Bangla OCR · 99.4% Field Match", tag: "PASSED", tagCls: "pass", iconBg: "rgba(121, 192, 255, 0.15)", iconColor: "var(--code-fn)" },
+        { num: "02", title: "1:1 Biometric Face Match", sub: "Vector Cosine: 0.994 score", tag: "99.4% MATCH", tagCls: "pass", iconBg: "rgba(167, 139, 250, 0.15)", iconColor: "var(--code-acc)" },
+        { num: "03", title: "Passive 3D Liveness Check", sub: "iBeta Level 2 PAD Anti-Spoof", tag: "REAL PERSON", tagCls: "pass", iconBg: "rgba(86, 211, 100, 0.15)", iconColor: "var(--code-val)" }
+      ],
+      json: `<span class="cm">// Verified Output Payload</span><br>{ <span class="key">"verified"</span>: <span class="val">true</span>, <span class="key">"risk_score"</span>: <span class="val">0.002</span>, <span class="key">"kyc_tier"</span>: <span class="str">"APPROVED_LEVEL_3"</span>, <span class="key">"signed_token"</span>: <span class="acc">"jwt_live_8f3a..."</span> }`
+    },
+    hr: {
+      badge: "Workforce Day-1",
+      kicker: "HR & CANDIDATE ONBOARDING",
+      title: "Verify hundreds of new hires <em>before Day 1 orientation.</em>",
+      desc: "Automate identity verification for distributed and on-site workforces. Candidates complete self-serve mobile verification, while HR receives real-time webhook status directly in Workday or BambooHR.",
+      stats: [
+        { val: "100%", lbl: "Audit Trail", cls: "green" },
+        { val: "12.4s", lbl: "Avg Candidate Time", cls: "accent" },
+        { val: "100k+", lbl: "Batch Capacity", cls: "" }
+      ],
+      bullets: [
+        "Covers Bangladesh NID, passports, driver's licenses, and international IDs.",
+        "Single signed CSV upload for bulk candidate batch invitations.",
+        "PII auto-purged 30 days after verification compliance clearance."
+      ],
+      stages: [
+        { num: "01", title: "Bulk Candidate CSV Dispatch", sub: "Auto SMS & Email Magic Link", tag: "QUEUED", tagCls: "info", iconBg: "rgba(121, 192, 255, 0.15)", iconColor: "var(--code-fn)" },
+        { num: "02", title: "Mobile Self-Service Capture", sub: "Candidate uploaded NID + selfie", tag: "RECEIVED", tagCls: "pass", iconBg: "rgba(167, 139, 250, 0.15)", iconColor: "var(--code-acc)" },
+        { num: "03", title: "ATS Webhook Sync", sub: "Dispatched to Workday & HRIS", tag: "SYNCED", tagCls: "pass", iconBg: "rgba(86, 211, 100, 0.15)", iconColor: "var(--code-val)" }
+      ],
+      json: `<span class="cm">// HR Candidate Verification Result</span><br>{ <span class="key">"candidate_id"</span>: <span class="str">"cand_9104"</span>, <span class="key">"nid_matched"</span>: <span class="val">true</span>, <span class="key">"ats_status"</span>: <span class="str">"CLEARED_FOR_HIRE"</span> }`
+    },
+    healthcare: {
+      badge: "HIPAA Compliant",
+      kicker: "HEALTHCARE & TELEMEDICINE",
+      title: "Confirm patient identity <em>before prescriptions & claims.</em>",
+      desc: "Hospitals and telehealth networks prevent insurance fraud and identity mix-ups before virtual doctor consultations. Multilingual OCR handles Bengali, English, and regional dialect IDs instantly.",
+      stats: [
+        { val: "100%", lbl: "HIPAA Aligned", cls: "green" },
+        { val: "< 30s", lbl: "Pre-Visit Flow", cls: "accent" },
+        { val: "0 PII", lbl: "Plaintext Logs", cls: "" }
+      ],
+      bullets: [
+        "Zero camera permission friction — works smoothly inside mobile WebViews.",
+        "High accuracy OCR on old laminated and new smart card NIDs.",
+        "Secure encrypted patient tokens compatible with standard EMRs."
+      ],
+      stages: [
+        { num: "01", title: "Pre-Visit SMS Identity Link", sub: "Sent 10m before consultation", tag: "OPENED", tagCls: "info", iconBg: "rgba(121, 192, 255, 0.15)", iconColor: "var(--code-fn)" },
+        { num: "02", title: "Patient NID OCR & Biometrics", sub: "Sub-second 3D liveness check", tag: "CONFIRMED", tagCls: "pass", iconBg: "rgba(167, 139, 250, 0.15)", iconColor: "var(--code-acc)" },
+        { num: "03", title: "EMR Consultation Unlock", sub: "Prescription signing authorized", tag: "AUTHORIZED", tagCls: "pass", iconBg: "rgba(86, 211, 100, 0.15)", iconColor: "var(--code-val)" }
+      ],
+      json: `<span class="cm">// Patient Consultation Clearance</span><br>{ <span class="key">"patient_verified"</span>: <span class="val">true</span>, <span class="key">"emr_record_match"</span>: <span class="str">"EMR_MATCH_CONFIRMED"</span> }`
+    },
+    ecommerce: {
+      badge: "Trust & Safety",
+      kicker: "E-COMMERCE & MARKETPLACES",
+      title: "Build verified trust on <em>both sides of the transaction.</em>",
+      desc: "Age-verify buyers in 3 seconds at checkout and authenticate high-volume marketplace merchants before issuing payment payouts. Increase buyer conversion with verified profile badges.",
+      stats: [
+        { val: "3.2s", lbl: "Avg Checkout Age-Gate", cls: "accent" },
+        { val: "+18%", lbl: "Merchant Conversion", cls: "green" },
+        { val: "Zero", lbl: "Payout Fraud", cls: "" }
+      ],
+      bullets: [
+        "Age verification with minimal drop-off during checkout flow.",
+        "Merchant KYC re-check before first bank transfer payout.",
+        "Verified seller trust badge surfaced in customer chat."
+      ],
+      stages: [
+        { num: "01", title: "Buyer 3s Age-Gate Overlay", sub: "Instant document age verification", tag: "VERIFIED 21+", tagCls: "pass", iconBg: "rgba(121, 192, 255, 0.15)", iconColor: "var(--code-fn)" },
+        { num: "02", title: "Seller Business NID Check", sub: "Cross-checked with trade license", tag: "AUTHENTICATED", tagCls: "pass", iconBg: "rgba(167, 139, 250, 0.15)", iconColor: "var(--code-acc)" },
+        { num: "03", title: "Payout Gate Unlock", sub: "First bank payout unlocked", tag: "UNLOCKED", tagCls: "pass", iconBg: "rgba(86, 211, 100, 0.15)", iconColor: "var(--code-val)" }
+      ],
+      json: `<span class="cm">// Marketplace Trust Status</span><br>{ <span class="key">"merchant_id"</span>: <span class="str">"m_8821"</span>, <span class="key">"payout_status"</span>: <span class="str">"CLEARED"</span>, <span class="key">"trust_badge"</span>: <span class="val">true</span> }`
+    },
+    mobility: {
+      badge: "Driver Security",
+      kicker: "RIDE-SHARING & MOBILITY",
+      title: "Verify drivers &amp; couriers <em>before their first trip.</em>",
+      desc: "Ride-sharing and delivery platforms verify driver identity, license numbers, and face biometrics at registration, then run random rolling selfie checks to prevent account sharing and impersonation.",
+      stats: [
+        { val: "99.8%", lbl: "Face Verification", cls: "green" },
+        { val: "142ms", lbl: "Rolling Check", cls: "accent" },
+        { val: "100%", lbl: "License Match", cls: "" }
+      ],
+      bullets: [
+        "Instant parsing of Bangladesh Driving Licenses & Smart NIDs.",
+        "Periodic random selfie check before going online.",
+        "Passenger-visible 'Verified Driver' badge lifts booking trust."
+      ],
+      stages: [
+        { num: "01", title: "Driver License & NID OCR", sub: "Validates expiration & category", tag: "VALIDATED", tagCls: "pass", iconBg: "rgba(121, 192, 255, 0.15)", iconColor: "var(--code-fn)" },
+        { num: "02", title: "Pre-Shift Facial Liveness", sub: "Driver selfie matched to profile", tag: "MATCH 99.8%", tagCls: "pass", iconBg: "rgba(167, 139, 250, 0.15)", iconColor: "var(--code-acc)" },
+        { num: "03", title: "Online Dispatch Authorized", sub: "Driver enabled for trips", tag: "ONLINE READY", tagCls: "pass", iconBg: "rgba(86, 211, 100, 0.15)", iconColor: "var(--code-val)" }
+      ],
+      json: `<span class="cm">// Driver Shift Auth Payload</span><br>{ <span class="key">"driver_id"</span>: <span class="str">"drv_447"</span>, <span class="key">"shift_authorized"</span>: <span class="val">true</span>, <span class="key">"liveness"</span>: <span class="val">0.992</span> }`
+    },
+    igaming: {
+      badge: "Regulated Gate",
+      kicker: "IGAMING & CRYPTO EXCHANGES",
+      title: "Maintain regulatory compliance <em>without signup drop-off.</em>",
+      desc: "Two-stage verification flow: a light 3-second age gate during initial registration that maximizes conversion, paired with a comprehensive biometric KYC check at first fiat withdrawal.",
+      stats: [
+        { val: "2-Stage", lbl: "Progressive KYC", cls: "accent" },
+        { val: "100%", lbl: "Regulator Ready", cls: "green" },
+        { val: "Audit Log", lbl: "Signed Receipts", cls: "" }
+      ],
+      bullets: [
+        "Instant age-gate without overwhelming new users.",
+        "Biometric verification with self-exclusion & sanctions screening.",
+        "Cryptographically signed audit receipts for regulatory audits."
+      ],
+      stages: [
+        { num: "01", title: "Registration Fast Age-Gate", sub: "Instant 3s date-of-birth check", tag: "CLEARED 18+", tagCls: "pass", iconBg: "rgba(121, 192, 255, 0.15)", iconColor: "var(--code-fn)" },
+        { num: "02", title: "Full Tier-2 KYC at Withdrawal", sub: "NID OCR + 3D Liveness Vector", tag: "VERIFIED", tagCls: "pass", iconBg: "rgba(167, 139, 250, 0.15)", iconColor: "var(--code-acc)" },
+        { num: "03", title: "Signed Audit Envelope", sub: "Immutable compliance receipt", tag: "SIGNED 200 OK", tagCls: "pass", iconBg: "rgba(86, 211, 100, 0.15)", iconColor: "var(--code-val)" }
+      ],
+      json: `<span class="cm">// Compliance Audit Receipt</span><br>{ <span class="key">"user_id"</span>: <span class="str">"usr_9981"</span>, <span class="key">"aml_status"</span>: <span class="str">"CLEAR"</span>, <span class="key">"withdrawal_authorized"</span>: <span class="val">true</span> }`
+    }
+  }
+
+  function activate(index) {
+    currentIndex = (index + keys.length) % keys.length
+    const key = keys[currentIndex]
+    const data = verticalData[key]
+    if (!data) return
+
+    tabs.forEach((t, i) => {
+      const active = i === currentIndex
+      t.classList.toggle('active', active)
+      t.setAttribute('aria-selected', active ? 'true' : 'false')
+      if (active && tabsContainer) {
+        const scrollLeft = t.offsetLeft - (tabsContainer.clientWidth / 2) + (t.clientWidth / 2)
+        tabsContainer.scrollTo({ left: scrollLeft, behavior: 'smooth' })
       }
+    })
+
+    if (badgeEl) badgeEl.textContent = data.badge
+    if (kickerEl) kickerEl.textContent = data.kicker
+    titleEl.innerHTML = data.title
+    descEl.textContent = data.desc
+
+    if (statsRow) {
+      statsRow.innerHTML = data.stats.map(s => `
+        <div class="uc-stat-item">
+          <span class="uc-stat-val ${s.cls}">${s.val}</span>
+          <span class="uc-stat-lbl">${s.lbl}</span>
+        </div>
+      `).join('')
+    }
+
+    if (checklistEl) {
+      checklistEl.innerHTML = data.bullets.map(b => `
+        <li><span class="uc-checklist-ico">✓</span><span>${b}</span></li>
+      `).join('')
+    }
+
+    if (stageBox) {
+      stageBox.innerHTML = data.stages.map(st => `
+        <div class="uc-pipeline-step">
+          <div class="uc-psc-left">
+            <div class="uc-psc-icon" style="background:${st.iconBg}; color:${st.iconColor};">${st.num}</div>
+            <div>
+              <div class="uc-psc-title">${st.title}</div>
+              <div class="uc-psc-sub">${st.sub}</div>
+            </div>
+          </div>
+          <span class="uc-psc-tag ${st.tagCls}">${st.tag}</span>
+        </div>
+      `).join('')
+    }
+
+    if (jsonPreview) {
+      jsonPreview.innerHTML = data.json
+    }
+
+    // Micro-fade trigger
+    if (leftNarrative) {
+      leftNarrative.classList.remove('uc-anim-fade')
+      void leftNarrative.offsetWidth
+      leftNarrative.classList.add('uc-anim-fade')
+    }
+    if (stageBox) {
+      stageBox.classList.remove('uc-anim-fade')
+      void stageBox.offsetWidth
+      stageBox.classList.add('uc-anim-fade')
+    }
+
+    restartTimer()
+  }
+
+  function startTimer() {
+    stopTimer()
+    if (isPaused) return
+    autoTimer = setTimeout(() => {
+      activate(currentIndex + 1)
+    }, 5000)
+  }
+
+  function stopTimer() {
+    if (autoTimer) {
+      clearTimeout(autoTimer)
+      autoTimer = null
+    }
+  }
+
+  function restartTimer() {
+    stopTimer()
+    startTimer()
+  }
+
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => {
+      activate(i)
     })
   })
 
-  // Hydrate the initial panel from the card marked is-active.
-  const initial = cards.find(c => c.classList.contains('is-active')) || cards[0]
-  if (initial) activate(initial.dataset.ucCard)
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      activate(currentIndex - 1)
+    })
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      activate(currentIndex + 1)
+    })
+  }
+
+  // Hover Pause Handlers
+  if (root) {
+    root.addEventListener('mouseenter', () => {
+      isPaused = true
+      root.classList.add('is-paused')
+      stopTimer()
+      if (autoLabel) autoLabel.textContent = 'Paused (hovering) · Release to resume'
+    })
+    root.addEventListener('mouseleave', () => {
+      isPaused = false
+      root.classList.remove('is-paused')
+      if (autoLabel) autoLabel.textContent = 'Auto-sliding (5s) · Hover to pause'
+      restartTimer()
+    })
+  }
+
+  // Start auto-slide
+  startTimer()
 }
 
 if (document.readyState === 'loading') {
@@ -569,7 +815,7 @@ if (document.readyState === 'loading') {
   initUseCasesTabs()
 }
 
-/* ── HOW IT WORKS (Pattern D) — toggle active progress dot on scroll ─ */
+/* ── HOW IT WORKS (Pattern D) — step nav click-to-scroll & scroll-spy ─ */
 function initHowItWorks() {
   const root = document.querySelector('[data-howit-root]');
   if (!root) return;
@@ -578,22 +824,44 @@ function initHowItWorks() {
   if (!panels.length || !dots.length) return;
 
   function setActive(i) {
-    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+    dots.forEach((d, idx) => {
+      const isActive = idx === i;
+      d.classList.toggle('active', isActive);
+      if (isActive) d.setAttribute('aria-current', 'step');
+      else d.removeAttribute('aria-current');
+    });
+    panels.forEach((p, idx) => {
+      p.classList.toggle('in-view', idx === i);
+    });
   }
+
+  // Click-to-scroll with sticky navbar offset
+  dots.forEach((dot, idx) => {
+    dot.addEventListener('click', () => {
+      const targetPanel = panels[idx];
+      if (targetPanel) {
+        const top = targetPanel.getBoundingClientRect().top + window.pageYOffset - 96;
+        window.scrollTo({ top, behavior: 'smooth' });
+        setActive(idx);
+      }
+    });
+  });
 
   const io = new IntersectionObserver(
     (entries) => {
       let best = null;
       entries.forEach((e) => {
         if (!e.isIntersecting) return;
-        if (!best || e.boundingClientRect.top < best.boundingClientRect.top) best = e;
+        if (!best || Math.abs(e.boundingClientRect.top - 120) < Math.abs(best.boundingClientRect.top - 120)) {
+          best = e;
+        }
       });
       if (best) {
         const i = Number(best.target.getAttribute('data-howit-panel'));
         if (!Number.isNaN(i)) setActive(i);
       }
     },
-    { rootMargin: '-30% 0px -55% 0px', threshold: 0 }
+    { rootMargin: '-20% 0px -40% 0px', threshold: [0.1, 0.5] }
   );
 
   panels.forEach((p) => io.observe(p));

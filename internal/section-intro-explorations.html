@@ -2,44 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Section-intro explorations · AdeptSense (internal)</title>
+  <title>Section Header — V1 Centered & V1 Left Aligned · AdeptSense</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;600;700&family=Lora:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500&family=Lora:ital,wght@1,600&display=swap" rel="stylesheet">
   <style>
     /* ── TOKENS ── */
     :root {
-      --blue:       #4B1D95;
-      --blue-hover: #5A23B3;
-      --blue-dim:   #F3EFFB;
-      --blue-line:  #E5E7EB;
-      --blue-glow:  rgba(75, 29, 149, 0.22);
-      --green:      #10B981;
-      --ink:        #0B0B0F;
-      --ink-2:      #1F2937;
-      --ink-3:      #4B5563;
-      --ink-4:      #6B7280;
-      --bg:         #FAFAFA;
-      --surface:    #FFFFFF;
-      --border:     #E5E7EB;
-      --border-2:   #F3F4F6;
-      --r-sm:       6px;
-      --r:          10px;
-      --r-lg:       16px;
-      --container:  1440px;
-      --gutter:     64px;
-      --gutter-sm:  24px;
-      --ease:       cubic-bezier(0.4, 0, 0.2, 1);
-      --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
-      --font-display: 'Sora', 'Plus Jakarta Sans', sans-serif;
+      --blue:         #4B1D95;
+      --blue-hover:   #5A23B3;
+      --blue-dim:     #F3EFFB;
+      --blue-line:    #E5E7EB;
+      --blue-glow:    rgba(75, 29, 149, 0.22);
+      --ink:          #0B0B0F;
+      --ink-2:        #1F2937;
+      --ink-3:        #4B5563;
+      --ink-4:        #6B7280;
+      --bg:           #FAFAFA;
+      --surface:      #FFFFFF;
+      --border:       #E5E7EB;
+      --border-2:     #F3F4F6;
+      --r-sm:         6px;
+      --r:            10px;
+      --r-lg:         16px;
+      --container:    1440px;
+      --gutter:       64px;
+      --gutter-sm:    24px;
+      --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+      --font-sans:    'Plus Jakarta Sans', system-ui, sans-serif;
       --font-mono:    'JetBrains Mono', ui-monospace, monospace;
       --font-serif:   'Lora', Georgia, serif;
     }
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
     body {
-      font-family: var(--font-body);
+      font-family: var(--font-sans);
       background: var(--bg);
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
@@ -58,18 +56,19 @@
     }
     .nav-brand { font-weight: 700; letter-spacing: -0.01em; }
     .nav-brand span { color: var(--ink-4); font-weight: 500; }
-    .nav-links { display: flex; gap: 18px; }
-    .nav-links a {
-      color: var(--ink-3); text-decoration: none;
-      padding: 4px 10px; border-radius: 999px;
-      transition: color .15s var(--ease), background .15s var(--ease);
+    .nav-meta {
+      color: var(--blue);
+      background: var(--blue-dim);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
     }
-    .nav-links a:hover { color: var(--blue); background: var(--blue-dim); }
-    .nav-meta { color: var(--ink-4); font-family: var(--font-mono); font-size: 11px; }
 
     /* ── HEADER ── */
     .head {
-      max-width: 760px;
+      max-width: 880px;
       margin: 0 auto;
       padding: 64px var(--gutter) 24px;
       text-align: center;
@@ -84,512 +83,222 @@
       color: var(--blue);
       background: var(--blue-dim);
       border-radius: 999px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .head h1 {
-      font-family: var(--font-display);
-      font-size: clamp(28px, 4vw, 42px);
+      font-size: clamp(28px, 4vw, 40px);
       font-weight: 700;
       letter-spacing: -0.025em;
-      line-height: 1.1;
+      line-height: 1.15;
       margin: 0 0 14px;
     }
     .head p {
       font-size: 16px; line-height: 1.6;
       color: var(--ink-3); margin: 0;
     }
-    .head code {
-      font-family: var(--font-mono); font-size: 13px;
-      padding: 1px 6px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      color: var(--ink-2);
-    }
 
-    /* ── DEMO BAND ── */
-    .demo { padding: 56px var(--gutter); }
-    .demo + .demo { border-top: 1px solid var(--border); }
-    .demo-inner { max-width: 960px; margin: 0 auto; }
-    .demo-label {
-      display: flex; align-items: baseline; justify-content: space-between;
-      gap: 16px;
-      padding-bottom: 14px;
-      margin-bottom: 36px;
-      border-bottom: 1px dashed var(--border);
+    /* ── DEMO CONTAINER ── */
+    .demo-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px var(--gutter) 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
     }
-    .demo-label-text { display: flex; align-items: baseline; gap: 10px; }
-    .demo-label-num {
-      font-family: var(--font-mono); font-size: 11px;
-      font-weight: 600; letter-spacing: 0.08em;
-      color: var(--blue); background: var(--blue-dim);
-      padding: 2px 8px; border-radius: 999px;
-    }
-    .demo-label-title {
-      font-family: var(--font-display); font-size: 18px;
-      font-weight: 600; letter-spacing: -0.01em;
-    }
-    .demo-label-note {
-      font-family: var(--font-mono); font-size: 11px;
-      color: var(--ink-4); letter-spacing: 0.04em;
-    }
-    .demo-rule {
-      font-family: var(--font-mono); font-size: 12px;
-      color: var(--ink-4);
-      margin: 0 0 28px;
-      padding: 10px 14px;
+    .demo-card {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-    }
-    .demo-body {
-      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: var(--r-lg);
-      padding: 80px var(--gutter);
-      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(11, 11, 15, 0.04);
     }
-
-    /* ───────────────────────────────────────────────
-       SHARED CONTENT — every demo shows the same
-       section eyebrow / title / sub so only the
-       intro pattern varies.
-       ─────────────────────────────────────────────── */
-
-    /* Title and sub stay identical across demos */
-    .ix-title {
-      font-family: var(--font-display);
-      font-size: clamp(34px, 4.2vw, 48px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      margin: 0 0 16px;
-    }
-    .ix-title em {
-      font-family: var(--font-serif);
-      font-style: italic;
-      color: var(--blue);
-      font-weight: 600;
-    }
-    .ix-sub {
-      font-size: 17px; line-height: 1.6;
-      color: var(--ink-3);
-      max-width: 620px;
-      margin: 0;
-    }
-    .ix-sub code {
-      font-family: var(--font-mono); font-size: 13px;
-      padding: 2px 7px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--ink);
-    }
-
-    /* ───────────────────────────────────────────────
-       V0 — current live intro (centered stack)
-       ─────────────────────────────────────────────── */
-    .ix-v0 {
-      text-align: center;
-      max-width: 720px;
-    }
-    .ix-v0 .ix-label {
-      display: inline-block;
-      padding: 4px 12px;
-      font-family: var(--font-mono);
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--green);
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      margin-bottom: 22px;
-    }
-
-    /* ───────────────────────────────────────────────
-       P1 — Split intro (eyebrow left of giant title,
-       sub aligned under eyebrow). Most editorial.
-       ─────────────────────────────────────────────── */
-    .ix-p1 {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 32px 48px;
-      max-width: 880px;
-    }
-    .ix-p1 .col-label {
-      display: flex; flex-direction: column;
-      gap: 12px;
-    }
-    .ix-p1 .lbl-tag {
-      display: inline-flex; align-items: center;
-      gap: 8px;
-      padding: 4px 12px;
-      font-family: var(--font-mono);
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--green);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      align-self: flex-start;
-    }
-    .ix-p1 .lbl-tag::before {
-      content: "";
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-    }
-    .ix-p1 .lbl-meta {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--ink-4);
-      letter-spacing: 0.04em;
-    }
-    .ix-p1 .col-body {
-      display: flex; flex-direction: column;
-      gap: 16px;
-    }
-    .ix-p1 .col-body .ix-sub { margin: 0; }
-
-    /* ───────────────────────────────────────────────
-       P2 — Mono index kicker (used in code/terminal
-       brands). "02 / ENDPOINTS" then serif title.
-       ─────────────────────────────────────────────── */
-    .ix-p2 {
-      text-align: center;
-      max-width: 720px;
-    }
-    .ix-p2 .ix-kicker {
-      display: inline-flex; align-items: center;
-      gap: 10px;
-      padding: 6px 14px;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--ink-3);
-      letter-spacing: 0.04em;
-      margin-bottom: 22px;
-    }
-    .ix-p2 .ix-kicker::before { content: "[ "; color: var(--ink-4); }
-    .ix-p2 .ix-kicker::after  { content: " ]"; color: var(--ink-4); }
-    .ix-p2 .ix-kicker .num {
-      color: var(--blue);
-      font-weight: 700;
-      letter-spacing: 0.06em;
-    }
-
-    /* ───────────────────────────────────────────────
-       P3 — Underline-rule editorial. Kicker line on
-       top, big title, sub. Tag is a thin underline
-       drawn under "ENDPOINTS".
-       ─────────────────────────────────────────────── */
-    .ix-p3 {
-      max-width: 720px;
-    }
-    .ix-p3 .ix-tag {
-      display: inline-block;
-      padding: 0 2px 4px;
-      font-family: var(--font-mono);
-      font-size: 12px; font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--blue);
-      border-bottom: 2px solid var(--blue);
-      margin-bottom: 24px;
-    }
-
-    /* ───────────────────────────────────────────────
-       P4 — Numbered corner. Huge outlined number
-       behind the section, title/sub sit on top.
-       ─────────────────────────────────────────────── */
-    .ix-p4 {
-      position: relative;
-      max-width: 720px;
-      padding: 24px 0 0;
-    }
-    .ix-p4 .ix-num {
-      position: absolute;
-      top: -32px; right: -8px;
-      font-family: var(--font-display);
-      font-size: 240px;
-      font-weight: 800;
-      letter-spacing: -0.06em;
-      line-height: 1;
-      color: transparent;
-      -webkit-text-stroke: 2px var(--border);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .ix-p4 .ix-label {
-      position: relative; z-index: 1;
-      display: inline-block;
-      padding: 4px 12px;
-      font-family: var(--font-mono);
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--green);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      margin-bottom: 22px;
-    }
-    .ix-p4 .ix-title { position: relative; z-index: 1; margin-bottom: 16px; }
-    .ix-p4 .ix-sub   { position: relative; z-index: 1; }
-
-    /* ───────────────────────────────────────────────
-       P5 — Left-aligned editorial with vertical
-       brand rail. The section number is set rotated
-       90° on a tall thin purple bar that anchors the
-       intro. Title sits left-aligned in a wider body.
-       ─────────────────────────────────────────────── */
-    .ix-p5 {
-      display: grid;
-      grid-template-columns: 56px 1fr;
-      gap: 36px;
-      max-width: 880px;
-      align-items: stretch;
-    }
-    .ix-p5 .ix-rail {
-      position: relative;
-      background: var(--blue-dim);
-      border-radius: 4px;
+    .demo-card-header {
       display: flex;
       align-items: center;
-      justify-content: center;
-      min-height: 180px;
-      overflow: hidden;
+      justify-content: space-between;
+      padding: 16px 28px;
+      background: #FAFAFB;
+      border-bottom: 1px solid var(--border);
     }
-    .ix-p5 .ix-rail::before {
-      content: "";
-      position: absolute;
-      top: 14px; left: 50%;
-      transform: translateX(-50%);
-      width: 2px; height: 18px;
-      background: var(--blue);
-      border-radius: 1px;
-    }
-    .ix-p5 .ix-rail-num {
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--blue);
-      letter-spacing: 0.02em;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-    }
-    .ix-p5 .ix-rail-label {
-      position: absolute;
-      bottom: 14px; left: 50%;
-      transform: translateX(-50%) rotate(180deg);
-      writing-mode: vertical-rl;
+    .demo-card-title {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--blue);
+      color: var(--ink-2);
+      letter-spacing: 0.04em;
     }
-    .ix-p5 .col-body {
-      display: flex; flex-direction: column;
-      gap: 18px;
-      padding-top: 4px;
-    }
-    .ix-p5 .col-body .ix-kicker {
-      display: inline-flex; align-items: center;
-      gap: 8px;
+    .demo-card-badge {
       font-family: var(--font-mono);
-      font-size: 12px; font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--green);
-      margin: 0;
+      font-size: 11px;
+      color: var(--blue);
+      background: var(--blue-dim);
+      padding: 3px 8px;
+      border-radius: 4px;
     }
-    .ix-p5 .col-body .ix-kicker::before {
-      content: "";
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--green);
+    .demo-card-body {
+      padding: 64px 48px;
     }
 
-    /* Mobile */
-    @media (max-width: 640px) {
+    /* ═══════════════════════════════════════════════════════════════
+       SECTION HEADER COMPONENT SYSTEM
+       Standardized font size, color, and spacing for all variants.
+       ═══════════════════════════════════════════════════════════════ */
+    .section-header {
+      margin-bottom: 48px;
+    }
+    .section-header__title {
+      font-family: var(--font-sans);
+      font-size: clamp(30px, 3.8vw, 44px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin: 0 0 16px;
+    }
+    .section-header__title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: -0.02em;
+    }
+    .section-header__sub {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--ink-3);
+      max-width: 600px;
+      margin: 0;
+    }
+
+    /* Kicker for Variant 1 */
+    .section-header__kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .section-header__kicker::before { content: "[  "; color: var(--ink-4); }
+    .section-header__kicker::after  { content: "  ]"; color: var(--ink-4); }
+
+    /* 1. Section Header V1 Centered */
+    .section-header--v1-centered {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-header--v1-centered .section-header__sub {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* 2. Section Header V1 Left Aligned */
+    .section-header--v1-left-aligned {
+      text-align: left;
+    }
+    .section-header--v1-left-aligned .section-header__sub {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    /* ── CODE SPEC BLOCK ── */
+    .spec-block {
+      background: #0D1117;
+      border-top: 1px solid #21262D;
+      padding: 24px 28px;
+      color: #C9D1D9;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+    .spec-block h4 {
+      margin: 0 0 10px;
+      color: #8B949E;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .spec-tag { color: #7EE787; }
+    .spec-attr{ color: #79C0FF; }
+    .spec-str { color: #A5D6FF; }
+
+    @media (max-width: 768px) {
       .nav { padding: 12px var(--gutter-sm); }
-      .nav-links { display: none; }
-      .head { padding: 36px var(--gutter-sm) 18px; }
-      .demo { padding: 32px var(--gutter-sm); }
-      .demo-label { flex-direction: column; gap: 6px; }
-      .demo-body { padding: 36px var(--gutter-sm); }
-      .ix-p1 { grid-template-columns: 1fr; gap: 16px; }
-      .ix-p4 .ix-num { font-size: 140px; top: -16px; }
-      .ix-p5 { grid-template-columns: 32px 1fr; gap: 20px; }
-      .ix-p5 .ix-rail { min-height: 140px; }
+      .head { padding: 36px var(--gutter-sm) 16px; }
+      .demo-wrap { padding: 16px var(--gutter-sm) 48px; gap: 36px; }
+      .demo-card-body { padding: 40px 20px; }
     }
   </style>
 </head>
 <body>
 
   <nav class="nav">
-    <div class="nav-brand">AdeptSense <span>/ section-intro-explorations</span></div>
-    <div class="nav-links">
-      <a href="#v0">V0 · current</a>
-      <a href="#p1">P1 · split</a>
-      <a href="#p2">P2 · mono</a>
-      <a href="#p3">P3 · rule</a>
-      <a href="#p4">P4 · number</a>
-      <a href="#p5">P5 · rail</a>
-    </div>
-    <span class="nav-meta">v0.1 · internal only</span>
+    <div class="nav-brand">AdeptSense <span>/ Component Specs</span></div>
+    <span class="nav-meta">Section Header V1</span>
   </nav>
 
   <header class="head">
-    <span class="head-tag">Design exploration</span>
-    <h1>Four section-intro patterns for AdeptSense</h1>
-    <p>Same section (Endpoints) and same title/sub in every demo. Only the introductory label changes. The goal is to pick <strong>one pattern</strong> we'll repeat across the whole site so every section reads as part of one system.</p>
+    <span class="head-tag">Design System Standard</span>
+    <h1>Section Header Component</h1>
+    <p>Font size, colors, and vertical spacing are permanently standardized across all current and future variants.</p>
   </header>
 
-  <!-- ───── V0 · CURRENT (centered pill + title + sub) ───── -->
-  <section id="v0" class="demo">
-    <div class="demo-inner">
-      <div class="demo-label">
-        <div class="demo-label-text">
-          <span class="demo-label-num">V0</span>
-          <span class="demo-label-title">Current — centered pill / title / sub</span>
-        </div>
-        <span class="demo-label-note">live today · reference</span>
-      </div>
-      <p class="demo-rule">↑ What the live site ships today. Pill-shaped mono tag above a centered title and a constrained-width sub.</p>
+  <div class="demo-wrap">
 
-      <div class="demo-body">
-        <div class="ix-v0">
-          <span class="ix-label">Endpoints</span>
-          <h2 class="ix-title">Five endpoints.<br>One consistent <em>JSON contract.</em></h2>
-          <p class="ix-sub">Every endpoint returns the same envelope &mdash; <code>{ ok, data, error }</code>. Mix and match per workflow. Models trained and shipped in-house.</p>
-        </div>
+    <!-- ── 01. SECTION HEADER V1 CENTERED ── -->
+    <div class="demo-card">
+      <div class="demo-card-header">
+        <span class="demo-card-title">Section Header · V1 Centered</span>
+        <span class="demo-card-badge">.section-header--v1-centered</span>
+      </div>
+      <div class="demo-card-body">
+        <header class="section-header section-header--v1-centered">
+          <span class="section-header__kicker">SECTION NAME</span>
+          <h2 class="section-header__title">Clear section headline with <em>accent emphasis.</em></h2>
+          <p class="section-header__sub">Short supporting description providing clear context and value proposition for the section below.</p>
+        </header>
+      </div>
+      <div class="spec-block">
+        <h4>HTML Snippet:</h4>
+        <pre><code><span class="spec-tag">&lt;header</span> <span class="spec-attr">class=</span><span class="spec-str">"section-header section-header--v1-centered"</span><span class="spec-tag">&gt;</span>
+  <span class="spec-tag">&lt;span</span> <span class="spec-attr">class=</span><span class="spec-str">"section-header__kicker"</span><span class="spec-tag">&gt;</span>SECTION NAME<span class="spec-tag">&lt;/span&gt;</span>
+  <span class="spec-tag">&lt;h2</span> <span class="spec-attr">class=</span><span class="spec-str">"section-header__title"</span><span class="spec-tag">&gt;</span>Section headline with <span class="spec-tag">&lt;em&gt;</span>accent emphasis.<span class="spec-tag">&lt;/em&gt;&lt;/h2&gt;</span>
+  <span class="spec-tag">&lt;p</span> <span class="spec-attr">class=</span><span class="spec-str">"section-header__sub"</span><span class="spec-tag">&gt;</span>Short supporting description for the section.<span class="spec-tag">&lt;/p&gt;</span>
+<span class="spec-tag">&lt;/header&gt;</span></code></pre>
       </div>
     </div>
-  </section>
 
-  <!-- ───── P1 · SPLIT INTRO ───── -->
-  <section id="p1" class="demo">
-    <div class="demo-inner">
-      <div class="demo-label">
-        <div class="demo-label-text">
-          <span class="demo-label-num">P1</span>
-          <span class="demo-label-title">Split — left meta column, right body</span>
-        </div>
-        <span class="demo-label-note">editorial · newspaper</span>
+    <!-- ── 02. SECTION HEADER V1 LEFT ALIGNED ── -->
+    <div class="demo-card">
+      <div class="demo-card-header">
+        <span class="demo-card-title">Section Header · V1 Left Aligned</span>
+        <span class="demo-card-badge">.section-header--v1-left-aligned</span>
       </div>
-      <p class="demo-rule">↑ Two-column grid. Left rail holds the section number + tag; right side carries the title and sub. Reads like a magazine spread.</p>
-
-      <div class="demo-body">
-        <div class="ix-p1">
-          <div class="col-label">
-            <span class="lbl-tag">Endpoints</span>
-            <span class="lbl-meta">section · 02 / 10</span>
-          </div>
-          <div class="col-body">
-            <h2 class="ix-title">Five endpoints.<br>One consistent <em>JSON contract.</em></h2>
-            <p class="ix-sub">Every endpoint returns the same envelope &mdash; <code>{ ok, data, error }</code>. Mix and match per workflow. Models trained and shipped in-house.</p>
-          </div>
-        </div>
+      <div class="demo-card-body">
+        <header class="section-header section-header--v1-left-aligned">
+          <span class="section-header__kicker">SECTION NAME</span>
+          <h2 class="section-header__title">Left-aligned headline for <em>structured content.</em></h2>
+          <p class="section-header__sub">Perfect when content below is organized in multi-column cards, step flows, or side-by-side documentation layouts.</p>
+        </header>
+      </div>
+      <div class="spec-block">
+        <h4>HTML Snippet:</h4>
+        <pre><code><span class="spec-tag">&lt;header</span> <span class="spec-attr">class=</span><span class="spec-str">"section-header section-header--v1-left-aligned"</span><span class="spec-tag">&gt;</span>
+  <span class="spec-tag">&lt;span</span> <span class="spec-attr">class=</span><span class="spec-str">"section-header__kicker"</span><span class="spec-tag">&gt;</span>SECTION NAME<span class="spec-tag">&lt;/span&gt;</span>
+  <span class="spec-tag">&lt;h2</span> <span class="spec-attr">class=</span><span class="spec-str">"section-header__title"</span><span class="spec-tag">&gt;</span>Left-aligned headline for <span class="spec-tag">&lt;em&gt;</span>structured content.<span class="spec-tag">&lt;/em&gt;&lt;/h2&gt;</span>
+  <span class="spec-tag">&lt;p</span> <span class="spec-attr">class=</span><span class="spec-str">"section-header__sub"</span><span class="spec-tag">&gt;</span>Supporting descriptive text.<span class="spec-tag">&lt;/p&gt;</span>
+<span class="spec-tag">&lt;/header&gt;</span></code></pre>
       </div>
     </div>
-  </section>
 
-  <!-- ───── P2 · MONO INDEX KICKER ───── -->
-  <section id="p2" class="demo">
-    <div class="demo-inner">
-      <div class="demo-label">
-        <div class="demo-label-text">
-          <span class="demo-label-num">P2</span>
-          <span class="demo-label-title">Mono index kicker — "[ 02 / ENDPOINTS ]"</span>
-        </div>
-        <span class="demo-label-note">developer · log-style</span>
-      </div>
-      <p class="demo-rule">↑ Tiny mono kicker [ 02 / ENDPOINTS ] above the title. Same family as the A1 hero eyebrow we just shipped — repeats the visual motif.</p>
-
-      <div class="demo-body">
-        <div class="ix-p2">
-          <span class="ix-kicker"><span class="num">02</span> &nbsp;/&nbsp; ENDPOINTS</span>
-          <h2 class="ix-title">Five endpoints.<br>One consistent <em>JSON contract.</em></h2>
-          <p class="ix-sub">Every endpoint returns the same envelope &mdash; <code>{ ok, data, error }</code>. Mix and match per workflow. Models trained and shipped in-house.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───── P3 · UNDERLINE-RULE EDITORIAL ───── -->
-  <section id="p3" class="demo">
-    <div class="demo-inner">
-      <div class="demo-label">
-        <div class="demo-label-text">
-          <span class="demo-label-num">P3</span>
-          <span class="demo-label-title">Underline-rule — single label, underlined</span>
-        </div>
-        <span class="demo-label-note">typographic · kicker</span>
-      </div>
-      <p class="demo-rule">↑ The tag is a 2px-deep-purple underline rule drawn under "ENDPOINTS". Most typographic of the four. Title sits below at full width.</p>
-
-      <div class="demo-body">
-        <div class="ix-p3">
-          <span class="ix-tag">Endpoints</span>
-          <h2 class="ix-title">Five endpoints.<br>One consistent <em>JSON contract.</em></h2>
-          <p class="ix-sub">Every endpoint returns the same envelope &mdash; <code>{ ok, data, error }</code>. Mix and match per workflow. Models trained and shipped in-house.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───── P4 · GIANT OUTLINED NUMBER ───── -->
-  <section id="p4" class="demo">
-    <div class="demo-inner">
-      <div class="demo-label">
-        <div class="demo-label-text">
-          <span class="demo-label-num">P4</span>
-          <span class="demo-label-title">Numbered corner — huge outlined section number</span>
-        </div>
-        <span class="demo-label-note">architectural · identity</span>
-      </div>
-      <p class="demo-rule">↑ Most distinct option. A huge outlined "02" sits in the top-right corner of the intro block. The label/tag is the pill from V0.</p>
-
-      <div class="demo-body" style="background: var(--surface);">
-        <div class="ix-p4">
-          <span class="ix-num">02</span>
-          <div class="ix-label">Endpoints</div>
-          <h2 class="ix-title">Five endpoints.<br>One consistent <em>JSON contract.</em></h2>
-          <p class="ix-sub">Every endpoint returns the same envelope &mdash; <code>{ ok, data, error }</code>. Mix and match per workflow. Models trained and shipped in-house.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───── P5 · VERTICAL BRAND RAIL ───── -->
-  <section id="p5" class="demo">
-    <div class="demo-inner">
-      <div class="demo-label">
-        <div class="demo-label-text">
-          <span class="demo-label-num">P5</span>
-          <span class="demo-label-title">Vertical rail — purple side bar with rotated number</span>
-        </div>
-        <span class="demo-label-note">left-aligned · spine</span>
-      </div>
-      <p class="demo-rule">↑ Section number and label are rotated 90° on a thin deep-purple rail that anchors the left side of the intro. Title and sub are left-aligned (not centered). Gives every section a tactile "spine" you can see as you scroll.</p>
-
-      <div class="demo-body" style="background: var(--surface);">
-        <div class="ix-p5">
-          <div class="ix-rail">
-            <span class="ix-rail-num">02</span>
-            <span class="ix-rail-label">Endpoints</span>
-          </div>
-          <div class="col-body">
-            <span class="ix-kicker">Endpoints</span>
-            <h2 class="ix-title" style="text-align:left;">Five endpoints.<br>One consistent <em>JSON contract.</em></h2>
-            <p class="ix-sub" style="text-align:left;">Every endpoint returns the same envelope &mdash; <code>{ ok, data, error }</code>. Mix and match per workflow. Models trained and shipped in-house.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 
 </body>
 </html>

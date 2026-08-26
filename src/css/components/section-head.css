@@ -1,0 +1,100 @@
+/* ═══════════════════════════════════════════════════════════════
+   SECTION HEADER COMPONENT SYSTEM
+   ───────────────────────────────────────────────────────────────
+   Core typography, color, size, and spacing are standardized and 
+   remain identical across all current and future variants.
+   
+   ■ USAGE:
+   
+   1. Section Header V1 Centered:
+      <header class="section-header section-header--v1-centered">
+        <span class="section-header__kicker">SECTION NAME</span>
+        <h2 class="section-header__title">Section headline with <em>accent emphasis.</em></h2>
+        <p class="section-header__sub">Short supporting description providing context.</p>
+      </header>
+
+   2. Section Header V1 Left Aligned:
+      <header class="section-header section-header--v1-left-aligned">
+        <span class="section-header__kicker">SECTION NAME</span>
+        <h2 class="section-header__title">Section headline with <em>accent emphasis.</em></h2>
+        <p class="section-header__sub">Short supporting description providing context.</p>
+      </header>
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. BASE SECTION HEADER (Shared spacing & typography across all variants) ── */
+.section-header,
+.section-head {
+  margin-bottom: 48px;
+}
+
+.section-header__title,
+.section-head__title {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(30px, 3.8vw, 44px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+
+.section-header__title em,
+.section-head__title em {
+  font-family: var(--font-serif, 'Lora', serif);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--blue);
+  letter-spacing: -0.02em;
+}
+
+.section-header__sub,
+.section-head__sub {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-3);
+  max-width: 600px;
+  margin: 0;
+}
+
+/* ── 2. VARIANT 1: MONO BRACKET KICKER [ SECTION NAME ] ── */
+.section-header__kicker,
+.section-head__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.section-header__kicker::before,
+.section-head__kicker::before { content: "[  "; color: var(--ink-4); }
+.section-header__kicker::after,
+.section-head__kicker::after  { content: "  ]"; color: var(--ink-4); }
+
+/* ── 3. V1 CENTERED (Section Header V1 Centered) ── */
+.section-header--v1-centered,
+.section-head--center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-header--v1-centered .section-header__sub,
+.section-head--center .section-head__sub {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── 4. V1 LEFT ALIGNED (Section Header V1 Left Aligned) ── */
+.section-header--v1-left-aligned,
+.section-head--left {
+  text-align: left;
+}
+.section-header--v1-left-aligned .section-header__sub,
+.section-head--left .section-head__sub {
+  margin-left: 0;
+  margin-right: 0;
+}

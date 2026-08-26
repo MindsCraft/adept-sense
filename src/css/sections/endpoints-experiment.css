@@ -1,14 +1,24 @@
-/* ── ENDPOINT SVG VISUALIZATIONS & ANIMATIONS ──
-   Interactive SVG Stages with real-time terminal status readouts.
-   Matches endpoints-test.html specifications.                      */
+/* Endpoints SVG Visual Experiment CSS */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  --accent:         var(--blue);
-  --accent-hover:   var(--blue-hover);
-  --accent-pressed: var(--blue-pressed);
-  --accent-line:    rgba(75, 29, 149, 0.28);
-  --accent-soft:    var(--blue-dim);
-  --code-voice:     var(--voice, #26125B);
+  /* ---- brand tokens ---- */
+  --ink:            #000000;
+  --accent-hover:   #5A23B3;
+  --accent:         #4B1D95;
+  --accent-pressed: #3A1773;
+  --accent-line:    #D1C2EB;
+  --accent-soft:    #F3EFFB;
+  --code-voice:     #26125B;
+  --danger:         #BB2D2E;
+
+  --surface:  #FFFFFF;
+  --bg:       #F7F7F8;
+  --ink-2:    #0A0A0B;
+  --ink-3:    #3A3A3D;
+  --ink-4:    #6B6B70;
+  --border:   #E6E6E8;
+  --border-2: #F0F0F2;
 }
 
 /* Force ep-row-viz to center the visual card container */
@@ -24,7 +34,7 @@
   position: relative;
   width: 100%;
   max-width: 480px;
-  background: var(--surface);
+  background: transparent;
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 20px 20px 18px;
@@ -38,7 +48,7 @@
 
 .ep-viz-card:hover {
   border-color: var(--accent-line);
-  box-shadow: 0 16px 36px -12px rgba(38,18,91,0.18);
+  box-shadow: 0 16px 36px -12px rgba(38,18,91,0.22);
   transform: translateY(-2px);
 }
 
@@ -193,7 +203,7 @@
   font-weight: 500;
   color: var(--code-voice);
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-2);
   border-radius: 10px;
   padding: 10px 14px;
   height: 40px;
@@ -467,7 +477,7 @@
   fill: none;
 }
 .typed-text {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-weight: 500;
   font-size: 15px;
   fill: var(--ink);
@@ -479,12 +489,6 @@
   animation: blink 1s step-end infinite;
 }
 @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
-
-@keyframes charfade {
-  0%,28% { opacity:0; }
-  34%,96%{ opacity:1; }
-  100%   { opacity:0; }
-}
 
 .predicted-text {
   font-family: 'JetBrains Mono', monospace;
@@ -526,3 +530,7 @@
   opacity: 0;
   animation: badgein 6s cubic-bezier(.2,1.4,.4,1) infinite;
 }
+
+
+
+

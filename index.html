@@ -6,57 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AdeptSense — Identity Verification API</title>
   <meta name="description" content="Bangladesh's most precise identity verification API. ID card OCR, face match, liveness, name translation — all via one integration.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Lora:ital,wght@1,600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- ── NAV (shared — keep in sync with pricing.html, contact.html, service pages) ── -->
-<header id="site-header">
-  <nav id="navbar">
-    <a href="index.html" class="nav-logo">
-      <img src="/logo.png" alt="AdeptSense" class="logo-img">
-    </a>
-
-    <!-- Segment 1: Primary nav -->
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li class="nav-dropdown" aria-expanded="false">
-        <button type="button" class="nav-dropdown-trigger" aria-haspopup="true">
-          Services
-          <svg class="chev" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5"/></svg>
-        </button>
-        <ul class="nav-dropdown-panel" role="menu">
-          <li role="none"><a href="nid-ocr.html" role="menuitem"><span class="item-dot"></span>NID OCR</a></li>
-          <li role="none"><a href="face-match.html" role="menuitem"><span class="item-dot"></span>Face Match</a></li>
-          <li role="none"><a href="liveness.html" role="menuitem"><span class="item-dot"></span>Liveness</a></li>
-          <li role="none"><a href="name-translation.html" role="menuitem"><span class="item-dot"></span>Name Translation</a></li>
-          <li role="none"><a href="gender-estimation.html" role="menuitem"><span class="item-dot"></span>Gender Estimation</a></li>
-        </ul>
-      </li>
-      <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="docs.html">Docs</a></li>
-    </ul>
-
-    <!-- Divider -->
-    <span class="nav-divider" aria-hidden="true"></span>
-
-    <!-- Segment 2: Utilities -->
-    <div class="nav-right">
-      <a href="https://github.com/MindsCraft/adept-sense" class="nav-icon-link" aria-label="GitHub" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.71 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.16 1.18a10.96 10.96 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.44-2.7 5.41-5.27 5.7.41.36.78 1.06.78 2.13v3.16c0 .31.21.68.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5Z"/></svg>
-      </a>
-      <a href="contact.html" class="nav-util-link">Contact</a>
-    </div>
-
-    <!-- Segment 3: CTA -->
-    <a href="#" class="nav-cta">API Console
-      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6"/><path d="M6.5 3.5L9 6L6.5 8.5"/></svg>
-    </a>
-
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-</header>
+<!--#include file="_partials/navbar.html" -->
 
 <!-- ── HERO ── -->
 <section class="hero-e">
@@ -217,12 +173,10 @@
 <!-- ── ENDPOINTS (row-per-service) ── -->
 <section class="endpoints-wrap" id="endpoints">
   <div class="wrap">
-    <div class="endpoints-head reveal endpoints-head--p2l">
-      <div class="ep-head-inner">
-        <span class="ep-kicker"><span class="num">02</span> &nbsp;/&nbsp; ENDPOINTS</span>
-        <h2 class="section-title">Five endpoints.<br>One consistent <em>JSON contract.</em></h2>
-      </div>
-    </div>
+    <header class="section-header section-header--v1-centered reveal">
+      <span class="section-header__kicker">Endpoints</span>
+      <h2 class="section-header__title">Five endpoints.<br>One consistent <em>JSON contract.</em></h2>
+    </header>
 
     <div class="ep-rows ep-rows--card-b reveal">
 
@@ -241,36 +195,132 @@
           </div>
         </div>
         <div class="ep-row-viz">
-          <div class="viz-live">
-            <div class="viz-live-reticle">
-              <span class="viz-live-reticle-corner tl"></span>
-              <span class="viz-live-reticle-corner tr"></span>
-              <span class="viz-live-reticle-corner bl"></span>
-              <span class="viz-live-reticle-corner br"></span>
+          <div class="ep-viz-card">
+            <div class="stage">
+              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
+                <!-- camera reticle corners -->
+                <g stroke="var(--accent)" stroke-width="1.6" fill="none" opacity="0.65" stroke-linecap="round">
+                  <path d="M 88 40 L 88 28 L 100 28" />
+                  <path d="M 220 28 L 232 28 L 232 40" />
+                  <path d="M 88 168 L 88 180 L 100 180" />
+                  <path d="M 220 180 L 232 180 L 232 168" />
+                </g>
+
+                <!-- face outline -->
+                <ellipse class="face-outline" cx="160" cy="104" rx="58" ry="76"/>
+
+                <!-- mesh connecting landmarks -->
+                <g class="mesh">
+                  <line x1="133" y1="86" x2="187" y2="86"/>
+                  <line x1="133" y1="86" x2="160" y2="106"/>
+                  <line x1="187" y1="86" x2="160" y2="106"/>
+                  <line x1="160" y1="106" x2="142" y2="132"/>
+                  <line x1="160" y1="106" x2="178" y2="132"/>
+                  <line x1="142" y1="132" x2="178" y2="132"/>
+                  <line x1="112" y1="104" x2="133" y2="86"/>
+                  <line x1="208" y1="104" x2="187" y2="86"/>
+                  <line x1="112" y1="104" x2="142" y2="132"/>
+                  <line x1="208" y1="104" x2="178" y2="132"/>
+                  <line x1="142" y1="132" x2="160" y2="168"/>
+                  <line x1="178" y1="132" x2="160" y2="168"/>
+                </g>
+
+                <!-- landmark points, staggered pop-in as scan passes -->
+                <circle class="lm" cx="133" cy="86"  r="3" style="animation-delay:.05s"/>
+                <circle class="lm" cx="187" cy="86"  r="3" style="animation-delay:.10s"/>
+                <circle class="lm" cx="112" cy="104" r="3" style="animation-delay:.20s"/>
+                <circle class="lm" cx="208" cy="104" r="3" style="animation-delay:.22s"/>
+                <circle class="lm" cx="160" cy="106" r="3" style="animation-delay:.35s"/>
+                <circle class="lm" cx="142" cy="132" r="3" style="animation-delay:.55s"/>
+                <circle class="lm" cx="178" cy="132" r="3" style="animation-delay:.57s"/>
+                <circle class="lm" cx="160" cy="168" r="3" style="animation-delay:.80s"/>
+
+                <!-- scanning beam -->
+                <line class="scanline" x1="96" y1="30" x2="224" y2="30"/>
+
+                <!-- thinking ring, appears during analysis phase, near lower-right -->
+                <circle class="think-ring" cx="256" cy="170" r="14"/>
+
+                <!-- verdict badge -->
+                <circle class="badge-soft" cx="256" cy="170" r="20"/>
+                <circle class="badge-ring" cx="256" cy="170" r="16"/>
+                <path class="badge-check" d="M248 170 L254 176 L265 162"/>
+              </svg>
             </div>
-            <div class="viz-live-scan"></div>
-            <div class="viz-live-face"></div>
-            <div class="viz-live-badge">Liveness &middot; Passed</div>
+
+            <div class="status">
+              <span class="s1">&gt; scanning_face()<span style="opacity:.5;">_</span></span>
+              <span class="s2">&gt; analyzing_liveness_signals()</span>
+              <span class="s3">&gt; result: real_presence &#10003;</span>
+            </div>
           </div>
         </div>
       </div>
+
       <!-- ROW 02 — Face Match -->
       <div class="ep-row flip ep-row--card-b">
         <div class="ep-row-viz">
-          <div class="viz-face">
-            <div class="viz-face-portrait id">
-              <span class="viz-face-portrait-lbl">ID portrait</span>
+          <div class="ep-viz-card">
+            <div class="stage">
+              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
+                <!-- ID reference photo, static, already on file -->
+                <rect class="id-frame" x="30" y="46" width="70" height="98" rx="7"/>
+                <text class="id-label" x="65" y="154" text-anchor="middle">ID ON FILE</text>
+                <ellipse class="ref-outline" cx="65" cy="94" rx="21" ry="28"/>
+                <circle class="ref-lm" cx="57" cy="86"  r="2.2"/>
+                <circle class="ref-lm" cx="73" cy="86"  r="2.2"/>
+                <circle class="ref-lm" cx="65" cy="98"  r="2.2"/>
+                <circle class="ref-lm" cx="58" cy="108" r="2.2"/>
+                <circle class="ref-lm" cx="72" cy="108" r="2.2"/>
+
+                <!-- live selfie capture -->
+                <defs>
+                  <clipPath id="selfieClip">
+                    <ellipse cx="234" cy="98" rx="46" ry="60"/>
+                  </clipPath>
+                </defs>
+                <g clip-path="url(#selfieClip)">
+                  <image
+                    href="https://i.pravatar.cc/300?img=12"
+                    x="188" y="38" width="92" height="120"
+                    preserveAspectRatio="xMidYMid slice"/>
+                </g>
+                <ellipse class="live-outline" cx="234" cy="98" rx="46" ry="60"/>
+
+                <!-- comparison links between matching features -->
+                <g class="compare-line">
+                  <line x1="73" y1="86"  x2="216" y2="82"/>
+                  <line x1="57" y1="86"  x2="252" y2="82"/>
+                  <line x1="65" y1="98"  x2="234" y2="100"/>
+                  <line x1="58" y1="108" x2="220" y2="122"/>
+                  <line x1="72" y1="108" x2="248" y2="122"/>
+                </g>
+
+                <!-- live landmark points, popping in during scan -->
+                <circle class="lm" cx="216" cy="82"  r="3.2" style="animation-delay:.06s"/>
+                <circle class="lm" cx="252" cy="82"  r="3.2" style="animation-delay:.12s"/>
+                <circle class="lm" cx="234" cy="100" r="3.2" style="animation-delay:.30s"/>
+                <circle class="lm" cx="220" cy="122" r="3.2" style="animation-delay:.55s"/>
+                <circle class="lm" cx="248" cy="122" r="3.2" style="animation-delay:.60s"/>
+
+                <!-- scanning beam over the live selfie only -->
+                <line class="scanline" x1="188" y1="40" x2="280" y2="40"/>
+
+                <!-- thinking indicator between the two faces during compare phase -->
+                <circle class="think-ring" cx="150" cy="96" r="15"/>
+
+                <!-- verdict: match score + check -->
+                <text class="score-text" x="160" y="176">98.6% MATCH</text>
+                <circle class="badge-soft" cx="160" cy="150" r="17"/>
+                <circle class="badge-ring" cx="160" cy="150" r="14"/>
+                <path class="badge-check" d="M153 150 L158 155 L168 143"/>
+              </svg>
             </div>
-            <div class="viz-face-mid">
-              <div class="viz-face-score">
-                <small>Match score</small>
-                99.4%
-              </div>
-              <div class="viz-face-line"></div>
-              <span class="viz-face-caption">cosine similarity</span>
-            </div>
-            <div class="viz-face-portrait selfie">
-              <span class="viz-face-portrait-lbl">Live selfie</span>
+
+            <div class="status">
+              <span class="s1">&gt; capturing_live_selfie()<span style="opacity:.5;">_</span></span>
+              <span class="s2">&gt; comparing_facial_geometry()</span>
+              <span class="s3">&gt; match_score: 98.6% &#10003;</span>
             </div>
           </div>
         </div>
@@ -287,6 +337,7 @@
           </div>
         </div>
       </div>
+
       <div class="ep-sdk-bridge">
         <div class="ep-sdk-bridge-inner">
           <div class="ep-sdk-bridge-left">
@@ -342,6 +393,7 @@
           </div>
         </div>
       </div>
+
       <!-- ROW 03 — NID OCR -->
       <div class="ep-row ep-row--card-b">
         <div class="ep-row-text">
@@ -357,65 +409,102 @@
           </div>
         </div>
         <div class="ep-row-viz">
-          <div class="viz-nid-stage">
-            <div class="viz-nid back">
-              <div class="viz-nid-flag"><span class="viz-nid-flag-dot"></span>Government of Bangladesh</div>
-              <div class="viz-nid-name-bn">জাতীয় পরিচয়পত্র</div>
-              <div class="viz-nid-name-en">National ID Card</div>
-              <div class="viz-nid-meta">
-                <div class="viz-nid-meta-lbl">NID No</div>
-                <div class="viz-nid-meta-val">••••••••4821</div>
-                <div class="viz-nid-portrait"></div>
-              </div>
+          <div class="ep-viz-card">
+            <div class="stage">
+              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
+                <!-- the ID card being scanned -->
+                <rect class="card-body" x="34" y="14" width="252" height="102" rx="10"/>
+
+                <!-- clipPath for ID photo -->
+                <defs>
+                  <clipPath id="idPhotoClip">
+                    <rect x="50" y="28" width="50" height="62" rx="5"/>
+                  </clipPath>
+                </defs>
+                <g clip-path="url(#idPhotoClip)">
+                  <image href="https://i.pravatar.cc/200?img=33" x="50" y="28" width="50" height="62" preserveAspectRatio="xMidYMid slice"/>
+                </g>
+
+                <!-- chip icon, decorative -->
+                <rect class="chip" x="50" y="94" width="20" height="14" rx="3"/>
+                <line class="chip-line" x1="55" y1="98" x2="65" y2="98"/>
+                <line class="chip-line" x1="55" y1="103" x2="65" y2="103"/>
+
+                <!-- scanned text lines -->
+                <rect class="ocr-bar flash" x="112" y="30" width="98" height="6" rx="2" style="animation-delay:.05s"/>
+                <rect class="ocr-bar flash" x="112" y="46" width="120" height="5" rx="2" style="animation-delay:.20s"/>
+                <rect class="ocr-bar flash" x="112" y="60" width="80"  height="5" rx="2" style="animation-delay:.35s"/>
+                <rect class="ocr-bar flash" x="112" y="74" width="105" height="5" rx="2" style="animation-delay:.50s"/>
+                <rect class="ocr-bar flash" x="112" y="88" width="65"  height="5" rx="2" style="animation-delay:.65s"/>
+
+                <!-- scanning beam over the card -->
+                <line class="scanline" x1="40" y1="20" x2="280" y2="20"/>
+
+                <!-- extracted, structured fields read out below the card -->
+                <text class="field" x="40" y="140" style="animation-delay:0s">
+                  <tspan class="lbl">NAME</tspan><tspan class="val" dx="8">J. MITCHELL</tspan>
+                </text>
+                <text class="field" x="40" y="158" style="animation-delay:.06s">
+                  <tspan class="lbl">DOB</tspan><tspan class="val" dx="14">14 MAR 1994</tspan>
+                </text>
+                <text class="field" x="40" y="176" style="animation-delay:.12s">
+                  <tspan class="lbl">ID NO</tspan><tspan class="val" dx="6">BD-4471029</tspan>
+                </text>
+
+                <!-- verified stamp on the card corner -->
+                <circle class="badge-soft" cx="272" cy="20" r="14"/>
+                <circle class="badge-ring" cx="272" cy="20" r="11"/>
+                <path class="badge-check" d="M266 20 L270 24 L279 14"/>
+              </svg>
             </div>
-            <div class="viz-nid front">
-              <div class="viz-nid-flag"><span class="viz-nid-flag-dot"></span>Govt. of the People's Republic of Bangladesh</div>
-              <div class="viz-nid-name-bn">মোঃ রফিকুল ইসলাম</div>
-              <div class="viz-nid-name-en">Md. Rafiqul Islam</div>
-              <div class="viz-nid-meta">
-                <div class="viz-nid-meta-l">
-                  <span class="viz-nid-meta-lbl">DOB</span>
-                  <span class="viz-nid-meta-val">12 Apr 1987</span>
-                </div>
-                <div class="viz-nid-portrait"></div>
-              </div>
-            </div>
-            <div class="viz-nid-scan">
-              <span class="viz-nid-scan-tag">OCR</span>
-            </div>
-            <div class="viz-nid-readout">
-              <div class="viz-nid-readout-row"><span class="k">name_en</span><span class="v">Rafiqul Islam</span></div>
-              <div class="viz-nid-readout-row"><span class="k">name_bn</span><span class="v bn">রফিকুল ইসলাম</span></div>
-              <div class="viz-nid-readout-row"><span class="k">nid</span><span class="v">••••••4821</span></div>
-              <div class="viz-nid-readout-row"><span class="k">region</span><span class="v">BD-Dhaka</span></div>
+
+            <div class="status">
+              <span class="s1">&gt; scanning_document()<span style="opacity:.5;">_</span></span>
+              <span class="s2">&gt; extracting_fields()</span>
+              <span class="s3">&gt; fields_verified &#10003;</span>
             </div>
           </div>
         </div>
       </div>
+
       <!-- ROW 04 — Name Translation -->
       <div class="ep-row flip ep-row--card-b">
         <div class="ep-row-viz">
-          <div class="viz-name">
-            <span class="viz-name-pill">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 8h6M8 5v6"/></svg>
-              Translation engine
-            </span>
-            <div class="viz-name-card">
-              <div class="viz-name-from">
-                <span class="viz-name-lbl">Bangla</span>
-                <span class="viz-name-from-val">মোঃ সুমাইয়া রহমান</span>
-              </div>
-              <div class="viz-name-arrow">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </div>
-              <div class="viz-name-to">
-                <span class="viz-name-lbl">English</span>
-                <span class="viz-name-to-val">Sumaiya Rahman</span>
-              </div>
+          <div class="ep-viz-card">
+            <div class="stage">
+              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
+                <!-- Step 1: Box 1 (TOP) - Input Bangla with left-to-right scanline -->
+                <text class="chip-label" x="160" y="20" text-anchor="middle">INPUT BANGLA</text>
+                <rect class="chip-box" x="52" y="26" width="216" height="42" rx="8"/>
+                <text class="native-text" x="160" y="52" text-anchor="middle">মোঃ সুমাইয়া রহমান</text>
+                <line class="scanline-lr" x1="60" y1="28" x2="60" y2="66"/>
+
+                <!-- Step 2: Center AI loading icon working in back -->
+                <g class="trans-engine">
+                  <path class="static-arrow" d="M160 74 L160 94" opacity=".4"/>
+                  <path class="static-arrow" d="M155 89 L160 95 L165 89" opacity=".4"/>
+                  <circle class="think-ring-trans" cx="160" cy="84" r="10"/>
+                </g>
+
+                <!-- Step 3: Box 2 (BOTTOM) - Clean Transliterated English appears -->
+                <text class="chip-label" x="160" y="104" text-anchor="middle">CLEAN TRANSLITERATION</text>
+                <rect class="chip-box" x="52" y="110" width="216" height="42" rx="8"/>
+                <text class="translit-text" x="160" y="136" text-anchor="middle">Md. Sumaiya Rahman</text>
+
+                <!-- Step 4: Top-Right Success Sign on 2nd Box finishing animation -->
+                <circle class="badge-soft-tr" cx="264" cy="110" r="12"/>
+                <circle class="badge-ring-tr" cx="264" cy="110" r="9"/>
+                <path class="badge-check-tr" d="M260 110 L263 113 L269 106"/>
+
+                <!-- Bottom Confidence Readout -->
+                <text class="score-text" x="160" y="184" text-anchor="middle">0.984 CONFIDENCE &middot; ROMANIZED MATCH</text>
+              </svg>
             </div>
-            <div class="viz-name-meta">
-              <span>Confidently romanized</span>
-              <span><strong>0.971</strong> confidence</span>
+
+            <div class="status">
+              <span class="s1">&gt; input: "মোঃ সুমাইয়া রহমান"<span style="opacity:.5;">_</span></span>
+              <span class="s2">&gt; parsing_honorifics_and_surname()</span>
+              <span class="s3">&gt; result: "Md. Sumaiya Rahman" &#10003;</span>
             </div>
           </div>
         </div>
@@ -432,6 +521,7 @@
           </div>
         </div>
       </div>
+
       <!-- ROW 05 — Gender Estimation -->
       <div class="ep-row ep-row--card-b">
         <div class="ep-row-text">
@@ -447,28 +537,52 @@
           </div>
         </div>
         <div class="ep-row-viz">
-          <div class="viz-gender">
-            <div class="viz-gender-input">
-              <span class="viz-gender-input-lbl">Input &middot; first_name</span>
-              <div class="viz-gender-field">
-                Sumaiya<span class="viz-gender-cursor"></span>
-              </div>
+          <div class="ep-viz-card">
+            <div class="stage">
+              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
+                <!-- the first name, entered during onboarding -->
+                <text class="field-label" x="160" y="24">FIRST NAME</text>
+                <rect class="field-box" x="56" y="30" width="208" height="32" rx="8"/>
+                <text class="typed-text" x="70" y="52" style="animation-delay:.30s">S</text>
+                <text class="typed-text" x="82" y="52" style="animation-delay:.42s">A</text>
+                <text class="typed-text" x="94" y="52" style="animation-delay:.54s">M</text>
+                <text class="typed-text" x="107" y="52" style="animation-delay:.66s">I</text>
+                <text class="typed-text" x="115" y="52" style="animation-delay:.78s">R</text>
+                <text class="typed-text" x="126" y="52" style="animation-delay:.90s">A</text>
+                <rect class="cursor" x="139" y="40" width="1.6" height="16"/>
+
+                <!-- AI resolves the prediction -->
+                <path class="static-arrow" d="M160 68 L160 80" opacity=".55"/>
+                <path class="static-arrow" d="M155 75 L160 81 L165 75" opacity=".55"/>
+                <circle class="think-ring" cx="160" cy="90" r="15"/>
+
+                <!-- predicted gender, auto-filled into the dropdown -->
+                <text class="field-label" x="160" y="108">PREDICTED GENDER</text>
+                <rect class="field-box" x="56" y="114" width="208" height="32" rx="8"/>
+                <text class="predicted-text" x="70" y="135">Female</text>
+                <text class="conf-text" x="222" y="134">92% conf.</text>
+                <path class="chevron" d="M240 126 L246 132 L252 126" opacity=".7"/>
+
+                <circle class="badge-soft" cx="278" cy="130" r="12"/>
+                <circle class="badge-ring" cx="278" cy="130" r="9.5"/>
+                <path class="badge-check" d="M273 130 L277 134 L284 125"/>
+
+                <!-- where the prediction gets used -->
+                <rect class="use-pill" x="34"  y="170" width="76" height="20" rx="10" style="animation-delay:.05s"/>
+                <text class="use-label" x="72" y="183" style="animation-delay:.05s">ONBOARDING</text>
+
+                <rect class="use-pill" x="118" y="170" width="68" height="20" rx="10" style="animation-delay:.10s"/>
+                <text class="use-label" x="152" y="183" style="animation-delay:.10s">ANALYTICS</text>
+
+                <rect class="use-pill" x="194" y="170" width="86" height="20" rx="10" style="animation-delay:.15s"/>
+                <text class="use-label" x="237" y="183" style="animation-delay:.15s">COMPLIANCE</text>
+              </svg>
             </div>
-            <div class="viz-gender-bar">
-              <div class="viz-gender-bar-cell f">
-                <span class="name">Female</span>
-                <span class="pct">92%</span>
-                <div class="track"><i></i></div>
-              </div>
-              <div class="viz-gender-bar-cell m">
-                <span class="name">Male</span>
-                <span class="pct">8%</span>
-                <div class="track"><i></i></div>
-              </div>
-            </div>
-            <div class="viz-gender-result">
-              <span>Predicted: <span class="strong">female</span></span>
-              <span class="conf">0.92 confidence</span>
+
+            <div class="status">
+              <span class="s1">&gt; reading_first_name()<span style="opacity:.5;">_</span></span>
+              <span class="s2">&gt; predicting_gender()</span>
+              <span class="s3">&gt; dropdown_autofilled &#10003;</span>
             </div>
           </div>
         </div>
@@ -478,381 +592,284 @@
   </div>
 </section>
 
-<!-- â”€â”€ HOW IT WORKS â€” Pattern D (sticky-scroll narrative) â”€â”€ -->
-<section class="howit-wrap" id="how-it-works" data-howit-root>
+<!-- ── USE CASES — Split Architectural Sandbox Deck ── -->
+<section class="usecases-wrap reveal" id="use-cases">
   <div class="wrap">
-    <div class="howit-d-frame">
-      <aside class="howit-d-left">
-        <span class="shared-eyebrow">Three steps</span>
-        <h3>From <em>document</em> to <em>decision.</em></h3>
-        <p>The same JSON contract every endpoint returns. Sessions are idempotent, retries are safe, and verified payloads are signed.</p>
+    <header class="section-header section-header--v1-left-aligned reveal">
+      <span class="section-header__kicker">Verticals in Production</span>
+      <h2 class="section-header__title">Engineered for industries<br>where trust <em>cannot fail.</em></h2>
+      <p class="section-header__sub">Select your vertical to see live API payload pipelines, sub-second latency SLA benchmarks, and compliance guarantees.</p>
+    </header>
 
-        <nav class="howit-d-progress" aria-label="Step progress">
-          <div class="howit-d-progress-row active" data-howit-step="0">
-            <span class="howit-d-progress-bullet"></span>
-            <span>01 &middot; Session</span>
+    <!-- Tabs Controls Bar & Visual Indicators -->
+    <div class="uc-tabs-header">
+      <div class="uc-auto-indicator">
+        <span class="uc-auto-dot"></span>
+        <span id="uc-auto-label">Auto-sliding (5s) · Hover to pause</span>
+      </div>
+      <div class="uc-nav-arrows">
+        <button type="button" class="uc-arrow-btn" id="uc-prev-btn" aria-label="Previous vertical">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="uc-arrow-btn" id="uc-next-btn" aria-label="Next vertical">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Horizontal Tabs Switcher -->
+    <div class="uc-tabs-wrapper">
+      <div class="uc-tabs-bar" role="tablist" aria-label="Use Case Verticals" id="uc-tabs">
+        <button class="uc-tab-btn active" type="button" role="tab" aria-selected="true" data-target="fintech">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M9 13h2M13 9h2M13 13h2M9 17h6"/></svg>
+          <span>Fintech &amp; Digital Wallets</span>
+          <span class="uc-tab-progress"></span>
+        </button>
+        <button class="uc-tab-btn" type="button" role="tab" aria-selected="false" data-target="hr">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 21c.5-3.5 3-6 6-6s5.5 2.5 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M14 21c.3-2.4 1.7-4 3-4s2.7 1.6 3 4"/></svg>
+          <span>HR &amp; Workforce</span>
+          <span class="uc-tab-progress"></span>
+        </button>
+        <button class="uc-tab-btn" type="button" role="tab" aria-selected="false" data-target="healthcare">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-7 11-7 11z"/><path d="M9 11h2v4M13 11h2"/></svg>
+          <span>Healthcare &amp; Telehealth</span>
+          <span class="uc-tab-progress"></span>
+        </button>
+        <button class="uc-tab-btn" type="button" role="tab" aria-selected="false" data-target="ecommerce">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h2l3 12h11l2-9H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+          <span>E-Commerce &amp; Marketplaces</span>
+          <span class="uc-tab-progress"></span>
+        </button>
+        <button class="uc-tab-btn" type="button" role="tab" aria-selected="false" data-target="mobility">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17V9l3-4h8l3 4v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><circle cx="8" cy="14" r="1.2"/><circle cx="16" cy="14" r="1.2"/></svg>
+          <span>Ride-sharing &amp; Logistics</span>
+          <span class="uc-tab-progress"></span>
+        </button>
+        <button class="uc-tab-btn" type="button" role="tab" aria-selected="false" data-target="igaming">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="3"/><path d="M8 12h2M8 15h6M14 12h2"/><circle cx="17" cy="8" r="0.8"/></svg>
+          <span>iGaming &amp; Crypto</span>
+          <span class="uc-tab-progress"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Deck Container -->
+    <div class="uc-deck" id="uc-deck">
+      <!-- Left Narrative Column -->
+      <div class="uc-deck-left">
+        <div>
+          <div class="uc-kicker-row">
+            <span class="uc-kicker-badge" id="uc-badge-text">Production Live</span>
+            <span class="uc-kicker-tag" id="uc-kicker-text">FINTECH &amp; DIGITAL BANKING</span>
           </div>
-          <div class="howit-d-progress-row" data-howit-step="1">
-            <span class="howit-d-progress-bullet"></span>
-            <span>02 &middot; Collect</span>
+          <h3 class="uc-deck-title" id="uc-title-text">
+            Onboard customers in sub-seconds <em>without KYC drop-off.</em>
+          </h3>
+          <p class="uc-deck-desc" id="uc-desc-text">
+            Leading digital banks replace manual back-office queues with AdeptSense drop-in biometric verification. Smart card NID OCR, passive 3D liveness, and 1:1 facial matching execute seamlessly in one unified API session.
+          </p>
+
+          <!-- Metrics Row -->
+          <div class="uc-stats-row" id="uc-stats-row">
+            <div class="uc-stat-item">
+              <span class="uc-stat-val green">99.4%</span>
+              <span class="uc-stat-lbl">Field Precision</span>
+            </div>
+            <div class="uc-stat-item">
+              <span class="uc-stat-val accent">~840ms</span>
+              <span class="uc-stat-lbl">p50 Pipeline</span>
+            </div>
+            <div class="uc-stat-item">
+              <span class="uc-stat-val">0 ops</span>
+              <span class="uc-stat-lbl">Manual Queue</span>
+            </div>
           </div>
-          <div class="howit-d-progress-row" data-howit-step="2">
-            <span class="howit-d-progress-bullet"></span>
-            <span>03 &middot; Verify</span>
+
+          <!-- Feature Bullets -->
+          <ul class="uc-checklist" id="uc-checklist">
+            <li><span class="uc-checklist-ico">✓</span><span>Full compliance with Bangladesh Bank e-KYC guidelines out of the box.</span></li>
+            <li><span class="uc-checklist-ico">✓</span><span>Idempotent session tokens with webhook + real-time polling fallback.</span></li>
+            <li><span class="uc-checklist-ico">✓</span><span>Automatic PII encryption &amp; configurable purge policies.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right Visual Telemetry Column -->
+      <div class="uc-visual-container">
+        <div class="uc-viz-head">
+          <div class="uc-viz-status">
+            <span class="pulse"></span>
+            <span id="uc-sim-status">PIPELINE EXECUTION: 200 OK</span>
           </div>
-        </nav>
-      </aside>
+          <span class="uc-viz-meta" id="uc-sim-meta">Dhaka Core · 142ms</span>
+        </div>
 
-      <div class="howit-d-right">
-        <article class="howit-d-panel" data-howit-panel="0">
-          <div class="howit-d-panel-head">
-            <div class="howit-d-panel-num">1</div>
-            <span class="howit-d-panel-kicker">Step 01 &middot; ~120 ms</span>
+        <div class="uc-stage-box" id="uc-stage-box">
+          <!-- Step 1 -->
+          <div class="uc-pipeline-step">
+            <div class="uc-psc-left">
+              <div class="uc-psc-icon" style="background:rgba(121,192,255,0.15); color:var(--code-fn);">01</div>
+              <div>
+                <div class="uc-psc-title">Smart NID Document Parser</div>
+                <div class="uc-psc-sub">Bangla OCR · 99.4% Field Match</div>
+              </div>
+            </div>
+            <span class="uc-psc-tag pass">PASSED</span>
           </div>
-          <h4>Start a verification session</h4>
-          <p>Create a session, pick the integration mode, and get back a hosted WebView URL or an SDK token. Sessions expire after 10 minutes and are idempotent on retry.</p>
-          <div class="howit-d-panel-term"><span class="cm">// POST /v1/sessions</span>
-<span class="kw">body</span> = <span class="acc">{</span>
-  <span class="jk">"mode"</span>:        <span class="jv">"webview"</span>,
-  <span class="jk">"locale"</span>:      <span class="jv">"bn-BD"</span>,
-  <span class="jk">"expiry_secs"</span>: <span class="jv">600</span>
-<span class="acc">}</span>
 
-<span class="cm">// â†’ 200 OK</span>
-{ <span class="jk">"ok"</span>: <span class="jv">true</span>, <span class="jk">"data"</span>: <span class="acc">{</span> <span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span> <span class="acc">}</span> }</div>
-        </article>
-
-        <article class="howit-d-panel" data-howit-panel="1">
-          <div class="howit-d-panel-head">
-            <div class="howit-d-panel-num">2</div>
-            <span class="howit-d-panel-kicker">Step 02 &middot; ~680 ms</span>
+          <!-- Step 2 -->
+          <div class="uc-pipeline-step">
+            <div class="uc-psc-left">
+              <div class="uc-psc-icon" style="background:rgba(167,139,250,0.15); color:var(--code-acc);">02</div>
+              <div>
+                <div class="uc-psc-title">1:1 Biometric Face Match</div>
+                <div class="uc-psc-sub">Vector Cosine: 0.994 score</div>
+              </div>
+            </div>
+            <span class="uc-psc-tag pass">99.4% MATCH</span>
           </div>
-          <h4>Collect identity data</h4>
-          <p>Upload NID front and back images, capture a selfie, and run a passive liveness check &mdash; all in one multipart request. Storage is encrypted in transit and at rest.</p>
-          <div class="howit-d-panel-term"><span class="cm">// multipart/form-data &middot; /v1/uploads/{session_id}</span>
-<span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"front_image"</span>, <span class="jv">"file://front.jpg"</span>)
-<span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"back_image"</span>,  <span class="jv">"file://back.jpg"</span>)
-<span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"selfie"</span>,      <span class="jv">"file://selfie.jpg"</span>)
-<span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"liveness"</span>,    <span class="jv">true</span>)
 
-<span class="cm">// â†’ 202 Accepted &middot; upload_id returned</span></div>
-        </article>
-
-        <article class="howit-d-panel" data-howit-panel="2">
-          <div class="howit-d-panel-head">
-            <div class="howit-d-panel-num">3</div>
-            <span class="howit-d-panel-kicker">Step 03 &middot; ~140 ms</span>
+          <!-- Step 3 -->
+          <div class="uc-pipeline-step">
+            <div class="uc-psc-left">
+              <div class="uc-psc-icon" style="background:rgba(86,211,100,0.15); color:var(--code-val);">03</div>
+              <div>
+                <div class="uc-psc-title">Passive 3D Liveness Check</div>
+                <div class="uc-psc-sub">iBeta Level 2 PAD Anti-Spoof</div>
+              </div>
+            </div>
+            <span class="uc-psc-tag pass">REAL PERSON</span>
           </div>
-          <h4>Receive the verified JSON</h4>
-          <p>Run the verification, then read the structured <code>{ ok, data, error }</code> envelope. Score fields are normalized so the same shape works for every endpoint.</p>
-          <div class="howit-d-panel-term"><span class="cm">// POST /v1/nid/verify</span>
-<span class="kw">body</span> = <span class="acc">{</span> <span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span> <span class="acc">}</span>
+        </div>
 
-<span class="cm">// â†’ 200 OK</span>
-<span class="acc">{</span>
-  <span class="jk">"verified"</span>:      <span class="jv">true</span>,
-  <span class="jk">"name_en"</span>:       <span class="jv">"Md. Rafiqul Islam"</span>,
-  <span class="jk">"nid"</span>:           <span class="jv">"&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;4821"</span>,
-  <span class="jk">"match_score"</span>:   <span class="jv">0.994</span>,
-  <span class="jk">"liveness_score"</span>: <span class="jv">0.97</span>
-<span class="acc">}</span></div>
-        </article>
+        <!-- Output JSON Contract -->
+        <div class="uc-code-block" id="uc-json-preview">
+          <span class="cm">// Verified Output Payload</span><br>
+          { <span class="key">"verified"</span>: <span class="val">true</span>, <span class="key">"risk_score"</span>: <span class="val">0.002</span>, <span class="key">"kyc_tier"</span>: <span class="str">"APPROVED_LEVEL_3"</span>, <span class="key">"signed_token"</span>: <span class="acc">"jwt_live_8f3a..."</span> }
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- â”€â”€ USE CASES â€” Pattern C2 (horizontal scroll-snap card row) â”€â”€ -->
-<section class="usecases-wrap" id="use-cases" data-uc-root>
+<!-- ── HOW IT WORKS — Bento Telemetry Stack (Concept 01) ── -->
+<section class="howit-wrap" id="how-it-works">
   <div class="wrap">
-    <div class="reveal">
-      <span class="label-tag">Use Cases</span>
-      <h2 class="section-title">Built for the platforms<br>where trust matters most.</h2>
-      <p class="section-sub">Whether you&apos;re onboarding customers, employees, or third-party vendors â€” pick a vertical and AdeptSense fits your stack.</p>
-    </div>
+    <header class="section-header section-header--v1-left-aligned reveal">
+      <span class="section-header__kicker">Three steps</span>
+      <h2 class="section-header__title">From <em>document</em> to <em>decision.</em></h2>
+      <p class="section-header__sub">The same JSON contract every endpoint returns. Sessions are idempotent, retries are safe, and verified payloads are signed.</p>
+    </header>
 
-    <div class="uc-cards reveal" role="tablist" aria-label="Use case verticals">
-      <button class="uc-card is-active" type="button" role="tab" aria-selected="true" data-uc-card="fintech" tabindex="0">
-        <div class="uc-card-head">
-          <span class="uc-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M9 13h2M13 9h2M13 13h2M9 17h6"/></svg></span>
-          <span class="uc-card-num">01 / 06</span>
-        </div>
-        <div>
-          <h3 class="uc-card-name">Fintech &amp; KYC</h3>
-          <p class="uc-card-teaser">Onboard customers without breaking conversion.</p>
-        </div>
-      </button>      <button class="uc-card" type="button" role="tab" aria-selected="false" data-uc-card="hr" tabindex="-1">
-        <div class="uc-card-head">
-          <span class="uc-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 21c.5-3.5 3-6 6-6s5.5 2.5 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M14 21c.3-2.4 1.7-4 3-4s2.7 1.6 3 4"/></svg></span>
-          <span class="uc-card-num">02 / 06</span>
-        </div>
-        <div>
-          <h3 class="uc-card-name">HR &amp; Onboarding</h3>
-          <p class="uc-card-teaser">Verify every new hire before they pick up a badge.</p>
-        </div>
-      </button>      <button class="uc-card" type="button" role="tab" aria-selected="false" data-uc-card="health" tabindex="-1">
-        <div class="uc-card-head">
-          <span class="uc-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-7 11-7 11z"/><path d="M9 11h2v4M13 11h2"/></svg></span>
-          <span class="uc-card-num">03 / 06</span>
-        </div>
-        <div>
-          <h3 class="uc-card-name">Healthcare</h3>
-          <p class="uc-card-teaser">Verify the patient, not just the appointment.</p>
-        </div>
-      </button>      <button class="uc-card" type="button" role="tab" aria-selected="false" data-uc-card="ecom" tabindex="-1">
-        <div class="uc-card-head">
-          <span class="uc-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h2l3 12h11l2-9H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg></span>
-          <span class="uc-card-num">04 / 06</span>
-        </div>
-        <div>
-          <h3 class="uc-card-name">E-commerce</h3>
-          <p class="uc-card-teaser">Build trust on both sides of every transaction.</p>
-        </div>
-      </button>      <button class="uc-card" type="button" role="tab" aria-selected="false" data-uc-card="mobility" tabindex="-1">
-        <div class="uc-card-head">
-          <span class="uc-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17V9l3-4h8l3 4v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><circle cx="8" cy="14" r="1.2"/><circle cx="16" cy="14" r="1.2"/></svg></span>
-          <span class="uc-card-num">05 / 06</span>
-        </div>
-        <div>
-          <h3 class="uc-card-name">Ride-sharing</h3>
-          <p class="uc-card-teaser">Verify drivers before their first trip.</p>
-        </div>
-      </button>      <button class="uc-card" type="button" role="tab" aria-selected="false" data-uc-card="igaming" tabindex="-1">
-        <div class="uc-card-head">
-          <span class="uc-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="3"/><path d="M8 12h2M8 15h6M14 12h2"/><circle cx="17" cy="8" r="0.8"/></svg></span>
-          <span class="uc-card-num">06 / 06</span>
-        </div>
-        <div>
-          <h3 class="uc-card-name">iGaming &amp; Crypto</h3>
-          <p class="uc-card-teaser">Stay compliant without losing signup conversion.</p>
-        </div>
-      </button>
-    </div>
+    <div class="howit-bento reveal">
+      <!-- Tile 1: Step 01 Session (6 cols) -->
+      <div class="howit-card howit-tile-step1">
+        <span class="howit-step-tag">Step 01 &middot; ~120 ms</span>
+        <h3 class="howit-title">Start a verification session</h3>
+        <p class="howit-desc">Create a session, pick the integration mode, and get back a hosted WebView URL or an SDK token. Sessions expire after 10 minutes and are idempotent on retry.</p>
 
-    <article class="uc-panel" data-uc-panel role="tabpanel" aria-live="polite"></article>
-  </div>
+        <div class="howit-term">
+          <span class="cm">// POST /v1/sessions</span><br>
+          <span class="kw">body</span> = <span class="acc">{</span><br>
+          &nbsp;&nbsp;<span class="jk">"mode"</span>:        <span class="jv">"webview"</span>,<br>
+          &nbsp;&nbsp;<span class="jk">"locale"</span>:      <span class="jv">"bn-BD"</span>,<br>
+          &nbsp;&nbsp;<span class="jk">"expiry_secs"</span>: <span class="jv">600</span><br>
+          <span class="acc">}</span><br><br>
+          <span class="cm">// &rarr; 200 OK</span><br>
+          { <span class="jk">"ok"</span>: <span class="jv">true</span>, <span class="jk">"data"</span>: <span class="acc">{</span> <span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span> <span class="acc">}</span> }
+        </div>
 
-  <template data-uc-tpl="fintech">
-    <div class="uc-panel-head">
-      <div class="uc-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M9 13h2M13 9h2M13 13h2M9 17h6"/></svg></div>
-      <div>
-        <span class="uc-panel-kicker">Fintech &middot; Live in production</span>
-        <h3>Onboard a customer <em>without breaking conversion.</em></h3>
+        <div class="howit-pill-row">
+          <span class="howit-pill active">~120 ms token generation</span>
+          <span class="howit-pill">Idempotent retries</span>
+          <span class="howit-pill">10-min session TTL</span>
+        </div>
       </div>
-    </div>
-    <p class="uc-panel-lede">A digital wallet in Dhaka replaced a 12-step manual KYC queue with a single AdeptSense WebView. Users upload NID + selfie, the platform returns a verified JSON envelope in under a second, and the wallet credits the account before the loader disappears.</p>
-    <div class="uc-flow">
-      <div class="uc-flow-step"><span class="uc-flow-num">1</span><div><div class="uc-flow-title">Open WebView</div><div class="uc-flow-sub">~120 ms &middot; /v1/sessions</div></div></div>
-      <div class="uc-flow-arrow">&#8594;</div>
-      <div class="uc-flow-step"><span class="uc-flow-num">2</span><div><div class="uc-flow-title">NID + selfie</div><div class="uc-flow-sub">~680 ms &middot; /v1/uploads</div></div></div>
-      <div class="uc-flow-arrow">&#8594;</div>
-      <div class="uc-flow-step"><span class="uc-flow-num">3</span><div><div class="uc-flow-title">Verified JSON</div><div class="uc-flow-sub">~140 ms &middot; /v1/nid/verify</div></div></div>    </div>
-    <ul class="uc-features">
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Bangladesh Bank KYC checklist covered out of the box â€” NID OCR, liveness, face match.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Webhook + polling both supported for AML/fraud teams downstream.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Same API serves sandbox and live â€” promote keys without code changes.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>PII auto-purged on completion â€” no manual retention work.</span></li>
-    </ul>
-    <div class="uc-actions">
-      <a href="#" class="uc-cta">View Fintech integration guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-      <a href="#" class="uc-ghost">Talk to a fintech solutions engineer</a>
-    </div>
-  </template>  <template data-uc-tpl="hr">
-    <div class="uc-panel-head">
-      <div class="uc-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 21c.5-3.5 3-6 6-6s5.5 2.5 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M14 21c.3-2.4 1.7-4 3-4s2.7 1.6 3 4"/></svg></div>
-      <div>
-        <span class="uc-panel-kicker">HR &middot; Workforce &middot; Day-1 ready</span>
-        <h3>Verify every new hire <em>before they pick up a badge.</em></h3>
-      </div>
-    </div>
-    <p class="uc-panel-lede">Onboard dozens of hires per week without back-and-forth. Candidates upload NID + selfie from any device, HR sees per-row status in the dashboard, and the verified payload lands in your ATS via webhook.</p>
-    <div class="uc-flow">
-      <div class="uc-flow-step"><span class="uc-flow-num">1</span><div><div class="uc-flow-title">Invite by email</div><div class="uc-flow-sub">bulk &middot; CSV upload</div></div></div>
-      <div class="uc-flow-arrow">&#8594;</div>
-      <div class="uc-flow-step"><span class="uc-flow-num">2</span><div><div class="uc-flow-title">Candidate WebView</div><div class="uc-flow-sub">mobile-first &middot; ~620 ms</div></div></div>
-      <div class="uc-flow-arrow">&#8594;</div>
-      <div class="uc-flow-step"><span class="uc-flow-num">3</span><div><div class="uc-flow-title">Status to ATS</div><div class="uc-flow-sub">verified &middot; webhook</div></div></div>    </div>
-    <ul class="uc-features">
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>NID + face match â€” covers Bangladesh, India, Pakistan, Nepal identity documents.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Bulk candidates via signed-URL upload â€” one CSV, hundreds of rows.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Per-row callback with status â€” HR dashboard, Workday, BambooHR.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>PII encrypted at rest, auto-purged 30 days after verification.</span></li>
-    </ul>
-    <div class="uc-actions">
-      <a href="#" class="uc-cta">View HR integration guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-      <a href="#" class="uc-ghost">See a sample ATS webhook payload</a>
-    </div>
-  </template>  <template data-uc-tpl="health">
-    <div class="uc-panel-head">
-      <div class="uc-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-7 11-7 11z"/><path d="M9 11h2v4M13 11h2"/></svg></div>
-      <div>
-        <span class="uc-panel-kicker">Healthcare &middot; Patient identity</span>
-        <h3>Verify the patient, <em>not just the appointment.</em></h3>
-      </div>
-    </div>
-    <p class="uc-panel-lede">Telemedicine platforms and hospital networks use AdeptSense to confirm patient identity before issuing prescriptions, sharing lab results, or processing insurance claims. Multilingual OCR handles the languages your patients actually speak.</p>
-    <div class="uc-flow">
-      <div class="uc-flow-step"><span class="uc-flow-num">1</span><div><div class="uc-flow-title">Pre-visit link</div><div class="uc-flow-sub">SMS &middot; email</div></div></div>
-      <div class="uc-flow-arrow">&#8594;</div>
-      <div class="uc-flow-step"><span class="uc-flow-num">2</span><div><div class="uc-flow-title">NID + selfie</div><div class="uc-flow-sub">~640 ms &middot; bn / en / hi</div></div></div>
-      <div class="uc-flow-arrow">&#8594;</div>
-      <div class="uc-flow-step"><span class="uc-flow-num">3</span><div><div class="uc-flow-title">Confirmed patient</div><div class="uc-flow-sub">EMR &middot; claim ready</div></div></div>    </div>
-    <ul class="uc-features">
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>HIPAA-friendly data handling â€” encrypted in transit and at rest, no PII logging.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Multilingual OCR â€” Bengali, English, Hindi, Urdu out of the box.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Sub-second verification p50 keeps the pre-visit flow under 30 seconds.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Drop-in WebView â€” no camera permissions to manage in your app.</span></li>
-    </ul>
-    <div class="uc-actions">
-      <a href="#" class="uc-cta">View Healthcare integration guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-      <a href="#" class="uc-ghost">Read the HIPAA compliance brief</a>
-    </div>
-  </template>  <template data-uc-tpl="ecom">
-    <div class="uc-panel-head">
-      <div class="uc-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h2l3 12h11l2-9H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg></div>
-      <div>
-        <span class="uc-panel-kicker">E-commerce &middot; Marketplace trust</span>
-        <h3>Build trust on <em>both sides</em> of every transaction.</h3>
-      </div>
-    </div>
-    <p class="uc-panel-lede">Marketplaces use AdeptSense to age-verify buyers at checkout and authenticate sellers before payouts. The same WebView handles both â€” buyers see a friendly age-gate, sellers see a KYC step that unlocks their first withdrawal.</p>
-    <div class="uc-flow">
-      <div class="uc-flow-step"><span class="uc-flow-num">1</span><div><div class="uc-flow-title">Buyer age-gate</div><div class="uc-flow-sub">checkout overlay</div></div></div>
-      <div class="uc-flow-arrow">&#8594;</div>
-      <div class="uc-flow-step"><span class="uc-flow-num">2</span><div><div class="uc-flow-title">Seller KYC</div><div class="uc-flow-sub">payout unlock</div></div></div>
-      <div class="uc-flow-arrow">&#8594;</div>
-      <div class="uc-flow-step"><span class="uc-flow-num">3</span><div><div class="uc-flow-title">Trust badge</div><div class="uc-flow-sub">profile &middot; listings</div></div></div>    </div>
-    <ul class="uc-features">
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Age-gate without breaking signup â€” most buyers clear in under 8 seconds.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Seller KYC re-check on first withdrawal â€” no manual ops queue.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Verified-buyer badge surfaces in listings and chat â€” lift conversion.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Mobile SDK + WebView fallback for Flutter, React Native, native shells.</span></li>
-    </ul>
-    <div class="uc-actions">
-      <a href="#" class="uc-cta">View E-commerce integration guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-      <a href="#" class="uc-ghost">See a sample seller dashboard</a>
-    </div>
-  </template>  <template data-uc-tpl="mobility">
-    <div class="uc-panel-head">
-      <div class="uc-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17V9l3-4h8l3 4v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><circle cx="8" cy="14" r="1.2"/><circle cx="16" cy="14" r="1.2"/></svg></div>
-      <div>
-        <span class="uc-panel-kicker">Mobility &middot; Driver &amp; partner</span>
-        <h3>Verify drivers <em>before their first trip.</em></h3>
-      </div>
-    </div>
-    <p class="uc-panel-lede">Ride-sharing and delivery platforms use AdeptSense to verify drivers and partners at signup, then re-verify on a rolling schedule. Passengers see a verified-by-AdeptSense badge in the app, and trust becomes a measurable metric.</p>
-    <div class="uc-flow">
-      <div class="uc-flow-step"><span class="uc-flow-num">1</span><div><div class="uc-flow-title">Driver signup</div><div class="uc-flow-sub">in-app SDK</div></div></div>
-      <div class="uc-flow-arrow">&#8594;</div>
-      <div class="uc-flow-step"><span class="uc-flow-num">2</span><div><div class="uc-flow-title">NID + selfie</div><div class="uc-flow-sub">~700 ms</div></div></div>
-      <div class="uc-flow-arrow">&#8594;</div>
-      <div class="uc-flow-step"><span class="uc-flow-num">3</span><div><div class="uc-flow-title">Vehicle match</div><div class="uc-flow-sub">docs &middot; plate</div></div></div>    </div>
-    <ul class="uc-features">
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>NID + selfie at signup â€” driver is verified before they accept a trip.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Auto re-verify every 12 months â€” no manual ops to chase expiries.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Vehicle document matching â€” cross-check NID against registration.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Passenger-visible verified badge â€” measurable trust lift on bookings.</span></li>
-    </ul>
-    <div class="uc-actions">
-      <a href="#" class="uc-cta">View Mobility integration guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-      <a href="#" class="uc-ghost">See a driver-fraud reduction case study</a>
-    </div>
-  </template>  <template data-uc-tpl="igaming">
-    <div class="uc-panel-head">
-      <div class="uc-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="3"/><path d="M8 12h2M8 15h6M14 12h2"/><circle cx="17" cy="8" r="0.8"/></svg></div>
-      <div>
-        <span class="uc-panel-kicker">iGaming &amp; Crypto &middot; Regulated</span>
-        <h3>Stay compliant <em>without losing signup conversion.</em></h3>
-      </div>
-    </div>
-    <p class="uc-panel-lede">Gaming and crypto platforms use AdeptSense in two stages â€” a fast age-gate at signup that most users clear in seconds, then a full KYC step at first withdrawal that satisfies regulators without sending users to a second vendor.</p>
-    <div class="uc-flow">
-      <div class="uc-flow-step"><span class="uc-flow-num">1</span><div><div class="uc-flow-title">Age-gate</div><div class="uc-flow-sub">~3 s &middot; signup</div></div></div>
-      <div class="uc-flow-arrow">&#8594;</div>
-      <div class="uc-flow-step"><span class="uc-flow-num">2</span><div><div class="uc-flow-title">Play &amp; deposit</div><div class="uc-flow-sub">light KYC</div></div></div>
-      <div class="uc-flow-arrow">&#8594;</div>
-      <div class="uc-flow-step"><span class="uc-flow-num">3</span><div><div class="uc-flow-title">Full KYC</div><div class="uc-flow-sub">1st withdrawal</div></div></div>    </div>
-    <ul class="uc-features">
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Two-stage verification â€” light at signup, full KYC at first withdrawal.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Region + self-exclusion checks surfaced as flags on the verified payload.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Same API key across sandbox + live â€” promote without code changes.</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg><span>Audit log + signed payloads â€” your regulator asks, you answer in minutes.</span></li>
-    </ul>
-    <div class="uc-actions">
-      <a href="#" class="uc-cta">View iGaming integration guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-      <a href="#" class="uc-ghost">Read the regulator audit checklist</a>
-    </div>
-  </template>
-</section>
 
-<!-- ── INTEGRATION ── -->
-<section class="integration-wrap" id="integration">
-  <div class="integration-inner">
+      <!-- Tile 2: Step 02 Collect (6 cols) -->
+      <div class="howit-card howit-tile-step2">
+        <span class="howit-step-tag">Step 02 &middot; ~680 ms</span>
+        <h3 class="howit-title">Collect identity data</h3>
+        <p class="howit-desc">Upload NID front and back images, capture a selfie, and run a passive liveness check &mdash; all in one multipart request. Storage is encrypted in transit and at rest.</p>
 
-    <div class="reveal">
-      <span class="label-tag">Integration</span>
-      <h2 class="section-title">Works in your stack,<br>your way.</h2>
-      <p class="section-sub" style="margin-bottom:0">Pick the path that fits your architecture — REST APIs, native mobile SDKs, or a hosted WebView flow requiring zero SDK setup.</p>
+        <div class="howit-term">
+          <span class="cm">// multipart/form-data &middot; /v1/uploads/{session_id}</span><br>
+          <span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"front_image"</span>, <span class="jv">"file://front.jpg"</span>)<br>
+          <span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"back_image"</span>,  <span class="jv">"file://back.jpg"</span>)<br>
+          <span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"selfie"</span>,      <span class="jv">"file://selfie.jpg"</span>)<br>
+          <span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"liveness"</span>,    <span class="jv">true</span>)<br><br>
+          <span class="cm">// &rarr; 202 Accepted &middot; upload_id returned</span>
+        </div>
 
-      <div class="int-features">
-        <div class="int-feature">
-          <div class="int-ico svc-ico-b">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <div class="howit-pill-row">
+          <span class="howit-pill active">~680 ms upload</span>
+          <span class="howit-pill">Encrypted AES-256</span>
+          <span class="howit-pill">Passive biometric check</span>
+        </div>
+      </div>
+
+      <!-- Tile 3: Step 03 Output Contract (8 cols) -->
+      <div class="howit-card howit-tile-step3">
+        <span class="howit-step-tag">Step 03 &middot; ~140 ms</span>
+        <h3 class="howit-title">Receive the verified JSON</h3>
+        <p class="howit-desc">Run the verification, then read the structured <code>{ ok, data, error }</code> envelope. Score fields are normalized so the same shape works for every endpoint.</p>
+
+        <div class="howit-term">
+          <span class="cm">// POST /v1/nid/verify</span><br>
+          <span class="kw">body</span> = <span class="acc">{</span> <span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span> <span class="acc">}</span><br><br>
+          <span class="cm">// &rarr; 200 OK</span><br>
+          <span class="acc">{</span><br>
+          &nbsp;&nbsp;<span class="jk">"verified"</span>:       <span class="jv">true</span>,<br>
+          &nbsp;&nbsp;<span class="jk">"name_en"</span>:        <span class="jv">"Md. Rafiqul Islam"</span>,<br>
+          &nbsp;&nbsp;<span class="jk">"nid"</span>:            <span class="jv">"••••••••4821"</span>,<br>
+          &nbsp;&nbsp;<span class="jk">"match_score"</span>:    <span class="jv">0.994</span>,<br>
+          &nbsp;&nbsp;<span class="jk">"liveness_score"</span>: <span class="jv">0.970</span><br>
+          <span class="acc">}</span>
+        </div>
+
+        <div class="howit-pill-row">
+          <span class="howit-pill active">~140 ms inference</span>
+          <span class="howit-pill">Normalized 0.0&ndash;1.0 scores</span>
+          <span class="howit-pill">Signed JSON envelope</span>
+        </div>
+      </div>
+
+      <!-- Tile 4: Engine SLA & Guarantees (4 cols, Dark Accent) -->
+      <div class="howit-card howit-tile-sla">
+        <span class="howit-step-tag" style="background: rgba(16,185,129,0.18); color: #34D399;">Engine SLA</span>
+        <h3 class="howit-title">Sub-second pipeline</h3>
+        <p class="howit-desc">Hosted directly in Dhaka for zero cross-border latency penalty.</p>
+
+        <div class="howit-stat-grid">
+          <div class="howit-stat-box">
+            <div class="howit-stat-num green">~940<span style="font-size:14px;color:rgba(255,255,255,0.7)">ms</span></div>
+            <div class="howit-stat-label">End-to-End Total</div>
           </div>
-          <div>
-            <h4>REST API</h4>
-            <p>Simple JSON endpoints. Works with any backend — Node, Python, PHP, or Go.</p>
+          <div class="howit-stat-box">
+            <div class="howit-stat-num">99.4%</div>
+            <div class="howit-stat-label">Accuracy SLA</div>
           </div>
         </div>
-        <div class="int-feature">
-          <div class="int-ico svc-ico-r">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-          </div>
-          <div>
-            <h4>Android &amp; iOS SDKs</h4>
-            <p>Native Kotlin/Java and Swift libraries with biometric capture and offline signing.</p>
-          </div>
-        </div>
-        <div class="int-feature">
-          <div class="int-ico svc-ico-b">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          </div>
-          <div>
-            <h4>Secure WebView Flow</h4>
-            <p>Embed a hosted verification journey inside any web or hybrid app — no camera permissions to manage.</p>
-          </div>
+
+        <div class="howit-pill-row" style="margin-top: 20px;">
+          <span class="howit-pill" style="background:rgba(255,255,255,0.06);color:#fff;border-color:rgba(255,255,255,0.12);">Auto-purged PII</span>
+          <span class="howit-pill" style="background:rgba(255,255,255,0.06);color:#fff;border-color:rgba(255,255,255,0.12);">Signed JWT</span>
+          <span class="howit-pill" style="background:rgba(255,255,255,0.06);color:#fff;border-color:rgba(255,255,255,0.12);">iBeta Tested</span>
         </div>
       </div>
     </div>
-
-    <div class="reveal" style="transition-delay:.12s">
-      <div class="tab-bar" id="tabs">
-        <button class="tab active" data-lang="node">Node.js</button>
-        <button class="tab" data-lang="python">Python</button>
-        <button class="tab" data-lang="curl">cURL</button>
-      </div>
-      <div class="code-wrap" id="code-block"></div>
-      <div class="code-links">
-        <a href="docs.html" class="code-link">Full API reference &rarr;</a>
-        <span class="code-divider">|</span>
-        <span class="sdk-label">SDKs &amp; Adapters:</span>
-        <a href="docs.html#sdks" class="sdk-link-tag">Android</a>
-        <a href="docs.html#sdks" class="sdk-link-tag">iOS</a>
-        <a href="docs.html#webviews" class="sdk-link-tag">WebView Flow (Flutter/Web)</a>
-      </div>
-    </div>
-
   </div>
 </section>
+
 
 <!-- ── TRUST / COMPLIANCE STRIP ── -->
 <section class="trust-wrap reveal" id="trust">
   <div class="trust-inner">
-    <div class="trust-head">
-      <span class="label-tag">Security &amp; Compliance</span>
-      <h2 class="section-title">Full security &amp; compliance.</h2>
-      <p class="section-sub">Independently audited, globally recognized, and continuously monitored. AdeptSense meets the standards enterprise security teams require.</p>
-    </div>
+    <header class="section-header section-header--v1-centered">
+      <span class="section-header__kicker">Security &amp; Compliance</span>
+      <h2 class="section-header__title">Full security &amp; <em>compliance.</em></h2>
+      <p class="section-header__sub">Independently audited, globally recognized, and continuously monitored. AdeptSense meets the standards enterprise security teams require.</p>
+    </header>
 
     <div class="trust-rows">
 
@@ -1050,160 +1067,273 @@
   </div>
 </section>
 
-<!-- ── PRICING ── -->
+<!-- ── PRICING (INTERACTIVE PIPELINE CALCULATOR) ── -->
 <section class="pricing-wrap reveal" id="pricing">
   <div class="pricing-inner">
 
-    <div class="pricing-head">
-      <span class="label-tag">Pricing</span>
-      <h2 class="section-title">Pay for verifications, not seats.</h2>
-      <p class="section-sub">Start free in the sandbox. Move to live when you're ready. Volume tiers kick in automatically — no negotiation call required.</p>
-    </div>
+    <header class="section-header section-header--v1-centered">
+      <span class="section-header__kicker">Pricing</span>
+      <h2 class="section-header__title">Interactive <em>Identity API</em> Pricing.</h2>
+      <p class="section-header__sub">Select the verification microservices your pipeline requires, simulate monthly volume, and calculate live volume &amp; multi-service savings.</p>
+    </header>
 
-    <!-- Volume estimator -->
-    <div class="pricing-estimator" aria-label="Volume estimator">
-      <label class="pe-label" for="pe-volume">Estimate your monthly cost</label>
-      <div class="pe-row">
-        <input type="range" id="pe-volume" class="pe-range" min="500" max="100000" step="500" value="5000" aria-label="Monthly verifications">
-        <div class="pe-readout">
-          <span class="pe-vol" data-pe-volume>5,000</span>
-          <span class="pe-vol-unit">verifications / month</span>
+    <div class="calc-grid">
+      <!-- Left: Service Selector & Slider -->
+      <div class="builder-card">
+        <div>
+          <div class="builder-head">
+            <h3>Verification Microservices</h3>
+            <span>Bundle 3+ for up to 25% off</span>
+          </div>
+
+          <div class="endpoints-list" id="ep-container">
+            <!-- 1. NID OCR -->
+            <div class="ep-item selected" data-id="nid" data-price="0.08" data-name="NID OCR (Bangla + Eng)">
+              <div class="ep-left">
+                <div class="ep-checkbox">
+                  <svg class="ep-check-svg" viewBox="0 0 14 14" fill="none">
+                    <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="ep-info">
+                  <h4>Bangladesh NID OCR</h4>
+                  <p>Smart card &amp; old laminated parser · 99.4% field precision</p>
+                </div>
+              </div>
+              <div class="ep-price">
+                <div class="val">$0.08</div>
+                <div class="sub">/ call</div>
+              </div>
+            </div>
+
+            <!-- 2. Face Match -->
+            <div class="ep-item selected" data-id="facematch" data-price="0.07" data-name="1:1 Biometric Face Match">
+              <div class="ep-left">
+                <div class="ep-checkbox">
+                  <svg class="ep-check-svg" viewBox="0 0 14 14" fill="none">
+                    <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="ep-info">
+                  <h4>1:1 Biometric Face Match</h4>
+                  <p>Selfie to NID photo 512-d vector cosine comparison</p>
+                </div>
+              </div>
+              <div class="ep-price">
+                <div class="val">$0.07</div>
+                <div class="sub">/ call</div>
+              </div>
+            </div>
+
+            <!-- 3. Liveness -->
+            <div class="ep-item selected" data-id="liveness" data-price="0.09" data-name="Passive 3D Liveness Detection">
+              <div class="ep-left">
+                <div class="ep-checkbox">
+                  <svg class="ep-check-svg" viewBox="0 0 14 14" fill="none">
+                    <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="ep-info">
+                  <h4>Passive 3D Liveness</h4>
+                  <p>Anti-spoofing against printed masks, screens &amp; deepfakes</p>
+                </div>
+              </div>
+              <div class="ep-price">
+                <div class="val">$0.09</div>
+                <div class="sub">/ call</div>
+              </div>
+            </div>
+
+            <!-- 4. Name Translation -->
+            <div class="ep-item" data-id="trans" data-price="0.03" data-name="Phonetic Bangla-English Translation">
+              <div class="ep-left">
+                <div class="ep-checkbox">
+                  <svg class="ep-check-svg" viewBox="0 0 14 14" fill="none">
+                    <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="ep-info">
+                  <h4>Phonetic Name Translation</h4>
+                  <p>Rule-based + LLM Bangla ↔ English name harmonization</p>
+                </div>
+              </div>
+              <div class="ep-price">
+                <div class="val">$0.03</div>
+                <div class="sub">/ call</div>
+              </div>
+            </div>
+
+            <!-- 5. Gender Estimation -->
+            <div class="ep-item" data-id="gender" data-price="0.02" data-name="Gender Estimation">
+              <div class="ep-left">
+                <div class="ep-checkbox">
+                  <svg class="ep-check-svg" viewBox="0 0 14 14" fill="none">
+                    <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="ep-info">
+                  <h4>Gender Estimation</h4>
+                  <p>Cross-verification check against NID demographic data</p>
+                </div>
+              </div>
+              <div class="ep-price">
+                <div class="val">$0.02</div>
+                <div class="sub">/ call</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Volume Slider Box -->
+        <div class="slider-box">
+          <div class="slider-row">
+            <span class="slider-label">Monthly Expected Volume</span>
+            <span class="slider-count" id="calc-vol-num">10,000 verifications</span>
+          </div>
+          <input type="range" class="range-input" id="calc-vol-slider" min="1000" max="100000" step="1000" value="10000">
         </div>
       </div>
-      <div class="pe-cost">
-        <span class="pe-cost-label">Estimated</span>
-        <span class="pe-cost-val" data-pe-cost>$0</span>
-        <span class="pe-cost-unit">/ month</span>
+
+      <!-- Right: Summary & Contract (Dark Theme, Equal Height) -->
+      <div class="summary-card-dark">
+        <div class="summary-card-top">
+          <div class="summary-tag-row">
+            <span class="summary-tag-dark">Live Dynamic Estimate</span>
+          </div>
+          
+          <div class="total-price-dark">
+            <span class="amount" id="calc-total-cost">$1,800</span>
+            <span class="unit">/ month</span>
+          </div>
+          <div class="unit-cost-dark" id="calc-unit-rate">Effective rate: $0.180 / call</div>
+
+          <!-- Reserved slot prevents jumping -->
+          <div class="discount-slot">
+            <div class="bundle-discount-dark" id="calc-discount-badge">
+              <span>Multi-Service Discount</span>
+              <span class="disc" id="calc-disc-text">-25% OFF</span>
+            </div>
+          </div>
+
+          <div class="json-preview-dark">
+            <pre id="calc-json-output"></pre>
+          </div>
+        </div>
+
+        <!-- Primary CTA aligned with Design System -->
+        <a href="playground.html" class="btn-calc-deploy">
+          Deploy This Pipeline &rarr;
+        </a>
       </div>
     </div>
 
-    <!-- Tier cards -->
-    <div class="pricing-grid">
-
-      <article class="tier">
-        <div class="tier-head">
-          <span class="tier-name">Starter</span>
-          <p class="tier-tag">For prototypes &amp; small launches</p>
-        </div>
-        <div class="tier-price">
-          <span class="tier-amount" data-tier-price="0.35">$0.35</span>
-          <span class="tier-unit">/ verification</span>
-        </div>
-        <ul class="tier-features">
-          <li><span class="tier-check" aria-hidden="true">✓</span> Up to 2,000 verifications / mo</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> Sandbox &amp; live environment</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> All 5 endpoints included</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> Community Discord support</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> 99.4% accuracy SLA</li>
-        </ul>
-        <a href="#" class="tier-cta tier-cta-ghost">Start free</a>
-      </article>
-
-      <article class="tier tier-featured">
-        <div class="tier-ribbon">Most popular</div>
-        <div class="tier-head">
-          <span class="tier-name">Growth</span>
-          <p class="tier-tag">For production apps at scale</p>
-        </div>
-        <div class="tier-price">
-          <span class="tier-amount" data-tier-price="0.18">$0.18</span>
-          <span class="tier-unit">/ verification</span>
-        </div>
-        <ul class="tier-features">
-          <li><span class="tier-check" aria-hidden="true">✓</span> From 2,001 verifications / mo</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> Volume auto-tiered pricing</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> Webhook callbacks included</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> Email support &mdash; &lt; 4h response</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> 99.9% uptime SLA</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> Structured error codes (Format B)</li>
-        </ul>
-        <a href="#" class="tier-cta tier-cta-primary">Get API key</a>
-      </article>
-
-      <article class="tier">
-        <div class="tier-head">
-          <span class="tier-name">Enterprise</span>
-          <p class="tier-tag">For regulated &amp; high-volume operators</p>
-        </div>
-        <div class="tier-price">
-          <span class="tier-amount">Custom</span>
-          <span class="tier-unit">volume-based</span>
-        </div>
-        <ul class="tier-features">
-          <li><span class="tier-check" aria-hidden="true">✓</span> 100k+ verifications / mo</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> Dedicated infrastructure</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> On-prem &amp; private cloud</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> 24/7 priority support</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> Custom SLAs &amp; compliance</li>
-          <li><span class="tier-check" aria-hidden="true">✓</span> Solutions engineering</li>
-        </ul>
-        <a href="#" class="tier-cta tier-cta-ghost">Talk to sales</a>
-      </article>
-
-    </div>
-
-    <p class="pricing-fineprint">All prices in USD. Sandbox is free forever. Live tier activates instantly. No credit card to start.</p>
+    <p class="pricing-fineprint">All prices in USD. Sandbox environment is free forever. No credit card required to start integrating.</p>
 
   </div>
 </section>
 
-<!-- ── CTA BAND ── -->
+<!-- ── CTA SECTION (FULL-WIDTH DARK AURORA GRADIENT) ── -->
 <section class="cta-wrap reveal" id="cta">
-  <h2>Start verifying identities today.</h2>
-  <p>Spin up the sandbox in 30 seconds. Move to live when you're ready &mdash; same API, real data.</p>
-  <div class="cta-actions">
-    <a href="#" class="btn-cta-white">Get API key &rarr;</a>
-    <a href="#" class="btn-cta-outline">Talk to sales</a>
+  <div class="cta-inner">
+    <span class="cta-pill">
+      <span class="cta-pill-dot"></span>
+      Instant Production Sandbox
+    </span>
+
+    <h2 class="cta-title">
+      Start verifying Bangladesh identities <em>today.</em>
+    </h2>
+
+    <p class="cta-desc">
+      Join leading digital banks, fintechs, and high-growth platforms building seamless identity verification with sub-second latency and bank-grade compliance.
+    </p>
+
+    <div class="cta-actions">
+      <a href="contact.html" class="btn-cta-primary">
+        <span>Contact Us</span>
+        <span>&rarr;</span>
+      </a>
+      <a href="docs.html" class="btn-cta-ghost">
+        <span>Explore Documentation &nearr;</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Clean 6-Card SDK Support Badges Grid -->
+  <div class="cta-badges-container">
+    <div class="cta-badges-kicker">Native SDKs &amp; Drop-in WebViews</div>
+    <div class="cta-badges-grid">
+      
+      <!-- 1. Node.js -->
+      <div class="sdk-badge-card">
+        <div class="sdk-badge-icon-box">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="#68A063"><path d="M12 10.15a2.02 2.02 0 0 0-2.02 2.02v2.4a2.02 2.02 0 0 0 4.04 0v-2.4A2.02 2.02 0 0 0 12 10.15zm8.93-3.66L13.1 1.7a2.22 2.22 0 0 0-2.2 0L3.07 6.49a2.22 2.22 0 0 0-1.1 1.92v9.57a2.22 2.22 0 0 0 1.1 1.92l7.83 4.79c.68.42 1.52.42 2.2 0l7.83-4.79a2.22 2.22 0 0 0 1.1-1.92V8.41a2.22 2.22 0 0 0-1.1-1.92z"/></svg>
+        </div>
+        <div class="sdk-badge-name">Node.js</div>
+      </div>
+
+      <!-- 2. Python -->
+      <div class="sdk-badge-card">
+        <div class="sdk-badge-icon-box">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none">
+            <path d="M11.9 1.5c-4.6 0-4.3 2-4.3 2l.01 2.1h4.4v.6H5.7S2.5 5.8 2.5 10.5c0 4.6 2.8 4.5 2.8 4.5h1.7v-2.4s-.1-2.8 2.8-2.8h4.4s2.7.1 2.7-2.6V4.4s.4-2.9-5-2.9zm-2.4 1.5c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9z" fill="#387EB8"/>
+            <path d="M12.1 22.5c4.6 0 4.3-2 4.3-2l-.01-2.1h-4.4v-.6h6.3s3.2.4 3.2-4.3c0-4.6-2.8-4.5-2.8-4.5h-1.7v2.4s.1 2.8-2.8 2.8H9.9s-2.7-.1-2.7 2.6v3.3s-.4 2.9 5 2.9zm2.4-1.5c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9z" fill="#FFE052"/>
+          </svg>
+        </div>
+        <div class="sdk-badge-name">Python</div>
+      </div>
+
+      <!-- 3. Go -->
+      <div class="sdk-badge-card">
+        <div class="sdk-badge-icon-box">
+          <svg viewBox="0 0 24 24" width="34" height="34" fill="#00ACD7">
+            <path d="M1.5 9.5h3.6a.7.7 0 0 1 .7.7v.2a.7.7 0 0 1-.7.7H1.5a.7.7 0 0 1-.7-.7v-.2a.7.7 0 0 1 .7-.7zm0 2.6h2.2a.7.7 0 0 1 .7.7v.2a.7.7 0 0 1-.7.7H1.5a.7.7 0 0 1-.7-.7v-.2a.7.7 0 0 1 .7-.7zm11.2-4.8c1.7 0 3.2.8 4.2 2.1l-1.3 1c-.8-.9-1.8-1.5-2.9-1.5-2.2 0-3.9 1.7-3.9 4s1.7 4 3.9 4c1.2 0 2.2-.6 2.9-1.6v-1.1h-3.1v-1.5h4.7v3.2a5.4 5.4 0 0 1-4.5 2.6c-3.1 0-5.6-2.5-5.6-5.6s2.5-5.6 5.6-5.6zm8.1 0c3.1 0 5.6 2.5 5.6 5.6s-2.5 5.6-5.6 5.6-5.6-2.5-5.6-5.6 2.5-5.6 5.6-5.6zm0 1.6c-2.2 0-3.9 1.7-3.9 4s1.7 4 3.9 4 3.9-1.7 3.9-4-1.7-4-3.9-4z"/>
+          </svg>
+        </div>
+        <div class="sdk-badge-name">Golang</div>
+      </div>
+
+      <!-- 4. Flutter -->
+      <div class="sdk-badge-card">
+        <div class="sdk-badge-icon-box">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none">
+            <path d="M14.3 2L4 12.3l3.2 3.2L20.7 2h-6.4z" fill="#02569B"/>
+            <path d="M14.3 10.7l-5.3 5.3 5.3 5.3h6.4l-5.3-5.3 5.3-5.3h-6.4z" fill="#0175C2"/>
+            <path d="M9 16l3.2 3.2 2.1-2.1-3.2-3.2L9 16z" fill="#29B6F6"/>
+          </svg>
+        </div>
+        <div class="sdk-badge-name">Flutter</div>
+      </div>
+
+      <!-- 5. React Native -->
+      <div class="sdk-badge-card">
+        <div class="sdk-badge-icon-box">
+          <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#61DAFB" stroke-width="1.6">
+            <ellipse cx="12" cy="12" rx="4" ry="10" transform="rotate(30 12 12)"/>
+            <ellipse cx="12" cy="12" rx="4" ry="10" transform="rotate(90 12 12)"/>
+            <ellipse cx="12" cy="12" rx="4" ry="10" transform="rotate(150 12 12)"/>
+            <circle cx="12" cy="12" r="1.8" fill="#61DAFB" stroke="none"/>
+          </svg>
+        </div>
+        <div class="sdk-badge-name">React Native</div>
+      </div>
+
+      <!-- 6. REST / OpenAPI -->
+      <div class="sdk-badge-card">
+        <div class="sdk-badge-icon-box">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none">
+            <circle cx="12" cy="12" r="10" fill="#85EA2D"/>
+            <path d="M7 12l3.5-3.5M7 12l3.5 3.5M17 12l-3.5-3.5M17 12l-3.5 3.5" stroke="#1F2937" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="sdk-badge-name">REST / OpenAPI</div>
+      </div>
+
+    </div>
   </div>
 </section>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="/logo.png" alt="AdeptSense" class="logo-img">
-      <p>Identity verification for web, mobile, and hybrid apps. Built for developers.</p>
-    </div>
-    <div class="footer-col">
-      <h5>Services</h5>
-      <a href="nid-ocr.html">ID Card OCR</a>
-      <a href="face-match.html">Face Match</a>
-      <a href="liveness.html">Liveness</a>
-      <a href="name-translation.html">Name Translation</a>
-      <a href="gender-estimation.html">Gender Estimation</a>
-    </div>
-    <div class="footer-col">
-      <h5>Use Cases</h5>
-      <a href="#use-cases">Fintech &amp; KYC</a>
-      <a href="#use-cases">HR &amp; Onboarding</a>
-      <a href="#use-cases">Healthcare</a>
-      <a href="#use-cases">E-commerce</a>
-      <a href="#use-cases">Ride-sharing</a>
-    </div>
-    <div class="footer-col">
-      <h5>Developers</h5>
-      <a href="docs.html">API Reference</a>
-      <a href="docs.html#sdks">SDKs</a>
-      <a href="#">Changelog</a>
-      <a href="#" class="footer-status"><span class="status-dot"></span> API Status</a>
-    </div>
-    <div class="footer-col">
-      <h5>Company</h5>
-      <a href="#">About</a>
-      <a href="#">Blog</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms</a>
-      <a href="#">Security</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>&copy; 2025 AdeptSense. All rights reserved.</p>
-    <div class="footer-bottom-links">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <a href="#">Security</a>
-    </div>
-  </div>
-</footer>
+<!--#include file="_partials/footer.html" -->
 
 <script type="module" src="/src/main.js"></script>
 </body>

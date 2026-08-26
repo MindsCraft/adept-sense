@@ -1,29 +1,238 @@
-/* ── CTA BAND ──
-   Brand-purple band between Stats and Footer.
-   Centered headline + sub + two-button row.                  */
-.cta-wrap { background: var(--blue); padding: 96px 0; text-align: center; }
-.cta-wrap h2 {
+/* ──────────────────────────────────────────────────────────────
+   CTA SECTION — Full-Width Deep Dark Aurora Gradient
+   With Clean 6-Column Support Badges Dock
+   ────────────────────────────────────────────────────────────── */
+
+.cta-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background: #0D1117;
+  background-image: 
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(90, 35, 179, 0.45) 0%, rgba(75, 29, 149, 0.15) 50%, transparent 100%),
+    radial-gradient(circle at 85% 35%, rgba(121, 192, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 15% 65%, rgba(167, 139, 250, 0.06) 0%, transparent 50%);
+  padding: 120px 0 110px;
+  text-align: center;
+  border: none;
+}
+
+/* Ambient Top Flare Line */
+.cta-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  max-width: 800px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.4), transparent);
+}
+
+.cta-inner {
+  max-width: 860px;
+  margin: 0 auto 52px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Eyebrow Pill */
+.cta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #C4B5FD;
+  background: rgba(167, 139, 250, 0.14);
+  padding: 5px 14px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border: none;
+}
+
+.cta-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34D399;
+  box-shadow: 0 0 8px #34D399;
+}
+
+/* Main Heading */
+.cta-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin-bottom: 16px;
+}
+
+.cta-title em {
   font-family: 'Lora', serif;
-  font-size: clamp(28px, 3.5vw, 44px); font-weight: 600;
-  color: #fff; letter-spacing: -0.02em; margin-bottom: 12px;
+  font-style: italic;
+  font-weight: 500;
+  color: #C4B5FD;
 }
-.cta-wrap p { font-size: 16px; color: rgba(255, 255, 255, 0.6); margin-bottom: 32px; }
-.cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.btn-cta-white {
-  font-size: 14px; font-weight: 500; color: var(--blue);
-  background: #fff; padding: 11px 28px; border-radius: var(--r-sm);
-  transition: opacity 0.15s;
+
+/* Subtitle */
+.cta-desc {
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: #9CA3AF;
+  max-width: 680px;
+  margin: 0 auto 36px;
 }
-.btn-cta-white:hover { opacity: 0.92; }
-.btn-cta-outline {
-  font-size: 14px; font-weight: 400; color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.25); padding: 11px 28px;
-  border-radius: var(--r-sm); transition: border-color 0.15s, color 0.15s;
+
+/* Action Buttons */
+.cta-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
-.btn-cta-outline:hover { border-color: rgba(255, 255, 255, 0.6); color: #fff; }
+
+.btn-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFFFFF;
+  color: #26125B;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 13px 28px;
+  border-radius: 4px;
+  border: none;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.btn-cta-primary:hover {
+  background: #F3EFFB;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(255, 255, 255, 0.15);
+}
+
+.btn-cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #E5E7EB;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px 24px;
+  border-radius: 4px;
+  border: none;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.btn-cta-ghost:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #FFFFFF;
+}
+
+/* ── Support Badges Dock ── */
+.cta-badges-container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-badges-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #8B949E;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.cta-badges-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+}
+
+@media (max-width: 960px) {
+  .cta-badges-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+  }
+}
+
+@media (max-width: 540px) {
+  .cta-badges-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+  }
+}
+
+.sdk-badge-card {
+  background: #06090E;
+  border: none;
+  border-radius: 4px;
+  padding: 24px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  cursor: default;
+}
+
+.sdk-badge-icon-box {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.sdk-badge-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #E5E7EB;
+  letter-spacing: -0.01em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cta-wrap {
+    padding: 90px 0 80px;
+  }
+  .cta-desc {
+    font-size: 15px;
+  }
+}
 
 @media (max-width: 560px) {
-  .cta-wrap { padding: 64px 24px; }
-  .cta-actions { flex-direction: column; align-items: stretch; }
-  .btn-cta-white, .btn-cta-outline { width: 100%; text-align: center; }
+  .cta-wrap {
+    padding: 72px 0 64px;
+  }
+  .cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-cta-primary,
+  .btn-cta-ghost {
+    width: 100%;
+    justify-content: center;
+  }
 }

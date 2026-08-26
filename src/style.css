@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,600;1,600&family=Noto+Sans+Bengali:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Lora:ital,wght@1,600&display=swap');
 
 @import "./css/tokens.css";
 @import "./css/base.css";
+@import "./css/components/section-head.css"; /* Section header system (tag/title/sub) */
 @import "./css/components.css";
 @import "./css/components/navbar.css";
 @import "./css/sections/hero.css";
@@ -10,7 +11,6 @@
 @import "./css/sections/demo-strip.css";
 @import "./css/sections/use-cases.css";
 @import "./css/sections/steps.css";
-@import "./css/sections/integration.css";
 @import "./css/sections/trust.css";
 @import "./css/sections/pricing-cta.css";
 @import "./css/sections/stats.css";

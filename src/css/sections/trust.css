@@ -6,7 +6,7 @@
 
 .trust-wrap {
   background: var(--bg);
-  padding: 96px 0 88px;
+  padding: 140px 0;
 }
 .trust-inner {
   max-width: var(--container);
@@ -14,15 +14,12 @@
   padding: 0 var(--gutter);
   text-align: center;
 }
-@media (min-width: 1024px) {
-  .trust-inner {
-    border-left: 1px solid var(--border-2);
-    border-right: 1px solid var(--border-2);
-  }
-}
 @media (max-width: 768px) {
   .trust-inner { padding: 0 var(--gutter-sm); }
-  .trust-wrap  { padding: 72px 0; }
+  .trust-wrap  { padding: 96px 0; }
+}
+@media (max-width: 640px) {
+  .trust-wrap  { padding: 64px 0; }
 }
 
 .trust-head {
@@ -58,45 +55,45 @@
 .trust-rows {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 4px;
   align-items: center;
 }
 .trust-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 4px;
   width: 100%;
 }
 
-/* Generic badge — monochrome ink on light surface.
-   Two-line layout: small top kicker (issuer), big middle label,
-   tiny bottom note. Tight, business-card feel. */
+/* Generic badge — 180px x 120px, 4px radius, no border, 4px gap */
 .trust-badge {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  min-width: 168px;
-  height: 78px;
-  padding: 14px 18px;
+  gap: 8px;
+  width: 180px;
+  height: 120px;
+  padding: 12px 14px;
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  text-align: left;
-  transition: border-color .15s var(--ease), transform .15s var(--ease);
+  border: none;
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease);
 }
 .trust-badge:hover {
-  border-color: var(--ink-4);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 .trust-badge .tb-mark {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   color: var(--ink);
 }
 .trust-badge .tb-mark svg {
@@ -107,8 +104,10 @@
 .trust-badge .tb-text {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  align-items: center;
+  gap: 2px;
   min-width: 0;
+  text-align: center;
 }
 .trust-badge .tb-kicker {
   font-family: 'JetBrains Mono', monospace;
@@ -120,7 +119,7 @@
 }
 .trust-badge .tb-label {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--ink);
@@ -129,7 +128,7 @@
 }
 .trust-badge .tb-note {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--ink-3);
   line-height: 1.25;
 }
@@ -138,18 +137,23 @@
 .trust-badge.tb-plain {
   flex-direction: column;
   text-align: center;
-  gap: 2px;
-  min-width: 168px;
-  padding: 14px 18px;
+  gap: 4px;
+  width: 180px;
+  height: 120px;
+  padding: 12px 14px;
 }
 .trust-badge.tb-plain .tb-text {
   align-items: center;
 }
 
-/* Responsive — tighter chips on small screens */
+/* Responsive */
 @media (max-width: 640px) {
-  .trust-badge { min-width: 0; flex: 1 1 calc(50% - 12px); height: 72px; padding: 10px 12px; }
-  .trust-badge .tb-mark { width: 30px; height: 30px; }
-  .trust-badge .tb-label { font-size: 12px; }
-  .trust-badge .tb-note { font-size: 10px; }
+  .trust-badge {
+    width: calc(50% - 4px);
+    height: 110px;
+    padding: 10px 8px;
+  }
+  .trust-badge .tb-mark { width: 28px; height: 28px; }
+  .trust-badge .tb-label { font-size: 11.5px; }
+  .trust-badge .tb-note { font-size: 9.5px; }
 }

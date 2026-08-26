@@ -1,184 +1,209 @@
-/* ── HOW IT WORKS — Pattern D (sticky-scroll narrative) ──
-   Left column with title + progress bullets sticks while the
-   right column carries the reader through 3 full-width step
-   panels, each with its own terminal block. Scroll-driven. */
+/* ═══════════════════════════════════════════════════════════════
+   HOW IT WORKS — Bento Telemetry Stack (Concept 01)
+   ═══════════════════════════════════════════════════════════════ */
 
 .howit-wrap {
-  background: var(--bg);
-  padding: 96px 0 64px;
-}
-.howit-wrap .wrap {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 32px;
+  background: #FFFFFF;
+  padding: 140px 0;
 }
 
-/* Two-column frame: sticky-left + scroll-right */
-.howit-d-frame {
+.howit-bento {
   display: grid;
-  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.4fr);
-  gap: 80px;
-  align-items: start;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
 }
 
-/* Left rail — sticky */
-.howit-d-left {
-  position: sticky;
-  top: 96px;
-  padding-top: 4px;
-}
-.howit-d-left .shared-eyebrow {
-  display: inline-block;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 14px;
-}
-.howit-d-left h3 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(26px, 2.6vw, 34px);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  color: var(--ink);
-  margin: 0 0 14px;
-}
-.howit-d-left h3 em {
-  font-family: 'Lora', serif;
-  font-style: italic;
-  font-weight: 500;
-  color: var(--blue);
-}
-.howit-d-left p {
-  font-size: 15px;
-  color: var(--ink-3);
-  line-height: 1.6;
-  max-width: 320px;
-  margin: 0 0 24px;
-}
-
-/* Progress bullets */
-.howit-d-progress {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 280px;
-}
-.howit-d-progress-row {
-  display: grid;
-  grid-template-columns: 18px 1fr;
-  gap: 12px;
-  align-items: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: var(--ink-4);
-  transition: color .2s var(--ease);
-}
-.howit-d-progress-row.active { color: var(--ink); }
-.howit-d-progress-bullet {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--border);
-  justify-self: center;
-  transition: background .2s var(--ease), box-shadow .2s var(--ease);
-}
-.howit-d-progress-row.active .howit-d-progress-bullet {
-  background: var(--blue);
-  box-shadow: 0 0 0 4px var(--blue-dim);
-}
-
-/* Right rail — step panels stacked */
-.howit-d-right {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  padding: 8px 0 64px;
-}
-.howit-d-panel {
+.howit-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
-  padding: 36px 36px 32px;
-  box-shadow: var(--shadow-md);
-  transition: border-color .2s var(--ease);
-}
-.howit-d-panel-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-.howit-d-panel-num {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--blue);
-  color: #fff;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  font-weight: 700;
-}
-.howit-d-panel-kicker {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--blue);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.howit-d-panel h4 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--ink);
-  margin: 0 0 10px;
-}
-.howit-d-panel p {
-  font-size: 15px;
-  color: var(--ink-3);
-  line-height: 1.65;
-  max-width: 520px;
-  margin: 0 0 18px;
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
 }
 
-/* Terminal block */
-.howit-d-panel-term {
+.howit-card:hover {
+  border-color: rgba(75, 29, 149, 0.28);
+  box-shadow: var(--shadow-md);
+}
+
+.howit-step-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--blue);
+  background: var(--blue-dim);
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.howit-title {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.howit-desc {
+  font-size: 14px;
+  color: var(--ink-3);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.howit-desc code {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  padding: 1px 6px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--ink-2);
+}
+
+/* Specific Bento Tiles */
+.howit-tile-step1 {
+  grid-column: span 6;
+  background: linear-gradient(180deg, #FFFFFF, #FAF9FD);
+}
+
+.howit-tile-step2 {
+  grid-column: span 6;
+  background: linear-gradient(180deg, #FFFFFF, #FAF9FD);
+}
+
+.howit-tile-step3 {
+  grid-column: span 8;
+  background: #FFFFFF;
+}
+
+.howit-tile-sla {
+  grid-column: span 4;
   background: var(--code-bg);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-color: var(--code-line);
+  color: #fff;
+}
+
+.howit-tile-sla .howit-title {
+  color: #fff;
+}
+
+.howit-tile-sla .howit-desc {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Terminal inside Bento */
+.howit-term {
+  background: var(--code-bg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--r);
   padding: 18px 20px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 12.5px;
   line-height: 1.7;
   color: var(--code-fg);
-  white-space: pre;
   overflow-x: auto;
-  margin: 0;
-}
-.howit-d-panel-term .cm  { color: var(--code-cm); font-style: italic; }
-.howit-d-panel-term .jk  { color: var(--code-str); }
-.howit-d-panel-term .jv  { color: var(--code-val); }
-.howit-d-panel-term .kw  { color: var(--code-kw); }
-.howit-d-panel-term .fn  { color: var(--code-fn); }
-.howit-d-panel-term .acc { color: var(--code-acc); }
-
-/* Responsive: stack columns under 900px (sticky releases) */
-@media (max-width: 900px) {
-  .howit-wrap { padding: 72px 0 48px; }
-  .howit-d-frame { grid-template-columns: 1fr; gap: 32px; }
-  .howit-d-left { position: static; }
-  .howit-d-right { padding-bottom: 24px; }
-  .howit-d-panel { padding: 28px 24px 24px; }
 }
 
-@media (max-width: 560px) {
-  .howit-wrap .wrap { padding: 0 20px; }
-  .howit-d-panel { padding: 22px 18px 20px; }
-  .howit-d-panel-term { font-size: 11.5px; padding: 14px 16px; }
+.howit-term .cm  { color: var(--code-cm); }
+.howit-term .jk  { color: var(--code-str); }
+.howit-term .jv  { color: var(--code-val); }
+.howit-term .kw  { color: var(--code-kw); }
+.howit-term .fn  { color: var(--code-fn); }
+.howit-term .acc { color: var(--code-acc); }
+
+/* Bento SLA Stats */
+.howit-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.howit-stat-box {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--r-sm);
+  padding: 14px;
+}
+
+.howit-stat-num {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.howit-stat-num.green {
+  color: var(--green);
+}
+
+.howit-stat-label {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+}
+
+/* Pill Row */
+.howit-pill-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.howit-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--ink-3);
+}
+
+.howit-pill.active {
+  background: var(--blue-dim);
+  border-color: rgba(75, 29, 149, 0.22);
+  color: var(--blue);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .howit-wrap {
+    padding: 96px 0;
+  }
+  .howit-tile-step1,
+  .howit-tile-step2,
+  .howit-tile-step3,
+  .howit-tile-sla {
+    grid-column: span 12;
+  }
+}
+
+@media (max-width: 640px) {
+  .howit-wrap {
+    padding: 64px 0;
+  }
+  .howit-card {
+    padding: 22px 18px;
+  }
+  .howit-title {
+    font-size: 18px;
+  }
+  .howit-term {
+    padding: 14px 14px;
+    font-size: 11.5px;
+  }
 }
