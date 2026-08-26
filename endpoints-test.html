@@ -43,6 +43,14 @@
           <div class="ep-viz-card">
             <div class="stage">
               <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
+                <!-- camera reticle corners -->
+                <g stroke="var(--accent)" stroke-width="1.6" fill="none" opacity="0.65" stroke-linecap="round">
+                  <path d="M 88 40 L 88 28 L 100 28" />
+                  <path d="M 220 28 L 232 28 L 232 40" />
+                  <path d="M 88 168 L 88 180 L 100 180" />
+                  <path d="M 220 180 L 232 180 L 232 168" />
+                </g>
+
                 <!-- face outline -->
                 <ellipse class="face-outline" cx="160" cy="104" rx="58" ry="76"/>
 
@@ -310,47 +318,38 @@
           <div class="ep-viz-card">
             <div class="stage">
               <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
-                <!-- left: name as written on the ID, native script -->
-                <text class="chip-label" x="79" y="52">ID NAME</text>
-                <rect class="chip-box" x="20" y="58" width="118" height="70" rx="10"/>
-                <text class="native-text" x="79" y="102">নাজমুল ইসলাম</text>
-                <line class="scanline" x1="26" y1="64" x2="132" y2="64"/>
+                <!-- Step 1: Box 1 (TOP) - Input Bangla with left-to-right scanline -->
+                <text class="chip-label" x="160" y="20" text-anchor="middle">INPUT BANGLA</text>
+                <rect class="chip-box" x="52" y="26" width="216" height="42" rx="8"/>
+                <text class="native-text" x="160" y="52" text-anchor="middle">মোঃ সুমাইয়া রহমান</text>
+                <line class="scanline-lr" x1="60" y1="28" x2="60" y2="66"/>
 
-                <!-- right: name as entered at sign-up, transliterated by the AI -->
-                <text class="chip-label" x="241" y="52">ENTERED NAME</text>
-                <rect class="chip-box" x="182" y="58" width="118" height="70" rx="10"/>
-                <text class="translit-text" x="194" y="99" style="animation-delay:2.30s">N</text>
-                <text class="translit-text" x="202" y="99" style="animation-delay:2.45s">A</text>
-                <text class="translit-text" x="210" y="99" style="animation-delay:2.60s">J</text>
-                <text class="translit-text" x="217" y="99" style="animation-delay:2.75s">M</text>
-                <text class="translit-text" x="225" y="99" style="animation-delay:2.90s">U</text>
-                <text class="translit-text" x="233" y="99" style="animation-delay:3.05s">L</text>
-                <text class="translit-text" x="249" y="99" style="animation-delay:3.20s">I</text>
-                <text class="translit-text" x="256" y="99" style="animation-delay:3.35s">S</text>
-                <text class="translit-text" x="264" y="99" style="animation-delay:3.50s">L</text>
-                <text class="translit-text" x="272" y="99" style="animation-delay:3.65s">A</text>
-                <text class="translit-text" x="280" y="99" style="animation-delay:3.80s">M</text>
+                <!-- Step 2: Center AI loading icon working in back -->
+                <g class="trans-engine">
+                  <path class="static-arrow" d="M160 74 L160 94" opacity=".4"/>
+                  <path class="static-arrow" d="M155 89 L160 95 L165 89" opacity=".4"/>
+                  <circle class="think-ring-trans" cx="160" cy="84" r="10"/>
+                </g>
 
-                <!-- static translate affordance, always faintly present -->
-                <path class="static-arrow" d="M148 93 L162 93" opacity=".55"/>
-                <path class="static-arrow" d="M156 88 L162 93 L156 98" opacity=".55"/>
+                <!-- Step 3: Box 2 (BOTTOM) - Clean Transliterated English appears -->
+                <text class="chip-label" x="160" y="104" text-anchor="middle">CLEAN TRANSLITERATION</text>
+                <rect class="chip-box" x="52" y="110" width="216" height="42" rx="8"/>
+                <text class="translit-text" x="160" y="136" text-anchor="middle">Md. Sumaiya Rahman</text>
 
-                <!-- AI comparison, appears mid-cycle -->
-                <line class="compare-line" x1="138" y1="93" x2="182" y2="93"/>
-                <circle class="think-ring" cx="160" cy="93" r="15"/>
+                <!-- Step 4: Top-Right Success Sign on 2nd Box finishing animation -->
+                <circle class="badge-soft-tr" cx="264" cy="110" r="12"/>
+                <circle class="badge-ring-tr" cx="264" cy="110" r="9"/>
+                <path class="badge-check-tr" d="M260 110 L263 113 L269 106"/>
 
-                <!-- verdict -->
-                <text class="score-text" x="160" y="180">NAME MATCH</text>
-                <circle class="badge-soft" cx="160" cy="152" r="16"/>
-                <circle class="badge-ring" cx="160" cy="152" r="13"/>
-                <path class="badge-check" d="M154 152 L159 157 L168 145"/>
+                <!-- Bottom Confidence Readout -->
+                <text class="score-text" x="160" y="184" text-anchor="middle">0.984 CONFIDENCE &middot; ROMANIZED MATCH</text>
               </svg>
             </div>
 
             <div class="status">
-              <span class="s1">&gt; reading_native_script()<span style="opacity:.5;">_</span></span>
-              <span class="s2">&gt; transliterating_name()</span>
-              <span class="s3">&gt; name_match: confirmed &#10003;</span>
+              <span class="s1">&gt; input: "মোঃ সুমাইয়া রহমান"<span style="opacity:.5;">_</span></span>
+              <span class="s2">&gt; parsing_honorifics_and_surname()</span>
+              <span class="s3">&gt; result: "Md. Sumaiya Rahman" &#10003;</span>
             </div>
           </div>
         </div>

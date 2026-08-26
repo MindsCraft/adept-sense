@@ -9,7 +9,7 @@
 /* ── FOOTER ── */
 footer { background: var(--surface); border-top: 1px solid var(--border); padding: 64px 0 32px; }
 .footer-inner {
-  max-width: 1160px; margin: 0 auto; padding: 0 40px;
+  max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter);
   display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr;
   gap: 36px; margin-bottom: 48px;
 }
@@ -21,7 +21,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
 .footer-col a { display: block; font-size: 13px; color: var(--ink-3); margin-bottom: 10px; transition: color .15s; }
 .footer-col a:hover { color: var(--blue); }
 .footer-bottom {
-  max-width: 1160px; margin: 0 auto; padding: 24px 40px 0;
+  max-width: var(--container); margin: 0 auto; padding: 24px var(--gutter) 0;
   display: flex; justify-content: space-between; align-items: center;
   border-top: 1px solid var(--border);
 }

@@ -21,7 +21,7 @@ nav {
   pointer-events: all;
   position: relative;
   width: 100%;
-  max-width: 1392px;
+  max-width: var(--container);
   margin: 0 auto;
   height: 58px;
   display: flex; align-items: center; gap: 28px;

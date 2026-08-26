@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdeptSense — Use Case Section Explorations</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Lora:ital,wght@1,600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       ADEPTSENSE DESIGN TOKENS (DESIGN-SYSTEM.md Compliant)
+       ============================================================ */
+    :root {
+      --blue:         #4B1D95;
+      --blue-hover:   #5A23B3;
+      --blue-pressed: #3A1773;
+      --blue-dim:     #F3EFFB;
+      --blue-glow:    rgba(75, 29, 149, 0.22);
+
+      --voice:        #26125B;
+      --voice-soft:   #EDE9F7;
+      --voice-line:   #C7BCE0;
+
+      --green:        #10B981;
+      --green-dim:    rgba(16, 185, 129, 0.12);
+      --green-line:   rgba(16, 185, 129, 0.25);
+
+      --ink:          #0B0B0F;
+      --ink-2:        #1F2937;
+      --ink-3:        #4B5563;
+      --ink-4:        #6B7280;
+      --bg:           #FAFAFA;
+      --surface:      #FFFFFF;
+      --border:       #E5E7EB;
+      --border-2:     #F3F4F6;
+
+      --code-bg:      #0D1117;
+      --code-bg-2:    #06090E;
+      --code-fg:      #C9D1D9;
+      --code-line:    #21262D;
+      --code-kw:      #FF7B72;
+      --code-fn:      #79C0FF;
+      --code-str:     #A5D6FF;
+      --code-val:     #56D364;
+      --code-acc:     #A78BFA;
+      --code-cm:      #6E7681;
+
+      --r-sm:         6px;
+      --r:            10px;
+      --r-lg:         16px;
+      --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+
+      --font-sans:    'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono:    'JetBrains Mono', monospace;
+      --font-serif:   'Lora', serif;
+
+      --shadow-sm:    0 1px 2px rgba(11, 11, 15, 0.06);
+      --shadow-md:    0 4px 12px rgba(11, 11, 15, 0.08);
+      --shadow-lg:    0 12px 24px rgba(11, 11, 15, 0.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 120px;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
+
+    /* Sticky Nav */
+    .explore-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 14px 36px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .explore-nav-left { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 700; }
+    .badge-pill {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      background: var(--blue-dim); color: var(--blue); padding: 3px 10px; border-radius: var(--r-sm);
+    }
+    .explore-nav-links { display: flex; gap: 16px; align-items: center; font-size: 13px; font-weight: 600; }
+    .explore-nav-links a { color: var(--ink-3); transition: color .15s; }
+    .explore-nav-links a:hover { color: var(--blue); }
+
+    /* Concept Header Banner */
+    .concept-hero {
+      text-align: center; max-width: 900px; margin: 0 auto;
+      padding: 56px 24px 36px;
+    }
+    .concept-tag {
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--blue); background: var(--blue-dim);
+      padding: 5px 14px; border-radius: var(--r-sm); display: inline-block; margin-bottom: 16px;
+    }
+    .concept-hero h1 {
+      font-size: clamp(32px, 4vw, 44px); font-weight: 800; letter-spacing: -0.03em;
+      color: var(--ink); margin-bottom: 14px;
+    }
+    .concept-hero h1 em { font-family: var(--font-serif); font-style: italic; font-weight: 600; color: var(--blue); }
+    .concept-hero p { font-size: 16px; color: var(--ink-3); line-height: 1.6; }
+
+    /* Section Wrapper */
+    .exploration-divider {
+      max-width: 1200px; margin: 80px auto 40px; padding: 0 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .exploration-divider span {
+      font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+      text-transform: uppercase; color: var(--ink-4); letter-spacing: 0.1em; white-space: nowrap;
+    }
+    .exploration-divider hr { flex: 1; border: none; border-top: 1px solid var(--border); }
+
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* Section Header */
+    .section-header { text-align: left; margin-bottom: 36px; }
+    .section-header .kicker {
+      font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue);
+      display: inline-block; margin-bottom: 8px;
+    }
+    .section-header h2 {
+      font-size: clamp(28px, 3.2vw, 38px); font-weight: 800;
+      letter-spacing: -0.025em; line-height: 1.2; color: var(--ink);
+    }
+    .section-header h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 600; color: var(--blue); }
+    .section-header p { font-size: 16px; color: var(--ink-3); margin-top: 8px; max-width: 680px; }
+
+    /* ============================================================
+       CONCEPT 1: SPLIT ARCHITECTURAL SANDBOX DECK (RECOMMENDED)
+       ============================================================ */
+    .c1-nav-tabs {
+      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 24px;
+      scrollbar-width: none;
+    }
+    .c1-nav-tabs::-webkit-scrollbar { display: none; }
+    .c1-tab {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 18px; border-radius: 4px;
+      background: var(--surface); border: none;
+      font-size: 13.5px; font-weight: 600; color: var(--ink-3);
+      cursor: pointer; white-space: nowrap; transition: all .15s ease;
+    }
+    .c1-tab:hover { background: var(--blue-dim); color: var(--blue); }
+    .c1-tab.active {
+      background: var(--blue); color: #FFFFFF; border: none;
+      box-shadow: none;
+    }
+    .c1-tab svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* Main Deck Card */
+    .c1-deck {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 32px;
+      background: #FFFFFF;
+      border: none;
+      border-radius: var(--r-lg);
+      padding: 40px;
+      box-shadow: none;
+      align-items: stretch;
+      min-height: 480px;
+    }
+    @media (max-width: 960px) {
+      .c1-deck { grid-template-columns: 1fr; padding: 24px; }
+    }
+
+    /* Left Narrative Column */
+    .c1-left { display: flex; flex-direction: column; justify-content: space-between; }
+    .c1-kicker-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .c1-badge {
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      color: var(--green); background: var(--green-dim);
+      border: none; padding: 3px 8px; border-radius: 4px;
+    }
+    .c1-kicker { font-family: var(--font-mono); font-size: 11.5px; font-weight: 600; color: var(--ink-4); }
+    .c1-title {
+      font-size: clamp(22px, 2.4vw, 28px); font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.25; color: var(--ink); margin-bottom: 12px;
+    }
+    .c1-title em { font-family: var(--font-serif); font-style: italic; font-weight: 500; color: var(--blue); }
+    .c1-desc { font-size: 15px; line-height: 1.65; color: var(--ink-3); margin-bottom: 24px; }
+
+    /* Telemetry KPI Metrics */
+    .c1-stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+      margin-bottom: 24px; padding: 14px 16px;
+      background: var(--bg); border-radius: 6px; border: none;
+    }
+    .c1-stat-item { display: flex; flex-direction: column; }
+    .c1-stat-val {
+      font-family: var(--font-mono); font-size: 19px; font-weight: 700; color: var(--ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .c1-stat-val.accent { color: var(--blue); }
+    .c1-stat-val.green { color: var(--green); }
+    .c1-stat-lbl { font-size: 11px; font-weight: 600; color: var(--ink-4); text-transform: uppercase; margin-top: 2px; }
+
+    /* Checklist */
+    .c1-checklist {
+      list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px;
+    }
+    .c1-checklist li {
+      display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: var(--ink-2); line-height: 1.5;
+    }
+    .c1-checklist-ico {
+      width: 18px; height: 18px; border-radius: 4px; background: var(--blue-dim); color: var(--blue);
+      display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 10.5px;
+      flex-shrink: 0; margin-top: 2px; border: none;
+    }
+
+    .c1-action-row { display: flex; align-items: center; gap: 14px; }
+    .c1-btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue); color: #FFFFFF; font-weight: 700; font-size: 13.5px;
+      padding: 11px 20px; border-radius: var(--r-sm); transition: all .15s ease;
+    }
+    .c1-btn-primary:hover { background: var(--blue-hover); transform: translateY(-1px); }
+    .c1-link { font-size: 13px; font-weight: 600; color: var(--ink-3); transition: color .15s; }
+    .c1-link:hover { color: var(--blue); }
+
+    /* Right Visual Sandbox Widget */
+    .c1-visual-container {
+      background: var(--code-bg);
+      border: none;
+      border-radius: var(--r);
+      padding: 24px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      color: var(--code-fg); box-shadow: none;
+      position: relative; overflow: hidden;
+    }
+    .c1-viz-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 18px;
+    }
+    .c1-viz-status {
+      display: flex; align-items: center; gap: 8px; font-family: var(--font-mono);
+      font-size: 11.5px; font-weight: 600; color: var(--code-val);
+    }
+    .c1-viz-status .pulse {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--code-val);
+      box-shadow: 0 0 8px var(--code-val);
+    }
+    .c1-viz-meta { font-family: var(--font-mono); font-size: 11px; color: var(--code-cm); }
+
+    /* Dynamic Visual Stage Mockup */
+    .c1-stage-box {
+      flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;
+    }
+    
+    /* Interactive Visual Card: Pipeline Simulation */
+    .pipeline-step-card {
+      background: var(--code-bg-2); border: none; border-radius: 6px;
+      padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .psc-left { display: flex; align-items: center; gap: 12px; }
+    .psc-icon {
+      width: 28px; height: 28px; border-radius: 6px; background: rgba(121, 192, 255, 0.15);
+      color: var(--code-fn); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; border: none;
+    }
+    .psc-title { font-size: 13px; font-weight: 600; color: #FFFFFF; }
+    .psc-sub { font-family: var(--font-mono); font-size: 11px; color: var(--code-cm); }
+    .psc-tag {
+      font-family: var(--font-mono); font-size: 10.5px; font-weight: 600;
+      padding: 3px 8px; border-radius: 4px; border: none;
+    }
+    .psc-tag.pass { background: rgba(86, 211, 100, 0.15); color: var(--code-val); }
+    .psc-tag.info { background: rgba(167, 139, 250, 0.15); color: var(--code-acc); }
+
+    /* Live Output Contract */
+    .c1-code-block {
+      background: #030609; border: none; border-radius: 6px;
+      padding: 12px 14px; font-family: var(--font-mono); font-size: 11px; line-height: 1.45;
+      color: var(--code-fg); margin-top: 14px;
+    }
+    .c1-code-block .cm { color: var(--code-cm); }
+    .c1-code-block .key { color: var(--code-fn); }
+    .c1-code-block .str { color: var(--code-str); }
+    .c1-code-block .val { color: var(--code-val); font-weight: 600; }
+    .c1-code-block .acc { color: var(--code-acc); }
+
+    /* ============================================================
+       CONCEPT 2: INTERACTIVE BENTO ECOSYSTEM GRID
+       ============================================================ */
+    .c2-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px) {
+      .c2-grid { grid-template-columns: 1fr; }
+    }
+    .c2-bento-hero {
+      background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--r-lg);
+      padding: 32px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .c2-bento-side {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .c2-side-card {
+      background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--r-lg);
+      padding: 24px; box-shadow: var(--shadow-sm); flex: 1;
+    }
+    .c2-tag {
+      font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+      color: var(--blue); background: var(--blue-dim); padding: 3px 8px; border-radius: 4px; display: inline-block;
+      margin-bottom: 10px;
+    }
+    .c2-side-card h4 { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .c2-side-card p { font-size: 13.5px; color: var(--ink-3); line-height: 1.5; }
+
+    /* ============================================================
+       CONCEPT 3: INTERACTIVE STEPPING FLOW MACHINE
+       ============================================================ */
+    .c3-stepper-container {
+      background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--r-lg);
+      padding: 36px; box-shadow: var(--shadow-sm);
+    }
+    .c3-steps-bar {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px;
+      position: relative;
+    }
+    @media (max-width: 768px) {
+      .c3-steps-bar { grid-template-columns: 1fr; }
+    }
+    .c3-step-item {
+      border: 1.5px solid var(--border); border-radius: 6px; padding: 16px 20px;
+      cursor: pointer; transition: all .15s ease; background: #FAFAFA;
+    }
+    .c3-step-item:hover { background: #F1F5F9; }
+    .c3-step-item.active {
+      border-color: var(--blue); background: var(--blue-dim);
+    }
+    .c3-step-head {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;
+    }
+    .c3-step-num {
+      font-family: var(--font-mono); font-size: 12px; font-weight: 800; color: var(--blue);
+    }
+    .c3-step-latency {
+      font-family: var(--font-mono); font-size: 11px; color: var(--ink-4);
+    }
+    .c3-step-title { font-size: 15px; font-weight: 700; color: var(--ink); }
+    .c3-step-desc { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+
+    .c3-display-area {
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px;
+      background: #F8FAFC; border-radius: var(--r); padding: 28px; align-items: center;
+    }
+    @media (max-width: 860px) {
+      .c3-display-area { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Nav -->
+  <nav class="explore-nav">
+    <div class="explore-nav-left">
+      <span>AdeptSense Use Case Explorations</span>
+      <span class="badge-pill">UI Systems 2.0</span>
+    </div>
+    <div class="explore-nav-links">
+      <a href="#concept-1">Concept 1 (Split Sandbox)</a>
+      <a href="#concept-2">Concept 2 (Bento Deck)</a>
+      <a href="#concept-3">Concept 3 (State Stepper)</a>
+      <a href="/index.html" style="color: var(--blue);">← Back to Home</a>
+    </div>
+  </nav>
+
+  <!-- Hero Intro -->
+  <header class="concept-hero">
+    <span class="concept-tag">Interactive Architecture Comparison</span>
+    <h1>Next-Generation <em>Use Case</em> Section Designs.</h1>
+    <p>Replacing static text-heavy cards with dynamic, interactive workflows, real-time vertical switching, live performance metrics, and verified visual contracts.</p>
+  </header>
+
+  <!-- ============================================================
+       EXPLORATION 1: SPLIT ARCHITECTURAL SANDBOX DECK (RECOMMENDED)
+       ============================================================ -->
+  <div class="exploration-divider" id="concept-1">
+    <span>Concept 1 · Split Architectural Sandbox Deck (Recommended)</span>
+    <hr>
+  </div>
+
+  <section class="wrap">
+    <header class="section-header">
+      <span class="kicker">Verticals in Production</span>
+      <h2>Engineered for industries where trust <em>cannot fail.</em></h2>
+      <p>Select your vertical to see live API payload pipelines, sub-second latency SLA benchmarks, and compliance guarantees.</p>
+    </header>
+
+    <!-- Interactive Vertical Switcher -->
+    <div class="c1-nav-tabs" id="c1-tabs">
+      <button class="c1-tab active" data-target="fintech">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M9 13h2M13 9h2M13 13h2M9 17h6"/></svg>
+        Fintech &amp; Digital Wallets
+      </button>
+      <button class="c1-tab" data-target="hr">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M3 21c.5-3.5 3-6 6-6s5.5 2.5 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M14 21c.3-2.4 1.7-4 3-4s2.7 1.6 3 4"/></svg>
+        HR &amp; Workforce
+      </button>
+      <button class="c1-tab" data-target="healthcare">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-7-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-7 11-7 11z"/><path d="M9 11h2v4M13 11h2"/></svg>
+        Healthcare &amp; Telemedicine
+      </button>
+      <button class="c1-tab" data-target="ecommerce">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h2l3 12h11l2-9H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+        E-Commerce &amp; Marketplaces
+      </button>
+      <button class="c1-tab" data-target="mobility">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17V9l3-4h8l3 4v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><circle cx="8" cy="14" r="1.2"/><circle cx="16" cy="14" r="1.2"/></svg>
+        Ride-sharing &amp; Logistics
+      </button>
+      <button class="c1-tab" data-target="igaming">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="12" rx="3"/><path d="M8 12h2M8 15h6M14 12h2"/><circle cx="17" cy="8" r="0.8"/></svg>
+        iGaming &amp; Crypto
+      </button>
+    </div>
+
+    <!-- Active Deck Surface -->
+    <div class="c1-deck" id="c1-deck-content">
+      <!-- Left Narrative Column -->
+      <div class="c1-left">
+        <div>
+          <div class="c1-kicker-row">
+            <span class="c1-badge" id="c1-badge-text">Production Live</span>
+            <span class="c1-kicker" id="c1-kicker-text">FINTECH &amp; DIGITAL BANKING</span>
+          </div>
+          <h3 class="c1-title" id="c1-title-text">
+            Onboard customers in sub-seconds <em>without KYC drop-off.</em>
+          </h3>
+          <p class="c1-desc" id="c1-desc-text">
+            Leading digital banks replace manual back-office queues with AdeptSense drop-in biometric verification. Smart card NID OCR, passive 3D liveness, and 1:1 facial matching execute seamlessly in one unified API session.
+          </p>
+
+          <!-- Metrics Row -->
+          <div class="c1-stats-row" id="c1-stats-row">
+            <div class="c1-stat-item">
+              <span class="c1-stat-val green">99.4%</span>
+              <span class="c1-stat-lbl">Field Precision</span>
+            </div>
+            <div class="c1-stat-item">
+              <span class="c1-stat-val accent">~840ms</span>
+              <span class="c1-stat-lbl">p50 Pipeline</span>
+            </div>
+            <div class="c1-stat-item">
+              <span class="c1-stat-val">0 ops</span>
+              <span class="c1-stat-lbl">Manual Queue</span>
+            </div>
+          </div>
+
+          <!-- Feature Bullets -->
+          <ul class="c1-checklist" id="c1-checklist">
+            <li><span class="c1-checklist-ico">✓</span><span>Full compliance with Bangladesh Bank e-KYC guidelines out of the box.</span></li>
+            <li><span class="c1-checklist-ico">✓</span><span>Idempotent session tokens with webhook + real-time polling fallback.</span></li>
+            <li><span class="c1-checklist-ico">✓</span><span>Automatic PII encryption &amp; configurable purge policies.</span></li>
+          </ul>
+        </div>
+
+        <!-- Action Row -->
+        <div class="c1-action-row">
+          <a href="/playground.html" class="c1-btn-primary">
+            Test Live Demo &rarr;
+          </a>
+          <a href="/docs.html" class="c1-link">
+            Read Integration Docs &nearr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Visual Widget Column -->
+      <div class="c1-visual-container">
+        <div class="c1-viz-head">
+          <div class="c1-viz-status">
+            <span class="pulse"></span>
+            <span id="c1-sim-status">PIPELINE EXECUTION: 200 OK</span>
+          </div>
+          <span class="c1-viz-meta" id="c1-sim-meta">Dhaka Core · 142ms</span>
+        </div>
+
+        <div class="c1-stage-box" id="c1-stage-box">
+          <!-- Step 1 -->
+          <div class="pipeline-step-card">
+            <div class="psc-left">
+              <div class="psc-icon">01</div>
+              <div>
+                <div class="psc-title">Smart NID Document Parser</div>
+                <div class="psc-sub">Bangla OCR · 99.4% Field Match</div>
+              </div>
+            </div>
+            <span class="psc-tag pass">PASSED</span>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="pipeline-step-card">
+            <div class="psc-left">
+              <div class="psc-icon" style="background:rgba(167,139,250,0.15); color:var(--code-acc);">02</div>
+              <div>
+                <div class="psc-title">1:1 Biometric Face Match</div>
+                <div class="psc-sub">Vector Cosine: 0.994 score</div>
+              </div>
+            </div>
+            <span class="psc-tag pass">99.4% MATCH</span>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="pipeline-step-card">
+            <div class="psc-left">
+              <div class="psc-icon" style="background:rgba(86,211,100,0.15); color:var(--code-val);">03</div>
+              <div>
+                <div class="psc-title">Passive 3D Liveness Check</div>
+                <div class="psc-sub">iBeta Level 2 PAD Anti-Spoof</div>
+              </div>
+            </div>
+            <span class="psc-tag pass">REAL PERSON</span>
+          </div>
+        </div>
+
+        <!-- Output JSON Contract -->
+        <div class="c1-code-block" id="c1-json-preview">
+          <span class="cm">// Verified Output Payload</span><br>
+          { <span class="key">"verified"</span>: <span class="val">true</span>, <span class="key">"risk_score"</span>: <span class="val">0.002</span>, <span class="key">"kyc_tier"</span>: <span class="str">"APPROVED_LEVEL_3"</span>, <span class="key">"signed_token"</span>: <span class="acc">"jwt_live_8f3a..."</span> }
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       EXPLORATION 2: BENTO ECOSYSTEM GRID
+       ============================================================ -->
+  <div class="exploration-divider" id="concept-2">
+    <span>Concept 2 · Bento Ecosystem Grid</span>
+    <hr>
+  </div>
+
+  <section class="wrap">
+    <div class="c2-grid">
+      <!-- Big Hero Box -->
+      <div class="c2-bento-hero">
+        <div>
+          <span class="c2-tag">Enterprise Scale</span>
+          <h3 style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px;">
+            High-Volume <em>Trust Infrastructure</em>
+          </h3>
+          <p style="font-size: 15px; color: var(--ink-3); line-height: 1.6; margin-bottom: 24px;">
+            Whether verifying millions of ride-sharing drivers, processing hospital patient admissions, or securing high-value crypto transfers, AdeptSense provides audited compliance and dedicated SLAs.
+          </p>
+        </div>
+
+        <div style="background: #F8FAFC; border-radius: 8px; padding: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 18px; font-weight: 800; color: var(--blue);">180+</div>
+            <div style="font-size: 11.5px; color: var(--ink-4); font-weight: 600; text-transform: uppercase;">Countries</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 18px; font-weight: 800; color: var(--green);">99.99%</div>
+            <div style="font-size: 11.5px; color: var(--ink-4); font-weight: 600; text-transform: uppercase;">Uptime SLA</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 18px; font-weight: 800; color: var(--ink);">50M+</div>
+            <div style="font-size: 11.5px; color: var(--ink-4); font-weight: 600; text-transform: uppercase;">Verified</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Side Stack -->
+      <div class="c2-bento-side">
+        <div class="c2-side-card">
+          <span class="c2-tag">Automated Batch API</span>
+          <h4>HR &amp; Vendor Onboarding</h4>
+          <p>Process hundreds of employee identity documents in single batch CSV uploads with automatic status callbacks.</p>
+        </div>
+        <div class="c2-side-card">
+          <span class="c2-tag">Regulated Compliance</span>
+          <h4>iGaming &amp; Age Verification</h4>
+          <p>2-stage compliance pipeline that clears age gates at registration and runs full AML checks at first withdrawal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       EXPLORATION 3: INTERACTIVE STATE MACHINE STEPPER
+       ============================================================ -->
+  <div class="exploration-divider" id="concept-3">
+    <span>Concept 3 · Interactive State Machine Stepper</span>
+    <hr>
+  </div>
+
+  <section class="wrap">
+    <div class="c3-stepper-container">
+      <div class="c3-steps-bar">
+        <div class="c3-step-item active">
+          <div class="c3-step-head">
+            <span class="c3-step-num">STAGE 01</span>
+            <span class="c3-step-latency">~120ms</span>
+          </div>
+          <div class="c3-step-title">1. Document Capture &amp; OCR</div>
+          <div class="c3-step-desc">Extracts Bangla + Eng fields with 99.4% accuracy.</div>
+        </div>
+
+        <div class="c3-step-item">
+          <div class="c3-step-head">
+            <span class="c3-step-num">STAGE 02</span>
+            <span class="c3-step-latency">~680ms</span>
+          </div>
+          <div class="c3-step-title">2. Biometric Vector Match</div>
+          <div class="c3-step-desc">Cosine similarity comparison against selfie vector.</div>
+        </div>
+
+        <div class="c3-step-item">
+          <div class="c3-step-head">
+            <span class="c3-step-num">STAGE 03</span>
+            <span class="c3-step-latency">~140ms</span>
+          </div>
+          <div class="c3-step-title">3. Instant Verified Decision</div>
+          <div class="c3-step-desc">Signed JSON payload returned to your backend webhook.</div>
+        </div>
+      </div>
+
+      <div class="c3-display-area">
+        <div>
+          <h4 style="font-size: 20px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">Sub-Second Identity Decision Machine</h4>
+          <p style="font-size: 14px; color: var(--ink-3); line-height: 1.6;">
+            Every stage executes asynchronously with continuous telemetry logging, guaranteeing that no user gets stuck in an unresolved loading queue.
+          </p>
+        </div>
+        <div style="background: #0D1117; border-radius: 6px; padding: 16px; font-family: var(--font-mono); font-size: 11.5px; color: #C9D1D9;">
+          <span style="color: #6E7681;">// GET /v1/sessions/ses_a1b2c3/result</span><br>
+          {<br>
+          &nbsp;&nbsp;<span style="color:#79C0FF;">"status"</span>: <span style="color:#56D364;">"COMPLETED"</span>,<br>
+          &nbsp;&nbsp;<span style="color:#79C0FF;">"total_latency_ms"</span>: <span style="color:#56D364;">842</span>,<br>
+          &nbsp;&nbsp;<span style="color:#79C0FF;">"decision"</span>: <span style="color:#A78BFA;">"PASS_VERIFIED"</span><br>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Script for Concept 1 -->
+  <script>
+    const verticalData = {
+      fintech: {
+        badge: "Production Live",
+        kicker: "FINTECH & DIGITAL BANKING",
+        title: "Onboard customers in sub-seconds <em>without KYC drop-off.</em>",
+        desc: "Leading digital banks replace manual back-office queues with AdeptSense drop-in biometric verification. Smart card NID OCR, passive 3D liveness, and 1:1 facial matching execute seamlessly in one unified API session.",
+        stats: [
+          { val: "99.4%", lbl: "Field Precision", cls: "green" },
+          { val: "~840ms", lbl: "p50 Pipeline", cls: "accent" },
+          { val: "0 ops", lbl: "Manual Queue", cls: "" }
+        ],
+        bullets: [
+          "Full compliance with Bangladesh Bank e-KYC guidelines out of the box.",
+          "Idempotent session tokens with webhook + real-time polling fallback.",
+          "Automatic PII encryption & configurable purge policies."
+        ],
+        stages: [
+          { num: "01", title: "Smart NID Document Parser", sub: "Bangla OCR · 99.4% Field Match", tag: "PASSED", tagCls: "pass", iconBg: "rgba(121, 192, 255, 0.15)", iconColor: "var(--code-fn)" },
+          { num: "02", title: "1:1 Biometric Face Match", sub: "Vector Cosine: 0.994 score", tag: "99.4% MATCH", tagCls: "pass", iconBg: "rgba(167, 139, 250, 0.15)", iconColor: "var(--code-acc)" },
+          { num: "03", title: "Passive 3D Liveness Check", sub: "iBeta Level 2 PAD Anti-Spoof", tag: "REAL PERSON", tagCls: "pass", iconBg: "rgba(86, 211, 100, 0.15)", iconColor: "var(--code-val)" }
+        ],
+        json: `<span class="cm">// Verified Output Payload</span><br>{ <span class="key">"verified"</span>: <span class="val">true</span>, <span class="key">"risk_score"</span>: <span class="val">0.002</span>, <span class="key">"kyc_tier"</span>: <span class="str">"APPROVED_LEVEL_3"</span>, <span class="key">"signed_token"</span>: <span class="acc">"jwt_live_8f3a..."</span> }`
+      },
+      hr: {
+        badge: "Workforce Day-1",
+        kicker: "HR & CANDIDATE ONBOARDING",
+        title: "Verify hundreds of new hires <em>before Day 1 orientation.</em>",
+        desc: "Automate identity verification for distributed and on-site workforces. Candidates complete self-serve mobile verification, while HR receives real-time webhook status directly in Workday or BambooHR.",
+        stats: [
+          { val: "100%", lbl: "Audit Trail", cls: "green" },
+          { val: "12.4s", lbl: "Avg Candidate Time", cls: "accent" },
+          { val: "100k+", lbl: "Batch Capacity", cls: "" }
+        ],
+        bullets: [
+          "Covers Bangladesh NID, passports, driver's licenses, and international IDs.",
+          "Single signed CSV upload for bulk candidate batch invitations.",
+          "PII auto-purged 30 days after verification compliance clearance."
+        ],
+        stages: [
+          { num: "01", title: "Bulk Candidate CSV Dispatch", sub: "Auto SMS & Email Magic Link", tag: "QUEUED", tagCls: "info", iconBg: "rgba(121, 192, 255, 0.15)", iconColor: "var(--code-fn)" },
+          { num: "02", title: "Mobile Self-Service Capture", sub: "Candidate uploaded NID + selfie", tag: "RECEIVED", tagCls: "pass", iconBg: "rgba(167, 139, 250, 0.15)", iconColor: "var(--code-acc)" },
+          { num: "03", title: "ATS Webhook Sync", sub: "Dispatched to Workday & HRIS", tag: "SYNCED", tagCls: "pass", iconBg: "rgba(86, 211, 100, 0.15)", iconColor: "var(--code-val)" }
+        ],
+        json: `<span class="cm">// HR Candidate Verification Result</span><br>{ <span class="key">"candidate_id"</span>: <span class="str">"cand_9104"</span>, <span class="key">"nid_matched"</span>: <span class="val">true</span>, <span class="key">"ats_status"</span>: <span class="str">"CLEARED_FOR_HIRE"</span> }`
+      },
+      healthcare: {
+        badge: "HIPAA Compliant",
+        kicker: "HEALTHCARE & TELEMEDICINE",
+        title: "Confirm patient identity <em>before prescriptions & claims.</em>",
+        desc: "Hospitals and telehealth networks prevent insurance fraud and identity mix-ups before virtual doctor consultations. Multilingual OCR handles Bengali, English, and regional dialect IDs instantly.",
+        stats: [
+          { val: "100%", lbl: "HIPAA Aligned", cls: "green" },
+          { val: "< 30s", lbl: "Pre-Visit Flow", cls: "accent" },
+          { val: "0 PII", lbl: "Plaintext Logs", cls: "" }
+        ],
+        bullets: [
+          "Zero camera permission friction — works smoothly inside mobile WebViews.",
+          "High accuracy OCR on old laminated and new smart card NIDs.",
+          "Secure encrypted patient tokens compatible with standard EMRs."
+        ],
+        stages: [
+          { num: "01", title: "Pre-Visit SMS Identity Link", sub: "Sent 10m before consultation", tag: "OPENED", tagCls: "info", iconBg: "rgba(121, 192, 255, 0.15)", iconColor: "var(--code-fn)" },
+          { num: "02", title: "Patient NID OCR & Biometrics", sub: "Sub-second 3D liveness check", tag: "CONFIRMED", tagCls: "pass", iconBg: "rgba(167, 139, 250, 0.15)", iconColor: "var(--code-acc)" },
+          { num: "03", title: "EMR Consultation Unlock", sub: "Prescription signing authorized", tag: "AUTHORIZED", tagCls: "pass", iconBg: "rgba(86, 211, 100, 0.15)", iconColor: "var(--code-val)" }
+        ],
+        json: `<span class="cm">// Patient Consultation Clearance</span><br>{ <span class="key">"patient_verified"</span>: <span class="val">true</span>, <span class="key">"emr_record_match"</span>: <span class="str">"EMR_MATCH_CONFIRMED"</span> }`
+      },
+      ecommerce: {
+        badge: "Trust & Safety",
+        kicker: "E-COMMERCE & MARKETPLACES",
+        title: "Build verified trust on <em>both sides of the transaction.</em>",
+        desc: "Age-verify buyers in 3 seconds at checkout and authenticate high-volume marketplace merchants before issuing payment payouts. Increase buyer conversion with verified profile badges.",
+        stats: [
+          { val: "3.2s", lbl: "Avg Checkout Age-Gate", cls: "accent" },
+          { val: "+18%", lbl: "Merchant Conversion", cls: "green" },
+          { val: "Zero", lbl: "Payout Fraud", cls: "" }
+        ],
+        bullets: [
+          "Age verification with minimal drop-off during checkout flow.",
+          "Merchant KYC re-check before first bank transfer payout.",
+          "Verified seller trust badge surfaced in customer chat."
+        ],
+        stages: [
+          { num: "01", title: "Buyer 3s Age-Gate Overlay", sub: "Instant document age verification", tag: "VERIFIED 21+", tagCls: "pass", iconBg: "rgba(121, 192, 255, 0.15)", iconColor: "var(--code-fn)" },
+          { num: "02", title: "Seller Business NID Check", sub: "Cross-checked with trade license", tag: "AUTHENTICATED", tagCls: "pass", iconBg: "rgba(167, 139, 250, 0.15)", iconColor: "var(--code-acc)" },
+          { num: "03", title: "Payout Gate Unlock", sub: "First bank payout unlocked", tag: "UNLOCKED", tagCls: "pass", iconBg: "rgba(86, 211, 100, 0.15)", iconColor: "var(--code-val)" }
+        ],
+        json: `<span class="cm">// Marketplace Trust Status</span><br>{ <span class="key">"merchant_id"</span>: <span class="str">"m_8821"</span>, <span class="key">"payout_status"</span>: <span class="str">"CLEARED"</span>, <span class="key">"trust_badge"</span>: <span class="val">true</span> }`
+      },
+      mobility: {
+        badge: "Driver Security",
+        kicker: "RIDE-SHARING & MOBILITY",
+        title: "Verify drivers &amp; couriers <em>before their first trip.</em>",
+        desc: "Ride-sharing and delivery platforms verify driver identity, license numbers, and face biometrics at registration, then run random rolling selfie checks to prevent account sharing and impersonation.",
+        stats: [
+          { val: "99.8%", lbl: "Face Verification", cls: "green" },
+          { val: "142ms", lbl: "Rolling Check", cls: "accent" },
+          { val: "100%", lbl: "License Match", cls: "" }
+        ],
+        bullets: [
+          "Instant parsing of Bangladesh Driving Licenses & Smart NIDs.",
+          "Periodic random selfie check before going online.",
+          "Passenger-visible 'Verified Driver' badge lifts booking trust."
+        ],
+        stages: [
+          { num: "01", title: "Driver License & NID OCR", sub: "Validates expiration & category", tag: "VALIDATED", tagCls: "pass", iconBg: "rgba(121, 192, 255, 0.15)", iconColor: "var(--code-fn)" },
+          { num: "02", title: "Pre-Shift Facial Liveness", sub: "Driver selfie matched to profile", tag: "MATCH 99.8%", tagCls: "pass", iconBg: "rgba(167, 139, 250, 0.15)", iconColor: "var(--code-acc)" },
+          { num: "03", title: "Online Dispatch Authorized", sub: "Driver enabled for trips", tag: "ONLINE READY", tagCls: "pass", iconBg: "rgba(86, 211, 100, 0.15)", iconColor: "var(--code-val)" }
+        ],
+        json: `<span class="cm">// Driver Shift Auth Payload</span><br>{ <span class="key">"driver_id"</span>: <span class="str">"drv_447"</span>, <span class="key">"shift_authorized"</span>: <span class="val">true</span>, <span class="key">"liveness"</span>: <span class="val">0.992</span> }`
+      },
+      igaming: {
+        badge: "Regulated Gate",
+        kicker: "IGAMING & CRYPTO EXCHANGES",
+        title: "Maintain regulatory compliance <em>without signup drop-off.</em>",
+        desc: "Two-stage verification flow: a light 3-second age gate during initial registration that maximizes conversion, paired with a comprehensive biometric KYC check at first fiat withdrawal.",
+        stats: [
+          { val: "2-Stage", lbl: "Progressive KYC", cls: "accent" },
+          { val: "100%", lbl: "Regulator Ready", cls: "green" },
+          { val: "Audit Log", lbl: "Signed Receipts", cls: "" }
+        ],
+        bullets: [
+          "Instant age-gate without overwhelming new users.",
+          "Biometric verification with self-exclusion & sanctions screening.",
+          "Cryptographically signed audit receipts for regulatory audits."
+        ],
+        stages: [
+          { num: "01", title: "Registration Fast Age-Gate", sub: "Instant 3s date-of-birth check", tag: "CLEARED 18+", tagCls: "pass", iconBg: "rgba(121, 192, 255, 0.15)", iconColor: "var(--code-fn)" },
+          { num: "02", title: "Full Tier-2 KYC at Withdrawal", sub: "NID OCR + 3D Liveness Vector", tag: "VERIFIED", tagCls: "pass", iconBg: "rgba(167, 139, 250, 0.15)", iconColor: "var(--code-acc)" },
+          { num: "03", title: "Signed Audit Envelope", sub: "Immutable compliance receipt", tag: "SIGNED 200 OK", tagCls: "pass", iconBg: "rgba(86, 211, 100, 0.15)", iconColor: "var(--code-val)" }
+        ],
+        json: `<span class="cm">// Compliance Audit Receipt</span><br>{ <span class="key">"user_id"</span>: <span class="str">"usr_9981"</span>, <span class="key">"aml_status"</span>: <span class="str">"CLEAR"</span>, <span class="key">"withdrawal_authorized"</span>: <span class="val">true</span> }`
+      }
+    };
+
+    const c1Tabs = document.querySelectorAll('.c1-tab');
+    const badgeEl = document.getElementById('c1-badge-text');
+    const kickerEl = document.getElementById('c1-kicker-text');
+    const titleEl = document.getElementById('c1-title-text');
+    const descEl = document.getElementById('c1-desc-text');
+    const statsRow = document.getElementById('c1-stats-row');
+    const checklistEl = document.getElementById('c1-checklist');
+    const stageBox = document.getElementById('c1-stage-box');
+    const jsonPreview = document.getElementById('c1-json-preview');
+
+    c1Tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        c1Tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const key = tab.dataset.target;
+        const data = verticalData[key];
+        if (!data) return;
+
+        badgeEl.textContent = data.badge;
+        kickerEl.textContent = data.kicker;
+        titleEl.innerHTML = data.title;
+        descEl.textContent = data.desc;
+
+        statsRow.innerHTML = data.stats.map(s => `
+          <div class="c1-stat-item">
+            <span class="c1-stat-val ${s.cls}">${s.val}</span>
+            <span class="c1-stat-lbl">${s.lbl}</span>
+          </div>
+        `).join('');
+
+        checklistEl.innerHTML = data.bullets.map(b => `
+          <li><span class="c1-checklist-ico">✓</span><span>${b}</span></li>
+        `).join('');
+
+        stageBox.innerHTML = data.stages.map(st => `
+          <div class="pipeline-step-card">
+            <div class="psc-left">
+              <div class="psc-icon" style="background:${st.iconBg}; color:${st.iconColor};">${st.num}</div>
+              <div>
+                <div class="psc-title">${st.title}</div>
+                <div class="psc-sub">${st.sub}</div>
+              </div>
+            </div>
+            <span class="psc-tag ${st.tagCls}">${st.tag}</span>
+          </div>
+        `).join('');
+
+        jsonPreview.innerHTML = data.json;
+      });
+    });
+  </script>
+</body>
+</html>

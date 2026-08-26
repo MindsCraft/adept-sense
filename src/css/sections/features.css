@@ -1,8 +1,14 @@
 /* ── ENDPOINTS (row-per-service) ── */
 .endpoints-wrap {
-  background: var(--bg);
+  background: #FFFFFF;
   border-bottom: 1px solid var(--border);
-  padding: 96px 0;
+  padding: 140px 0;
+}
+@media (max-width: 1024px) {
+  .endpoints-wrap { padding: 96px 0; }
+}
+@media (max-width: 640px) {
+  .endpoints-wrap { padding: 64px 0; }
 }
 .endpoints-head {
   max-width: var(--container);
@@ -94,19 +100,12 @@
 .ep-row.ep-row--card-b {
   padding: 48px;
   background: var(--surface);
-  border: 0;
+  border: none;
   border-radius: var(--r-lg);
   gap: 48px;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition:
-    box-shadow .2s var(--ease),
-    transform .2s var(--ease);
-}
-.ep-row--card-b:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  box-shadow: none;
 }
 .ep-row--card-b::before {
   content: "";
@@ -172,7 +171,7 @@
   padding: 48px;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
 }
 /* Subtle wash so the band feels intentional, not just a tinted box */
 .ep-sdk-bridge::before {

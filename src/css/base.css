@@ -19,12 +19,6 @@ button { font-family: inherit; }
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
-@media (min-width: 1024px) {
-  .wrap {
-    border-left: 1px solid var(--border-2);
-    border-right: 1px solid var(--border-2);
-  }
-}
 @media (max-width: 768px) {
   .wrap {
     padding: 0 var(--gutter-sm);
@@ -33,7 +27,12 @@ button { font-family: inherit; }
 section { padding: 96px 0; }
 
 /* ── TYPOGRAPHY ── */
-/* Section head component lives in /css/components/section-head.css */
+em, i {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--blue);
+}
 
 /* ── SCROLL REVEAL ── */
 .reveal {
