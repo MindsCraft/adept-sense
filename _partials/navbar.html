@@ -1,48 +1,79 @@
-<!-- ── NAV (shared via _partials/navbar.html) ── -->
-<header id="site-header">
-  <nav id="navbar">
-    <a href="index.html" class="nav-logo">
-      <img src="/logo.png" alt="AdeptSense" class="logo-img">
-    </a>
-
-    <!-- Segment 1: Primary nav -->
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li class="nav-dropdown" aria-expanded="false">
-        <button type="button" class="nav-dropdown-trigger" aria-haspopup="true">
-          Services
-          <svg class="chev" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5"/></svg>
-        </button>
-        <ul class="nav-dropdown-panel" role="menu">
-          <li role="none"><a href="nid-ocr.html" role="menuitem"><span class="item-dot"></span>NID OCR</a></li>
-          <li role="none"><a href="face-match.html" role="menuitem"><span class="item-dot"></span>Face Match</a></li>
-          <li role="none"><a href="liveness.html" role="menuitem"><span class="item-dot"></span>Liveness</a></li>
-          <li role="none"><a href="name-translation.html" role="menuitem"><span class="item-dot"></span>Name Translation</a></li>
-          <li role="none"><a href="gender-estimation.html" role="menuitem"><span class="item-dot"></span>Gender Estimation</a></li>
-        </ul>
-      </li>
-      <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="docs.html">Docs</a></li>
-    </ul>
-
-    <!-- Divider -->
-    <span class="nav-divider" aria-hidden="true"></span>
-
-    <!-- Segment 2: Utilities -->
-    <div class="nav-right">
-      <a href="https://github.com/MindsCraft/adept-sense" class="nav-icon-link" aria-label="GitHub" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.71 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.16 1.18a10.96 10.96 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.44-2.7 5.41-5.27 5.7.41.36.78 1.06.78 2.13v3.16c0 .31.21.68.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5Z"/></svg>
+<!-- ── SPECTRA NAVIGATION BAR (shared partial) ── -->
+<header id="site-header" class="site-header">
+  <div class="nav-wrapper">
+    <nav id="navbar" class="navbar" aria-label="Main Navigation">
+      <!-- 1. Brand Logo -->
+      <a href="index.html" class="nav-logo" aria-label="SPECTRA Home">
+        <img src="/logo.svg" alt="SPECTRA" class="logo-img" width="92" height="20">
       </a>
-      <a href="contact.html" class="nav-util-link">Contact</a>
+
+      <!-- 2. Primary Desktop Links -->
+      <ul class="nav-links" id="nav-desktop-links" role="menubar">
+        <li role="none"><a href="index.html#features" class="nav-link" role="menuitem">Capabilities</a></li>
+        <li role="none"><a href="index.html#developers" class="nav-link" role="menuitem">Developers</a></li>
+        <li role="none"><a href="index.html#security" class="nav-link" role="menuitem">Security</a></li>
+        <li role="none"><a href="index.html#pricing" class="nav-link" role="menuitem">Pricing</a></li>
+        <li role="none"><a href="docs.html" class="nav-link" role="menuitem">Docs</a></li>
+      </ul>
+
+      <!-- 3. Right Utilities & Actions -->
+      <div class="nav-actions">
+        <!-- GitHub Icon Link -->
+        <a href="https://github.com/MindsCraft/adept-sense" class="nav-icon-link" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+
+        <!-- Primary CTA -->
+        <a href="playground.html" class="nav-cta-btn">
+          <span>Get API Keys</span>
+          <svg class="nav-cta-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2.5 6h7M6.5 2.5l3.5 3.5-3.5 3.5"/>
+          </svg>
+        </a>
+
+        <!-- Mobile Hamburger Button -->
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Mobile Drawer Menu Dropdown -->
+  <div class="mobile-menu-backdrop" id="mobile-menu-backdrop" aria-hidden="true"></div>
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu-inner">
+      <div class="mobile-nav-group">
+        <div class="mobile-nav-label">Navigation</div>
+        <ul class="mobile-nav-links">
+          <li><a href="index.html" class="mobile-nav-link"><span class="mobile-link-icon">⚡</span> Home</a></li>
+          <li><a href="index.html#features" class="mobile-nav-link"><span class="mobile-link-icon">👁️</span> Capabilities</a></li>
+          <li><a href="index.html#developers" class="mobile-nav-link"><span class="mobile-link-icon">💻</span> Developers & SDKs</a></li>
+          <li><a href="index.html#security" class="mobile-nav-link"><span class="mobile-link-icon">🛡️</span> Security & Compliance</a></li>
+          <li><a href="index.html#pricing" class="mobile-nav-link"><span class="mobile-link-icon">💳</span> Pricing & Calculator</a></li>
+          <li><a href="docs.html" class="mobile-nav-link"><span class="mobile-link-icon">📖</span> API Documentation</a></li>
+          <li><a href="playground.html" class="mobile-nav-link"><span class="mobile-link-icon">🧪</span> Interactive Playground</a></li>
+        </ul>
+      </div>
+
+      <div class="mobile-menu-footer">
+        <div class="mobile-status-row">
+          <div class="nav-status-pill">
+            <span class="nav-status-dot"></span>
+            <span class="nav-status-text">412ms · Regional Edge Operational</span>
+          </div>
+          <a href="https://github.com/MindsCraft/adept-sense" class="nav-icon-link" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+        <a href="playground.html" class="btn btn-accent btn-mobile-cta">
+          Get Free API Keys &rarr;
+        </a>
+      </div>
     </div>
-
-    <!-- Segment 3: CTA -->
-    <a href="#" class="nav-cta">API Console
-      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6"/><path d="M6.5 3.5L9 6L6.5 8.5"/></svg>
-    </a>
-
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
+  </div>
 </header>

@@ -1,0 +1,62 @@
+/* ─────────────────────────────────────────────────────────
+   TELEMETRY & TRUST STRIP — Spacious Fluid Benchmarks
+   ───────────────────────────────────────────────────────── */
+
+.telemetry-strip {
+  padding: 64px 0;
+  background: var(--surface);
+  border: none;
+  width: 100%;
+}
+
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(32px, 4vw, 48px);
+}
+
+@media (max-width: 880px) {
+  .telemetry-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .telemetry-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+.telemetry-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px;
+  border-left: none;
+}
+
+.telemetry-item:first-child {
+  padding-left: 0;
+}
+
+.telemetry-val {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 2.4vw, 36px);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  line-height: var(--lh-title);
+}
+
+.telemetry-val.accent {
+  color: var(--accent);
+}
+
+.telemetry-lbl {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-light);
+  color: var(--ink-4);
+  line-height: var(--lh-body);
+}

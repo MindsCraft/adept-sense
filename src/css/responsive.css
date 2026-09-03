@@ -13,14 +13,10 @@
   .stat-item { border: none; padding: 0; }
   .bd-inner { grid-template-columns: 1fr; gap: 40px; }
   .footer-inner { grid-template-columns: repeat(2, 1fr); }
-  .nav-hamburger { display: flex; }
-  .nav-right { display: none; }
 }
 
 @media (max-width: 640px) {
-  nav { padding: 0 20px; }
   .wrap { padding: 0 20px; }
-  .nav-links { display: none; }
   .hero-inner { padding: 0 20px; }
   .hero-cta-form {
     flex-direction: column;

@@ -1,91 +1,177 @@
-/* ── DESIGN TOKENS — Variant C · Deeper ──
-   Sourced from assets/logo/adeptsense-logo-original.png:
-     • Black 0,0,0            (64% of pixels — the mark)
-     • Red #BB2D2E            (17.4% — reserved for live/danger/dot only)
-     • Deep purple #26125B    (10.9% — voice for code)
-   Brand accent: #4B1D95 — one shade brighter than the logo's deep purple,
-   same hue family. Bridge between logo and UI. Linear / Plaid / Mercury vibe.
-   ───────────────────────────────────────────────────────────────────── */
+/* ── DESIGN TOKENS — Single Accent + Pure Monochrome System ──
+   Philosophy:
+     • Strict Black & White / Grayscale foundation (Ink, Slate, White, Glass)
+     • Exactly ONE Accent Color: Electric Indigo (#6366F1)
+     • High-utility, high-contrast, modern developer aesthetics (Linear/Vercel/Persona feel)
+   ───────────────────────────────────────────────────────────────────────── */
 
 :root {
-  /* Brand accent — DEEP PURPLE (one shade above logo) */
-  --blue:       #4B1D95;      /* Brand Accent Deep Purple */
-  --blue-hover: #5A23B3;
-  --blue-pressed: #3A1773;
-  --blue-dim:   #F3EFFB;      /* Soft purple chip background */
-  --blue-glow:  rgba(75, 29, 149, 0.22);
+  /* ── 1 SINGLE ACCENT COLOR (#3f2fee Blue) ── */
+  --accent: #3f2fee;
+  /* Primary Brand Accent */
+  --accent-hover: #3324cf;
+  /* Hover state */
+  --accent-pressed: #2a1da8;
+  /* Active / pressed state */
+  --accent-dim: rgba(63, 47, 238, 0.08);
+  /* Tinted chip / pill / surface background */
+  --accent-glow: rgba(63, 47, 238, 0.24);
+  /* Focus halo / backdrop glow */
+  --accent-line: rgba(63, 47, 238, 0.28);
+  /* Accent border outline */
 
-  /* Voice — DEEP PURPLE from logo, reserved for code/voice */
-  --voice:      #26125B;
-  --voice-soft: #EDE9F7;
-  --voice-line: #C7BCE0;
+  /* Legacy aliases mapped directly to single accent to prevent breaking styles */
+  --blue: var(--accent);
+  --blue-hover: var(--accent-hover);
+  --blue-pressed: var(--accent-pressed);
+  --blue-dim: var(--accent-dim);
+  --blue-glow: var(--accent-glow);
+  --voice: var(--ink);
+  --voice-soft: var(--surface-2);
+  --voice-line: var(--border);
 
-  /* Red — RESERVED (eyebrow dot · live · danger only) */
-  --red:        #BB2D2E;      /* Logo red, used only at 1-3 places per screen */
-  --red-hover:  #9E2224;
-  --red-dim:    #FCEBEC;
-  --red-line:   #E9B4B5;
+  /* ── MONOCHROME / GRAYSCALE HIERARCHY (Absolute Black & White) ── */
+  --black: #000000;
+  --white: #FFFFFF;
+  --ink: #000000;
+  /* Primary Text / Pitch Black */
+  --ink-2: #18181B;
+  /* Secondary headings & nav */
+  --ink-3: #38383f;
+  /* Body copy & descriptions */
+  --ink-4: #71717A;
+  /* Muted labels & placeholders */
+  --ink-5: #A1A1AA;
+  /* Subtle captions & icons */
 
-  /* Green — semantic success / live indicator (dashboard mock) */
-  --green:      #10B981;
-  --green-dim:  rgba(16, 185, 129, 0.12);
-  --green-line: rgba(16, 185, 129, 0.25);
+  /* ── SURFACES & CANVAS ── */
+  --bg: #FAFAFA;
+  /* Light page background */
+  --surface: #FFFFFF;
+  /* Cards, modals, dialogs */
+  --surface-2: #F4F4F5;
+  /* Sub-cards, input backgrounds */
+  --surface-3: #E4E4E7;
+  /* Active pills, dividers */
+  --border: transparent;
+  /* Removed borders */
+  --border-2: transparent;
+  /* Removed nested border */
+  --border-dark: transparent;
+  /* Removed dark mode border */
 
-  /* Neutrals — warm "Ink Spine" matching logo's warm black */
-  --ink:        #0B0B0F;      /* Logo's warm black — primary text */
-  --ink-2:      #1F2937;
-  --ink-3:      #4B5563;
-  --ink-4:      #6B7280;
-  --bg:         #FAFAFA;      /* Off-white, not pure white */
-  --surface:    #FFFFFF;
-  --border:     #E5E7EB;
-  --border-2:   #F3F4F6;
+  /* ── DARK SURFACES / TERMINAL & PLAYGROUND ── */
+  --code-bg: #09090B;
+  /* Pitch Obsidian */
+  --code-bg-2: #121215;
+  /* Terminal card surface */
+  --code-fg: #E4E4E7;
+  /* Primary code text */
+  --code-fg-2: #A1A1AA;
+  /* Secondary code text */
+  --code-line: transparent;
+  /* Code window border removed */
+  --code-acc: var(--accent);
+  /* Accent code highlight */
 
-  /* Code / Terminal mock — GitHub-Dark-aligned */
-  --code-bg:    #0D1117;
-  --code-bg-2:  #0B0F19;
-  --code-fg:    #C9D1D9;
-  --code-fg-2:  #D1D5DB;
-  --code-line:  #21262D;
-  --code-kw:    #FF7B72;      /* keyword (def, import, return) */
-  --code-fn:    #79C0FF;      /* function / call */
-  --code-str:   #A5D6FF;      /* string literal */
-  --code-val:   #56D364;      /* numeric / boolean literal */
-  --code-var:   #FFA657;      /* variable / parameter */
-  --code-cm:    #6E7681;      /* comment */
-  --code-acc:   #A78BFA;      /* accent-highlighted (≈ violet-400, on dark) */
-  --code-ok:    #34D399;      /* success string */
-  --code-warn:  #F59E0B;      /* warning / number */
+  /* Monochromatic Code Syntax Tokens */
+  --code-kw: #FFFFFF;
+  /* Keywords (pure white bold) */
+  --code-fn: var(--accent);
+  /* Functions (accent) */
+  --code-str: #D4D4D8;
+  /* Strings (light zinc) */
+  --code-val: #A1A1AA;
+  /* Literals/Numbers (medium zinc) */
+  --code-var: #E4E4E7;
+  /* Variables */
+  --code-cm: #52525B;
+  /* Comments */
+  --code-ok: #FFFFFF;
+  /* Status OK */
+  --code-warn: #A1A1AA;
+  /* Warning / Alt */
 
-  --r-sm:       6px;
-  --r:          10px;
-  --r-lg:       16px;
-  --ease:       cubic-bezier(0.4, 0, 0.2, 1);
+  /* Status Tokens (Unified into Clean Monochrome + Accent / Subtle Indicator) */
+  --success: #18181B;
+  --success-soft: #F4F4F5;
+  --warning: #18181B;
+  --warning-soft: #F4F4F5;
+  --danger: #18181B;
+  --danger-soft: #F4F4F5;
+  --red: var(--ink);
+  --red-hover: var(--ink-2);
+  --red-dim: var(--surface-2);
+  --red-line: transparent;
+  --green: var(--accent);
+  --green-dim: var(--accent-dim);
+  --green-line: transparent;
 
-  /* Typography Families (3 core fonts) */
-  --font-sans:    'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
-  --font-serif:   'Lora', Georgia, serif;
+  /* ── GEOMETRY & RADIUS ── */
+  --r-sm: 4px;
+  --r: 4px;
+  --r-lg: 4px;
+  --r-full: 4px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Spacing Scale (unchanged) */
-  --space-xs:   4px;
-  --space-sm:   8px;
-  --space-md:   16px;
-  --space-lg:   24px;
-  --space-xl:   32px;
-  --space-2xl:  48px;
-  --space-3xl:  64px;
+  /* ── TYPOGRAPHY ── */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', 'SF Mono', 'JetBrains Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
 
-  /* Shadow Scale — tinted toward ink, not blue */
-  --shadow-sm:  0 1px 2px rgba(11, 11, 15, 0.06);
-  --shadow-md:  0 4px 12px rgba(11, 11, 15, 0.08);
-  --shadow-lg:  0 12px 24px rgba(11, 11, 15, 0.10);
-  --shadow-xl:  0 20px 32px rgba(11, 11, 15, 0.14);
+  /* Font Weights (Ultra-light 200, Light 300, Regular 400, Medium 500, Semibold 600, Bold 700) */
+  --fw-thin: 200;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
 
-  /* ── CONTAINER ──
-     Single universal standard across all sections (hero, endpoints,
-     how-it-works, use-cases, trust, stats, pricing, footer). */
-  --container: 1200px;
-  --gutter:    32px;
-  --gutter-sm: 20px;
+  /* Standard Fixed Integer Font Scale */
+  --text-h1: 68px;
+  --text-68: 68px;
+  --text-56: 56px;
+  --text-h2: 38px;
+  --text-38: 38px;
+  --text-h3: 20px;
+  --text-20: 20px;
+  --text-18: 18px;
+  --text-body: 16px;
+  --text-base: 16px;
+  --text-16: 16px;
+  --text-md: 16px;
+  --text-sm: 14px;
+  --text-14: 14px;
+  --text-xs: 12px;
+  --text-12: 12px;
+
+  /* ── LINE HEIGHTS (Controlled globally in one place) ── */
+  --lh-body: 1.4;
+  --lh-heading: 1.2;
+  --lh-title: 1.14;
+  --lh-code: 1.8;
+  --lh-tight: 1;
+
+  /* ── SPACING SCALE ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+
+  /* ── SHADOW SCALE (Removed / Clean Flat Aesthetic) ── */
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+
+  /* ── CONTAINER & LAYOUT ── */
+  --container: 1280px;
+  --container-fluid: 100%;
+  --gutter: 40px;
+  --gutter-sm: 24px;
+  --gutter-fluid: clamp(28px, 5vw, 72px);
 }

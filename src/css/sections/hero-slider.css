@@ -1,0 +1,498 @@
+/* ─────────────────────────────────────────────────────────────
+   HERO PRODUCT SHOWCASE SLIDER (5 SLIDES: 3 VISIBLE, 2 HIDDEN, CENTER ACTIVE)
+   Follows Persona design aesthetic:
+   • Margin completely removed from showcase
+   • Cards height set around 680px
+   • Exactly 5 slides in the deck
+   • Exactly 3 visible in container (center active + 2 peeking neighbors)
+   • Full-width viewport track with container-sized center card
+   • Zero buttons or arrows (autonomous + click on slide)
+   • Strict negative constraints: ZERO borders, ZERO box-shadows
+   ───────────────────────────────────────────────────────────── */
+
+.hero-showcase {
+  width: 100%;
+  max-width: 100vw;
+  margin: 0; /* Margin removed */
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.showcase-track-outer {
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  position: relative;
+  padding: 12px 0 24px 0;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.showcase-track-outer.is-dragging {
+  cursor: grabbing;
+}
+
+.showcase-track {
+  display: flex;
+  align-items: center;
+  gap: 24px; /* Gap between images set to 24px */
+  will-change: transform;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.showcase-track-outer.is-dragging .showcase-track,
+.showcase-track.is-snapping,
+.showcase-track.is-snapping .showcase-slide,
+.showcase-track.is-snapping .showcase-overlay {
+  transition: none !important;
+}
+
+.showcase-slide {
+  flex-shrink: 0;
+  /* Calculated dynamically in JS to match exact container width */
+  width: min(var(--container, 1280px), calc(100vw - 64px));
+  border-radius: 16px; /* Slide border-radius increased to 16px */
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(0.90); /* Subtle scale for height reduction */
+  transform-origin: center center;
+  opacity: 1; /* Removed opacity-based effect */
+  cursor: grab;
+  will-change: transform;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.showcase-track-outer.is-dragging .showcase-slide {
+  transition: none !important;
+  cursor: grabbing;
+}
+
+.showcase-slide.is-active {
+  transform: scale(1);
+  opacity: 1;
+  z-index: 3;
+}
+
+/* ── SLIDE CARD DESIGN (REDUCED HEIGHT: 600PX, BORDER-RADIUS: 16PX) ── */
+.showcase-card {
+  position: relative;
+  border-radius: 16px; /* Border-radius increased to 16px */
+  background: #0E1015;
+  color: #FFFFFF;
+  padding: 0;
+  height: 600px; /* Reduced card height */
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.showcase-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 0; /* No border-radius on img tag */
+  border: none !important;
+  box-shadow: none !important;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+/* Frosted Glass Noisy Misty Overlay on Inactive Slides */
+.showcase-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 1;
+  transition: opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity;
+  backdrop-filter: blur(14px) saturate(120%) brightness(1.02);
+  -webkit-backdrop-filter: blur(14px) saturate(120%) brightness(1.02);
+  background-color: rgba(255, 255, 255, 0.32);
+  background-image:
+    radial-gradient(ellipse at center, rgba(255, 255, 255, 0.2) 0%, rgba(230, 235, 245, 0.42) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='mistGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23mistGrain)' opacity='0.18' mix-blend-mode='overlay'/%3E%3C/svg%3E");
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.showcase-slide.is-active .showcase-overlay {
+  opacity: 0;
+}
+
+/* ── CARD HEADER ── */
+.showcase-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.showcase-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.showcase-pill.accent {
+  background: rgba(63, 47, 238, 0.22);
+  color: #8B80F9;
+}
+.showcase-pill.cyan {
+  background: rgba(6, 182, 212, 0.2);
+  color: #67E8F9;
+}
+.showcase-pill.amber {
+  background: rgba(245, 158, 11, 0.2);
+  color: #FCD34D;
+}
+.showcase-pill.violet {
+  background: rgba(168, 85, 247, 0.2);
+  color: #D8B4FE;
+}
+.showcase-pill.emerald {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6EE7B7;
+}
+
+.showcase-card-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #FFFFFF;
+}
+
+.showcase-metric {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #A1A1AA;
+}
+
+.showcase-metric .metric-val {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* ── CARD BODY & MOCKUP FRAMES (EXPANDED FOR 680PX HEIGHT) ── */
+.showcase-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  gap: 24px;
+}
+
+/* 1. Document Scanner HUD */
+.doc-mockup-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+}
+
+.doc-scanner-hud {
+  background: #141720;
+  border-radius: 16px;
+  padding: 32px 36px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.hud-tag {
+  grid-column: span 2;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #8B80F9;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.doc-field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.doc-field-row .lbl {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #71717A;
+}
+
+.doc-field-row .val {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 600;
+  color: #FAFAFA;
+}
+
+.doc-status-pills {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hud-status-pill {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.hud-status-pill.green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+}
+.hud-status-pill.blue {
+  background: rgba(63, 47, 238, 0.18);
+  color: #A5B4FC;
+}
+.hud-status-pill.amber {
+  background: rgba(245, 158, 11, 0.16);
+  color: #FBBF24;
+}
+
+/* 2. 3D Biometric Liveness */
+.bio-mockup-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+}
+
+.bio-hud-stats {
+  background: #141720;
+  border-radius: 16px;
+  padding: 36px 36px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.bio-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bio-stat-item .k {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #71717A;
+}
+
+.bio-stat-item .v {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  color: #FAFAFA;
+}
+
+.bio-stat-item .v.ok {
+  color: #34D399;
+}
+
+/* 3. Fraud Telemetry Console */
+.risk-mockup-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+}
+
+.telemetry-log {
+  background: #141720;
+  border-radius: 16px;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tel-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  color: #D4D4D8;
+}
+
+.tel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.tel-dot.green { background: #10B981; }
+.tel-dot.blue { background: #6366F1; }
+
+.tel-code {
+  color: #71717A;
+  font-size: 12px;
+}
+
+/* 4. Bilingual Transliteration */
+.script-mockup-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+}
+
+.script-compare-box {
+  background: #141720;
+  border-radius: 16px;
+  padding: 36px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.script-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.script-kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #71717A;
+  letter-spacing: 0.1em;
+}
+
+.script-val {
+  font-size: 19px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.script-connector {
+  font-size: 26px;
+  color: #8B80F9;
+  opacity: 0.8;
+  padding: 0 12px;
+}
+
+/* 5. BFIU Audit Log */
+.audit-mockup-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+}
+
+.audit-hud {
+  background: #141720;
+  border-radius: 16px;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.audit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #E4E4E7;
+}
+
+.audit-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #34D399;
+  background: rgba(16, 185, 129, 0.12);
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+.audit-chk {
+  color: #34D399;
+  font-weight: 700;
+}
+
+/* ── RESPONSIVE ADAPTATIONS ── */
+@media (max-width: 900px) {
+  .showcase-card {
+    padding: 30px 24px;
+    height: 560px;
+    min-height: 560px;
+  }
+  .doc-scanner-hud,
+  .bio-hud-stats {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 22px;
+  }
+  .showcase-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .showcase-card {
+    padding: 24px 18px;
+    height: auto;
+    min-height: 460px;
+  }
+  .script-compare-box {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  .script-connector {
+    display: none;
+  }
+}

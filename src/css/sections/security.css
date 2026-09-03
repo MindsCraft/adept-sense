@@ -1,0 +1,88 @@
+/* ─────────────────────────────────────────────────────────
+   SECURITY, PRIVACY & AUDIT VAULT — Spacious Layout
+   ───────────────────────────────────────────────────────── */
+
+.sec-section {
+  padding: 140px 0;
+  background: var(--bg);
+  border: none;
+  width: 100%;
+}
+
+.sec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+@media (max-width: 880px) {
+  .sec-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.sec-card {
+  background: var(--surface);
+  border: none;
+  border-radius: var(--r);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: none;
+  transition: transform 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+
+.sec-card:hover {
+  transform: translateY(-2px);
+  background-color: var(--surface-2);
+}
+
+.sec-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.sec-icon-box svg {
+  width: 22px;
+  height: 22px;
+}
+
+.sec-card-title {
+  font-size: var(--text-h3);
+  font-weight: var(--fw-regular);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.sec-card-desc {
+  font-size: var(--text-body);
+  color: var(--ink-3);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-light);
+}
+
+.sec-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--fw-medium);
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: none;
+  padding: 4px 10px;
+  border-radius: var(--r-sm);
+  width: max-content;
+  margin-top: auto;
+}

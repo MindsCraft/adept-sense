@@ -4,1336 +4,496 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AdeptSense — Identity Verification API</title>
-  <meta name="description" content="Bangladesh's most precise identity verification API. ID card OCR, face match, liveness, name translation — all via one integration.">
+  <title>SPECTRA — Modern AI Identity Verification Engine</title>
+  <meta name="description" content="Sub-500ms AI identity verification for emerging markets. Smart NID OCR, 3D passive liveness, and dynamic workflow orchestration.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Lora:ital,wght@1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <!--#include file="_partials/navbar.html" -->
 
-<!-- ── HERO ── -->
-<section class="hero-e">
-  <div class="hero-e-bg"></div>
-
-  <div class="hero-e-inner">
-    <span class="h-eyebrow hero-e-eyebrow">
-      AI Identity API for Developers
-    </span>
-
-    <h1 class="hero-e-headline"><em>One API call.</em><br>Verify anyone, anywhere.</h1>
-
-    <p class="hero-e-sub">
-      OCR, face match, liveness, name translation, gender estimation —
-      <strong>five production endpoints, one consistent JSON contract</strong>.
-      Models trained and shipped in-house. No third-party black boxes.
-    </p>
-
-    <div class="hero-e-cta">
-      <a href="playground.html" class="h-btn h-btn-primary">Try Demo &rarr;</a>
-      <a href="docs.html" class="h-btn h-btn-secondary">API Docs</a>
-    </div>
-
-    <div class="hero-e-stats">
-      <div class="hero-e-stat">
-        <span class="v">99.4%</span>
-        <span class="l">accuracy</span>
-      </div>
-      <span class="hero-e-stat-sep" aria-hidden="true"></span>
-      <div class="hero-e-stat">
-        <span class="v">142ms</span>
-        <span class="l">p50 latency</span>
-      </div>
-      <span class="hero-e-stat-sep" aria-hidden="true"></span>
-      <div class="hero-e-stat">
-        <span class="v">99.9%</span>
-        <span class="l">uptime SLA</span>
-      </div>
-    </div>
+<main>
+  <!-- Liquid Oil-in-Water Droplets Backdrop & Frosted Glass Diffusion Layer -->
+  <div class="hero-liquid-backdrop" aria-hidden="true">
+    <div class="liquid-droplet drop-pool"></div>
+    <div class="liquid-droplet drop-violet"></div>
+    <div class="hero-noise-overlay"></div>
+    <div class="hero-frosted-glass"></div>
   </div>
 
-  <!-- Product poster (full-width stylized dashboard) -->
-  <div class="hero-e-poster">
-    <div class="hero-e-poster-frame">
-      <div class="hero-e-poster-bar">
-        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-        <span class="url">app.adeptsense.tech / dashboard / verifications</span>
-        <span class="live">Live</span>
-      </div>
-      <div class="hero-e-poster-body">
-        <div class="hero-e-poster-side">
-          <h5>Services</h5>
-          <div class="item active">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
-            ID Card OCR
-          </div>
-          <div class="item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="8" r="3"/><circle cx="17" cy="8" r="3"/></svg>
-            Face Match
-          </div>
-          <div class="item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            Liveness
-          </div>
-          <div class="item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h6M8 5v6"/></svg>
-            Name Translation
-          </div>
-          <div class="item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/></svg>
-            Gender Estimation
-          </div>
-        </div>
-
-        <div class="hero-e-poster-main">
-          <div class="hero-e-poster-head">
-            <h3>Verifications <span>last 24h</span></h3>
-            <div class="hero-e-poster-pills">
-              <span class="hero-e-poster-pill blue">All</span>
-              <span class="hero-e-poster-pill green">Passed · 12,418</span>
-              <span class="hero-e-poster-pill">Review · 42</span>
-            </div>
+  <!-- ── 1. HERO SECTION ── -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <!-- Left: Value Proposition -->
+        <div class="hero-content reveal">
+          <div class="hero-eyebrow">
+            <span class="hero-eyebrow-dot"></span>
+            Next-Gen Identity Engine
           </div>
 
-          <div class="hero-e-poster-grid">
-            <div class="hero-e-poster-card">
-              <div class="lbl">Throughput <span>per minute</span></div>
-              <div class="hero-e-poster-bars">
-                <span style="height:25%"></span>
-                <span style="height:42%"></span>
-                <span style="height:38%"></span>
-                <span style="height:55%"></span>
-                <span style="height:48%"></span>
-                <span style="height:72%"></span>
-                <span style="height:65%"></span>
-                <span style="height:88%"></span>
-                <span style="height:74%"></span>
-                <span style="height:92%"></span>
-                <span style="height:80%"></span>
-                <span style="height:96%"></span>
-              </div>
-            </div>
-            <div class="hero-e-poster-card">
-              <div class="lbl">Today <span>auto-refresh</span></div>
-              <div class="hero-e-poster-stats">
-                <div class="hero-e-poster-stat">
-                  <div class="v green">99.4%</div>
-                  <div class="l">Accuracy</div>
-                </div>
-                <div class="hero-e-poster-stat">
-                  <div class="v">142ms</div>
-                  <div class="l">p50 latency</div>
-                </div>
-                <div class="hero-e-poster-stat">
-                  <div class="v blue">12.4k</div>
-                  <div class="l">Verifications</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <h1 class="hero-title">
+            The Intelligent Identity Layer for <span class="accent-text">Next-Gen Platforms.</span>
+          </h1>
 
-          <div class="hero-e-poster-card">
-            <div class="lbl">Recent <span>12,418 events</span></div>
-            <div class="hero-e-poster-rows">
-              <div class="head"><span>User</span><span>Document</span><span>Result</span><span>Time</span></div>
-              <div>
-                <span class="dot">Md. Rafiqul I.</span>
-                <span class="mono">••••••4821</span>
-                <span class="pill">Passed</span>
-                <span class="mono">138 ms</span>
-              </div>
-              <div>
-                <span class="dot">Sumaiya R.</span>
-                <span class="mono">••••••7330</span>
-                <span class="pill">Passed</span>
-                <span class="mono">142 ms</span>
-              </div>
-              <div>
-                <span class="dot warn">Tamim H.</span>
-                <span class="mono">••••••2210</span>
-                <span style="font-size:10px; font-weight:600; padding:3px 8px; border-radius:100px; background:rgba(245,158,11,.12); color:#B45309; width:max-content;">Review</span>
-                <span class="mono">312 ms</span>
-              </div>
-              <div>
-                <span class="dot">Nusrat J.</span>
-                <span class="mono">••••••9104</span>
-                <span class="pill">Passed</span>
-                <span class="mono">128 ms</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── ENDPOINTS (row-per-service) ── -->
-<section class="endpoints-wrap" id="endpoints">
-  <div class="wrap">
-    <header class="section-header section-header--v1-centered reveal">
-      <span class="section-header__kicker">Endpoints</span>
-      <h2 class="section-header__title">Five endpoints.<br>One consistent <em>JSON contract.</em></h2>
-    </header>
-
-    <div class="ep-rows ep-rows--card-b reveal">
-
-      <!-- ROW 01 — Liveness -->
-      <div class="ep-row ep-row--card-b">
-        <div class="ep-row-text">
-          <div class="ep-row-card-head">
-            <span class="ep-row-card-num">01</span>
-            <span class="ep-row-card-tag">Biometric &middot; SDK</span>
-          </div>
-          <h3>Liveness</h3>
-          <p>Block spoofing and replay attacks with passive biometric checks. Works on web, mobile, and inside WebViews &mdash; no special gestures, no extra camera prompts, no onboarding drop-off.</p>
-          <div class="ep-row-text-foot">
-            <a class="ep-row-link" href="docs.html#liveness">Read docs &rarr;</a>
-            <a class="ep-row-link" href="playground.html?endpoint=liveness">Try playground &rarr;</a>
-          </div>
-        </div>
-        <div class="ep-row-viz">
-          <div class="ep-viz-card">
-            <div class="stage">
-              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
-                <!-- camera reticle corners -->
-                <g stroke="var(--accent)" stroke-width="1.6" fill="none" opacity="0.65" stroke-linecap="round">
-                  <path d="M 88 40 L 88 28 L 100 28" />
-                  <path d="M 220 28 L 232 28 L 232 40" />
-                  <path d="M 88 168 L 88 180 L 100 180" />
-                  <path d="M 220 180 L 232 180 L 232 168" />
-                </g>
-
-                <!-- face outline -->
-                <ellipse class="face-outline" cx="160" cy="104" rx="58" ry="76"/>
-
-                <!-- mesh connecting landmarks -->
-                <g class="mesh">
-                  <line x1="133" y1="86" x2="187" y2="86"/>
-                  <line x1="133" y1="86" x2="160" y2="106"/>
-                  <line x1="187" y1="86" x2="160" y2="106"/>
-                  <line x1="160" y1="106" x2="142" y2="132"/>
-                  <line x1="160" y1="106" x2="178" y2="132"/>
-                  <line x1="142" y1="132" x2="178" y2="132"/>
-                  <line x1="112" y1="104" x2="133" y2="86"/>
-                  <line x1="208" y1="104" x2="187" y2="86"/>
-                  <line x1="112" y1="104" x2="142" y2="132"/>
-                  <line x1="208" y1="104" x2="178" y2="132"/>
-                  <line x1="142" y1="132" x2="160" y2="168"/>
-                  <line x1="178" y1="132" x2="160" y2="168"/>
-                </g>
-
-                <!-- landmark points, staggered pop-in as scan passes -->
-                <circle class="lm" cx="133" cy="86"  r="3" style="animation-delay:.05s"/>
-                <circle class="lm" cx="187" cy="86"  r="3" style="animation-delay:.10s"/>
-                <circle class="lm" cx="112" cy="104" r="3" style="animation-delay:.20s"/>
-                <circle class="lm" cx="208" cy="104" r="3" style="animation-delay:.22s"/>
-                <circle class="lm" cx="160" cy="106" r="3" style="animation-delay:.35s"/>
-                <circle class="lm" cx="142" cy="132" r="3" style="animation-delay:.55s"/>
-                <circle class="lm" cx="178" cy="132" r="3" style="animation-delay:.57s"/>
-                <circle class="lm" cx="160" cy="168" r="3" style="animation-delay:.80s"/>
-
-                <!-- scanning beam -->
-                <line class="scanline" x1="96" y1="30" x2="224" y2="30"/>
-
-                <!-- thinking ring, appears during analysis phase, near lower-right -->
-                <circle class="think-ring" cx="256" cy="170" r="14"/>
-
-                <!-- verdict badge -->
-                <circle class="badge-soft" cx="256" cy="170" r="20"/>
-                <circle class="badge-ring" cx="256" cy="170" r="16"/>
-                <path class="badge-check" d="M248 170 L254 176 L265 162"/>
-              </svg>
-            </div>
-
-            <div class="status">
-              <span class="s1">&gt; scanning_face()<span style="opacity:.5;">_</span></span>
-              <span class="s2">&gt; analyzing_liveness_signals()</span>
-              <span class="s3">&gt; result: real_presence &#10003;</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ROW 02 — Face Match -->
-      <div class="ep-row flip ep-row--card-b">
-        <div class="ep-row-viz">
-          <div class="ep-viz-card">
-            <div class="stage">
-              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
-                <!-- ID reference photo, static, already on file -->
-                <rect class="id-frame" x="30" y="46" width="70" height="98" rx="7"/>
-                <text class="id-label" x="65" y="154" text-anchor="middle">ID ON FILE</text>
-                <ellipse class="ref-outline" cx="65" cy="94" rx="21" ry="28"/>
-                <circle class="ref-lm" cx="57" cy="86"  r="2.2"/>
-                <circle class="ref-lm" cx="73" cy="86"  r="2.2"/>
-                <circle class="ref-lm" cx="65" cy="98"  r="2.2"/>
-                <circle class="ref-lm" cx="58" cy="108" r="2.2"/>
-                <circle class="ref-lm" cx="72" cy="108" r="2.2"/>
-
-                <!-- live selfie capture -->
-                <defs>
-                  <clipPath id="selfieClip">
-                    <ellipse cx="234" cy="98" rx="46" ry="60"/>
-                  </clipPath>
-                </defs>
-                <g clip-path="url(#selfieClip)">
-                  <image
-                    href="https://i.pravatar.cc/300?img=12"
-                    x="188" y="38" width="92" height="120"
-                    preserveAspectRatio="xMidYMid slice"/>
-                </g>
-                <ellipse class="live-outline" cx="234" cy="98" rx="46" ry="60"/>
-
-                <!-- comparison links between matching features -->
-                <g class="compare-line">
-                  <line x1="73" y1="86"  x2="216" y2="82"/>
-                  <line x1="57" y1="86"  x2="252" y2="82"/>
-                  <line x1="65" y1="98"  x2="234" y2="100"/>
-                  <line x1="58" y1="108" x2="220" y2="122"/>
-                  <line x1="72" y1="108" x2="248" y2="122"/>
-                </g>
-
-                <!-- live landmark points, popping in during scan -->
-                <circle class="lm" cx="216" cy="82"  r="3.2" style="animation-delay:.06s"/>
-                <circle class="lm" cx="252" cy="82"  r="3.2" style="animation-delay:.12s"/>
-                <circle class="lm" cx="234" cy="100" r="3.2" style="animation-delay:.30s"/>
-                <circle class="lm" cx="220" cy="122" r="3.2" style="animation-delay:.55s"/>
-                <circle class="lm" cx="248" cy="122" r="3.2" style="animation-delay:.60s"/>
-
-                <!-- scanning beam over the live selfie only -->
-                <line class="scanline" x1="188" y1="40" x2="280" y2="40"/>
-
-                <!-- thinking indicator between the two faces during compare phase -->
-                <circle class="think-ring" cx="150" cy="96" r="15"/>
-
-                <!-- verdict: match score + check -->
-                <text class="score-text" x="160" y="176">98.6% MATCH</text>
-                <circle class="badge-soft" cx="160" cy="150" r="17"/>
-                <circle class="badge-ring" cx="160" cy="150" r="14"/>
-                <path class="badge-check" d="M153 150 L158 155 L168 143"/>
-              </svg>
-            </div>
-
-            <div class="status">
-              <span class="s1">&gt; capturing_live_selfie()<span style="opacity:.5;">_</span></span>
-              <span class="s2">&gt; comparing_facial_geometry()</span>
-              <span class="s3">&gt; match_score: 98.6% &#10003;</span>
-            </div>
-          </div>
-        </div>
-        <div class="ep-row-text">
-          <div class="ep-row-card-head">
-            <span class="ep-row-card-num">02</span>
-            <span class="ep-row-card-tag">Biometric &middot; SDK</span>
-          </div>
-          <h3>Face Match</h3>
-          <p>Compare a live selfie to the ID portrait and get a calibrated match score. Robust to compression, pose, and lighting &mdash; built for the small, low-quality selfies users actually upload.</p>
-          <div class="ep-row-text-foot">
-            <a class="ep-row-link" href="docs.html#face-match">Read docs &rarr;</a>
-            <a class="ep-row-link" href="playground.html?endpoint=face-match">Try playground &rarr;</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="ep-sdk-bridge">
-        <div class="ep-sdk-bridge-inner">
-          <div class="ep-sdk-bridge-left">
-            <span class="ep-sdk-bridge-kicker">
-              <span class="num">SDK</span> &nbsp;·&nbsp; Liveness + Face Match
-            </span>
-            <h4 class="ep-sdk-bridge-title">
-              <span class="ep-sdk-bridge-title-line"><em>Liveness</em> + <em>Face Match</em></span>
-              <span class="ep-sdk-bridge-title-line">Get both as a native drop-in.</span>
-            </h4>
-            <p class="ep-sdk-bridge-sub">
-              Camera capture, frame quality checks, and the API call &mdash; all bundled. Add a working biometric flow in under 30 lines, no UI work needed.
-            </p>
-            <a class="ep-sdk-bridge-cta" href="docs.html#sdk">
-              SDK setup
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6"/>
-              </svg>
-            </a>
-          </div>
-          <div class="ep-sdk-bridge-right">
-
-            <a class="ep-sdk-bridge-platform" href="docs.html#sdk">
-              <span class="ep-sdk-bridge-platform-icon" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M17.523 15.341a1.04 1.04 0 1 1 0-2.08 1.04 1.04 0 0 1 0 2.08m-11.046 0a1.04 1.04 0 1 1 0-2.08 1.04 1.04 0 0 1 0 2.08m11.42-6.018l2.078-3.604a.42.42 0 0 0-.155-.572.42.42 0 0 0-.572.155l-2.104 3.646A14.5 14.5 0 0 0 12 8c-1.86 0-3.591.36-5.142.948L4.754 5.302a.42.42 0 0 0-.572-.155.42.42 0 0 0-.155.572l2.078 3.604C3.353 10.83 1.61 13.139 1.61 15.5h20.78c0-2.361-1.743-4.67-4.493-6.177"/>
-                </svg>
-                <span class="ep-sdk-bridge-platform-icon-eyebrow">A</span>
-              </span>
-              <span class="ep-sdk-bridge-platform-body">
-                <span class="ep-sdk-bridge-platform-head">
-                  <span class="ep-sdk-bridge-platform-name">Android</span>
-                </span>
-                <span class="ep-sdk-bridge-platform-meta">Kotlin &middot; 12.4 MB</span>
-              </span>
-            </a>
-
-            <a class="ep-sdk-bridge-platform" href="docs.html#sdk">
-              <span class="ep-sdk-bridge-platform-icon" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09M12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25"/>
-                </svg>
-                <span class="ep-sdk-bridge-platform-icon-eyebrow">i</span>
-              </span>
-              <span class="ep-sdk-bridge-platform-body">
-                <span class="ep-sdk-bridge-platform-head">
-                  <span class="ep-sdk-bridge-platform-name">iOS</span>
-                </span>
-                <span class="ep-sdk-bridge-platform-meta">Swift &middot; 9.8 MB</span>
-              </span>
-            </a>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- ROW 03 — NID OCR -->
-      <div class="ep-row ep-row--card-b">
-        <div class="ep-row-text">
-          <div class="ep-row-card-head">
-            <span class="ep-row-card-num">03</span>
-            <span class="ep-row-card-tag">Document scanning</span>
-          </div>
-          <h3>ID Card OCR</h3>
-          <p>Extract every field from an ID card &mdash; name, ID number, date of birth, address, region &mdash; from both front and back. Works with Bangladesh NID, passports, driver's licenses, and voter IDs in a single call.</p>
-          <div class="ep-row-text-foot">
-            <a class="ep-row-link" href="docs.html#ocr">Read docs &rarr;</a>
-            <a class="ep-row-link" href="playground.html?endpoint=ocr">Try playground &rarr;</a>
-          </div>
-        </div>
-        <div class="ep-row-viz">
-          <div class="ep-viz-card">
-            <div class="stage">
-              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
-                <!-- the ID card being scanned -->
-                <rect class="card-body" x="34" y="14" width="252" height="102" rx="10"/>
-
-                <!-- clipPath for ID photo -->
-                <defs>
-                  <clipPath id="idPhotoClip">
-                    <rect x="50" y="28" width="50" height="62" rx="5"/>
-                  </clipPath>
-                </defs>
-                <g clip-path="url(#idPhotoClip)">
-                  <image href="https://i.pravatar.cc/200?img=33" x="50" y="28" width="50" height="62" preserveAspectRatio="xMidYMid slice"/>
-                </g>
-
-                <!-- chip icon, decorative -->
-                <rect class="chip" x="50" y="94" width="20" height="14" rx="3"/>
-                <line class="chip-line" x1="55" y1="98" x2="65" y2="98"/>
-                <line class="chip-line" x1="55" y1="103" x2="65" y2="103"/>
-
-                <!-- scanned text lines -->
-                <rect class="ocr-bar flash" x="112" y="30" width="98" height="6" rx="2" style="animation-delay:.05s"/>
-                <rect class="ocr-bar flash" x="112" y="46" width="120" height="5" rx="2" style="animation-delay:.20s"/>
-                <rect class="ocr-bar flash" x="112" y="60" width="80"  height="5" rx="2" style="animation-delay:.35s"/>
-                <rect class="ocr-bar flash" x="112" y="74" width="105" height="5" rx="2" style="animation-delay:.50s"/>
-                <rect class="ocr-bar flash" x="112" y="88" width="65"  height="5" rx="2" style="animation-delay:.65s"/>
-
-                <!-- scanning beam over the card -->
-                <line class="scanline" x1="40" y1="20" x2="280" y2="20"/>
-
-                <!-- extracted, structured fields read out below the card -->
-                <text class="field" x="40" y="140" style="animation-delay:0s">
-                  <tspan class="lbl">NAME</tspan><tspan class="val" dx="8">J. MITCHELL</tspan>
-                </text>
-                <text class="field" x="40" y="158" style="animation-delay:.06s">
-                  <tspan class="lbl">DOB</tspan><tspan class="val" dx="14">14 MAR 1994</tspan>
-                </text>
-                <text class="field" x="40" y="176" style="animation-delay:.12s">
-                  <tspan class="lbl">ID NO</tspan><tspan class="val" dx="6">BD-4471029</tspan>
-                </text>
-
-                <!-- verified stamp on the card corner -->
-                <circle class="badge-soft" cx="272" cy="20" r="14"/>
-                <circle class="badge-ring" cx="272" cy="20" r="11"/>
-                <path class="badge-check" d="M266 20 L270 24 L279 14"/>
-              </svg>
-            </div>
-
-            <div class="status">
-              <span class="s1">&gt; scanning_document()<span style="opacity:.5;">_</span></span>
-              <span class="s2">&gt; extracting_fields()</span>
-              <span class="s3">&gt; fields_verified &#10003;</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ROW 04 — Name Translation -->
-      <div class="ep-row flip ep-row--card-b">
-        <div class="ep-row-viz">
-          <div class="ep-viz-card">
-            <div class="stage">
-              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
-                <!-- Step 1: Box 1 (TOP) - Input Bangla with left-to-right scanline -->
-                <text class="chip-label" x="160" y="20" text-anchor="middle">INPUT BANGLA</text>
-                <rect class="chip-box" x="52" y="26" width="216" height="42" rx="8"/>
-                <text class="native-text" x="160" y="52" text-anchor="middle">মোঃ সুমাইয়া রহমান</text>
-                <line class="scanline-lr" x1="60" y1="28" x2="60" y2="66"/>
-
-                <!-- Step 2: Center AI loading icon working in back -->
-                <g class="trans-engine">
-                  <path class="static-arrow" d="M160 74 L160 94" opacity=".4"/>
-                  <path class="static-arrow" d="M155 89 L160 95 L165 89" opacity=".4"/>
-                  <circle class="think-ring-trans" cx="160" cy="84" r="10"/>
-                </g>
-
-                <!-- Step 3: Box 2 (BOTTOM) - Clean Transliterated English appears -->
-                <text class="chip-label" x="160" y="104" text-anchor="middle">CLEAN TRANSLITERATION</text>
-                <rect class="chip-box" x="52" y="110" width="216" height="42" rx="8"/>
-                <text class="translit-text" x="160" y="136" text-anchor="middle">Md. Sumaiya Rahman</text>
-
-                <!-- Step 4: Top-Right Success Sign on 2nd Box finishing animation -->
-                <circle class="badge-soft-tr" cx="264" cy="110" r="12"/>
-                <circle class="badge-ring-tr" cx="264" cy="110" r="9"/>
-                <path class="badge-check-tr" d="M260 110 L263 113 L269 106"/>
-
-                <!-- Bottom Confidence Readout -->
-                <text class="score-text" x="160" y="184" text-anchor="middle">0.984 CONFIDENCE &middot; ROMANIZED MATCH</text>
-              </svg>
-            </div>
-
-            <div class="status">
-              <span class="s1">&gt; input: "মোঃ সুমাইয়া রহমান"<span style="opacity:.5;">_</span></span>
-              <span class="s2">&gt; parsing_honorifics_and_surname()</span>
-              <span class="s3">&gt; result: "Md. Sumaiya Rahman" &#10003;</span>
-            </div>
-          </div>
-        </div>
-        <div class="ep-row-text">
-          <div class="ep-row-card-head">
-            <span class="ep-row-card-num">04</span>
-            <span class="ep-row-card-tag">Identity</span>
-          </div>
-          <h3>Name Translation</h3>
-          <p>Convert Bangla names into clean English transliteration. Handles honorifics, compound surnames, and the variations that break naive transliteration. Built for cross-system identity matching.</p>
-          <div class="ep-row-text-foot">
-            <a class="ep-row-link" href="docs.html#name-translation">Read docs &rarr;</a>
-            <a class="ep-row-link" href="playground.html?endpoint=name-translation">Try playground &rarr;</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- ROW 05 — Gender Estimation -->
-      <div class="ep-row ep-row--card-b">
-        <div class="ep-row-text">
-          <div class="ep-row-card-head">
-            <span class="ep-row-card-num">05</span>
-            <span class="ep-row-card-tag">Identity</span>
-          </div>
-          <h3>Gender Estimation</h3>
-          <p>Predict gender from a first name to support onboarding dropdowns, analytics, and compliance flows. Returns a probability distribution, not a label &mdash; your downstream logic decides how to use it.</p>
-          <div class="ep-row-text-foot">
-            <a class="ep-row-link" href="docs.html#gender-estimation">Read docs &rarr;</a>
-            <a class="ep-row-link" href="playground.html?endpoint=gender-estimation">Try playground &rarr;</a>
-          </div>
-        </div>
-        <div class="ep-row-viz">
-          <div class="ep-viz-card">
-            <div class="stage">
-              <svg viewBox="0 0 320 208" preserveAspectRatio="xMidYMid meet">
-                <!-- the first name, entered during onboarding -->
-                <text class="field-label" x="160" y="24">FIRST NAME</text>
-                <rect class="field-box" x="56" y="30" width="208" height="32" rx="8"/>
-                <text class="typed-text" x="70" y="52" style="animation-delay:.30s">S</text>
-                <text class="typed-text" x="82" y="52" style="animation-delay:.42s">A</text>
-                <text class="typed-text" x="94" y="52" style="animation-delay:.54s">M</text>
-                <text class="typed-text" x="107" y="52" style="animation-delay:.66s">I</text>
-                <text class="typed-text" x="115" y="52" style="animation-delay:.78s">R</text>
-                <text class="typed-text" x="126" y="52" style="animation-delay:.90s">A</text>
-                <rect class="cursor" x="139" y="40" width="1.6" height="16"/>
-
-                <!-- AI resolves the prediction -->
-                <path class="static-arrow" d="M160 68 L160 80" opacity=".55"/>
-                <path class="static-arrow" d="M155 75 L160 81 L165 75" opacity=".55"/>
-                <circle class="think-ring" cx="160" cy="90" r="15"/>
-
-                <!-- predicted gender, auto-filled into the dropdown -->
-                <text class="field-label" x="160" y="108">PREDICTED GENDER</text>
-                <rect class="field-box" x="56" y="114" width="208" height="32" rx="8"/>
-                <text class="predicted-text" x="70" y="135">Female</text>
-                <text class="conf-text" x="222" y="134">92% conf.</text>
-                <path class="chevron" d="M240 126 L246 132 L252 126" opacity=".7"/>
-
-                <circle class="badge-soft" cx="278" cy="130" r="12"/>
-                <circle class="badge-ring" cx="278" cy="130" r="9.5"/>
-                <path class="badge-check" d="M273 130 L277 134 L284 125"/>
-
-                <!-- where the prediction gets used -->
-                <rect class="use-pill" x="34"  y="170" width="76" height="20" rx="10" style="animation-delay:.05s"/>
-                <text class="use-label" x="72" y="183" style="animation-delay:.05s">ONBOARDING</text>
-
-                <rect class="use-pill" x="118" y="170" width="68" height="20" rx="10" style="animation-delay:.10s"/>
-                <text class="use-label" x="152" y="183" style="animation-delay:.10s">ANALYTICS</text>
-
-                <rect class="use-pill" x="194" y="170" width="86" height="20" rx="10" style="animation-delay:.15s"/>
-                <text class="use-label" x="237" y="183" style="animation-delay:.15s">COMPLIANCE</text>
-              </svg>
-            </div>
-
-            <div class="status">
-              <span class="s1">&gt; reading_first_name()<span style="opacity:.5;">_</span></span>
-              <span class="s2">&gt; predicting_gender()</span>
-              <span class="s3">&gt; dropdown_autofilled &#10003;</span>
-            </div>
-          </div>
-        </div>
-      </div>
-   
-    </div>
-  </div>
-</section>
-
-<!-- ── USE CASES — Split Architectural Sandbox Deck ── -->
-<section class="usecases-wrap reveal" id="use-cases">
-  <div class="wrap">
-    <header class="section-header section-header--v1-left-aligned reveal">
-      <span class="section-header__kicker">Verticals in Production</span>
-      <h2 class="section-header__title">Engineered for industries<br>where trust <em>cannot fail.</em></h2>
-      <p class="section-header__sub">Select your vertical to see live API payload pipelines, sub-second latency SLA benchmarks, and compliance guarantees.</p>
-    </header>
-
-    <!-- Tabs Controls Bar & Visual Indicators -->
-    <div class="uc-tabs-header">
-      <div class="uc-auto-indicator">
-        <span class="uc-auto-dot"></span>
-        <span id="uc-auto-label">Auto-sliding (5s) · Hover to pause</span>
-      </div>
-      <div class="uc-nav-arrows">
-        <button type="button" class="uc-arrow-btn" id="uc-prev-btn" aria-label="Previous vertical">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <button type="button" class="uc-arrow-btn" id="uc-next-btn" aria-label="Next vertical">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- Horizontal Tabs Switcher -->
-    <div class="uc-tabs-wrapper">
-      <div class="uc-tabs-bar" role="tablist" aria-label="Use Case Verticals" id="uc-tabs">
-        <button class="uc-tab-btn active" type="button" role="tab" aria-selected="true" data-target="fintech">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M9 13h2M13 9h2M13 13h2M9 17h6"/></svg>
-          <span>Fintech &amp; Digital Wallets</span>
-          <span class="uc-tab-progress"></span>
-        </button>
-        <button class="uc-tab-btn" type="button" role="tab" aria-selected="false" data-target="hr">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 21c.5-3.5 3-6 6-6s5.5 2.5 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M14 21c.3-2.4 1.7-4 3-4s2.7 1.6 3 4"/></svg>
-          <span>HR &amp; Workforce</span>
-          <span class="uc-tab-progress"></span>
-        </button>
-        <button class="uc-tab-btn" type="button" role="tab" aria-selected="false" data-target="healthcare">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-7 11-7 11z"/><path d="M9 11h2v4M13 11h2"/></svg>
-          <span>Healthcare &amp; Telehealth</span>
-          <span class="uc-tab-progress"></span>
-        </button>
-        <button class="uc-tab-btn" type="button" role="tab" aria-selected="false" data-target="ecommerce">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h2l3 12h11l2-9H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
-          <span>E-Commerce &amp; Marketplaces</span>
-          <span class="uc-tab-progress"></span>
-        </button>
-        <button class="uc-tab-btn" type="button" role="tab" aria-selected="false" data-target="mobility">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17V9l3-4h8l3 4v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><circle cx="8" cy="14" r="1.2"/><circle cx="16" cy="14" r="1.2"/></svg>
-          <span>Ride-sharing &amp; Logistics</span>
-          <span class="uc-tab-progress"></span>
-        </button>
-        <button class="uc-tab-btn" type="button" role="tab" aria-selected="false" data-target="igaming">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="3"/><path d="M8 12h2M8 15h6M14 12h2"/><circle cx="17" cy="8" r="0.8"/></svg>
-          <span>iGaming &amp; Crypto</span>
-          <span class="uc-tab-progress"></span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Main Deck Container -->
-    <div class="uc-deck" id="uc-deck">
-      <!-- Left Narrative Column -->
-      <div class="uc-deck-left">
-        <div>
-          <div class="uc-kicker-row">
-            <span class="uc-kicker-badge" id="uc-badge-text">Production Live</span>
-            <span class="uc-kicker-tag" id="uc-kicker-text">FINTECH &amp; DIGITAL BANKING</span>
-          </div>
-          <h3 class="uc-deck-title" id="uc-title-text">
-            Onboard customers in sub-seconds <em>without KYC drop-off.</em>
-          </h3>
-          <p class="uc-deck-desc" id="uc-desc-text">
-            Leading digital banks replace manual back-office queues with AdeptSense drop-in biometric verification. Smart card NID OCR, passive 3D liveness, and 1:1 facial matching execute seamlessly in one unified API session.
+          <p class="hero-subtitle">
+            Automate end-to-end user onboarding with sub-second edge AI models, zero false rejections, and bank-grade privacy.
           </p>
 
-          <!-- Metrics Row -->
-          <div class="uc-stats-row" id="uc-stats-row">
-            <div class="uc-stat-item">
-              <span class="uc-stat-val green">99.4%</span>
-              <span class="uc-stat-lbl">Field Precision</span>
+          <div class="hero-actions">
+            <a href="playground.html" class="btn btn-accent">
+              Get Free API Keys &rarr;
+            </a>
+            <a href="#features" class="btn btn-secondary">
+              Explore Capabilities
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HERO PARTNERS LOGO SCOREBOARD (6 SLOTS) ── -->
+      <div class="hero-trust reveal">
+        <!-- Scoreboard Display: 6 Stationary Logos with Vertical Dividers -->
+        <div class="scoreboard-container" id="trust-scoreboard">
+          <div class="scoreboard-grid">
+            <!-- Slot 0 -->
+            <div class="scoreboard-slot" title="bKash">
+              <div class="scoreboard-card" data-slot="0">
+                <svg viewBox="0 0 120 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="bKash">
+                  <path d="M16 4L26 14L16 24L12 20L18 14L12 8L16 4Z" fill="currentColor"/>
+                  <path d="M8 8L14 14L8 20L4 16L7.5 14L4 12L8 8Z" fill="currentColor" opacity="0.7"/>
+                  <text x="34" y="23" font-family="'Inter', sans-serif" font-weight="700" font-size="19" letter-spacing="-0.02em" fill="currentColor">bKash</text>
+                </svg>
+              </div>
             </div>
-            <div class="uc-stat-item">
-              <span class="uc-stat-val accent">~840ms</span>
-              <span class="uc-stat-lbl">p50 Pipeline</span>
+
+            <div class="scoreboard-divider" aria-hidden="true"></div>
+
+            <!-- Slot 1 -->
+            <div class="scoreboard-slot" title="Nagad">
+              <div class="scoreboard-card" data-slot="1">
+                <svg viewBox="0 0 120 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Nagad">
+                  <circle cx="14" cy="17" r="11" stroke="currentColor" stroke-width="2.2"/>
+                  <path d="M14 10V24M9 15L19 19M19 15L9 19" stroke="currentColor" stroke-width="2"/>
+                  <text x="32" y="23" font-family="'Inter', sans-serif" font-weight="600" font-size="19" letter-spacing="-0.01em" fill="currentColor">nagad</text>
+                </svg>
+              </div>
             </div>
-            <div class="uc-stat-item">
-              <span class="uc-stat-val">0 ops</span>
-              <span class="uc-stat-lbl">Manual Queue</span>
+
+            <div class="scoreboard-divider" aria-hidden="true"></div>
+
+            <!-- Slot 2 -->
+            <div class="scoreboard-slot" title="BRAC Bank">
+              <div class="scoreboard-card" data-slot="2">
+                <svg viewBox="0 0 140 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="BRAC Bank">
+                  <rect x="3" y="6" width="8" height="8" rx="1.5" fill="currentColor"/>
+                  <rect x="14" y="6" width="8" height="8" rx="1.5" fill="currentColor" opacity="0.6"/>
+                  <rect x="3" y="17" width="8" height="8" rx="1.5" fill="currentColor" opacity="0.6"/>
+                  <rect x="14" y="17" width="8" height="8" rx="1.5" fill="currentColor"/>
+                  <text x="29" y="22" font-family="'Inter', sans-serif" font-weight="800" font-size="15" letter-spacing="0.04em" fill="currentColor">BRAC BANK</text>
+                </svg>
+              </div>
+            </div>
+
+            <div class="scoreboard-divider" aria-hidden="true"></div>
+
+            <!-- Slot 3 -->
+            <div class="scoreboard-slot" title="Pathao">
+              <div class="scoreboard-card" data-slot="3">
+                <svg viewBox="0 0 125 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Pathao">
+                  <path d="M4 6H15C19 6 22 9 22 13C22 17 19 20 15 20H9V26H4V6Z" fill="currentColor"/>
+                  <path d="M9 10V16H14.5C15.8 16 17 14.8 17 13C17 11.2 15.8 10 14.5 10H9Z" fill="var(--surface)"/><text x="30" y="22" font-family="'Inter', sans-serif" font-weight="800" font-size="16.5" letter-spacing="0.02em" fill="currentColor">PATHAO</text>
+                </svg>
+              </div>
+            </div>
+
+            <div class="scoreboard-divider" aria-hidden="true"></div>
+
+            <!-- Slot 4 -->
+            <div class="scoreboard-slot" title="City Bank">
+              <div class="scoreboard-card" data-slot="4">
+                <svg viewBox="0 0 135 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="City Bank">
+                  <polygon points="14,5 17,12 24,13 19,18 20.5,25 14,21 7.5,25 9,18 4,13 11,12" fill="currentColor"/>
+                  <text x="32" y="22" font-family="'Inter', sans-serif" font-weight="700" font-size="15" letter-spacing="0.04em" fill="currentColor">CITY BANK</text>
+                </svg>
+              </div>
+            </div>
+
+            <div class="scoreboard-divider" aria-hidden="true"></div>
+
+            <!-- Slot 5 -->
+            <div class="scoreboard-slot" title="Dutch-Bangla Bank">
+              <div class="scoreboard-card" data-slot="5">
+                <svg viewBox="0 0 135 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Dutch-Bangla Bank">
+                  <circle cx="14" cy="17" r="10" fill="currentColor"/>
+                  <circle cx="14" cy="17" r="4.5" fill="var(--bg, #FAFAFA)"/>
+                  <text x="32" y="23" font-family="'Inter', sans-serif" font-weight="800" font-size="16" letter-spacing="0.04em" fill="currentColor">DBBL</text>
+                </svg>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
 
-          <!-- Feature Bullets -->
-          <ul class="uc-checklist" id="uc-checklist">
-            <li><span class="uc-checklist-ico">✓</span><span>Full compliance with Bangladesh Bank e-KYC guidelines out of the box.</span></li>
-            <li><span class="uc-checklist-ico">✓</span><span>Idempotent session tokens with webhook + real-time polling fallback.</span></li>
-            <li><span class="uc-checklist-ico">✓</span><span>Automatic PII encryption &amp; configurable purge policies.</span></li>
+    <!-- ── HERO PRODUCT SHOWCASE SLIDER (FULL WIDTH, CENTER SLIDE = CONTAINER SIZE) ── -->
+    <div class="hero-showcase" id="hero-showcase">
+        <div class="showcase-track-outer">
+          <div class="showcase-track" id="showcase-track">
+            <!-- Slide 0 -->
+            <div class="showcase-slide" data-index="0">
+              <div class="showcase-card">
+                <img src="/hero-slider/slide-1.jpg" alt="Identity Verification Anywhere" class="showcase-card-img" />
+                <div class="showcase-overlay" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <!-- Slide 1 -->
+            <div class="showcase-slide" data-index="1">
+              <div class="showcase-card">
+                <img src="/hero-slider/slide-2.jpg" alt="3D Biometric Liveness &amp; Deepfake Defense" class="showcase-card-img" />
+                <div class="showcase-overlay" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="showcase-slide" data-index="2">
+              <div class="showcase-card">
+                <img src="/hero-slider/slide-3.jpg" alt="Global Compliance &amp; Risk Intelligence" class="showcase-card-img" />
+                <div class="showcase-overlay" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="showcase-slide" data-index="3">
+              <div class="showcase-card">
+                <img src="/hero-slider/slide-4.jpg" alt="Frictionless Onboarding Fast-Lane" class="showcase-card-img" />
+                <div class="showcase-overlay" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="showcase-slide" data-index="4">
+              <div class="showcase-card">
+                <img src="/hero-slider/slide-5.jpg" alt="Enterprise Verification &amp; Trust" class="showcase-card-img" />
+                <div class="showcase-overlay" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- ── 3. BENTO GRID 2.0: THE 6 CORE PRODUCT PILLARS ── -->
+  <section class="bento-section" id="features">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-eyebrow">Platform Capabilities</div>
+        <h2 class="section-title">Engineered for accuracy, scale, and developer speed.</h2>
+        <p class="section-desc">A unified identity infrastructure replacing fragmented point-solutions with an adaptive AI decision engine.</p>
+      </div>
+
+      <div class="bento-grid">
+        <!-- Pillar 1: Smart Document Vision (Span 2) -->
+        <div class="bento-card span-2 reveal">
+          <div class="bento-card-header">
+            <span class="bento-pill accent">Pillar 01 · Vision</span>
+            <h3 class="bento-title">Smart Document Vision &amp; Auto-Capture</h3>
+            <p class="bento-desc">High-precision OCR tuned specifically for emerging market document hurdles. Seamlessly extracts fields from both new chip Smart NIDs and older plastic-laminated cards with real-time glare and blur suppression.</p>
+          </div>
+
+          <div class="bento-demo-box">
+            <div class="doc-toggle-strip">
+              <span class="doc-toggle-btn active">Smart NID Chip</span>
+              <span class="doc-toggle-btn">Legacy Laminated</span>
+              <span class="doc-toggle-btn">Passport ICAO</span>
+            </div>
+            <div class="doc-preview-comparison">
+              <span>Anti-Glare Normalization: <strong>ACTIVE</strong></span>
+              <span>Bengali Font Precision: <strong>99.6%</strong></span>
+              <span>Edge Align: <strong>AUTO</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillar 2: 3D Biometric Liveness -->
+        <div class="bento-card reveal">
+          <div class="bento-card-header">
+            <span class="bento-pill">Pillar 02 · Biometrics</span>
+            <h3 class="bento-title">3D Passive Liveness</h3>
+            <p class="bento-desc">Single-selfie anti-spoofing defense. Detects silicone masks, screen playbacks, and generative AI deepfakes without awkward head turns.</p>
+          </div>
+
+          <div class="bento-demo-box">
+            <div class="liveness-mesh-sim">
+              <span>Depth Score: 0.994</span>
+              <div class="liveness-meter">
+                <div class="liveness-bar"><div class="liveness-fill"></div></div>
+                <span style="color: var(--accent); font-weight: 500;">PASS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillar 3: Dynamic Workflow Orchestration -->
+        <div class="bento-card reveal">
+          <div class="bento-card-header">
+            <span class="bento-pill">Pillar 03 · Workflows</span>
+            <h3 class="bento-title">Adaptive Risk Routing</h3>
+            <p class="bento-desc">Route low-risk users through frictionless 3-second checks, while dynamically triggering step-up authentication on elevated risk signals.</p>
+          </div>
+
+          <div class="bento-demo-box">
+            <div class="decision-node-tree">
+              <div class="tree-row"><span>Risk Score &lt; 0.15</span><span class="tree-pass">INSTANT PASS</span></div>
+              <div class="tree-row"><span>Risk Score &gt; 0.70</span><span style="color: var(--ink-4);">STEP-UP 3D SELFIE</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillar 4: Fraud & Velocity Defense -->
+        <div class="bento-card reveal">
+          <div class="bento-card-header">
+            <span class="bento-pill">Pillar 04 · Risk Intelligence</span>
+            <h3 class="bento-title">Fraud &amp; Velocity Defense</h3>
+            <p class="bento-desc">Cross-merchant repeat ID detection, synthetic identity signals, emulator recognition, and device fingerprinting telemetry.</p>
+          </div>
+
+          <div class="bento-demo-box">
+            <div class="doc-preview-comparison">
+              <span>Device Anomaly: <strong>0.00%</strong></span>
+              <span>Velocity Flag: <strong>CLEARED</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillar 5: Bilingual NLP & Transliteration Graph -->
+        <div class="bento-card reveal">
+          <div class="bento-card-header">
+            <span class="bento-pill">Pillar 05 · NLP Engine</span>
+            <h3 class="bento-title">Bilingual Transliteration</h3>
+            <p class="bento-desc">Phonetic resolution between official Bengali script records and English merchant customer profiles to prevent false rejections.</p>
+          </div>
+
+          <div class="bento-demo-box">
+            <div class="translit-row">
+              <span>মোহাম্মদ রহিম</span>
+              <span class="translit-arrow">&harr;</span>
+              <span>Mohammad Rahim</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. DEVELOPER SUITE SECTION ── -->
+  <section class="dev-section" id="developers">
+    <div class="wrap">
+      <div class="dev-grid">
+        <!-- Left: Developer Value Proposition -->
+        <div class="dev-info reveal">
+          <div class="section-eyebrow">Developer Suite</div>
+          <h2 class="section-title">Integrate in minutes.<br>Scale to millions.</h2>
+          <p class="section-desc">Designed with a "Code-First" philosophy. Typed SDKs, copy-ready snippets, clear JSON payloads, and instant sandbox testing without waiting for sales.</p>
+
+          <ul class="dev-feature-list">
+            <li class="dev-feature-item">
+              <span class="dev-feature-icon">✓</span>
+              <span>Official SDKs for Node.js, Python, Go, and PHP with TypeScript definitions.</span>
+            </li>
+            <li class="dev-feature-item">
+              <span class="dev-feature-icon">✓</span>
+              <span>Real-time webhook events with cryptographic HMAC signatures.</span>
+            </li>
+            <li class="dev-feature-item">
+              <span class="dev-feature-icon">✓</span>
+              <span>Sandbox mode with simulated failure scenarios, edge cases, and test IDs.</span>
+            </li>
           </ul>
         </div>
-      </div>
 
-      <!-- Right Visual Telemetry Column -->
-      <div class="uc-visual-container">
-        <div class="uc-viz-head">
-          <div class="uc-viz-status">
-            <span class="pulse"></span>
-            <span id="uc-sim-status">PIPELINE EXECUTION: 200 OK</span>
-          </div>
-          <span class="uc-viz-meta" id="uc-sim-meta">Dhaka Core · 142ms</span>
-        </div>
-
-        <div class="uc-stage-box" id="uc-stage-box">
-          <!-- Step 1 -->
-          <div class="uc-pipeline-step">
-            <div class="uc-psc-left">
-              <div class="uc-psc-icon" style="background:rgba(121,192,255,0.15); color:var(--code-fn);">01</div>
-              <div>
-                <div class="uc-psc-title">Smart NID Document Parser</div>
-                <div class="uc-psc-sub">Bangla OCR · 99.4% Field Match</div>
-              </div>
+        <!-- Right: Multi-Language Code Console -->
+        <div class="dev-console-box reveal">
+          <div class="dev-tab-bar">
+            <div class="dev-lang-tabs" role="tablist">
+              <button class="dev-lang-tab active" data-lang="curl" role="tab">cURL</button>
+              <button class="dev-lang-tab" data-lang="node" role="tab">Node.js</button>
+              <button class="dev-lang-tab" data-lang="python" role="tab">Python</button>
+              <button class="dev-lang-tab" data-lang="go" role="tab">Go</button>
+              <button class="dev-lang-tab" data-lang="php" role="tab">PHP</button>
             </div>
-            <span class="uc-psc-tag pass">PASSED</span>
+
+            <button class="dev-copy-btn" id="dev-copy-btn" aria-label="Copy Code">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copy Code
+            </button>
           </div>
 
-          <!-- Step 2 -->
-          <div class="uc-pipeline-step">
-            <div class="uc-psc-left">
-              <div class="uc-psc-icon" style="background:rgba(167,139,250,0.15); color:var(--code-acc);">02</div>
-              <div>
-                <div class="uc-psc-title">1:1 Biometric Face Match</div>
-                <div class="uc-psc-sub">Vector Cosine: 0.994 score</div>
-              </div>
-            </div>
-            <span class="uc-psc-tag pass">99.4% MATCH</span>
+          <div class="dev-code-body">
+            <pre class="dev-code-block"><code id="dev-code-display">curl -X POST https://api.adeptsense.tech/v1/identity/verify \
+  -H "Authorization: Bearer $ADEPTSENSE_API_KEY" \
+  -F "document=@nid-front.jpg" \
+  -F "selfie=@user-selfie.jpg" \
+  -F "workflow=fintech_fast_pass"</code></pre>
           </div>
-
-          <!-- Step 3 -->
-          <div class="uc-pipeline-step">
-            <div class="uc-psc-left">
-              <div class="uc-psc-icon" style="background:rgba(86,211,100,0.15); color:var(--code-val);">03</div>
-              <div>
-                <div class="uc-psc-title">Passive 3D Liveness Check</div>
-                <div class="uc-psc-sub">iBeta Level 2 PAD Anti-Spoof</div>
-              </div>
-            </div>
-            <span class="uc-psc-tag pass">REAL PERSON</span>
-          </div>
-        </div>
-
-        <!-- Output JSON Contract -->
-        <div class="uc-code-block" id="uc-json-preview">
-          <span class="cm">// Verified Output Payload</span><br>
-          { <span class="key">"verified"</span>: <span class="val">true</span>, <span class="key">"risk_score"</span>: <span class="val">0.002</span>, <span class="key">"kyc_tier"</span>: <span class="str">"APPROVED_LEVEL_3"</span>, <span class="key">"signed_token"</span>: <span class="acc">"jwt_live_8f3a..."</span> }
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ── HOW IT WORKS — Bento Telemetry Stack (Concept 01) ── -->
-<section class="howit-wrap" id="how-it-works">
+  <!-- ── 5. SECURITY & COMPLIANCE MATRIX ── -->
+  <section class="sec-section" id="security">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-eyebrow">Enterprise Security</div>
+        <h2 class="section-title">Privacy by design. Audit-ready compliance.</h2>
+        <p class="section-desc">Protect customer biometrics with zero data retention options and regulatory audit envelopes.</p>
+      </div>
+
+      <div class="sec-grid">
+        <div class="sec-card reveal">
+          <div class="sec-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          </div>
+          <h3 class="sec-card-title">Zero PII Retention Mode</h3>
+          <p class="sec-card-desc">Ephemeral verification where biometric payloads and document scans are purged immediately after cryptographic signature verification.</p>
+          <span class="sec-tag">Privacy First</span>
+        </div>
+
+        <div class="sec-card reveal">
+          <div class="sec-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h3 class="sec-card-title">Encrypted Enclaves</h3>
+          <p class="sec-card-desc">AES-256 encryption at rest and TLS 1.3 in transit with dedicated regional server clusters maintaining local data residency.</p>
+          <span class="sec-tag">Data Residency</span>
+        </div>
+
+        <div class="sec-card reveal">
+          <div class="sec-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </div>
+          <h3 class="sec-card-title">Audit Evidence Vault</h3>
+          <p class="sec-card-desc">Tamper-proof cryptographically signed PDF and JSON verification certificates ready for Bangladesh Bank regulatory audits.</p>
+          <span class="sec-tag">BB Aligned</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. INTERACTIVE ROI & VOLUME PRICING CALCULATOR ── -->
+  <section class="calc-section" id="pricing">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-eyebrow">Transparent Pricing</div>
+        <h2 class="section-title">Pay only for what you verify.</h2>
+        <p class="section-desc">Transparent volume-tiered pricing in Bangladeshi Taka or US Dollars with zero hidden setup fees.</p>
+      </div>
+
+      <div class="calc-box reveal">
+        <div class="calc-header-controls">
+          <span class="calc-vol-title">Monthly Verification Volume</span>
+          <div class="calc-currency-toggle" role="group" aria-label="Currency Selector">
+            <button class="calc-currency-btn active" data-curr="BDT">BDT (৳)</button>
+            <button class="calc-currency-btn" data-curr="USD">USD ($)</button>
+          </div>
+        </div>
+
+        <!-- Slider Range -->
+        <div class="calc-slider-wrap">
+          <div class="calc-slider-labels">
+            <span style="font-size: 12px; color: var(--ink-4);">1,000</span>
+            <span class="calc-vol-display" id="pricing-vol-display">25,000 checks / mo</span>
+            <span style="font-size: 12px; color: var(--ink-4);">250,000+</span>
+          </div>
+          <input type="range" id="pricing-volume-slider" class="calc-slider" min="1000" max="250000" step="1000" value="25000" aria-label="Verification Volume Slider">
+        </div>
+
+        <!-- Results Grid -->
+        <div class="calc-results-grid">
+          <div class="calc-cost-display">
+            <div>
+              <span class="calc-cost-label">Estimated Monthly Total</span>
+              <div class="calc-cost-total" id="pricing-cost-total">৳ 100,000</div>
+              <div class="calc-unit-rate" id="pricing-unit-rate">৳ 4.00 per verification</div>
+            </div>
+            <a href="playground.html" class="btn btn-primary" style="margin-top: 20px;">Start with 500 Free Checks &rarr;</a>
+          </div>
+
+          <div class="calc-features-included">
+            <div class="calc-feature-item"><span class="calc-check">✓</span><span>All 6 Platform AI Capabilities</span></div>
+            <div class="calc-feature-item"><span class="calc-check">✓</span><span>99.99% Uptime SLA Guarantee</span></div>
+            <div class="calc-feature-item"><span class="calc-check">✓</span><span>Dedicated Regional Edge Cluster</span></div>
+            <div class="calc-feature-item"><span class="calc-check">✓</span><span>24/7 Developer &amp; Compliance Support</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ── 7. CONVERSION FOOTER ── -->
+<footer class="footer">
   <div class="wrap">
-    <header class="section-header section-header--v1-left-aligned reveal">
-      <span class="section-header__kicker">Three steps</span>
-      <h2 class="section-header__title">From <em>document</em> to <em>decision.</em></h2>
-      <p class="section-header__sub">The same JSON contract every endpoint returns. Sessions are idempotent, retries are safe, and verified payloads are signed.</p>
-    </header>
+    <div class="footer-cta-card reveal">
+      <div class="footer-cta-left">
+        <h3 class="footer-cta-title">Ready to verify identities in sub-seconds?</h3>
+        <p class="footer-cta-desc">Get your sandbox API keys in under 60 seconds. Integrate 500 free verifications into your staging environment today.</p>
+      </div>
+      <div>
+        <a href="playground.html" class="btn btn-accent">Get Started Free &rarr;</a>
+      </div>
+    </div>
 
-    <div class="howit-bento reveal">
-      <!-- Tile 1: Step 01 Session (6 cols) -->
-      <div class="howit-card howit-tile-step1">
-        <span class="howit-step-tag">Step 01 &middot; ~120 ms</span>
-        <h3 class="howit-title">Start a verification session</h3>
-        <p class="howit-desc">Create a session, pick the integration mode, and get back a hosted WebView URL or an SDK token. Sessions expire after 10 minutes and are idempotent on retry.</p>
-
-        <div class="howit-term">
-          <span class="cm">// POST /v1/sessions</span><br>
-          <span class="kw">body</span> = <span class="acc">{</span><br>
-          &nbsp;&nbsp;<span class="jk">"mode"</span>:        <span class="jv">"webview"</span>,<br>
-          &nbsp;&nbsp;<span class="jk">"locale"</span>:      <span class="jv">"bn-BD"</span>,<br>
-          &nbsp;&nbsp;<span class="jk">"expiry_secs"</span>: <span class="jv">600</span><br>
-          <span class="acc">}</span><br><br>
-          <span class="cm">// &rarr; 200 OK</span><br>
-          { <span class="jk">"ok"</span>: <span class="jv">true</span>, <span class="jk">"data"</span>: <span class="acc">{</span> <span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span> <span class="acc">}</span> }
-        </div>
-
-        <div class="howit-pill-row">
-          <span class="howit-pill active">~120 ms token generation</span>
-          <span class="howit-pill">Idempotent retries</span>
-          <span class="howit-pill">10-min session TTL</span>
-        </div>
+    <div class="footer-bottom-grid">
+      <div class="footer-brand-col">
+        <img src="/logo-dark.svg" alt="SPECTRA" class="footer-brand-logo">
+        <p class="footer-brand-tagline">The modern identity verification engine for emerging markets.</p>
       </div>
 
-      <!-- Tile 2: Step 02 Collect (6 cols) -->
-      <div class="howit-card howit-tile-step2">
-        <span class="howit-step-tag">Step 02 &middot; ~680 ms</span>
-        <h3 class="howit-title">Collect identity data</h3>
-        <p class="howit-desc">Upload NID front and back images, capture a selfie, and run a passive liveness check &mdash; all in one multipart request. Storage is encrypted in transit and at rest.</p>
-
-        <div class="howit-term">
-          <span class="cm">// multipart/form-data &middot; /v1/uploads/{session_id}</span><br>
-          <span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"front_image"</span>, <span class="jv">"file://front.jpg"</span>)<br>
-          <span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"back_image"</span>,  <span class="jv">"file://back.jpg"</span>)<br>
-          <span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"selfie"</span>,      <span class="jv">"file://selfie.jpg"</span>)<br>
-          <span class="fn">formData</span>.<span class="fn">append</span>(<span class="jk">"liveness"</span>,    <span class="jv">true</span>)<br><br>
-          <span class="cm">// &rarr; 202 Accepted &middot; upload_id returned</span>
-        </div>
-
-        <div class="howit-pill-row">
-          <span class="howit-pill active">~680 ms upload</span>
-          <span class="howit-pill">Encrypted AES-256</span>
-          <span class="howit-pill">Passive biometric check</span>
-        </div>
+      <div>
+        <div class="footer-col-title">Capabilities</div>
+        <ul class="footer-nav-list">
+          <li><a href="#features">Smart OCR Vision</a></li>
+          <li><a href="#features">3D Biometric Liveness</a></li>
+          <li><a href="#features">Adaptive Workflows</a></li>
+          <li><a href="#features">Fraud Defense</a></li>
+        </ul>
       </div>
 
-      <!-- Tile 3: Step 03 Output Contract (8 cols) -->
-      <div class="howit-card howit-tile-step3">
-        <span class="howit-step-tag">Step 03 &middot; ~140 ms</span>
-        <h3 class="howit-title">Receive the verified JSON</h3>
-        <p class="howit-desc">Run the verification, then read the structured <code>{ ok, data, error }</code> envelope. Score fields are normalized so the same shape works for every endpoint.</p>
-
-        <div class="howit-term">
-          <span class="cm">// POST /v1/nid/verify</span><br>
-          <span class="kw">body</span> = <span class="acc">{</span> <span class="jk">"session_id"</span>: <span class="jv">"ses_a1b2c3"</span> <span class="acc">}</span><br><br>
-          <span class="cm">// &rarr; 200 OK</span><br>
-          <span class="acc">{</span><br>
-          &nbsp;&nbsp;<span class="jk">"verified"</span>:       <span class="jv">true</span>,<br>
-          &nbsp;&nbsp;<span class="jk">"name_en"</span>:        <span class="jv">"Md. Rafiqul Islam"</span>,<br>
-          &nbsp;&nbsp;<span class="jk">"nid"</span>:            <span class="jv">"••••••••4821"</span>,<br>
-          &nbsp;&nbsp;<span class="jk">"match_score"</span>:    <span class="jv">0.994</span>,<br>
-          &nbsp;&nbsp;<span class="jk">"liveness_score"</span>: <span class="jv">0.970</span><br>
-          <span class="acc">}</span>
-        </div>
-
-        <div class="howit-pill-row">
-          <span class="howit-pill active">~140 ms inference</span>
-          <span class="howit-pill">Normalized 0.0&ndash;1.0 scores</span>
-          <span class="howit-pill">Signed JSON envelope</span>
-        </div>
+      <div>
+        <div class="footer-col-title">Developers</div>
+        <ul class="footer-nav-list">
+          <li><a href="playground.html">Interactive Sandbox</a></li>
+          <li><a href="docs.html">API Documentation</a></li>
+          <li><a href="#developers">SDKs &amp; Libraries</a></li>
+          <li><a href="https://github.com/MindsCraft/adept-sense" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
       </div>
 
-      <!-- Tile 4: Engine SLA & Guarantees (4 cols, Dark Accent) -->
-      <div class="howit-card howit-tile-sla">
-        <span class="howit-step-tag" style="background: rgba(16,185,129,0.18); color: #34D399;">Engine SLA</span>
-        <h3 class="howit-title">Sub-second pipeline</h3>
-        <p class="howit-desc">Hosted directly in Dhaka for zero cross-border latency penalty.</p>
+      <div>
+        <div class="footer-col-title">Compliance</div>
+        <ul class="footer-nav-list">
+          <li><a href="#security">Zero PII Retention</a></li>
+          <li><a href="#security">Bangladesh Bank e-KYC</a></li>
+          <li><a href="#security">ISO/IEC 30107 Liveness</a></li>
+          <li><a href="#pricing">Volume Pricing</a></li>
+        </ul>
+      </div>
+    </div>
 
-        <div class="howit-stat-grid">
-          <div class="howit-stat-box">
-            <div class="howit-stat-num green">~940<span style="font-size:14px;color:rgba(255,255,255,0.7)">ms</span></div>
-            <div class="howit-stat-label">End-to-End Total</div>
-          </div>
-          <div class="howit-stat-box">
-            <div class="howit-stat-num">99.4%</div>
-            <div class="howit-stat-label">Accuracy SLA</div>
-          </div>
-        </div>
-
-        <div class="howit-pill-row" style="margin-top: 20px;">
-          <span class="howit-pill" style="background:rgba(255,255,255,0.06);color:#fff;border-color:rgba(255,255,255,0.12);">Auto-purged PII</span>
-          <span class="howit-pill" style="background:rgba(255,255,255,0.06);color:#fff;border-color:rgba(255,255,255,0.12);">Signed JWT</span>
-          <span class="howit-pill" style="background:rgba(255,255,255,0.06);color:#fff;border-color:rgba(255,255,255,0.12);">iBeta Tested</span>
-        </div>
+    <div class="footer-legal-bar">
+      <span>&copy; 2026 SPECTRA Inc. All rights reserved.</span>
+      <div class="footer-status-indicator">
+        <span class="footer-status-dot"></span>
+        <span>Systems Operational · Edge Latency 412ms</span>
       </div>
     </div>
   </div>
-</section>
-
-
-<!-- ── TRUST / COMPLIANCE STRIP ── -->
-<section class="trust-wrap reveal" id="trust">
-  <div class="trust-inner">
-    <header class="section-header section-header--v1-centered">
-      <span class="section-header__kicker">Security &amp; Compliance</span>
-      <h2 class="section-header__title">Full security &amp; <em>compliance.</em></h2>
-      <p class="section-header__sub">Independently audited, globally recognized, and continuously monitored. AdeptSense meets the standards enterprise security teams require.</p>
-    </header>
-
-    <div class="trust-rows">
-
-      <!-- Row 1 — Security / compliance audit badges -->
-      <div class="trust-row">
-        <div class="trust-badge" aria-label="iBeta Level 1 ISO 30107-3 Presentation Attack Detection compliant">
-          <span class="tb-mark" aria-hidden="true">
-            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
-              <rect x="3" y="3" width="32" height="32" rx="4"/>
-              <text x="19" y="14" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">iBeta</text>
-              <text x="19" y="23" font-family="JetBrains Mono, monospace" font-size="6.5" font-weight="500" text-anchor="middle" fill="currentColor" stroke="none">LEVEL 1</text>
-              <text x="19" y="30" font-family="JetBrains Mono, monospace" font-size="5" font-weight="500" text-anchor="middle" fill="currentColor" stroke="none" letter-spacing="0">TESTED</text>
-            </svg>
-          </span>
-          <span class="tb-text">
-            <span class="tb-kicker">ISO 30107-3</span>
-            <span class="tb-label">iBeta Level 1</span>
-            <span class="tb-note">PAD Compliant</span>
-          </span>
-        </div>
-
-        <div class="trust-badge" aria-label="iBeta Level 2 ISO 30107-3 Presentation Attack Detection compliant">
-          <span class="tb-mark" aria-hidden="true">
-            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
-              <rect x="3" y="3" width="32" height="32" rx="4"/>
-              <text x="19" y="14" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">iBeta</text>
-              <text x="19" y="23" font-family="JetBrains Mono, monospace" font-size="6.5" font-weight="500" text-anchor="middle" fill="currentColor" stroke="none">LEVEL 2</text>
-              <text x="19" y="30" font-family="JetBrains Mono, monospace" font-size="5" font-weight="500" text-anchor="middle" fill="currentColor" stroke="none" letter-spacing="0">TESTED</text>
-            </svg>
-          </span>
-          <span class="tb-text">
-            <span class="tb-kicker">ISO 30107-3</span>
-            <span class="tb-label">iBeta Level 2</span>
-            <span class="tb-note">PAD Compliant</span>
-          </span>
-        </div>
-
-        <div class="trust-badge" aria-label="AICPA SOC 2 Type II audited">
-          <span class="tb-mark" aria-hidden="true">
-            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
-              <circle cx="19" cy="19" r="15"/>
-              <circle cx="19" cy="19" r="11"/>
-              <text x="19" y="17" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">AICPA</text>
-              <text x="19" y="25" font-family="JetBrains Mono, monospace" font-size="6" font-weight="500" text-anchor="middle" fill="currentColor" stroke="none">SOC 2</text>
-            </svg>
-          </span>
-          <span class="tb-text">
-            <span class="tb-kicker">AICPA</span>
-            <span class="tb-label">SOC 2 Type II</span>
-            <span class="tb-note">Audited annually</span>
-          </span>
-        </div>
-
-        <div class="trust-badge" aria-label="PCI DSS Compliant">
-          <span class="tb-mark" aria-hidden="true">
-            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
-              <rect x="3" y="3" width="32" height="32" rx="3"/>
-              <text x="8" y="18" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="currentColor" stroke="none">PCI</text>
-              <path d="M14 22 L17 25 L24 18" stroke-width="2"/>
-              <text x="26" y="28" font-family="JetBrains Mono, monospace" font-size="5.5" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">DSS</text>
-            </svg>
-          </span>
-          <span class="tb-text">
-            <span class="tb-kicker">PCI Security</span>
-            <span class="tb-label">PCI DSS</span>
-            <span class="tb-note">Compliant</span>
-          </span>
-        </div>
-
-        <div class="trust-badge tb-plain" aria-label="GDPR Ready">
-          <span class="tb-text">
-            <span class="tb-kicker">EU Privacy</span>
-            <span class="tb-label" style="font-size:14px;letter-spacing:0.04em">GDPR Ready</span>
-            <span class="tb-note">DPA on request</span>
-          </span>
-        </div>
-
-        <div class="trust-badge" aria-label="eIDAS e-Identity Verification Trust">
-          <span class="tb-mark" aria-hidden="true">
-            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M19 4 L31 10 V20 C31 28 25 33 19 34 C13 33 7 28 7 20 V10 Z"/>
-              <text x="19" y="22" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">eA</text>
-            </svg>
-          </span>
-          <span class="tb-text">
-            <span class="tb-kicker">e-IDVT</span>
-            <span class="tb-label">eIDAS Aligned</span>
-            <span class="tb-note">Trust framework</span>
-          </span>
-        </div>
-      </div>
-
-      <!-- Row 2 — Data privacy / quality standards -->
-      <div class="trust-row">
-        <div class="trust-badge" aria-label="ISO/IEC 27001 Information Security Management">
-          <span class="tb-mark" aria-hidden="true">
-            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
-              <circle cx="19" cy="19" r="14"/>
-              <path d="M5 19 H33" stroke-width="1"/>
-              <path d="M19 5 C25 11 25 27 19 33 C13 27 13 11 19 5"/>
-            </svg>
-          </span>
-          <span class="tb-text">
-            <span class="tb-kicker">ISO/IEC</span>
-            <span class="tb-label">27001</span>
-            <span class="tb-note">InfoSec Mgmt</span>
-          </span>
-        </div>
-
-        <div class="trust-badge" aria-label="UK GDPR Data Protection 2018 Approved">
-          <span class="tb-mark" aria-hidden="true">
-            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
-              <rect x="4" y="4" width="30" height="30" rx="2"/>
-              <text x="19" y="17" font-family="JetBrains Mono, monospace" font-size="6.5" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">ACCS</text>
-              <text x="19" y="24" font-family="JetBrains Mono, monospace" font-size="5" font-weight="500" text-anchor="middle" fill="currentColor" stroke="none">2:2021</text>
-              <path d="M14 28 L17 31 L24 24" stroke-width="1.8"/>
-            </svg>
-          </span>
-          <span class="tb-text">
-            <span class="tb-kicker">ACCS 2:2021</span>
-            <span class="tb-label">Data &amp; Privacy</span>
-            <span class="tb-note">UK GDPR Approved</span>
-          </span>
-        </div>
-
-        <div class="trust-badge" aria-label="UKAS Management Systems Certification">
-          <span class="tb-mark" aria-hidden="true">
-            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
-              <circle cx="19" cy="19" r="13"/>
-              <text x="19" y="22" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">UK</text>
-              <path d="M14 26 L17 29 L24 22" stroke-width="1.8"/>
-            </svg>
-          </span>
-          <span class="tb-text">
-            <span class="tb-kicker">UKAS</span>
-            <span class="tb-label">21087</span>
-            <span class="tb-note">Cert. body</span>
-          </span>
-        </div>
-
-        <div class="trust-badge" aria-label="ISO/IEC 27017 Cloud Security Controls">
-          <span class="tb-mark" aria-hidden="true">
-            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
-              <circle cx="19" cy="19" r="14"/>
-              <path d="M5 19 H33" stroke-width="1"/>
-              <path d="M19 5 C25 11 25 27 19 33 C13 27 13 11 19 5"/>
-            </svg>
-          </span>
-          <span class="tb-text">
-            <span class="tb-kicker">ISO/IEC</span>
-            <span class="tb-label">27017</span>
-            <span class="tb-note">Cloud Security</span>
-          </span>
-        </div>
-
-        <div class="trust-badge" aria-label="ISO/IEC 27018 PII Protection in Public Clouds">
-          <span class="tb-mark" aria-hidden="true">
-            <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.6">
-              <circle cx="19" cy="19" r="14"/>
-              <path d="M5 19 H33" stroke-width="1"/>
-              <path d="M19 5 C25 11 25 27 19 33 C13 27 13 11 19 5"/>
-            </svg>
-          </span>
-          <span class="tb-text">
-            <span class="tb-kicker">ISO/IEC</span>
-            <span class="tb-label">27018</span>
-            <span class="tb-note">PII in Cloud</span>
-          </span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ── STATS BAND ── -->
-<section class="stats-wrap reveal" id="stats">
-  <div class="stats-inner">
-    <div class="stat-item">
-      <span class="stat-num" data-count="99.4" data-suffix="%">0%</span>
-      <span class="stat-lbl">Field accuracy on Bangladesh NID OCR</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" data-count="0.8" data-suffix="s">&lt;1s</span>
-      <span class="stat-lbl">Median end-to-end verification time</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" data-count="180" data-suffix="+">0+</span>
-      <span class="stat-lbl">Countries supported by document coverage</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" data-count="50" data-suffix="M+">0M+</span>
-      <span class="stat-lbl">Verifications processed to date</span>
-    </div>
-  </div>
-</section>
-
-<!-- ── PRICING (INTERACTIVE PIPELINE CALCULATOR) ── -->
-<section class="pricing-wrap reveal" id="pricing">
-  <div class="pricing-inner">
-
-    <header class="section-header section-header--v1-centered">
-      <span class="section-header__kicker">Pricing</span>
-      <h2 class="section-header__title">Interactive <em>Identity API</em> Pricing.</h2>
-      <p class="section-header__sub">Select the verification microservices your pipeline requires, simulate monthly volume, and calculate live volume &amp; multi-service savings.</p>
-    </header>
-
-    <div class="calc-grid">
-      <!-- Left: Service Selector & Slider -->
-      <div class="builder-card">
-        <div>
-          <div class="builder-head">
-            <h3>Verification Microservices</h3>
-            <span>Bundle 3+ for up to 25% off</span>
-          </div>
-
-          <div class="endpoints-list" id="ep-container">
-            <!-- 1. NID OCR -->
-            <div class="ep-item selected" data-id="nid" data-price="0.08" data-name="NID OCR (Bangla + Eng)">
-              <div class="ep-left">
-                <div class="ep-checkbox">
-                  <svg class="ep-check-svg" viewBox="0 0 14 14" fill="none">
-                    <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div class="ep-info">
-                  <h4>Bangladesh NID OCR</h4>
-                  <p>Smart card &amp; old laminated parser · 99.4% field precision</p>
-                </div>
-              </div>
-              <div class="ep-price">
-                <div class="val">$0.08</div>
-                <div class="sub">/ call</div>
-              </div>
-            </div>
-
-            <!-- 2. Face Match -->
-            <div class="ep-item selected" data-id="facematch" data-price="0.07" data-name="1:1 Biometric Face Match">
-              <div class="ep-left">
-                <div class="ep-checkbox">
-                  <svg class="ep-check-svg" viewBox="0 0 14 14" fill="none">
-                    <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div class="ep-info">
-                  <h4>1:1 Biometric Face Match</h4>
-                  <p>Selfie to NID photo 512-d vector cosine comparison</p>
-                </div>
-              </div>
-              <div class="ep-price">
-                <div class="val">$0.07</div>
-                <div class="sub">/ call</div>
-              </div>
-            </div>
-
-            <!-- 3. Liveness -->
-            <div class="ep-item selected" data-id="liveness" data-price="0.09" data-name="Passive 3D Liveness Detection">
-              <div class="ep-left">
-                <div class="ep-checkbox">
-                  <svg class="ep-check-svg" viewBox="0 0 14 14" fill="none">
-                    <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div class="ep-info">
-                  <h4>Passive 3D Liveness</h4>
-                  <p>Anti-spoofing against printed masks, screens &amp; deepfakes</p>
-                </div>
-              </div>
-              <div class="ep-price">
-                <div class="val">$0.09</div>
-                <div class="sub">/ call</div>
-              </div>
-            </div>
-
-            <!-- 4. Name Translation -->
-            <div class="ep-item" data-id="trans" data-price="0.03" data-name="Phonetic Bangla-English Translation">
-              <div class="ep-left">
-                <div class="ep-checkbox">
-                  <svg class="ep-check-svg" viewBox="0 0 14 14" fill="none">
-                    <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div class="ep-info">
-                  <h4>Phonetic Name Translation</h4>
-                  <p>Rule-based + LLM Bangla ↔ English name harmonization</p>
-                </div>
-              </div>
-              <div class="ep-price">
-                <div class="val">$0.03</div>
-                <div class="sub">/ call</div>
-              </div>
-            </div>
-
-            <!-- 5. Gender Estimation -->
-            <div class="ep-item" data-id="gender" data-price="0.02" data-name="Gender Estimation">
-              <div class="ep-left">
-                <div class="ep-checkbox">
-                  <svg class="ep-check-svg" viewBox="0 0 14 14" fill="none">
-                    <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div class="ep-info">
-                  <h4>Gender Estimation</h4>
-                  <p>Cross-verification check against NID demographic data</p>
-                </div>
-              </div>
-              <div class="ep-price">
-                <div class="val">$0.02</div>
-                <div class="sub">/ call</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Volume Slider Box -->
-        <div class="slider-box">
-          <div class="slider-row">
-            <span class="slider-label">Monthly Expected Volume</span>
-            <span class="slider-count" id="calc-vol-num">10,000 verifications</span>
-          </div>
-          <input type="range" class="range-input" id="calc-vol-slider" min="1000" max="100000" step="1000" value="10000">
-        </div>
-      </div>
-
-      <!-- Right: Summary & Contract (Dark Theme, Equal Height) -->
-      <div class="summary-card-dark">
-        <div class="summary-card-top">
-          <div class="summary-tag-row">
-            <span class="summary-tag-dark">Live Dynamic Estimate</span>
-          </div>
-          
-          <div class="total-price-dark">
-            <span class="amount" id="calc-total-cost">$1,800</span>
-            <span class="unit">/ month</span>
-          </div>
-          <div class="unit-cost-dark" id="calc-unit-rate">Effective rate: $0.180 / call</div>
-
-          <!-- Reserved slot prevents jumping -->
-          <div class="discount-slot">
-            <div class="bundle-discount-dark" id="calc-discount-badge">
-              <span>Multi-Service Discount</span>
-              <span class="disc" id="calc-disc-text">-25% OFF</span>
-            </div>
-          </div>
-
-          <div class="json-preview-dark">
-            <pre id="calc-json-output"></pre>
-          </div>
-        </div>
-
-        <!-- Primary CTA aligned with Design System -->
-        <a href="playground.html" class="btn-calc-deploy">
-          Deploy This Pipeline &rarr;
-        </a>
-      </div>
-    </div>
-
-    <p class="pricing-fineprint">All prices in USD. Sandbox environment is free forever. No credit card required to start integrating.</p>
-
-  </div>
-</section>
-
-<!-- ── CTA SECTION (FULL-WIDTH DARK AURORA GRADIENT) ── -->
-<section class="cta-wrap reveal" id="cta">
-  <div class="cta-inner">
-    <span class="cta-pill">
-      <span class="cta-pill-dot"></span>
-      Instant Production Sandbox
-    </span>
-
-    <h2 class="cta-title">
-      Start verifying Bangladesh identities <em>today.</em>
-    </h2>
-
-    <p class="cta-desc">
-      Join leading digital banks, fintechs, and high-growth platforms building seamless identity verification with sub-second latency and bank-grade compliance.
-    </p>
-
-    <div class="cta-actions">
-      <a href="contact.html" class="btn-cta-primary">
-        <span>Contact Us</span>
-        <span>&rarr;</span>
-      </a>
-      <a href="docs.html" class="btn-cta-ghost">
-        <span>Explore Documentation &nearr;</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- Clean 6-Card SDK Support Badges Grid -->
-  <div class="cta-badges-container">
-    <div class="cta-badges-kicker">Native SDKs &amp; Drop-in WebViews</div>
-    <div class="cta-badges-grid">
-      
-      <!-- 1. Node.js -->
-      <div class="sdk-badge-card">
-        <div class="sdk-badge-icon-box">
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="#68A063"><path d="M12 10.15a2.02 2.02 0 0 0-2.02 2.02v2.4a2.02 2.02 0 0 0 4.04 0v-2.4A2.02 2.02 0 0 0 12 10.15zm8.93-3.66L13.1 1.7a2.22 2.22 0 0 0-2.2 0L3.07 6.49a2.22 2.22 0 0 0-1.1 1.92v9.57a2.22 2.22 0 0 0 1.1 1.92l7.83 4.79c.68.42 1.52.42 2.2 0l7.83-4.79a2.22 2.22 0 0 0 1.1-1.92V8.41a2.22 2.22 0 0 0-1.1-1.92z"/></svg>
-        </div>
-        <div class="sdk-badge-name">Node.js</div>
-      </div>
-
-      <!-- 2. Python -->
-      <div class="sdk-badge-card">
-        <div class="sdk-badge-icon-box">
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="none">
-            <path d="M11.9 1.5c-4.6 0-4.3 2-4.3 2l.01 2.1h4.4v.6H5.7S2.5 5.8 2.5 10.5c0 4.6 2.8 4.5 2.8 4.5h1.7v-2.4s-.1-2.8 2.8-2.8h4.4s2.7.1 2.7-2.6V4.4s.4-2.9-5-2.9zm-2.4 1.5c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9z" fill="#387EB8"/>
-            <path d="M12.1 22.5c4.6 0 4.3-2 4.3-2l-.01-2.1h-4.4v-.6h6.3s3.2.4 3.2-4.3c0-4.6-2.8-4.5-2.8-4.5h-1.7v2.4s.1 2.8-2.8 2.8H9.9s-2.7-.1-2.7 2.6v3.3s-.4 2.9 5 2.9zm2.4-1.5c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9z" fill="#FFE052"/>
-          </svg>
-        </div>
-        <div class="sdk-badge-name">Python</div>
-      </div>
-
-      <!-- 3. Go -->
-      <div class="sdk-badge-card">
-        <div class="sdk-badge-icon-box">
-          <svg viewBox="0 0 24 24" width="34" height="34" fill="#00ACD7">
-            <path d="M1.5 9.5h3.6a.7.7 0 0 1 .7.7v.2a.7.7 0 0 1-.7.7H1.5a.7.7 0 0 1-.7-.7v-.2a.7.7 0 0 1 .7-.7zm0 2.6h2.2a.7.7 0 0 1 .7.7v.2a.7.7 0 0 1-.7.7H1.5a.7.7 0 0 1-.7-.7v-.2a.7.7 0 0 1 .7-.7zm11.2-4.8c1.7 0 3.2.8 4.2 2.1l-1.3 1c-.8-.9-1.8-1.5-2.9-1.5-2.2 0-3.9 1.7-3.9 4s1.7 4 3.9 4c1.2 0 2.2-.6 2.9-1.6v-1.1h-3.1v-1.5h4.7v3.2a5.4 5.4 0 0 1-4.5 2.6c-3.1 0-5.6-2.5-5.6-5.6s2.5-5.6 5.6-5.6zm8.1 0c3.1 0 5.6 2.5 5.6 5.6s-2.5 5.6-5.6 5.6-5.6-2.5-5.6-5.6 2.5-5.6 5.6-5.6zm0 1.6c-2.2 0-3.9 1.7-3.9 4s1.7 4 3.9 4 3.9-1.7 3.9-4-1.7-4-3.9-4z"/>
-          </svg>
-        </div>
-        <div class="sdk-badge-name">Golang</div>
-      </div>
-
-      <!-- 4. Flutter -->
-      <div class="sdk-badge-card">
-        <div class="sdk-badge-icon-box">
-          <svg viewBox="0 0 24 24" width="30" height="30" fill="none">
-            <path d="M14.3 2L4 12.3l3.2 3.2L20.7 2h-6.4z" fill="#02569B"/>
-            <path d="M14.3 10.7l-5.3 5.3 5.3 5.3h6.4l-5.3-5.3 5.3-5.3h-6.4z" fill="#0175C2"/>
-            <path d="M9 16l3.2 3.2 2.1-2.1-3.2-3.2L9 16z" fill="#29B6F6"/>
-          </svg>
-        </div>
-        <div class="sdk-badge-name">Flutter</div>
-      </div>
-
-      <!-- 5. React Native -->
-      <div class="sdk-badge-card">
-        <div class="sdk-badge-icon-box">
-          <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#61DAFB" stroke-width="1.6">
-            <ellipse cx="12" cy="12" rx="4" ry="10" transform="rotate(30 12 12)"/>
-            <ellipse cx="12" cy="12" rx="4" ry="10" transform="rotate(90 12 12)"/>
-            <ellipse cx="12" cy="12" rx="4" ry="10" transform="rotate(150 12 12)"/>
-            <circle cx="12" cy="12" r="1.8" fill="#61DAFB" stroke="none"/>
-          </svg>
-        </div>
-        <div class="sdk-badge-name">React Native</div>
-      </div>
-
-      <!-- 6. REST / OpenAPI -->
-      <div class="sdk-badge-card">
-        <div class="sdk-badge-icon-box">
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="none">
-            <circle cx="12" cy="12" r="10" fill="#85EA2D"/>
-            <path d="M7 12l3.5-3.5M7 12l3.5 3.5M17 12l-3.5-3.5M17 12l-3.5 3.5" stroke="#1F2937" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="sdk-badge-name">REST / OpenAPI</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!--#include file="_partials/footer.html" -->
+</footer>
 
 <script type="module" src="/src/main.js"></script>
 </body>

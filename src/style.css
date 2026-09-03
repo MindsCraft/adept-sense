@@ -1,21 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Lora:ital,wght@1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @import "./css/tokens.css";
 @import "./css/base.css";
-@import "./css/components/section-head.css"; /* Section header system (tag/title/sub) */
 @import "./css/components.css";
 @import "./css/components/navbar.css";
 @import "./css/sections/hero.css";
-@import "./css/sections/features.css";
-@import "./css/sections/endpoints-vizes.css";
-@import "./css/sections/demo-strip.css";
-@import "./css/sections/use-cases.css";
-@import "./css/sections/steps.css";
 @import "./css/sections/trust.css";
-@import "./css/sections/pricing-cta.css";
-@import "./css/sections/stats.css";
-@import "./css/sections/cta.css";
+@import "./css/sections/hero-slider.css";
+@import "./css/sections/bento.css";
+@import "./css/sections/developer.css";
+@import "./css/sections/security.css";
+@import "./css/sections/pricing-calc.css";
 @import "./css/sections/footer.css";
-@import "./css/sections/video-showcase.css";
-@import "./css/sections/contact.css";
 @import "./css/responsive.css";
