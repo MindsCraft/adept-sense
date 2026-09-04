@@ -220,7 +220,7 @@
   justify-content: center;
 }
 
-/* ── RESPONSIVE TYPOGRAPHY ADJUSTMENTS ── */
+/* ── RESPONSIVE ADJUSTMENTS ── */
 @media (max-width: 1200px) {
   .hero-title {
     font-size: 68px;
@@ -229,9 +229,38 @@
 }
 
 @media (max-width: 900px) {
+  .hero {
+    padding-top: 110px;
+    padding-bottom: 60px;
+  }
+  .hero-grid {
+    margin: 70px auto 90px;
+  }
   .hero-title {
     font-size: 52px;
     line-height: 1.15;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 96px;
+    padding-bottom: 40px;
+  }
+  .hero-grid {
+    margin: 48px auto 60px;
+  }
+  .liquid-droplet.drop-pool {
+    width: 600px;
+    height: 600px;
+    top: 2%;
+    left: -35%;
+  }
+  .liquid-droplet.drop-violet {
+    width: 700px;
+    height: 700px;
+    top: 4%;
+    left: 40%;
   }
 }
 
@@ -241,11 +270,41 @@
     line-height: 1.18;
     letter-spacing: -0.03em;
   }
+  .hero-subtitle {
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 420px) {
+  .hero {
+    padding-top: 84px;
+    padding-bottom: 30px;
+  }
+  .hero-grid {
+    margin: 36px auto 44px;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    padding: 5px 12px;
+    margin-bottom: 20px;
+  }
   .hero-title {
     font-size: 32px;
     line-height: 1.2;
+    margin-bottom: 16px;
   }
 }

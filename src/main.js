@@ -590,16 +590,16 @@ function initHeroShowcase() {
     const gutter = viewportWidth < 768 ? 32 : (viewportWidth < 1024 ? 48 : 80)
     const slideWidth = Math.min(maxContainerWidth, viewportWidth - gutter)
 
-    // Inactive slides scale in CSS (0.90)
-    const scale = 0.90
-    const desiredGap = 24 // Visual gap between active and passive slides is set to 24px
+    // Responsive scale and visual gap
+    const scale = viewportWidth < 600 ? 0.93 : (viewportWidth < 1024 ? 0.91 : 0.90)
+    const desiredGap = viewportWidth < 600 ? 14 : (viewportWidth < 1024 ? 18 : 24)
 
-    // Step is distance between slide centers ensuring exact 24px gap between active and neighbor cards
+    // Step is distance between slide centers ensuring exact gap between active and neighbor cards
     const activeHalf = slideWidth / 2
     const inactiveHalf = (slideWidth * scale) / 2
     const step = Math.round(activeHalf + desiredGap + inactiveHalf)
 
-    // Compensate scale shrinkage so slides come close with exactly 24px visual gap
+    // Compensate scale shrinkage so slides come close with exact visual gap
     const marginPerSide = Math.round((step - slideWidth - desiredGap) / 2)
 
     allSlides.forEach(s => {

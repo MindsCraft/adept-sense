@@ -132,6 +132,7 @@
 .dev-code-body {
   padding: 28px;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   min-height: 280px;
 }
 
@@ -142,4 +143,42 @@
   color: var(--code-fg);
   margin: 0;
   white-space: pre;
+}
+
+/* ── RESPONSIVE DEVELOPER SECTION ── */
+@media (max-width: 900px) {
+  .dev-section {
+    padding: 80px 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .dev-section {
+    padding: 56px 0;
+  }
+  .dev-tab-bar {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+  .dev-lang-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+  .dev-lang-tab {
+    padding: 5px 10px;
+    white-space: nowrap;
+  }
+  .dev-copy-btn {
+    padding: 5px 8px;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .dev-code-body {
+    padding: 18px 14px;
+    min-height: 220px;
+  }
+  .dev-code-block {
+    font-size: 11.5px;
+  }
 }

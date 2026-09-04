@@ -42,10 +42,22 @@
 .showcase-track {
   display: flex;
   align-items: center;
-  gap: 24px; /* Gap between images set to 24px */
+  gap: 24px; /* Gap between images set to 24px on desktop */
   will-change: transform;
   border: none !important;
   box-shadow: none !important;
+}
+
+@media (max-width: 1024px) {
+  .showcase-track {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .showcase-track {
+    gap: 14px;
+  }
 }
 
 .showcase-track-outer.is-dragging .showcase-track,
@@ -98,6 +110,45 @@
   overflow: hidden;
   border: none !important;
   box-shadow: none !important;
+  transition: height 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .showcase-card {
+    height: 440px;
+    min-height: 440px;
+  }
+}
+
+@media (max-width: 768px) {
+  .showcase-card {
+    height: 320px;
+    min-height: 320px;
+    border-radius: 12px;
+  }
+  .showcase-overlay,
+  .showcase-slide {
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 520px) {
+  .showcase-card {
+    height: 220px;
+    min-height: 220px;
+    border-radius: 10px;
+  }
+  .showcase-overlay,
+  .showcase-slide {
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .showcase-card {
+    height: 190px;
+    min-height: 190px;
+  }
 }
 
 .showcase-card-img {

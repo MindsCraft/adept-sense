@@ -1,54 +1,145 @@
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  .hero-inner { text-align: center; gap: var(--space-lg); }
-  .hero-p { margin-left: auto; margin-right: auto; }
-  .hero-illustration-right { display: none; }
-  .showcase-code-bg { width: 90%; }
-  .showcase-card-fg { width: 340px; right: -2%; }
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .usecases-grid { grid-template-columns: repeat(2, 1fr); }
-  .steps { grid-template-columns: 1fr; }
-  .step-card + .step-card::before { display: none; }
-  .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 40px; }
-  .stat-item { border: none; padding: 0; }
-  .bd-inner { grid-template-columns: 1fr; gap: 40px; }
-  .footer-inner { grid-template-columns: repeat(2, 1fr); }
+/* ─────────────────────────────────────────────────────────────
+   SPECTRA CENTRALIZED RESPONSIVE ORCHESTRATOR
+   Clean cascading breakpoints across all device form-factors:
+   • 1200px (Laptops & Small Desktops)
+   • 992px  (Tablets Landscape)
+   • 768px  (Tablets Portrait)
+   • 520px  (Mobile Phones)
+   • 360px  (Compact Mobile)
+   ───────────────────────────────────────────────────────────── */
+
+/* ── 1. LAPTOPS & SMALL DESKTOPS (<= 1200px) ── */
+@media (max-width: 1200px) {
+  :root {
+    --container: 1080px;
+    --gutter: 36px;
+  }
+
+  .wrap {
+    padding: 0 var(--gutter);
+  }
 }
 
-@media (max-width: 640px) {
-  .wrap { padding: 0 20px; }
-  .hero-inner { padding: 0 20px; }
-  .hero-cta-form {
-    flex-direction: column;
-    border-radius: var(--r);
-    padding: var(--space-sm);
-    gap: var(--space-sm);
-    max-width: 320px;
-    margin-left: auto; margin-right: auto;
+/* ── 2. TABLETS LANDSCAPE (<= 992px) ── */
+@media (max-width: 992px) {
+  :root {
+    --container: 860px;
+    --gutter: 28px;
+    --text-h1: 44px;
+    --text-h2: 32px;
+    --text-h3: 20px;
   }
-  .hero-input {
-    width: 100%;
-    text-align: center;
+
+  .section-head {
+    margin-bottom: 52px;
   }
-  .btn-primary-form {
-    width: 100%;
-    border-radius: 100px;
+
+  .section-title {
+    font-size: 32px;
+    line-height: 1.15;
   }
-  .showcase-code-bg { width: 100%; min-height: auto; }
-  .showcase-card-fg {
-    position: relative;
-    bottom: auto;
-    right: auto;
-    width: 100%;
-    max-width: 320px;
-    margin: -80px auto 0;
-    z-index: 10;
+
+  .section-desc {
+    font-size: 15.5px;
   }
-  .services-grid { grid-template-columns: 1fr; }
-  .svc-card:nth-child(1) { grid-column: span 1; }
-  .stats-inner { grid-template-columns: 1fr; }
-  .usecases-grid { grid-template-columns: 1fr; }
-  .footer-inner { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-  .bd-advantage-wrap { padding: 64px 0; }
+}
+
+/* ── 3. TABLETS PORTRAIT (<= 768px) ── */
+@media (max-width: 768px) {
+  :root {
+    --container: 100%;
+    --gutter: 20px;
+    --gutter-sm: 16px;
+    --text-h1: 36px;
+    --text-h2: 28px;
+  }
+
+  .wrap {
+    padding: 0 var(--gutter);
+  }
+
+  section {
+    padding: 72px 0;
+  }
+
+  .section-head {
+    margin-bottom: 40px;
+    padding: 0 8px;
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    padding: 4px 10px;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 27px;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+
+  .section-desc {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+}
+
+/* ── 4. MOBILE PHONES (<= 520px) ── */
+@media (max-width: 520px) {
+  :root {
+    --gutter: 16px;
+    --text-h1: 30px;
+    --text-h2: 24px;
+    --text-body: 14px;
+  }
+
+  .wrap {
+    padding: 0 var(--gutter);
+  }
+
+  section {
+    padding: 54px 0;
+  }
+
+  .section-head {
+    margin-bottom: 32px;
+    padding: 0 4px;
+  }
+
+  .section-title {
+    font-size: 23px;
+    line-height: 1.22;
+  }
+
+  .section-desc {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Global Button Touch Ergonomics on Mobile */
+  .btn {
+    min-height: 44px;
+    padding: 11px 18px;
+    font-size: 13.5px;
+  }
+}
+
+/* ── 5. COMPACT MOBILE (<= 360px) ── */
+@media (max-width: 360px) {
+  :root {
+    --gutter: 12px;
+  }
+
+  .wrap {
+    padding: 0 var(--gutter);
+  }
+
+  section {
+    padding: 44px 0;
+  }
+
+  .section-title {
+    font-size: 21px;
+  }
 }

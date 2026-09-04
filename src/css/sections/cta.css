@@ -226,13 +226,30 @@
   .cta-wrap {
     padding: 72px 0 64px;
   }
+  .cta-title {
+    font-size: clamp(26px, 7vw, 36px);
+  }
   .cta-actions {
     flex-direction: column;
     align-items: stretch;
+    max-width: 320px;
+    margin: 0 auto;
   }
   .btn-cta-primary,
   .btn-cta-ghost {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .cta-wrap {
+    padding: 56px 0 48px;
+  }
+  .sdk-badge-card {
+    padding: 16px 8px;
+  }
+  .sdk-badge-name {
+    font-size: 12px;
   }
 }
