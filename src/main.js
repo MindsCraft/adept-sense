@@ -52,10 +52,51 @@ window.addEventListener('keydown', (e) => {
   }
 })
 
-// Close mobile menu when clicking any nav link
-document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+// Close mobile menu when clicking any nav link or sublink
+document.querySelectorAll('.mobile-nav-link, .mobile-mega-sublink').forEach((link) => {
   link.addEventListener('click', () => toggleMobileMenu(false))
 })
+
+// Desktop Services Mega Menu interaction
+const servicesDropdownBtn = document.getElementById('services-dropdown-btn')
+const servicesDropdownItem = servicesDropdownBtn?.closest('.nav-item-dropdown')
+
+if (servicesDropdownBtn && servicesDropdownItem) {
+  servicesDropdownBtn.addEventListener('click', (e) => {
+    e.stopPropagation()
+    const isOpen = servicesDropdownItem.classList.toggle('open')
+    servicesDropdownBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false')
+  })
+
+  // Close mega menu on clicking outside
+  document.addEventListener('click', (e) => {
+    if (!servicesDropdownItem.contains(e.target)) {
+      servicesDropdownItem.classList.remove('open')
+      servicesDropdownBtn.setAttribute('aria-expanded', 'false')
+    }
+  })
+
+  // Close on Escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && servicesDropdownItem.classList.contains('open')) {
+      servicesDropdownItem.classList.remove('open')
+      servicesDropdownBtn.setAttribute('aria-expanded', 'false')
+    }
+  })
+}
+
+// Mobile Services Accordion
+const mobileServicesToggle = document.getElementById('mobile-services-toggle')
+const mobileServicesBody = document.getElementById('mobile-services-body')
+
+if (mobileServicesToggle && mobileServicesBody) {
+  mobileServicesToggle.addEventListener('click', (e) => {
+    e.stopPropagation()
+    const isOpen = mobileServicesBody.classList.toggle('open')
+    mobileServicesToggle.classList.toggle('open', isOpen)
+    mobileServicesToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false')
+  })
+}
 
 // Active link highlighting on scroll (Scrollspy)
 const sections = document.querySelectorAll('section[id]')

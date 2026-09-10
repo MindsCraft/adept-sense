@@ -9,6 +9,120 @@
 
       <!-- 2. Primary Desktop Links -->
       <ul class="nav-links" id="nav-desktop-links" role="menubar">
+        <!-- 1st Item: SERVICES (Mega Menu modeled after Sumsub Products) -->
+        <li class="nav-item-dropdown" role="none">
+          <button class="nav-link nav-dropdown-trigger" id="services-dropdown-btn" aria-expanded="false" aria-haspopup="true" aria-controls="services-mega-menu">
+            <span>Services</span>
+            <svg class="nav-dropdown-caret" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="10" height="6" aria-hidden="true">
+              <path d="M1 1l4 4 4-4"/>
+            </svg>
+          </button>
+
+          <!-- 4-Column Mega Menu Panel -->
+          <div class="mega-menu-panel" id="services-mega-menu" role="region" aria-label="Services Mega Menu">
+            <div class="mega-menu-grid">
+              <!-- Column 1: Screening -->
+              <div class="mega-col">
+                <div class="mega-col-label">Screening</div>
+                <div class="mega-links">
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Email &amp; Phone Verification</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Device Intelligence</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Questionnaires</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Watchlists and PEPs</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Column 2: Verification -->
+              <div class="mega-col">
+                <div class="mega-col-label">Verification</div>
+                <div class="mega-links">
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">User Verification</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Business Verification</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">ID Verification</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Liveness &amp; Deepfake Detection</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Non-Doc Verification</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Address Verification</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Reusable KYC</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Sumsub ID</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Video Identification</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">QES</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Column 3: Monitoring -->
+              <div class="mega-col">
+                <div class="mega-col-label">Monitoring</div>
+                <div class="mega-links">
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Transaction Monitoring</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Crypto Monitoring</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Travel Rule</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Column 4: Infrastructure -->
+              <div class="mega-col">
+                <div class="mega-col-label">Infrastructure</div>
+                <div class="mega-links">
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Case Management</span>
+                    <span class="mega-badge-new">NEW</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Summy AI Copilot</span>
+                    <span class="mega-badge-new">NEW</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Workflow Orchestration</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Risk Scoring</span>
+                    <span class="mega-badge-new">NEW</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Fraud Networks</span>
+                  </a>
+                  <a href="index.html#services" class="mega-link">
+                    <span class="mega-link-title">Customizable Analytics</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
         <li role="none"><a href="index.html#features" class="nav-link" role="menuitem">Capabilities</a></li>
         <li role="none"><a href="index.html#developers" class="nav-link" role="menuitem">Developers</a></li>
         <li role="none"><a href="index.html#security" class="nav-link" role="menuitem">Security</a></li>
@@ -50,11 +164,58 @@
       <div class="mobile-nav-group">
         <div class="mobile-nav-label">Navigation</div>
         <ul class="mobile-nav-links">
-          <li><a href="index.html" class="mobile-nav-link"><span class="mobile-link-icon">⚡</span> Home</a></li>
+          <!-- Mobile Accordion for Services -->
+          <li class="mobile-nav-accordion-item">
+            <button class="mobile-nav-accordion-btn" id="mobile-services-toggle" aria-expanded="false">
+              <span class="mobile-nav-accordion-title">
+                <span class="mobile-link-icon">⚡</span> Services
+              </span>
+              <svg class="mobile-accordion-caret" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="12" height="8" aria-hidden="true">
+                <path d="M1 1l4 4 4-4"/>
+              </svg>
+            </button>
+            <div class="mobile-accordion-body" id="mobile-services-body">
+              <div class="mobile-mega-subgroup">
+                <div class="mobile-mega-sublabel">Screening</div>
+                <a href="index.html#services" class="mobile-mega-sublink">Email &amp; Phone Verification</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Device Intelligence</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Questionnaires</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Watchlists and PEPs</a>
+              </div>
+              <div class="mobile-mega-subgroup">
+                <div class="mobile-mega-sublabel">Verification</div>
+                <a href="index.html#services" class="mobile-mega-sublink">User Verification</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Business Verification</a>
+                <a href="index.html#services" class="mobile-mega-sublink">ID Verification</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Liveness &amp; Deepfake Detection</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Non-Doc Verification</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Address Verification</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Reusable KYC</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Sumsub ID</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Video Identification</a>
+                <a href="index.html#services" class="mobile-mega-sublink">QES</a>
+              </div>
+              <div class="mobile-mega-subgroup">
+                <div class="mobile-mega-sublabel">Monitoring</div>
+                <a href="index.html#services" class="mobile-mega-sublink">Transaction Monitoring</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Crypto Monitoring</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Travel Rule</a>
+              </div>
+              <div class="mobile-mega-subgroup">
+                <div class="mobile-mega-sublabel">Infrastructure</div>
+                <a href="index.html#services" class="mobile-mega-sublink">Case Management <span class="mega-badge-new">NEW</span></a>
+                <a href="index.html#services" class="mobile-mega-sublink">Summy AI Copilot <span class="mega-badge-new">NEW</span></a>
+                <a href="index.html#services" class="mobile-mega-sublink">Workflow Orchestration</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Risk Scoring <span class="mega-badge-new">NEW</span></a>
+                <a href="index.html#services" class="mobile-mega-sublink">Fraud Networks</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Customizable Analytics</a>
+              </div>
+            </div>
+          </li>
           <li><a href="index.html#features" class="mobile-nav-link"><span class="mobile-link-icon">👁️</span> Capabilities</a></li>
-          <li><a href="index.html#developers" class="mobile-nav-link"><span class="mobile-link-icon">💻</span> Developers & SDKs</a></li>
-          <li><a href="index.html#security" class="mobile-nav-link"><span class="mobile-link-icon">🛡️</span> Security & Compliance</a></li>
-          <li><a href="index.html#pricing" class="mobile-nav-link"><span class="mobile-link-icon">💳</span> Pricing & Calculator</a></li>
+          <li><a href="index.html#developers" class="mobile-nav-link"><span class="mobile-link-icon">💻</span> Developers &amp; SDKs</a></li>
+          <li><a href="index.html#security" class="mobile-nav-link"><span class="mobile-link-icon">🛡️</span> Security &amp; Compliance</a></li>
+          <li><a href="index.html#pricing" class="mobile-nav-link"><span class="mobile-link-icon">💳</span> Pricing &amp; Calculator</a></li>
           <li><a href="docs.html" class="mobile-nav-link"><span class="mobile-link-icon">📖</span> API Documentation</a></li>
           <li><a href="playground.html" class="mobile-nav-link"><span class="mobile-link-icon">🧪</span> Interactive Playground</a></li>
         </ul>
