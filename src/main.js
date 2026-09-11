@@ -62,15 +62,46 @@ const servicesDropdownBtn = document.getElementById('services-dropdown-btn')
 const servicesDropdownItem = servicesDropdownBtn?.closest('.nav-item-dropdown')
 
 if (servicesDropdownBtn && servicesDropdownItem) {
+  let megaMenuTimeout = null
+
+  const openMegaMenu = () => {
+    if (megaMenuTimeout) {
+      clearTimeout(megaMenuTimeout)
+      megaMenuTimeout = null
+    }
+    servicesDropdownItem.classList.add('open')
+    servicesDropdownBtn.setAttribute('aria-expanded', 'true')
+  }
+
+  const closeMegaMenu = () => {
+    if (megaMenuTimeout) clearTimeout(megaMenuTimeout)
+    megaMenuTimeout = setTimeout(() => {
+      servicesDropdownItem.classList.remove('open')
+      servicesDropdownBtn.setAttribute('aria-expanded', 'false')
+    }, 220)
+  }
+
+  // Hover with grace period so mouse movement between button and panel is continuous
+  servicesDropdownItem.addEventListener('mouseenter', openMegaMenu)
+  servicesDropdownItem.addEventListener('mouseleave', closeMegaMenu)
+
+  // Click toggle support (e.g. on touch devices or direct clicks)
   servicesDropdownBtn.addEventListener('click', (e) => {
     e.stopPropagation()
-    const isOpen = servicesDropdownItem.classList.toggle('open')
-    servicesDropdownBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false')
+    const isOpen = servicesDropdownItem.classList.contains('open')
+    if (isOpen) {
+      if (megaMenuTimeout) clearTimeout(megaMenuTimeout)
+      servicesDropdownItem.classList.remove('open')
+      servicesDropdownBtn.setAttribute('aria-expanded', 'false')
+    } else {
+      openMegaMenu()
+    }
   })
 
   // Close mega menu on clicking outside
   document.addEventListener('click', (e) => {
     if (!servicesDropdownItem.contains(e.target)) {
+      if (megaMenuTimeout) clearTimeout(megaMenuTimeout)
       servicesDropdownItem.classList.remove('open')
       servicesDropdownBtn.setAttribute('aria-expanded', 'false')
     }
@@ -79,6 +110,7 @@ if (servicesDropdownBtn && servicesDropdownItem) {
   // Close on Escape key
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && servicesDropdownItem.classList.contains('open')) {
+      if (megaMenuTimeout) clearTimeout(megaMenuTimeout)
       servicesDropdownItem.classList.remove('open')
       servicesDropdownBtn.setAttribute('aria-expanded', 'false')
     }
