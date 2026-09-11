@@ -9,7 +9,7 @@
 
       <!-- 2. Primary Desktop Links -->
       <ul class="nav-links" id="nav-desktop-links" role="menubar">
-        <!-- 1st Item: SERVICES (Mega Menu modeled after Sumsub Products) -->
+        <!-- 1st Item: SERVICES (Persona-style Products Dropdown) -->
         <li class="nav-item-dropdown" role="none">
           <button class="nav-link nav-dropdown-trigger" id="services-dropdown-btn" aria-expanded="false" aria-haspopup="true" aria-controls="services-mega-menu">
             <span>Services</span>
@@ -18,107 +18,226 @@
             </svg>
           </button>
 
-          <!-- 4-Column Mega Menu Panel -->
-          <div class="mega-menu-panel" id="services-mega-menu" role="region" aria-label="Services Mega Menu">
-            <div class="mega-menu-grid">
-              <!-- Column 1: Screening -->
-              <div class="mega-col">
-                <div class="mega-col-label">Screening</div>
-                <div class="mega-links">
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Email &amp; Phone Verification</span>
+          <!-- Persona-Style Mega Menu Panel (Props Out on Hover/Active) -->
+          <div class="mega-menu-panel persona-mega-panel" id="services-mega-menu" role="region" aria-label="Services Mega Menu">
+            <div class="persona-mega-grid">
+              <!-- Column 1: Identity Verification -->
+              <div class="persona-mega-col">
+                <div class="persona-col-header">
+                  <span class="persona-col-tag">VERIFY</span>
+                  <span class="persona-col-title">Identity Verification</span>
+                </div>
+                <div class="persona-card-list">
+                  <a href="index.html#services" class="persona-product-card">
+                    <div class="persona-card-icon">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <rect x="2" y="4" width="16" height="12" rx="2"/>
+                        <circle cx="7" cy="9" r="2"/>
+                        <line x1="12" y1="8" x2="16" y2="8"/>
+                        <line x1="12" y1="12" x2="15" y2="12"/>
+                      </svg>
+                    </div>
+                    <div class="persona-card-text">
+                      <span class="persona-card-name">Government ID</span>
+                      <span class="persona-card-desc">Verify passports, driver licenses &amp; IDs across 200+ countries</span>
+                    </div>
                   </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Device Intelligence</span>
+
+                  <a href="index.html#services" class="persona-product-card">
+                    <div class="persona-card-icon">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <circle cx="10" cy="10" r="7"/>
+                        <path d="M7 9a1 1 0 102 0 1 1 0 00-2 0zM11 9a1 1 0 102 0 1 1 0 00-2 0z"/>
+                        <path d="M7.5 13.5c.8 1 2.2 1 3 0"/>
+                        <path d="M4 2v3M16 2v3M4 18v-3M16 18v-3"/>
+                      </svg>
+                    </div>
+                    <div class="persona-card-text">
+                      <span class="persona-card-name">Biometric &amp; Selfie</span>
+                      <span class="persona-card-desc">Passive 3D liveness detection to block deepfakes &amp; spoofing</span>
+                    </div>
                   </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Questionnaires</span>
+
+                  <a href="index.html#services" class="persona-product-card">
+                    <div class="persona-card-icon">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <ellipse cx="10" cy="5" rx="7" ry="2.5"/>
+                        <path d="M3 5v5c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5"/>
+                        <path d="M3 10v5c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-5"/>
+                      </svg>
+                    </div>
+                    <div class="persona-card-text">
+                      <span class="persona-card-name">Database &amp; Watchlists</span>
+                      <span class="persona-card-desc">Instant check against global PEP, sanctions &amp; national registries</span>
+                    </div>
                   </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Watchlists and PEPs</span>
+
+                  <a href="index.html#services" class="persona-product-card">
+                    <div class="persona-card-icon">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <path d="M4 3h8l4 4v10a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1z"/>
+                        <path d="M12 3v4h4"/>
+                        <line x1="7" y1="11" x2="13" y2="11"/>
+                        <line x1="7" y1="14" x2="11" y2="14"/>
+                      </svg>
+                    </div>
+                    <div class="persona-card-text">
+                      <span class="persona-card-name">Document Verification</span>
+                      <span class="persona-card-desc">Extract &amp; authenticate utility bills, bank statements &amp; paystubs</span>
+                    </div>
                   </a>
                 </div>
               </div>
 
-              <!-- Column 2: Verification -->
-              <div class="mega-col">
-                <div class="mega-col-label">Verification</div>
-                <div class="mega-links">
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">User Verification</span>
+              <!-- Column 2: Fraud Signals & Graph -->
+              <div class="persona-mega-col">
+                <div class="persona-col-header">
+                  <span class="persona-col-tag">SIGNALS</span>
+                  <span class="persona-col-title">Fraud &amp; Graph Intel</span>
+                </div>
+                <div class="persona-card-list">
+                  <a href="index.html#services" class="persona-product-card">
+                    <div class="persona-card-icon">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <path d="M10 2a8 8 0 108 8"/>
+                        <path d="M10 6a4 4 0 104 4"/>
+                        <circle cx="10" cy="10" r="1.5"/>
+                      </svg>
+                    </div>
+                    <div class="persona-card-text">
+                      <span class="persona-card-name">Passive Signals</span>
+                      <span class="persona-card-desc">Device, network &amp; behavioral risk assessment with zero user friction</span>
+                    </div>
                   </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Business Verification</span>
+
+                  <a href="index.html#services" class="persona-product-card">
+                    <div class="persona-card-icon">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <path d="M10 2l7 3.5v5c0 4.5-3.5 7.5-7 8.5-3.5-1-7-4-7-8.5v-5L10 2z"/>
+                        <line x1="10" y1="8" x2="10" y2="11"/>
+                        <circle cx="10" cy="13.5" r="0.5"/>
+                      </svg>
+                    </div>
+                    <div class="persona-card-text">
+                      <span class="persona-card-name">Risk &amp; Screening</span>
+                      <span class="persona-card-desc">Continuous AML monitoring, adverse media &amp; synthetic ID alerts</span>
+                    </div>
                   </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">ID Verification</span>
+
+                  <a href="index.html#services" class="persona-product-card">
+                    <div class="persona-card-icon">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <circle cx="5" cy="5" r="2.5"/>
+                        <circle cx="15" cy="6" r="2.5"/>
+                        <circle cx="10" cy="15" r="2.5"/>
+                        <line x1="7" y1="6" x2="13" y2="6.5"/>
+                        <line x1="6.5" y1="7" x2="8.5" y2="13"/>
+                        <line x1="13.5" y1="8" x2="11.5" y2="13"/>
+                      </svg>
+                    </div>
+                    <div class="persona-card-text">
+                      <span class="persona-card-name">Identity Graph</span>
+                      <span class="persona-card-desc">Uncover coordinated fraud rings &amp; shared cross-account linkages</span>
+                    </div>
                   </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Liveness &amp; Deepfake Detection</span>
-                  </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Non-Doc Verification</span>
-                  </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Address Verification</span>
-                  </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Reusable KYC</span>
-                  </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Sumsub ID</span>
-                  </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Video Identification</span>
-                  </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">QES</span>
+
+                  <a href="index.html#services" class="persona-product-card">
+                    <div class="persona-card-icon">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <rect x="5" y="8" width="10" height="9" rx="2"/>
+                        <path d="M7 8V5a3 3 0 016 0v3"/>
+                        <circle cx="10" cy="12.5" r="1"/>
+                      </svg>
+                    </div>
+                    <div class="persona-card-text">
+                      <span class="persona-card-name">Account Takeover (ATO)</span>
+                      <span class="persona-card-desc">Protect existing users with risk-adaptive step-up re-verification</span>
+                    </div>
                   </a>
                 </div>
               </div>
 
-              <!-- Column 3: Monitoring -->
-              <div class="mega-col">
-                <div class="mega-col-label">Monitoring</div>
-                <div class="mega-links">
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Transaction Monitoring</span>
+              <!-- Column 3: Orchestration & Platform -->
+              <div class="persona-mega-col">
+                <div class="persona-col-header">
+                  <span class="persona-col-tag">ORCHESTRATE</span>
+                  <span class="persona-col-title">Platform &amp; Workflows</span>
+                </div>
+                <div class="persona-card-list">
+                  <a href="index.html#services" class="persona-product-card">
+                    <div class="persona-card-icon">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <rect x="3" y="3" width="6" height="6" rx="1.5"/>
+                        <rect x="11" y="3" width="6" height="6" rx="1.5"/>
+                        <rect x="3" y="11" width="6" height="6" rx="1.5"/>
+                        <path d="M14 11v6M11 14h6"/>
+                      </svg>
+                    </div>
+                    <div class="persona-card-text">
+                      <span class="persona-card-name">Dynamic Flow</span>
+                      <span class="persona-card-desc">Create localized, branded intake experiences adapting in real time</span>
+                    </div>
                   </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Crypto Monitoring</span>
+
+                  <a href="index.html#services" class="persona-product-card">
+                    <div class="persona-card-icon">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <circle cx="5" cy="10" r="2"/>
+                        <circle cx="15" cy="5" r="2"/>
+                        <circle cx="15" cy="15" r="2"/>
+                        <path d="M7 10h3a2 2 0 002-2V6M10 10a2 2 0 012 2v2"/>
+                      </svg>
+                    </div>
+                    <div class="persona-card-text">
+                      <span class="persona-card-name">Workflows</span>
+                      <span class="persona-card-desc">Automate decision logic, branching &amp; manual escalation without code</span>
+                    </div>
                   </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Travel Rule</span>
+
+                  <a href="index.html#services" class="persona-product-card">
+                    <div class="persona-card-icon">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <path d="M3 5a2 2 0 012-2h3l2 2h5a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"/>
+                        <line x1="7" y1="11" x2="13" y2="11"/>
+                      </svg>
+                    </div>
+                    <div class="persona-card-text">
+                      <span class="persona-card-name">Case Management</span>
+                      <span class="persona-card-desc">Collaborative triage workspace for manual reviews &amp; audit trails</span>
+                    </div>
+                  </a>
+
+                  <a href="index.html#services" class="persona-product-card">
+                    <div class="persona-card-icon">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <rect x="2" y="2" width="6" height="6" rx="1"/>
+                        <rect x="12" y="2" width="6" height="6" rx="1"/>
+                        <rect x="2" y="12" width="6" height="6" rx="1"/>
+                        <rect x="12" y="12" width="6" height="6" rx="1"/>
+                      </svg>
+                    </div>
+                    <div class="persona-card-text">
+                      <span class="persona-card-name">Marketplace &amp; Integrations</span>
+                      <span class="persona-card-desc">Plug into pre-built integrations with third-party CRMs &amp; APIs</span>
+                    </div>
                   </a>
                 </div>
               </div>
+            </div>
 
-              <!-- Column 4: Infrastructure -->
-              <div class="mega-col">
-                <div class="mega-col-label">Infrastructure</div>
-                <div class="mega-links">
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Case Management</span>
-                    <span class="mega-badge-new">NEW</span>
-                  </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Summy AI Copilot</span>
-                    <span class="mega-badge-new">NEW</span>
-                  </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Workflow Orchestration</span>
-                  </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Risk Scoring</span>
-                    <span class="mega-badge-new">NEW</span>
-                  </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Fraud Networks</span>
-                  </a>
-                  <a href="index.html#services" class="mega-link">
-                    <span class="mega-link-title">Customizable Analytics</span>
-                  </a>
-                </div>
+            <!-- Persona Signature Bottom Highlight Strip -->
+            <div class="persona-mega-bottom">
+              <a href="index.html#features" class="persona-bottom-feature">
+                <span class="persona-bottom-badge">OVERVIEW</span>
+                <span class="persona-bottom-text">Explore unified identity infrastructure &amp; orchestration</span>
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" aria-hidden="true">
+                  <path d="M2.5 6h7M6.5 2.5l3.5 3.5-3.5 3.5"/>
+                </svg>
+              </a>
+              <div class="persona-bottom-actions">
+                <a href="playground.html" class="persona-bottom-link">Developer Sandbox</a>
+                <span class="persona-bottom-dot">·</span>
+                <a href="docs.html" class="persona-bottom-link">API Reference &rarr;</a>
               </div>
             </div>
           </div>
@@ -176,39 +295,25 @@
             </button>
             <div class="mobile-accordion-body" id="mobile-services-body">
               <div class="mobile-mega-subgroup">
-                <div class="mobile-mega-sublabel">Screening</div>
-                <a href="index.html#services" class="mobile-mega-sublink">Email &amp; Phone Verification</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Device Intelligence</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Questionnaires</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Watchlists and PEPs</a>
+                <div class="mobile-mega-sublabel">Identity Verification</div>
+                <a href="index.html#services" class="mobile-mega-sublink">Government ID</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Biometric &amp; Selfie</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Database &amp; Watchlists</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Document Verification</a>
               </div>
               <div class="mobile-mega-subgroup">
-                <div class="mobile-mega-sublabel">Verification</div>
-                <a href="index.html#services" class="mobile-mega-sublink">User Verification</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Business Verification</a>
-                <a href="index.html#services" class="mobile-mega-sublink">ID Verification</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Liveness &amp; Deepfake Detection</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Non-Doc Verification</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Address Verification</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Reusable KYC</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Sumsub ID</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Video Identification</a>
-                <a href="index.html#services" class="mobile-mega-sublink">QES</a>
+                <div class="mobile-mega-sublabel">Fraud &amp; Graph Intel</div>
+                <a href="index.html#services" class="mobile-mega-sublink">Passive Signals</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Risk &amp; Screening</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Identity Graph</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Account Takeover (ATO)</a>
               </div>
               <div class="mobile-mega-subgroup">
-                <div class="mobile-mega-sublabel">Monitoring</div>
-                <a href="index.html#services" class="mobile-mega-sublink">Transaction Monitoring</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Crypto Monitoring</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Travel Rule</a>
-              </div>
-              <div class="mobile-mega-subgroup">
-                <div class="mobile-mega-sublabel">Infrastructure</div>
-                <a href="index.html#services" class="mobile-mega-sublink">Case Management <span class="mega-badge-new">NEW</span></a>
-                <a href="index.html#services" class="mobile-mega-sublink">Summy AI Copilot <span class="mega-badge-new">NEW</span></a>
-                <a href="index.html#services" class="mobile-mega-sublink">Workflow Orchestration</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Risk Scoring <span class="mega-badge-new">NEW</span></a>
-                <a href="index.html#services" class="mobile-mega-sublink">Fraud Networks</a>
-                <a href="index.html#services" class="mobile-mega-sublink">Customizable Analytics</a>
+                <div class="mobile-mega-sublabel">Platform &amp; Orchestration</div>
+                <a href="index.html#services" class="mobile-mega-sublink">Dynamic Flow</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Workflows</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Case Management</a>
+                <a href="index.html#services" class="mobile-mega-sublink">Marketplace &amp; Integrations</a>
               </div>
             </div>
           </li>
